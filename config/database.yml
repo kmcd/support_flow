@@ -81,5 +81,3 @@ test:
 production:
   <<: *default
   database: support_flow_production
-  username: support_flow
-  password: <%= ENV['SUPPORT_FLOW_DATABASE_PASSWORD'] %>
