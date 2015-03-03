@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
 gem 'pg'
+gem 'haml-rails', '~> 0.8'
+gem 'textacular', '~> 3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -14,5 +16,13 @@ group :development, :test do
   gem 'spring'
 end
 
-gem 'shelly-dependencies', :group => :production
-gem 'haml-rails', '~> 0.8'
+group :development do
+  gem 'rack-mini-profiler', require: false
+  gem 'guard-bundler', require: false
+  gem 'guard-rails'
+  gem 'guard-livereload', '~> 2.4', require: false
+  gem 'guard-test'
+  gem 'faker'
+end
+
+gem 'shelly-dependencies', group: :production
