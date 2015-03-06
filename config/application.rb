@@ -23,6 +23,10 @@ module SupportFlow
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     
-    config.autoload_paths += %W( #{config.root}/app/lib )
+    # Keep domain logic in app/lib
+    config.autoload_paths += %W[ #{config.root}/app/lib ]
+    
+    config.active_record.observers = %i[ enquiry_observer reply_observer
+      command_observer ]
   end
 end

@@ -36,6 +36,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    ansi (1.5.0)
     arel (6.0.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -48,6 +49,8 @@ GEM
       timers (~> 4.0.0)
     coderay (1.1.0)
     columnize (0.9.0)
+    commands (0.2.1)
+      rails (>= 3.2.0)
     daemons (1.1.9)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -62,6 +65,11 @@ GEM
     formatador (0.2.5)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
+    griddler (1.1.0)
+      htmlentities
+      rails (>= 3.2.0)
+    griddler-mandrill (1.0.2)
+      griddler
     guard (2.12.4)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -101,6 +109,7 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    htmlentities (4.3.3)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
     json (1.8.2)
@@ -110,6 +119,7 @@ GEM
       rb-inotify (>= 0.9)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
+    looksee (3.1.0)
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
@@ -117,6 +127,11 @@ GEM
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
+    minitest-reporters (1.0.11)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     multi_json (1.10.1)
     nenv (0.2.0)
     nokogiri (1.6.6.2)
@@ -153,6 +168,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.1)
       loofah (~> 2.0)
+    rails-observers (0.1.2)
+      activemodel (~> 4.0)
     railties (4.2.0)
       actionpack (= 4.2.0)
       activesupport (= 4.2.0)
@@ -162,6 +179,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    ruby-progressbar (1.7.1)
     ruby_parser (3.6.4)
       sexp_processor (~> 4.1)
     sexp_processor (4.4.5)
@@ -205,15 +223,20 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  commands
   faker
+  griddler-mandrill
   guard-bundler
   guard-livereload (~> 2.4)
   guard-rails
   guard-test
   haml-rails (~> 0.8)
+  looksee
+  minitest-reporters
   pg
   rack-mini-profiler
   rails (= 4.2.0)
+  rails-observers
   shelly-dependencies
   spring
   textacular (~> 3.0)

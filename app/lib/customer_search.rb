@@ -1,0 +1,2 @@
+class CustomerSearch
+end

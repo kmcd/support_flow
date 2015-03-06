@@ -8,7 +8,7 @@ class PoroGenerator < Rails::Generators::Base
   # TODO: Add generator options
   # Options:
   # -> don't create test file
-  # -> create outside app
+  # -> create outside app directory
   # -> specify file extension
   # -> delete files
   def create_ruby_test_files
@@ -21,15 +21,15 @@ class PoroGenerator < Rails::Generators::Base
   
   def create_directories
     return unless namespaced?
-    empty_directory "lib/#{directory_path}"
+    empty_directory "app/lib/#{directory_path}"
     empty_directory "test/#{directory_path}"
   end
   
   def ruby_template
     if namespaced?
-      "lib/#{directory_path}/#{ruby_file}.rb"
+      "app/lib/#{directory_path}/#{ruby_file}.rb"
     else
-      "lib/#{ruby_file}.rb"
+      "app/lib/#{ruby_file}.rb"
     end
   end
   

@@ -14,9 +14,7 @@ namespace :db do
     
     # Create request activity
     # e.g. assign to team member, close, re-open etc.
-    
     # Create guides
-    
     # Populate team stats
   end
   

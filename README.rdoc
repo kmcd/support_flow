@@ -1,28 +1,43 @@
-== README
+== Domain Model
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Entities
+  agent
+  customer
+  guide
+  mailbox
+  message
+  request
+  team
+    
+* Value Objects
+  4. timeline (simplify view finders)
+  7. team report/stats
 
-Things you may want to cover:
-
+* Services
+  5. agent_search
+  6. customer_search
+  1. command
+  
+* Factories
+  2. enquiry
+  3. reply
+  
+* Application (supporting domain)
+  Guide CMS
+  Email dispatch
+  Mailbox polling
+  Authorisation
+  Authenticaion
+  Notification Policy
+  Account (demo/trial/paid) setup
+  Billing
+  
+== Installation
 * Ruby version
-
 * System dependencies
-
 * Configuration
-
 * Database creation
-
 * Database initialization
-
 * How to run the test suite
-
 * Services (job queues, cache servers, search engines, etc.)
-
 * Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
