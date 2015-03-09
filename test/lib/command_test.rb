@@ -10,8 +10,11 @@ class CommandTest < ActiveSupport::TestCase
   include CommandTestable
   
   test "reply with help message when unknown command received" do
-    # create_message content:'--foo'
-    # assert command error email 
+    @command.content = "--foo bar"
+    command = Command.new @command
+    command.execute
+    
+    assert_equal "invalid option: --foo", command.errors.first.message
   end
 end
 

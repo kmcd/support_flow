@@ -36,7 +36,7 @@ class Command
     end.parse! command
     
     rescue OptionParser::InvalidOption => error
-      raise error # TODO: handle exceptions & return error messages
+      errors << error
   end
   
   private
