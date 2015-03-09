@@ -4,5 +4,12 @@ class Request < ActiveRecord::Base
   belongs_to :customer
   has_many :messages
   
-  # TODO: before save downcase & reject duplicate tags
+  before_save :ensure_unique_tags
+  
+  private
+  
+  def ensure_unique_tags
+    return unless tags_changed?
+    self.tags = tags.flatten.map(&:downcase).uniq
+  end
 end

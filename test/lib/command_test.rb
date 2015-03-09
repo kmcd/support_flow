@@ -52,21 +52,6 @@ class TagCommandTest < ActiveSupport::TestCase
     
     assert_equal %w[ billing urgent ], @billing_enquiry.reload.tags
   end
-  
-  test "dont add duplicate tags" do
-    # TODO: move to Request
-    @command.content = "--tag billing --tag billing"
-    Command.new(@command).execute
-    
-    assert_equal %w[ billing ], @billing_enquiry.reload.tags
-  end
-  
-  test "tags are always lower case" do
-    @command.content = "--tag BILLING"
-    Command.new(@command).execute
-    
-    assert_equal %w[ billing ], @billing_enquiry.reload.tags
-  end
 end
 
 # class AgentAssignmentCommandTest < ActiveSupport::TestCase
