@@ -7,6 +7,7 @@ require 'ostruct'
 # --status open --reply billing --assign joe --reply
 # --status open
 # --reply billing
+# Oh forgot to mention, call Peter for more assistance.
 # --assign joe
 # --tag billing, problem
 # --suggest
@@ -42,10 +43,16 @@ class Command
   
   def command
     # TODO: extract text from html if text part not available
-    
-    # %w[--tag billing, pending --status open ]
-    message.content[/\A\s*(--\w+\s+.+)\Z/m].split /\s+/
-    
+    # TODO: refactor to StringScanner mini parser
+    message.content.
+      split(/\n/).
+      find_all {|_| _[/\A\s*--\w+.*\Z/] }.
+      join.
+      split(/(--[A-Za-z]+)/)[1..-1].
+      each_slice(2).
+      to_a.
+      flatten.
+      map &:strip
   end
   
   def status(type)
@@ -60,8 +67,12 @@ class Command
   def assign(agent)
   end
   
-  def tag(name)
-    request.tags << name
+  def tag(names)
+    seperator = /(\s|,)/
+    names.split(seperator).
+      reject {|_| _[seperator] || _.blank? }.
+      map(&:downcase).
+      each {|tag| request.tags << tag unless request.tags.include?(tag) }
     request.save!
   end
 end
