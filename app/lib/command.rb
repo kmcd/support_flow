@@ -16,16 +16,15 @@ require 'ostruct'
 # --notify joe
 
 class Command
-  attr_reader :request, :command, :errors, :result
+  attr_reader :message, :errors, :result
+  delegate :request, to: :message
   
   def initialize(message)
-    @request = message.request
-    @command = extract message.content
-    @errors = []
+    @message, @errors = message, []
   end
   
   def execute
-    opt_parser = OptionParser.new do |opts|
+    OptionParser.new do |opts|
       opts.on("", "--status STATUS")    {|_| status   _ }
       opts.on("", "--assign AGENT")     {|_| assign   _ }
       opts.on("", "--tag    NAME")      {|_| tag      _ }
@@ -36,15 +35,17 @@ class Command
     end.parse! command
     
     rescue OptionParser::InvalidOption => error
-      # TODO: handle exceptions & return error messages
+      raise error # TODO: handle exceptions & return error messages
   end
   
   private
   
-  def extract(message_content)
-    # Use text part; if text part not available, extract text from html
-    # @command = message_content[/REGEX/]
-    # add_extra_dash for OptionParser
+  def command
+    # TODO: extract text from html if text part not available
+    
+    # %w[--tag billing, pending --status open ]
+    message.content[/\A\s*(--\w+\s+.+)\Z/m].split /\s+/
+    
   end
   
   def status(type)
@@ -57,5 +58,10 @@ class Command
   end
   
   def assign(agent)
+  end
+  
+  def tag(name)
+    request.tags << name
+    request.save!
   end
 end

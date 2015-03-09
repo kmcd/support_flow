@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20150302193411) do
   create_table "mailboxes", force: :cascade do |t|
     t.integer  "team_id",       null: false
     t.string   "email_address", null: false
-    t.string   "credentials",   null: false
+    t.string   "credentials"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end

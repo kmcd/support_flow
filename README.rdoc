@@ -9,28 +9,28 @@
   request
   team
     
-* Value Objects
+* Value Objects (from UI)
   4. timeline (simplify view finders)
   7. team report/stats
 
-* Services
+* Services (TDD)
   5. agent_search
   6. customer_search
   1. command
   
-* Factories
+* Factories (TDD)
   2. enquiry
   3. reply
-  
+
 * Application (supporting domain)
   Guide CMS
   Email dispatch
   Mailbox polling
   Authorisation
   Authenticaion
-  Notification Policy
   Account (demo/trial/paid) setup
   Billing
+  Notification Policy (sensible defaults?)
   
 == Installation
 * Ruby version

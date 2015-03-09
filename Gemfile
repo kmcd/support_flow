@@ -20,10 +20,11 @@ end
 
 group :development do
   gem 'rack-mini-profiler', require: false
+  gem 'guard'
   gem 'guard-bundler', require: false
   gem 'guard-rails'
   gem 'guard-livereload', '~> 2.4', require: false
-  gem 'guard-test'
+  gem 'guard-minitest'
   gem 'faker'
   gem 'commands'
   gem 'looksee'
@@ -31,6 +32,7 @@ end
 
 group :test do
   gem 'minitest-reporters'
+  gem 'mocha'
 end
 
 group :production do
