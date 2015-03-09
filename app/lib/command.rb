@@ -31,8 +31,8 @@ class Command
       opts.on("", "--tag    NAME")      {|_| tag      _ }
       opts.on("", "--reply  [TEMPLATE]"){|_| reply    _ }
       opts.on("", "--report [NAME]")    {|_| report   _ }
-      opts.on("", "--claim")            {|_| claim    _ }
-      opts.on("", "--release")          {|_| release  _ }
+      opts.on("", "--claim")            {|_| claim      }
+      opts.on("", "--release")          {|_| release    }
     end.parse! command
     
     rescue OptionParser::InvalidOption => error
@@ -64,7 +64,26 @@ class Command
     # DispatchReplyJob.new().perform_later
   end
   
-  def assign(agent)
+  def assign(name_or_email)
+    return unless assigned_agent = request.agent.team.agents.
+      where("email_address SIMILAR TO ? OR email_address = ?",
+        "%#{name_or_email}%@%", name_or_email ).
+      first
+    
+    request.agent = assigned_agent
+    request.save!
+  end
+  
+  def claim
+    return unless valid_agent?
+    return unless request.agent = message.agent
+    request.save!
+  end
+  
+  def release
+    return unless valid_agent?
+    request.agent = nil
+    request.save!
   end
   
   def tag(names)
@@ -74,5 +93,9 @@ class Command
       map(&:downcase).
       each {|tag| request.tags << tag unless request.tags.include?(tag) }
     request.save!
+  end
+  
+  def valid_agent?
+    request.agent.team.agents.include? message.agent
   end
 end

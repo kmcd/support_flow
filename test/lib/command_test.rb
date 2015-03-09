@@ -53,23 +53,59 @@ class TagCommandTest < ActiveSupport::TestCase
 end
 
 class AgentAssignmentCommandTest < ActiveSupport::TestCase
-  test "assign specified agent" do
-    skip
+  include CommandTestable
+  
+  test "assign agent by first part of email address" do
+    assert_equal @rachel, @billing_enquiry.agent
+    execute "--assign keith"
+    assert_equal @keith, @billing_enquiry.reload.agent
+  end
+  
+  test "assign agent by full email address" do
+    execute "--assign keith@getsupportflow.com"
+    assert_equal @keith, @billing_enquiry.reload.agent
   end
   
   test "DONT assign an invalid agent" do
-    skip
+    execute "--assign foo@getsupportflow.com"
+    assert_equal @rachel, @billing_enquiry.reload.agent
+  end
+  
+  test "DONT assign a foreign agent" do
+    execute "--assign #{@peldi_support.email_address}"
+    assert_equal @rachel, @billing_enquiry.reload.agent
   end
   
   test "claim request for sending agent" do
-    # skip
+    @command.agent = @keith
+    execute "--claim"
+    assert_equal @keith, @billing_enquiry.reload.agent
+  end
+  
+  test "DONT claim request for non-existant agent" do
+    @command.agent = nil
+    execute "--claim"
+    assert_equal @rachel, @billing_enquiry.reload.agent
+  end
+  
+  test "DONT claim request for foreign agent" do
+    @command.agent = @peldi_support
+    execute "--claim"
+    assert_equal @rachel, @billing_enquiry.reload.agent
   end
   
   test "release request for sending agent" do
-    # skip
+    @command.agent = @keith
+    execute "--release"
+    assert_nil @billing_enquiry.reload.agent
+  end
+  
+  test "DONT release request for foreign agent" do
+    @command.agent = @peldi_support
+    execute "--release"
+    assert_equal @rachel, @billing_enquiry.reload.agent
   end
 end
-
 
 # class TemplateReplyCommandTest < ActiveSupport::TestCase
   # test "reply with default template" do
