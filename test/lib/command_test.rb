@@ -4,6 +4,11 @@ module CommandTestable
   def setup
     ActiveRecord::Base.observers.disable :enquiry_observer, :reply_observer
   end
+  
+  def execute(command)
+    @command.content = command
+    Command.new(@command).execute
+  end
 end
 
 class CommandTest < ActiveSupport::TestCase
@@ -22,59 +27,50 @@ class TagCommandTest < ActiveSupport::TestCase
   include CommandTestable
   
   test "single tag" do
-    @command.content = "--tag billing"
-    Command.new(@command).execute
-    
+    execute "--tag billing"
     assert_equal %w[ billing ], @billing_enquiry.reload.tags
   end
   
   test "multiple tag" do
-    @command.content = "--tag billing urgent"
-    Command.new(@command).execute
-    
+    execute  "--tag billing urgent"
     assert_equal %w[ billing urgent ], @billing_enquiry.reload.tags
   end
   
   test "multiple tags with commas" do
-    @command.content = "--tag billing, urgent"
-    Command.new(@command).execute
-    
+    execute "--tag billing, urgent"
     assert_equal %w[ billing urgent ], @billing_enquiry.reload.tags
   end
   
   test "multiple tags over single line" do
-    @command.content = "--tag billing --tag urgent"
-    Command.new(@command).execute
-    
+    execute  "--tag billing --tag urgent"
     assert_equal %w[ billing urgent ], @billing_enquiry.reload.tags
   end
   
   test "multiple tags over multiple lines" do
-    @command.content = "--tag billing\n Foo\n --tag urgent"
-    Command.new(@command).execute
-    
+    execute "--tag billing\n Foo\n --tag urgent"
     assert_equal %w[ billing urgent ], @billing_enquiry.reload.tags
   end
 end
 
-# class AgentAssignmentCommandTest < ActiveSupport::TestCase
-  # test "assign specified agent" do
-    # skip
-  # end
-  # 
-  # test "DONT assign an invalid agent" do
-    # skip
-  # end
+class AgentAssignmentCommandTest < ActiveSupport::TestCase
+  test "assign specified agent" do
+    skip
+  end
   
-  # test "claim request for sending agent" do
-    # # skip
-  # end
-  # 
-  # test "release request for sending agent" do
-    # # skip
-  # end
-# end
-# 
+  test "DONT assign an invalid agent" do
+    skip
+  end
+  
+  test "claim request for sending agent" do
+    # skip
+  end
+  
+  test "release request for sending agent" do
+    # skip
+  end
+end
+
+
 # class TemplateReplyCommandTest < ActiveSupport::TestCase
   # test "reply with default template" do
     # skip
