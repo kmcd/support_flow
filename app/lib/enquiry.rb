@@ -1,27 +1,57 @@
 class Enquiry
-  include ActiveModel::Model
-  attr_accessor :message
-  validates :message, presence: true
-  validate :mailbox_exists
-  validate :new_request
+  attr_reader :message
+  
+  def initialize(message)
+    @message = message
+  end
   
   def save
-    return unless valid?
-    
-    # find or create customer record
-    # Customer.find_or_create email:'', team:''
-    
-    # find team mail box
-    
-    # create customer request
-    # persisted? -> true
+    return if reply?
+    message.customer = customer
+    message.create_request customer:customer
+    message.save!
   end
   
   private
   
-  def mailbox_exists
+  def email
+    message.content # TODO: delegate email to message
   end
   
-  def new_request
+  def to
+    email.to.map {|_| _.fetch :email }
+  end
+  
+  def from
+    email.from.fetch :email
+  end
+  
+  def cc
+    email.cc.map {|_| _.fetch :email }
+  end
+  
+  def recipients
+    [to, cc].flatten
+  end
+  
+  def reply?
+    return true if email.subject =~ /request#\d+/
+    recipients.any? {|_| _ =~ /request\.\d+@getsupportflow/ }
+  end
+  
+  def customer
+    existing_customer || create_customer
+  end
+  
+  def existing_customer
+    Customer.
+      joins(:messages).
+      where(email_address:from).
+      where('messages.mailbox_id' => message.mailbox_id).
+      first
+  end
+  
+  def create_customer
+    Customer.create email_address:from
   end
 end

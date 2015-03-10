@@ -3,9 +3,5 @@ class Message < ActiveRecord::Base
   belongs_to :request
   belongs_to :agent
   belongs_to :customer
-  
-  def self.create_from(email)
-    # Find Mailbox if possible
-    # Create message
-  end
+  serialize :content # TODO: change to :email serialized as JSON
 end

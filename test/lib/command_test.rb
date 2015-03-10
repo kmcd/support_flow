@@ -130,4 +130,3 @@ class CommandTemplateReplyTest < ActiveSupport::TestCase
     skip
   end
 end
-

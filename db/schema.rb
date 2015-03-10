@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150302193411) do
   add_index "mailboxes", ["email_address"], name: "index_mailboxes_on_email_address", using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.integer  "mailbox_id", null: false
+    t.integer  "mailbox_id"
     t.integer  "request_id"
     t.integer  "customer_id"
     t.integer  "agent_id"
@@ -67,6 +67,9 @@ ActiveRecord::Schema.define(version: 20150302193411) do
   end
   
   add_index "messages", ["mailbox_id"], name: "index_mailboxes_on_mailbox_id", using: :btree
+  add_index "messages", ["request_id"], name: "index_mailboxes_on_request_id", using: :btree
+  add_index "messages", ["customer_id"], name: "index_mailboxes_on_customer_id", using: :btree
+  add_index "messages", ["agent_id"], name: "index_mailboxes_on_agent_id", using: :btree
   
   create_table "requests", force: :cascade do |t|
     t.integer  "agent_id"
