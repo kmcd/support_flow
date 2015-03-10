@@ -23,7 +23,7 @@ class CommandTest < ActiveSupport::TestCase
   end
 end
 
-class TagCommandTest < ActiveSupport::TestCase
+class CommandTagTest < ActiveSupport::TestCase
   include CommandTestable
   
   test "single tag" do
@@ -52,7 +52,7 @@ class TagCommandTest < ActiveSupport::TestCase
   end
 end
 
-class AgentAssignmentCommandTest < ActiveSupport::TestCase
+class CommandAgentAssignmentTest < ActiveSupport::TestCase
   include CommandTestable
   
   test "assign agent by first part of email address" do
@@ -107,18 +107,27 @@ class AgentAssignmentCommandTest < ActiveSupport::TestCase
   end
 end
 
-# class TemplateReplyCommandTest < ActiveSupport::TestCase
-  # test "reply with default template" do
-    # skip
-  # end
-  # 
-  # test "reply with specified template" do
-    # skip
-  # end
-# end
+class CommandStatusUpdateTest < ActiveSupport::TestCase
+  include CommandTestable
+  
+  test "open request" do
+    execute "--status open"
+    assert_equal 'open', @billing_enquiry.reload.status
+  end
+  
+  test "close request" do
+    execute "--status close"
+    assert_equal 'close', @billing_enquiry.reload.status
+  end
+end
 
-# test "report" do
-  # # create_message content:'--report'
-  # # assert command error email 
-# end
-# 
+class CommandTemplateReplyTest < ActiveSupport::TestCase
+  test "reply with default template" do
+    skip
+  end
+  
+  test "reply with specified template" do
+    skip
+  end
+end
+

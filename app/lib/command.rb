@@ -25,6 +25,8 @@ class Command
   end
   
   def execute
+    return unless valid_agent?
+    
     OptionParser.new do |opts|
       opts.on("", "--status STATUS")    {|_| status   _ }
       opts.on("", "--assign AGENT")     {|_| assign   _ }
@@ -56,7 +58,7 @@ class Command
   end
   
   def status(type)
-    # request.update_attributes status:type
+    request.update_attributes status:type
   end
   
   def reply(template)
@@ -75,13 +77,11 @@ class Command
   end
   
   def claim
-    return unless valid_agent?
     return unless request.agent = message.agent
     request.save!
   end
   
   def release
-    return unless valid_agent?
     request.agent = nil
     request.save!
   end

@@ -3,11 +3,10 @@ DEFAULTS: &DEFAULTS
   request: billing_enquiry
   customer: peldi
   agent: rachel
+  content: Help!
   
 enquiry:
-  content: Help!
   <<: *DEFAULTS
   
 command:
-  content: --tag billing
   <<: *DEFAULTS
