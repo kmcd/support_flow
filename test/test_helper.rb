@@ -10,16 +10,4 @@ Minitest::Reporters.
 class ActiveSupport::TestCase
   fixtures :all
   self.use_instantiated_fixtures = true
-  
-  def email_attributes(args)
-    { to:[ @support_flow_gmail.email_address ], 
-      from:@peldi.email_address,
-      subject:'Help', 
-      body:'Help!' }.merge!(args)
-  end
-  
-  def create_message(args={})
-    Message.create content:Griddler::Email.new(email_attributes(args)),
-      mailbox:@support_flow_gmail
-  end
 end

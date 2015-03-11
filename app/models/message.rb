@@ -3,5 +3,5 @@ class Message < ActiveRecord::Base
   belongs_to :request
   belongs_to :agent
   belongs_to :customer
-  serialize :content # TODO: change to :email serialized as JSON
+  serialize :content  # TODO: serialize as JSON
 end

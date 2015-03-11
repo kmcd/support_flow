@@ -1,5 +1,4 @@
 require 'optparse'
-require 'ostruct'
 
 # USAGE:
 # Message contents:
@@ -22,6 +21,9 @@ class Command
   
   def initialize(message)
     @message, @errors = message, []
+  end
+  
+  def valid?
   end
   
   def execute

@@ -1,12 +1,18 @@
 DEFAULTS: &DEFAULTS
   mailbox: support_flow_gmail
-  request: billing_enquiry
-  customer: peldi
-  agent: rachel
   content: Help!
   
 enquiry:
   <<: *DEFAULTS
   
+reply:
+  <<: *DEFAULTS
+  request: billing_enquiry
+  customer: peldi
+  agent: rachel
+  
 command:
   <<: *DEFAULTS
+  request: billing_enquiry
+  agent: rachel
+  content: --tag billing

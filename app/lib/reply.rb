@@ -1,10 +1,15 @@
 class Reply
+  attr_reader :email
   SUBJECT_REGEX = /request#(\d+)/
   RECIPIENT_REGEX = /request\.(\d)+@getsupportflow/
-  include Messageable
+  
+  def initialize(email=Griddler::Email.new)
+    @email = email
+  end
   
   def valid?
-    request_id.present? && valid_agent?
+    return if Command.new(email).valid?
+    request_id.present?
   end
   
   def save
@@ -13,14 +18,10 @@ class Reply
     message.save!
   end
   
-  def request_id
-    from_subject || from_recipients
-  end
-  
   private
   
-  def valid_agent?
-    message.mailbox.team.agents.where(email_address:from).any?
+  def request_id
+    from_subject || from_recipients
   end
   
   def from_subject
