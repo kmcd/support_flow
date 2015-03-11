@@ -1,9 +1,5 @@
 class Enquiry
-  attr_reader :message
-  
-  def initialize(message)
-    @message = message
-  end
+  include Messageable
   
   def save
     return if reply?
@@ -14,29 +10,8 @@ class Enquiry
   
   private
   
-  def email
-    message.content # TODO: delegate email to message
-  end
-  
-  def to
-    email.to.map {|_| _.fetch :email }
-  end
-  
-  def from
-    email.from.fetch :email
-  end
-  
-  def cc
-    email.cc.map {|_| _.fetch :email }
-  end
-  
-  def recipients
-    [to, cc].flatten
-  end
-  
   def reply?
-    return true if email.subject =~ /request#\d+/
-    recipients.any? {|_| _ =~ /request\.\d+@getsupportflow/ }
+    Reply.new(message).request_id.present?
   end
   
   def customer

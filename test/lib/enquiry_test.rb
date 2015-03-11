@@ -1,18 +1,6 @@
 require 'test_helper'
 
 class EnquiryTest < ActiveSupport::TestCase
-  def email_attributes(args)
-    { to:[ @support_flow_gmail.email_address ], 
-      from:@peldi.email_address,
-      subject:'Help', 
-      body:'Help!' }.merge!(args)
-  end
-  
-  def create_message(args={})
-    Message.create content:Griddler::Email.new(email_attributes(args)),
-      mailbox:@support_flow_gmail
-  end
-  
   test "associate with mailbox" do
     message = create_message
     assert_equal @support_flow_gmail, message.reload.mailbox
@@ -34,18 +22,18 @@ class EnquiryTest < ActiveSupport::TestCase
     assert_equal @peldi, message.request.customer
   end
   
-  test "ignore request subject" do
+  test "ignore request reply on subject" do
     message = create_message subject:"request##{@billing_enquiry.id}"
     assert_nil message.request
   end
   
-  test "ignore request to address" do
+  test "ignore request reply on TO address" do
     message = create_message \
       to:["request.#{@billing_enquiry.id}@getsupportflow.com"]
     assert_nil message.request
   end
   
-  test "ignore request cc address" do
+  test "ignore request reply on CC address" do
     message = create_message \
       cc:["request.#{@billing_enquiry.id}@getsupportflow.com"]
     assert_nil message.request
