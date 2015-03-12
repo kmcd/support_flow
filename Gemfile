@@ -5,7 +5,6 @@ gem 'pg'
 gem 'haml-rails', '~> 0.8'
 gem 'textacular', '~> 3.0'
 gem 'griddler-mandrill'
-gem 'rails-observers'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

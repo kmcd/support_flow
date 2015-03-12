@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150302193411) do
   add_index "agents", ["team_id"], name: "index_agents_on_team_id", using: :btree
 
   create_table "customers", force: :cascade do |t|
+    t.integer  "team_id",            null: false
     t.string   "email_address",      null: false
     t.json     "profile"
     t.datetime "created_at", null: false
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 20150302193411) do
   add_index "messages", ["agent_id"], name: "index_mailboxes_on_agent_id", using: :btree
   
   create_table "requests", force: :cascade do |t|
+    t.integer  "team_id",                       null: false
     t.integer  "agent_id"
     t.integer  "customer_id",                null: false
     t.string   "status"

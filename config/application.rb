@@ -25,8 +25,5 @@ module SupportFlow
     
     # Keep domain logic in app/lib
     config.autoload_paths += %W[ #{config.root}/app/lib ]
-    
-    config.active_record.observers = %i[ enquiry_observer reply_observer
-      command_observer ]
   end
 end

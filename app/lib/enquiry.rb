@@ -1,4 +1,5 @@
 class Enquiry
+  include Mailboxable
   attr_reader :email, :message
   delegate :request, :customer, to: :message
   
@@ -10,8 +11,7 @@ class Enquiry
   def save
     return unless valid?
     message.customer = existing_customer || create_customer
-    message.request = customer.requests.create!
-    message.mailbox = mailbox
+    message.request = customer.requests.create!(team:mailbox.team)
     message.save!
   end
   
@@ -20,6 +20,8 @@ class Enquiry
     return if Reply.new(email).valid?
     mailbox.present?
   end
+  
+  private
   
   def existing_customer
     Customer.
@@ -30,18 +32,6 @@ class Enquiry
   end
   
   def create_customer
-    Customer.create email_address:from
-  end
-  
-  def mailbox
-    @mailbox ||= Mailbox.where( email_address:to ).first
-  end
-  
-  def to
-    email.to.map {|_| _.fetch :email }
-  end
-  
-  def from
-    email.from[:email]
+    Customer.create email_address:from, team:mailbox.team
   end
 end

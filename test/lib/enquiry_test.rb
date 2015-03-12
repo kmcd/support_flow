@@ -3,12 +3,6 @@ require 'test_helper'
 class EnquiryTest < ActiveSupport::TestCase
   attr_reader :enquiry
   
-  def email(options={})
-    Griddler::Email.new( \
-      to:[@support_flow_gmail.email_address],
-      from:'customer@example.org' )
-  end
-  
   def setup
     @enquiry = Enquiry.new email
     enquiry.stubs(:valid?).returns true
@@ -37,11 +31,9 @@ class ExistingCustomerEnquiryTest < ActiveSupport::TestCase
   attr_reader :enquiry
   
   def setup
-    @enquiry = Enquiry.new Griddler::Email.new \
-      to:[@support_flow_gmail.email_address],
-      from:@peldi.email_address
-    enquiry.stubs(:valid?).returns true
+    @enquiry = Enquiry.new email(from:@peldi.email_address)
     Message.create! mailbox:@support_flow_gmail, customer:@peldi, content:''
+    enquiry.stubs(:valid?).returns true
   end
   
   test "use existing customer" do
@@ -53,12 +45,6 @@ class ExistingCustomerEnquiryTest < ActiveSupport::TestCase
 end
 
 class InvalidEnquiryTest < ActiveSupport::TestCase
-  def email(options={})
-    Griddler::Email.new( \
-      { to:[@support_flow_gmail.email_address],
-      from:'customer@example.org' }.merge!(options) )
-  end
-  
   def invalid_reply_command
     Command.any_instance.stubs(:valid?).returns false
     Reply.any_instance.stubs(:valid?).returns false

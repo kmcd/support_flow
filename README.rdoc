@@ -20,7 +20,7 @@
   
 * Factories (TDD)
   enquiry
-  3. reply
+  reply
 
 * Application (supporting domain)
   Guide CMS
