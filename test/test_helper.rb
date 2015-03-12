@@ -10,4 +10,10 @@ Minitest::Reporters.
 class ActiveSupport::TestCase
   fixtures :all
   self.use_instantiated_fixtures = true
+  
+  def email(options={})
+    Griddler::Email.new( \
+      { to:[@support_flow_gmail.email_address],
+      from:'customer@example.org' }.merge!(options) )
+  end
 end
