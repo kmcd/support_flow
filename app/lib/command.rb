@@ -16,42 +16,55 @@ require 'optparse'
 # --notify joe
 
 class Command
-  attr_reader :message, :errors, :result
-  delegate :request, to: :message
+  include Mailboxable
+  attr_reader :email, :errors
   
-  def initialize(message)
-    @message, @errors = message, []
+  def initialize(email=Griddler::Email.new)
+    @email = email
+    @errors = []
   end
   
   def valid?
+    return unless agent.present?
+    return unless arguments.present?
+    request.present? # TODO: remove - request not always required, e.g. report
   end
   
   def execute
-    return unless valid_agent?
+    return unless valid?
     
     OptionParser.new do |opts|
-      opts.on("", "--status STATUS")    {|_| status   _ }
-      opts.on("", "--assign AGENT")     {|_| assign   _ }
-      opts.on("", "--tag    NAME")      {|_| tag      _ }
-      opts.on("", "--reply  [TEMPLATE]"){|_| reply    _ }
-      opts.on("", "--report [NAME]")    {|_| report   _ }
-      opts.on("", "--claim")            {|_| claim      }
-      opts.on("", "--release")          {|_| release    }
-    end.parse! command
+      opts.on("", "--status STATUS") do |status|
+        request.update_attributes status:status
+      end
+      
+      opts.on("", "--claim") do
+        request.update_attributes! agent:agent
+      end
+      
+      opts.on("", "--release") do
+        request.update_attributes! agent:nil
+      end
+      
+      opts.on("", "--assign AGENT") do |name_or_email|
+        request.assign_from name_or_email
+      end
+      
+      opts.on("", "--tag NAME") do |tags|
+        request.tag_with tags
+      end
+    end.parse! options
     
     rescue OptionParser::InvalidOption => error
-      errors << error
+      errors << error # TODO: handle request errors
   end
   
   private
   
-  def command
-    # TODO: extract text from html if text part not available
-    # TODO: refactor to StringScanner mini parser
-    message.content.
-      split(/\n/).
-      find_all {|_| _[/\A\s*--\w+.*\Z/] }.
-      join.
+  def options
+    return [] unless arguments.present?
+      
+    arguments.
       split(/(--[A-Za-z]+)/)[1..-1].
       each_slice(2).
       to_a.
@@ -59,45 +72,20 @@ class Command
       map &:strip
   end
   
-  def status(type)
-    request.update_attributes status:type
+  def request
+    Reply.new(email).request
   end
   
-  def reply(template)
-    # Find template
-    # DispatchReplyJob.new().perform_later
+  def agent
+    return unless mailbox.present?
+    mailbox.team.agents.where(email_address:from).first
   end
   
-  def assign(name_or_email)
-    return unless assigned_agent = request.agent.team.agents.
-      where("email_address SIMILAR TO ? OR email_address = ?",
-        "%#{name_or_email}%@%", name_or_email ).
-      first
-    
-    request.agent = assigned_agent
-    request.save!
-  end
-  
-  def claim
-    return unless request.agent = message.agent
-    request.save!
-  end
-  
-  def release
-    request.agent = nil
-    request.save!
-  end
-  
-  def tag(names)
-    seperator = /(\s|,)/
-    names.split(seperator).
-      reject {|_| _[seperator] || _.blank? }.
-      map(&:downcase).
-      each {|tag| request.tags << tag unless request.tags.include?(tag) }
-    request.save!
-  end
-  
-  def valid_agent?
-    request.agent.team.agents.include? message.agent
+  def arguments
+    email.raw_text.
+      split(/\n/).
+      find_all {|_| _[/\A\s*--\w+.*\Z/] }.
+      join.
+      strip
   end
 end

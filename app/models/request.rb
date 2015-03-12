@@ -11,16 +11,15 @@ class Request < ActiveRecord::Base
       where("email_address SIMILAR TO ? OR email_address = ?",
       "%#{name_or_email}%@%", name_or_email ).
       first
-    request.agent = assignee
-    request.save!
+    update_attributes agent:assignee
   end
   
   def tag_with(tag_list)
     seperator = /(\s|,)/
-    request.tags << tag_list
-      .split(seperator).
+    tags << tag_list.
+      split(seperator).
       reject {|_| _[seperator] || _.blank? }
-    request.save!
+    save!
   end
   
   private

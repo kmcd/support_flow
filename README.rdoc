@@ -24,11 +24,11 @@
 
 * Application (supporting domain)
   Guide CMS
-  Email dispatch
   Mailbox polling
+  Account (demo/trial/paid) setup
+  Email dispatch
   Authorisation
   Authenticaion
-  Account (demo/trial/paid) setup
   Billing
   Notification Policy (sensible defaults?)
   

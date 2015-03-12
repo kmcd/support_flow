@@ -1,6 +1,6 @@
 module Mailboxable
   def mailbox
-    @mailbox ||= Mailbox.where( email_address:to ).first
+    @mailbox ||= request_mailbox || addressed_to_mailbox
   end
   
   private
@@ -15,5 +15,17 @@ module Mailboxable
   
   def recipients
     [ email.to, email.cc ].flatten.map {|_| _.fetch :email }
+  end
+  
+  def request_mailbox
+    return unless request
+    Mailbox.
+      joins(:messages).
+      where('messages.request_id' => request.id).
+      first
+  end
+  
+  def addressed_to_mailbox
+    Mailbox.where( email_address:to ).first
   end
 end

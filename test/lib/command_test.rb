@@ -1,29 +1,20 @@
 require 'test_helper'
 
 module CommandTestable
-  def setup
-    ActiveRecord::Base.observers.disable :enquiry_observer, :reply_observer
-  end
-  
-  def execute(command)
-    @command.content = command
-    Command.new(@command).execute
-  end
-end
-
-class CommandTest < ActiveSupport::TestCase
-  include CommandTestable
-  
-  test "reply with help message when unknown command received" do
-    @command.content = "--foo bar"
-    command = Command.new @command
-    command.execute
+  def execute(command, options={})
+    args = {
+      text:command,
+      to:%W[ request.#{@billing_enquiry.id}@getsupportflow.net ], 
+      from:@billing_enquiry.agent.email_address
+    }.merge! options
     
-    assert_equal "invalid option: --foo", command.errors.first.message
+    command = Command.new Griddler::Email.new args
+    command.execute
+    command
   end
 end
 
-class CommandTagTest < ActiveSupport::TestCase
+class TagCommandTest < ActiveSupport::TestCase
   include CommandTestable
   
   test "single tag" do
@@ -52,11 +43,10 @@ class CommandTagTest < ActiveSupport::TestCase
   end
 end
 
-class CommandAgentAssignmentTest < ActiveSupport::TestCase
+class AgentAssignmentCommandTest < ActiveSupport::TestCase
   include CommandTestable
   
   test "assign agent by first part of email address" do
-    assert_equal @rachel, @billing_enquiry.agent
     execute "--assign keith"
     assert_equal @keith, @billing_enquiry.reload.agent
   end
@@ -66,48 +56,52 @@ class CommandAgentAssignmentTest < ActiveSupport::TestCase
     assert_equal @keith, @billing_enquiry.reload.agent
   end
   
-  test "DONT assign an invalid agent" do
+  test "claim request for sending agent" do
+    execute "--claim", from:@keith.email_address
+    assert_equal @keith, @billing_enquiry.reload.agent
+  end
+  
+  test "release request for sending agent" do
+    execute "--release", from:@billing_enquiry.agent.email_address
+    assert_nil @billing_enquiry.reload.agent
+  end
+  
+  test "any team agent can release a request" do
+    execute "--release", from:@keith.email_address
+    assert_nil @billing_enquiry.reload.agent
+  end
+end
+  
+class InvalidAgentAssignmentCommandTest < ActiveSupport::TestCase
+  include CommandTestable
+  
+  test "dont assign an invalid agent" do
     execute "--assign foo@getsupportflow.com"
     assert_equal @rachel, @billing_enquiry.reload.agent
   end
   
-  test "DONT assign a foreign agent" do
+  test "dont assign a foreign agent" do
     execute "--assign #{@peldi_support.email_address}"
     assert_equal @rachel, @billing_enquiry.reload.agent
   end
   
-  test "claim request for sending agent" do
-    @command.agent = @keith
-    execute "--claim"
-    assert_equal @keith, @billing_enquiry.reload.agent
-  end
-  
-  test "DONT claim request for non-existant agent" do
-    @command.agent = nil
-    execute "--claim"
+  test "dont claim request for non-existent agent" do
+    execute "--claim", from:"alice@example.org"
     assert_equal @rachel, @billing_enquiry.reload.agent
   end
   
-  test "DONT claim request for foreign agent" do
-    @command.agent = @peldi_support
-    execute "--claim"
+  test "dont claim request for foreign agent" do
+    execute "--claim", from:@peldi.email_address
     assert_equal @rachel, @billing_enquiry.reload.agent
   end
   
-  test "release request for sending agent" do
-    @command.agent = @keith
-    execute "--release"
-    assert_nil @billing_enquiry.reload.agent
-  end
-  
-  test "DONT release request for foreign agent" do
-    @command.agent = @peldi_support
-    execute "--release"
+  test "dont release request for foreign agent" do
+    execute "--release", from:@peldi.email_address
     assert_equal @rachel, @billing_enquiry.reload.agent
   end
 end
 
-class CommandStatusUpdateTest < ActiveSupport::TestCase
+class StatusUpdateCommandTest < ActiveSupport::TestCase
   include CommandTestable
   
   test "open request" do
@@ -121,12 +115,20 @@ class CommandStatusUpdateTest < ActiveSupport::TestCase
   end
 end
 
-class CommandTemplateReplyTest < ActiveSupport::TestCase
-  test "reply with default template" do
-    skip
+class InvalidCommandTest < ActiveSupport::TestCase
+  include CommandTestable
+  
+  test "reply with help message when unknown command received" do
+    command = execute "--foo"
+    assert_equal "invalid option: --foo", command.errors.first.to_s
   end
   
-  test "reply with specified template" do
-    skip
+  test "ingore previous commands in reply section" do
+    [ "\n-- Reply ABOVE THIS LINE --\n--tag bug",
+      "\n-- On 2010-01-01 12:00:00 Tristan wrote: --\n--tag bug"
+    ].each do |reply_format|
+      command = execute reply_format
+      assert_empty @billing_enquiry.tags, reply_format
+    end
   end
 end
