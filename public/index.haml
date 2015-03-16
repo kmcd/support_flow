@@ -5,18 +5,21 @@
     %title
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}/
-    %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.9.0/semantic.min.css", :rel => "stylesheet"}
-    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.9.0/semantic.min.js"}
+    %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/semantic.min.css", :rel => "stylesheet"}
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/semantic.min.js"}
     
     :css
-      div { border: thin solid red; }
+      # div { border: thin solid red; }
       h1.ui.header { font-size: 4rem; }
       
   %body
     .ui.page.padded.grid
       .center.aligned.sixteen.wide.column
         %h1.ui.header
-          “ My team has gone through four time tracking apps in the last two and a half years … ”
+          &ldquo;
+          My team has gone through four time tracking apps in the last two 
+          and a half years … 
+          &rdquo;
           
           .sub.header Top performing ad ...
         

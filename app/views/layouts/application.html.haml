@@ -1,13 +1,63 @@
 !!!
 
-%html
+%html{ lang:'en'}
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-    %title Support Flow
-    = stylesheet_link_tag    'application', media: 'all'
-    = javascript_include_tag 'application'
     = csrf_meta_tags
+    %script{:src => "https://code.jquery.com/jquery-1.11.2.min.js"}
+    %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css", :rel => "stylesheet"}
+    %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"}
+    %meta{ name:"viewport", content:"width=device-width, initial-scale=1" }
+    %title Support Flow
     
+    :css
+      nav.navbar { border: 0; border-radius: 0; }
+      .navbar-right { margin-right: 0; }
+      .navbar .badge { padding-left: 5px; }
+      .list-group-item { border: thin solid whitesmoke; }
+      .list-group-item-heading > a { color: black; }
+      .list-group-item-heading > a:hover { color: blue;  }
+      
   %body
-    %div.center.aligned.sixteen.wide.column
-    = yield
+    %nav.navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          %p.navbar-text 
+            %b Support Flow
+          
+        %ul.nav.navbar-nav
+          %li
+            %a{ href:'#' } Help
+          %li.active
+            %a{ href:'#' } 
+              Requests
+              %span.badge
+                15
+             
+          %li
+            %a{ href:'#' } Guides
+          %li
+            %a{ href:'#' } Customers
+          %li
+            %a{ href:'#' } Agents
+            
+        %ul.nav.navbar-nav.navbar-right
+          %li.dropdown
+            %a{ href:'#', :class => 'dropdown-toggle navbar-right', 
+                  :role => 'button', 'data-toggle' => 'dropdown',
+                  'aria-expanded' => false }
+              Settings
+            
+            %ul{ :class => 'dropdown-menu', :role => 'menu' }
+              %li
+                %a{ href:'#' }
+                  API
+              %li
+                %a{ href:'#' }
+                  Billing
+              %li
+                %a{ href:'#' }
+                  Email Notifications
+
+    .container
+      = yield

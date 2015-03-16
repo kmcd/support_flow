@@ -18,7 +18,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rack-mini-profiler', require: false
+  # gem 'rack-mini-profiler', require: false
   gem 'guard'
   gem 'guard-bundler', require: false
   gem 'guard-rails'

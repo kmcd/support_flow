@@ -4,6 +4,7 @@ class Request < ActiveRecord::Base
   has_many :messages
   belongs_to :team
   
+  # TODO: replace with https://github.com/tmiyamon/acts-as-taggable-array-on
   before_save :ensure_unique_tags
   
   def assign_from(name_or_email)

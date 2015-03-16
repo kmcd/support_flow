@@ -1,0 +1,37 @@
+= render 'search'
+
+%br/
+
+.request.row
+  .col-md-10.col-md-offset-1
+    .list-group
+      - 10.times do
+        .list-group-item
+          %h4.list-group-item-heading
+            %a{:href => '#'}= Faker::Hacker.say_something_smart
+            
+            %button.btn.btn-primary.btn-xs
+              = Faker::Commerce.department
+              
+            %button.btn.btn-info.btn-xs
+              = Faker::Commerce.department
+              
+            %button.btn.btn-warning.btn-xs
+              = Faker::Commerce.department
+              
+          %span.text-muted
+            Opened
+            
+          %span.mark= open_since
+            
+          %span.text-muted
+            ago by
+            %a{:href => '#'}=Faker::Name.name
+            assigned to
+            %a{:href => '#'}= Faker::Name.name
+            
+          .pull-right
+            %a{:href => '#'}
+              %span.badge
+                %span.glyphicon.glyphicon-comment
+                = rand(20)

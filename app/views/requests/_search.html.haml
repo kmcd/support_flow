@@ -1,0 +1,81 @@
+.search.row
+  .col-md-7.col-md-offset-1
+    .input-group
+      %input{ :class => 'form-control', :type => 'text', 
+        :placeholder => 'Search Requests ...' }
+      
+      %span.input-group-btn
+        %button{ :class => 'btn btn-default dropdown-toggle',
+        :type => 'button', 'data-toggle' => 'dropdown', 
+        'aria-expanded' => false}
+        
+          Filters
+          %span.caret
+        
+        %ul{ :class => 'dropdown-menu', :role => 'menu' }
+          %li
+            %a{:href=>'#'}
+              Open
+              
+          %li
+            %a{:href=>'#'}
+              Closed
+              
+          %li
+            %a{:href=>'#'}
+              All your open requests
+          %li
+            %a{:href=>'#'}
+              Labeled Urgent
+             
+          %li.divider
+          
+          %li
+            %a{:href=>'#'}
+              Clear all filters
+      
+  .col.query
+    .btn-group
+      %button{ :class => 'btn btn-default dropdown-toggle',
+          :type => 'button', 'data-toggle' => 'dropdown', 
+          'aria-expanded' => false}
+        Label
+        %span.caret
+          
+      %ul{ :class => 'dropdown-menu', :role => 'menu' }
+        %li
+          %a{:href=>'#'}
+            Pending
+        %li
+          %a{:href=>'#'}
+            Urgent
+            
+    .btn-group
+      %button{ :class => 'btn btn-default dropdown-toggle',
+          :type => 'button', 'data-toggle' => 'dropdown', 
+          'aria-expanded' => false}
+        Agent
+        %span.caret
+          
+      %ul{ :class => 'dropdown-menu', :role => 'menu' }
+        %li
+          %a{:href=>'#'}
+            Joe
+        %li
+          %a{:href=>'#'}
+            Peter
+            
+    .btn-group
+      %button{ :class => 'btn btn-default dropdown-toggle',
+          :type => 'button', 'data-toggle' => 'dropdown', 
+          'aria-expanded' => false}
+        Sort
+        %span.caret
+          
+      %ul{ :class => 'dropdown-menu', :role => 'menu' }
+        %li
+          %a{:href=>'#'}
+            Longest open
+        %li
+          %a{:href=>'#'}
+            Newest
