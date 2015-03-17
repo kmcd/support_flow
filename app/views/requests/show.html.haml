@@ -27,11 +27,13 @@
     
     .btn-group
       %button.btn.btn-default
-        Merge
+        Reply
       %button.btn.btn-default
         Open
       %button.btn.btn-default
         Status
+      %button.btn.btn-default
+        Merge
 
 %br/
 
@@ -39,17 +41,17 @@
   - 10.times do
     .message
       .col-md-9.col-md-offset-1
-        .avatar.pull-right
-          %a{:href => '#'} 
-            %img.img-rounded{:src => Faker::Avatar.image }
-          -# "https://avatars1.githubusercontent.com/u/8568?v=3&s=460"
+        %a.pull-right{:href => '#'}
+          %img.img-rounded{:src => avatar }
           
         %h4
           %small
-            Request opened on
-            %span.mark='12 Dec 2015 at 20:37'
+            Request opened on 
+            %span.mark= '12 Dec 2015 20:37'
             by
-          =Faker::Name.name
+          = link_to( Faker::Name.name, '#')
           
-      .col-md-8.col-md-offset-1
-        %p= Faker::Lorem.paragraph
+      .content.col-md-8.col-md-offset-1
+        %blockquote
+          %p= Faker::Lorem.paragraph
+            
