@@ -14,9 +14,12 @@
       nav.navbar { border: 0; border-radius: 0; }
       .navbar-right { margin-right: 0; }
       .navbar .badge { padding-left: 5px; }
-      .list-group-item { border: thin solid whitesmoke; }
+      .list-group-item { border: thin solid white; margin-bottom: 1em; 
+        padding-left: 0; }
       .list-group-item-heading > a { color: black; }
       .list-group-item-heading > a:hover { color: blue;  }
+      .img-rounded { max-height: 35px; }
+      //div { border: thin solid red; }
       
   %body
     %nav.navbar.navbar-default
@@ -29,8 +32,9 @@
           %li
             %a{ href:'#' } Help
           %li.active
-            %a{ href:'#' } 
+            = link_to(requests_path) do
               Requests
+              
               %span.badge
                 15
              

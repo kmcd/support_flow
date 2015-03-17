@@ -1,26 +1,9 @@
-== Domain Model
+= TODO (core domain)
 
-* Entities
-  agent
-  customer
-  guide
-  mailbox
-  message
-  request
-  team
-    
-* Value Objects (from UI)
-  4. timeline (simplify view finders)
-  7. report
-
-* Services (TDD)
-  5. agent_search
-  6. customer_search
-  command
-  
-* Factories (TDD)
-  enquiry
-  reply
+/requests       (agent search)
+/requests/1     (timeline,actions)
+/public/search  (customer_search)
+/teams/1        (reports)
 
 * Application (supporting domain)
   Guide CMS

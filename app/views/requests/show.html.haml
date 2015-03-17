@@ -1,6 +1,55 @@
-%p#notice= notice
+.request.row
+  .col-md-9.col-md-offset-1
+    %h2
+      = Faker::Hacker.say_something_smart
+      
+      %small
+        = "##{rand(4359..10_000).to_s}"
+        
+      %button.btn.btn-success
+        %span.glyphicon.glyphicon-ok-circle
+        Closed
+        
+    .labels
+      %button.btn.btn-primary.btn-xs
+        = Faker::Commerce.department
+        
+      %button.btn.btn-info.btn-xs
+        = Faker::Commerce.department
+      
+      %button.btn.btn-warning.btn-xs
+        = Faker::Commerce.department
+        
+      %button.btn.btn-xs
+        + Label
+     
+    %br/
+    
+    .btn-group
+      %button.btn.btn-default
+        Merge
+      %button.btn.btn-default
+        Open
+      %button.btn.btn-default
+        Status
 
+%br/
 
-= link_to 'Edit', edit_request_path(@request)
-\|
-= link_to 'Back', requests_path
+.request.row
+  - 10.times do
+    .message
+      .col-md-9.col-md-offset-1
+        .avatar.pull-right
+          %a{:href => '#'} 
+            %img.img-rounded{:src => Faker::Avatar.image }
+          -# "https://avatars1.githubusercontent.com/u/8568?v=3&s=460"
+          
+        %h4
+          %small
+            Request opened on
+            %span.mark='12 Dec 2015 at 20:37'
+            by
+          =Faker::Name.name
+          
+      .col-md-8.col-md-offset-1
+        %p= Faker::Lorem.paragraph
