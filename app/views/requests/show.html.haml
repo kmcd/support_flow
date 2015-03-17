@@ -46,12 +46,12 @@
           
         %h4
           %small
-            Request opened on 
+            Opened on
             %span.mark= '12 Dec 2015 20:37'
             by
           = link_to( Faker::Name.name, '#')
           
       .content.col-md-8.col-md-offset-1
         %blockquote
-          %p= Faker::Lorem.paragraph
-            
+          - rand(0..4).times do
+            %p= Faker::Lorem.paragraph

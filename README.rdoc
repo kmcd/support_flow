@@ -1,19 +1,21 @@
-= TODO (core domain)
+= Backlog
 
-/requests       (agent search)
 /requests/1     (timeline,actions)
+/requests       (agent search)
 /public/search  (customer_search)
-/teams/1        (reports)
+/teams/1        (integrate stats into results/customers/agents?)
 
-* Application (supporting domain)
-  Guide CMS
-  Mailbox polling
-  Account (demo/trial/paid) setup
-  Email dispatch
-  Authorisation
-  Authenticaion
-  Billing
-  Notification Policy (sensible defaults?)
+/guides
+/public/guides
+/onboard        (demo/trial/paid)
+/customers
+/agents
+Mailbox polling
+Email dispatch
+Authorisation   (multi-tennant)
+Authentication
+Billing
+Notifications   (sensible defaults?)
   
 == Installation
 * Ruby version
