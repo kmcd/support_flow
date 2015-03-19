@@ -2,21 +2,23 @@
 
 /requests/1     (timeline,actions)
 /requests       (agent search)
-/public/search  (customer_search)
-/teams/1        (integrate stats into results/customers/agents?)
-
 /guides
 /public/guides
+/guides/search
+
+/customers      (stats)
+/agents         (stream, stats)
+/agents/1       (stats)
+/customers/1
+
 /onboard        (demo/trial/paid)
-/customers
-/agents
+  Authenticate  (google oauth)
+  Authorise     (multi-tennant)
+
 Mailbox polling
 Email dispatch
-Authorisation   (multi-tennant)
-Authentication
 Billing
-Notifications   (sensible defaults?)
-  
+
 == Installation
 * Ruby version
 * System dependencies
@@ -26,5 +28,3 @@ Notifications   (sensible defaults?)
 * How to run the test suite
 * Services (job queues, cache servers, search engines, etc.)
 * Deployment instructions
-
-
