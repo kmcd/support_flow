@@ -8,14 +8,13 @@ class Reply
   
   def save
     return unless valid?
-    request.messages.create! \
+    message = request.messages.create! \
       content:email,
       mailbox:mailbox,
       customer:customer,
       agent:agent
-      
-    # TODO: Activity.new(request, agent).save
-    # Should be able to set activity from request.new_record?
+    
+    Activity.new(request:request, owner:agent).reply message
   end
   
   def valid?

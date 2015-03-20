@@ -33,19 +33,29 @@ class Command
     return unless valid?
     
     OptionParser.new do |opts|
-      opts.on("-c", "--claim") do
+      opts.on("-a", "--assign AGENT") do |name_or_email|
+        request.assign_from name_or_email
+        activity.assign request.agent
+      end
+      
+      opts.on("-m", "--claim") do
         request.update_attributes! agent:agent
         activity.assign agent
+      end
+      
+      opts.on("-c", "--close") do
+        request.update_attributes! open:false
+        activity.close
+      end
+      
+      opts.on("-o", "--open") do
+        request.update_attributes! open:true
+        activity.open
       end
       
       opts.on("-r", "--release") do
         request.update_attributes! agent:nil
         activity.assign
-      end
-      
-      opts.on("-a", "--assign AGENT") do |name_or_email|
-        request.assign_from name_or_email
-        activity.assign request.agent
       end
       
       opts.on("-t", "--tag NAME") do |tags|
@@ -89,6 +99,6 @@ class Command
   end
   
   def activity
-    Activity.new request:request, agent:agent
+    Activity.new request:request, owner:agent
   end
 end

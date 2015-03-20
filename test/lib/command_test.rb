@@ -1,5 +1,20 @@
 require 'test_helper'
 
+class CommandTest < ActiveSupport::TestCase
+  include CommandTestable
+  
+  test "close" do
+    execute "--close"
+    refute @billing_enquiry.open?
+  end
+  
+  test "open" do
+    @billing_enquiry.update_attribute :open, false
+    execute "--open"
+    assert @billing_enquiry.open?
+  end
+end
+
 class TagCommandTest < ActiveSupport::TestCase
   include CommandTestable
   
