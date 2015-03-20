@@ -76,4 +76,13 @@ class InvalidReplyTest < ActiveSupport::TestCase
     refute Reply.new(email(to:["request.XXX@getsupportflow.net"])).save
     refute Reply.new(email(to:["request.123@getsupportflow.net"])).save
   end
+  
+  test "ignore command only" do
+    reply = Reply.new email subject:"request##{@billing_enquiry.id}",
+      text:"--close"
+    
+    assert_no_difference 'reply.request.messages.count' do
+      reply.save
+    end
+  end
 end

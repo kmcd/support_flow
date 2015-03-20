@@ -17,7 +17,8 @@ class Reply
   end
   
   def valid?
-    request.present?
+    return unless request.present?
+    content_present?
   end
   
   def request
@@ -52,5 +53,9 @@ class Reply
   
   def agent
     request.team.agents.where(email_address:from).first
+  end
+  
+  def content_present?
+    email.body.gsub(/\A\s*--\w+.*\Z/m, '').present?
   end
 end

@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
+  resources :requests,  only: %i[ index show update ]
+  resources :agents,    only: %i[ index show update ]
+  resources :customers, only: %i[ index show update ]
+  resources :guides
   
-  resources :requests
-
+  namespace :settings do
+    resource :billing
+    resources :mailbox
+  end
+  
   get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
   
   # The priority is based upon order of creation: first created -> highest priority.

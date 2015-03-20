@@ -1,0 +1,12 @@
+nav.navbar { border: 0; border-radius: 0; }
+.navbar-right { margin-right: 0; }
+.navbar .badge { padding-left: 5px; }
+.list-group-item { border: thin solid white; margin-bottom: 1em; 
+  padding-left: 0; }
+.list-group-item-heading > a { color: black; }
+.list-group-item-heading > a:hover { color: blue;  }
+.img-rounded, .img-thumbnail { max-height: 40px; }
+.content blockquote { border-left: thin solid whitesmoke; }
+.content blockquote { font-family: courier; font-size: 1em; }
+
+/* div { border: thin solid red; } */

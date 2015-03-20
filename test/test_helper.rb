@@ -14,7 +14,9 @@ class ActiveSupport::TestCase
   def email(options={})
     Griddler::Email.new( \
       { to:[@support_flow_gmail.email_address],
-      from:'customer@example.org' }.merge!(options) )
+        from:'customer@example.org',
+        text:"Help"
+      }.merge!(options) )
   end
 end
 

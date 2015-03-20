@@ -2,29 +2,18 @@
 
 %html{ lang:'en'}
   %head
+    %title Support Flow
+    
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     = csrf_meta_tags
+    %meta{ name:"viewport", content:"width=device-width, initial-scale=1" }
+    
+    -# TODO: concatenate & minify assets using jammit, grunt
     %script{:src => "https://code.jquery.com/jquery-1.11.2.min.js"}
     %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css", :rel => "stylesheet"}
     %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"}
-    %meta{ name:"viewport", content:"width=device-width, initial-scale=1" }
-    %title Support Flow
+    %link{:href => "/application.css", :rel => "stylesheet"}
     
-    -# TODO: move to css file
-    :css
-      nav.navbar { border: 0; border-radius: 0; }
-      .navbar-right { margin-right: 0; }
-      .navbar .badge { padding-left: 5px; }
-      .list-group-item { border: thin solid white; margin-bottom: 1em; 
-        padding-left: 0; }
-      .list-group-item-heading > a { color: black; }
-      .list-group-item-heading > a:hover { color: blue;  }
-      .img-rounded, .img-thumbnail { max-height: 35px; }
-      .content blockquote { border-left: thin solid whitesmoke; }
-      .content blockquote { font-family: courier; font-size: 1em; }
-      
-      //div { border: thin solid red; }
-      
   %body
     %nav.navbar.navbar-default
       .container-fluid
@@ -39,16 +28,15 @@
               
               %span.badge
                 15
-             
+          
           %li
-            %a{ href:'#' } Guides
+            = link_to 'Agents', agents_path
           %li
-            %a{ href:'#' } Customers
+            = link_to 'Guides', guides_path
           %li
-            %a{ href:'#' } Agents
+            = link_to 'Customers', customers_path
           %li
-            %a{ href:'#' }
-              Need help?
+            = link_to 'Need help?', '/help'
             
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
