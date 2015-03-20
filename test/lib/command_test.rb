@@ -5,13 +5,13 @@ class CommandTest < ActiveSupport::TestCase
   
   test "close" do
     execute "--close"
-    refute @billing_enquiry.open?
+    refute @billing_enquiry.reload.open?
   end
   
   test "open" do
     @billing_enquiry.update_attribute :open, false
     execute "--open"
-    assert @billing_enquiry.open?
+    assert @billing_enquiry.reload.open?
   end
 end
 

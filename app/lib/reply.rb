@@ -1,6 +1,6 @@
 class Reply
   include Mailboxable
-  attr_reader :email
+  attr_reader :email, :message
   
   def initialize(email=Griddler::Email.new)
     @email = email
@@ -8,12 +8,11 @@ class Reply
   
   def save
     return unless valid?
-    message = request.messages.create! \
+    @message = request.messages.create! \
       content:email,
       mailbox:mailbox,
       customer:customer,
       agent:agent
-    
     Activity.new(request:request, owner:agent).reply message
   end
   

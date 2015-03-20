@@ -13,6 +13,7 @@ require 'optparse'
 # --claim
 # --release
 # --notify joe
+# -a joe -t billing, todo, status:pending
 
 class Command
   include Mailboxable
@@ -87,7 +88,7 @@ class Command
   
   def agent
     return unless mailbox.present?
-    @agent ||= mailbox.team.agents.where(email_address:from).first
+    mailbox.team.agents.where(email_address:from).first
   end
   
   def arguments

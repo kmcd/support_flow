@@ -11,6 +11,7 @@ class Enquiry
   def save
     return unless valid?
     message.customer = existing_customer || create_customer
+    message.mailbox = mailbox
     message.request = customer.requests.create!(team:mailbox.team)
     message.save!
     

@@ -28,26 +28,26 @@
 %br/
 
 .request.row
-
-  -# FIXME: change to request.activities
-  
-  - @request.messages.each do |message|
+  - @request.activities.order(:created_at).each do |activity|
     .message
       .col-md-9.col-md-offset-1
         %a.pull-right{:href => '#'}
-          %img.img-rounded{:src => message.sender.avatar }
+          -# %img.img-rounded{:src => message.sender.avatar }
           
         %h4
           %small
-            = description_for @request, message
+            -# = description_for @request, message
             on
-            %span.mark= message.created_at.to_s(:long)
+            -# %span.mark= message.created_at.to_s(:long)
             by
-          = link_to( message.sender.name, '#')
+          -# = link_to( message.sender.name, '#')
           
       .content.col-md-8.col-md-offset-1
+        
+        %pre= activity.inspect.to_s
+        
         %blockquote
-          %p= message.content.body
+          -#  %p= message.content.body
        
 .request.row
   .actions.col-md-9.col-md-offset-1

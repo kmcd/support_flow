@@ -14,7 +14,7 @@ class EnquiryTest < ActiveSupport::TestCase
   end
   
   test "assign to correct mailbox" do
-    assert_equal @support_flow_gmail, enquiry.mailbox
+    assert_equal @support_flow_gmail, enquiry.message.mailbox
   end
   
   test "create new request" do

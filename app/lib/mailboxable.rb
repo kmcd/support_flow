@@ -1,6 +1,9 @@
 module Mailboxable
   def mailbox
-    @mailbox ||= request_mailbox || addressed_to_mailbox
+    @mailbox ||= \
+      request_mailbox || \
+      addressed_to_mailbox || \
+      request_address_mailbox
   end
   
   private
@@ -27,5 +30,18 @@ module Mailboxable
   
   def addressed_to_mailbox
     Mailbox.where( email_address:to ).first
+  end
+    
+  # TODO: move to email router; i.e. request.736 -> mailbox.438
+  def request_address_mailbox
+    return unless request_id
+    Request.find(request_id).messages.first
+  end
+  
+  def request_id
+    requests = recipients.grep /request\.\d+/
+    return if requests.empty?
+    
+    requests.first.match(/request\.(\d+)/)[1]
   end
 end

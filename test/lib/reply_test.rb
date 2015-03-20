@@ -33,29 +33,29 @@ class ReplyTest < ActiveSupport::TestCase
   test "assign to mailbox" do
     reply = Reply.new \
       email cc:["request.#{@billing_enquiry.id}@getsupportflow.net"]
-    message = reply.save
+    reply.save
     
-    assert_equal @support_flow_gmail, message.mailbox
+    assert_equal @support_flow_gmail, reply.message.mailbox
   end
   
   test "assign customer" do
     reply = Reply.new email \
       to:["request.#{@billing_enquiry.id}@getsupportflow.net"],
       from:@peldi.email_address
-    message = reply.save
+    reply.save
       
-    assert_equal @peldi, message.customer
-    assert_nil message.agent
+    assert_equal @peldi, reply.message.customer
+    assert_nil reply.message.agent
   end
   
   test "assign agent" do
     reply = Reply.new email \
       to:["request.#{@billing_enquiry.id}@getsupportflow.net"],
       from:@rachel.email_address
-    message = reply.save
+    reply.save
     
-    assert_equal @rachel, message.agent
-    assert_nil message.customer
+    assert_equal @rachel, reply.message.agent
+    assert_nil reply.message.customer
   end
 end
 

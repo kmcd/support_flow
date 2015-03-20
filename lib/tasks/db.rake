@@ -17,17 +17,18 @@ namespace :db do
   end
   
   desc "Populate for UI development"
-  task ui: [:environment, 'db:fixtures:load'] do
-    request = Request.first
+  task ui: [:environment, 'db:schema:load', 'db:fixtures:load'] do
+    Request.delete_all
     rachel = Agent.first
     peldi = Customer.first
-    request.messages.clear
     
     create_message \
       body:'Hi! I need help with billing. Peldi',
       subject:'Help',
       from:peldi.email_address,
       to:rachel.team.mailboxes.first.email_address
+    
+    request = Request.first
     
     create_message \
       body:"We're on it Peldi :)",
@@ -48,7 +49,7 @@ namespace :db do
       
     create_message \
       body:'--close',
-      from:rachel.team.mailboxes.first.email_address,
+      from:rachel.email_address,
       to:"request.#{request.id}@getsupportflow.com"
     
     # Message:
@@ -59,6 +60,11 @@ namespace :db do
     # - merge
     # - rename
     # - reopen
+    
+    # Open request
+    
+    # Open tabs
+    `open http://localhost:3000/requests/#{request.id}`
   end
 end
 
