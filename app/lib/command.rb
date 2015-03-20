@@ -3,8 +3,7 @@ require 'optparse'
 # USAGE:
 # Message contents:
 # Hi John, thanks for your help ...
-# --status open --reply billing --assign joe --reply
-# --status open
+# --reply billing --assign joe --reply
 # --reply billing
 # Oh forgot to mention, call Peter for more assistance.
 # --assign joe
@@ -34,24 +33,24 @@ class Command
     return unless valid?
     
     OptionParser.new do |opts|
-      opts.on("", "--status STATUS") do |status|
-        request.update_attributes status:status
-      end
-      
-      opts.on("", "--claim") do
+      opts.on("-c", "--claim") do
         request.update_attributes! agent:agent
+        activity.assign agent
       end
       
-      opts.on("", "--release") do
+      opts.on("-r", "--release") do
         request.update_attributes! agent:nil
+        activity.assign
       end
       
-      opts.on("", "--assign AGENT") do |name_or_email|
+      opts.on("-a", "--assign AGENT") do |name_or_email|
         request.assign_from name_or_email
+        activity.assign request.agent
       end
       
-      opts.on("", "--tag NAME") do |tags|
+      opts.on("-t", "--tag NAME") do |tags|
         request.tag_with tags
+        activity.tag tags
       end
     end.parse! options
     
@@ -78,7 +77,7 @@ class Command
   
   def agent
     return unless mailbox.present?
-    mailbox.team.agents.where(email_address:from).first
+    @agent ||= mailbox.team.agents.where(email_address:from).first
   end
   
   def arguments
@@ -87,5 +86,9 @@ class Command
       find_all {|_| _[/\A\s*--\w+.*\Z/] }.
       join.
       strip
+  end
+  
+  def activity
+    Activity.new request:request, agent:agent
   end
 end

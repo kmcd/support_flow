@@ -10,6 +10,7 @@
     %meta{ name:"viewport", content:"width=device-width, initial-scale=1" }
     %title Support Flow
     
+    -# TODO: move to css file
     :css
       nav.navbar { border: 0; border-radius: 0; }
       .navbar-right { margin-right: 0; }
@@ -32,8 +33,6 @@
             %b Support Flow
           
         %ul.nav.navbar-nav
-          %li
-            %a{ href:'#' } Help
           %li.active
             = link_to(requests_path) do
               Requests
@@ -47,6 +46,9 @@
             %a{ href:'#' } Customers
           %li
             %a{ href:'#' } Agents
+          %li
+            %a{ href:'#' }
+              Need help?
             
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
@@ -58,13 +60,15 @@
             %ul{ :class => 'dropdown-menu', :role => 'menu' }
               %li
                 %a{ href:'#' }
-                  API
+                  Mailboxes
               %li
                 %a{ href:'#' }
                   Billing
+                  
+              %li.divider
               %li
                 %a{ href:'#' }
-                  Email Notifications
+                  Log out
 
     .container
       = yield

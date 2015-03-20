@@ -11,11 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302193411) do
+ActiveRecord::Schema.define(version: 20150319164338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "key"
+    t.text     "parameters"
+    t.integer  "recipient_id"
+    t.string   "recipient_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "agents", force: :cascade do |t|
     t.integer  "team_id",                       null: false
@@ -25,18 +42,34 @@ ActiveRecord::Schema.define(version: 20150302193411) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
-  
+
   add_index "agents", ["team_id"], name: "index_agents_on_team_id", using: :btree
 
   create_table "customers", force: :cascade do |t|
-    t.integer  "team_id",            null: false
-    t.string   "email_address",      null: false
+    t.integer  "team_id",       null: false
+    t.string   "email_address", null: false
     t.json     "profile"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
-  
+
   add_index "customers", ["email_address"], name: "index_customers_on_email_address", using: :btree
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "guides", force: :cascade do |t|
     t.integer  "team_id",    null: false
@@ -45,7 +78,7 @@ ActiveRecord::Schema.define(version: 20150302193411) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-  
+
   create_table "mailboxes", force: :cascade do |t|
     t.integer  "team_id",       null: false
     t.string   "email_address", null: false
@@ -53,35 +86,35 @@ ActiveRecord::Schema.define(version: 20150302193411) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
-  
-  add_index "mailboxes", ["team_id"], name: "index_mailboxes_on_team_id", using: :btree
+
   add_index "mailboxes", ["email_address"], name: "index_mailboxes_on_email_address", using: :btree
+  add_index "mailboxes", ["team_id"], name: "index_mailboxes_on_team_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "mailbox_id"
     t.integer  "request_id"
     t.integer  "customer_id"
     t.integer  "agent_id"
-    t.text     "content",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "content",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
-  
+
+  add_index "messages", ["agent_id"], name: "index_mailboxes_on_agent_id", using: :btree
+  add_index "messages", ["customer_id"], name: "index_mailboxes_on_customer_id", using: :btree
   add_index "messages", ["mailbox_id"], name: "index_mailboxes_on_mailbox_id", using: :btree
   add_index "messages", ["request_id"], name: "index_mailboxes_on_request_id", using: :btree
-  add_index "messages", ["customer_id"], name: "index_mailboxes_on_customer_id", using: :btree
-  add_index "messages", ["agent_id"], name: "index_mailboxes_on_agent_id", using: :btree
-  
+
   create_table "requests", force: :cascade do |t|
-    t.integer  "team_id",                       null: false
+    t.integer  "team_id",                    null: false
     t.integer  "agent_id"
     t.integer  "customer_id",                null: false
-    t.string   "status"
+    t.boolean  "open",        default: true
     t.text     "tags",        default: [],                array: true
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
-  
+
   add_index "requests", ["agent_id"], name: "index_requests_on_agent_id", using: :btree
   add_index "requests", ["customer_id"], name: "index_requests_on_customer_id", using: :btree
 
@@ -92,4 +125,5 @@ ActiveRecord::Schema.define(version: 20150302193411) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
 end

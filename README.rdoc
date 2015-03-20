@@ -2,6 +2,7 @@
 
 /requests/1     (timeline,actions)
 /requests       (agent search)
+
 /guides
 /public/guides
 /guides/search
@@ -15,9 +16,8 @@
   Authenticate  (google oauth)
   Authorise     (multi-tennant)
 
-Mailbox polling
-Email dispatch
-Billing
+/settings/mailboxes
+/settings/billing
 
 == Installation
 * Ruby version

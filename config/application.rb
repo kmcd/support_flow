@@ -25,5 +25,7 @@ module SupportFlow
     
     # Keep domain logic in app/lib
     config.autoload_paths += %W[ #{config.root}/app/lib ]
+    
+    config.active_job.queue_adapter = :delayed_job
   end
 end

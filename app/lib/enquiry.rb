@@ -13,6 +13,9 @@ class Enquiry
     message.customer = existing_customer || create_customer
     message.request = customer.requests.create!(team:mailbox.team)
     message.save!
+    
+    # TODO: Activity.new(request, agent).save
+    # Should be able to set activity from request.new_record?
   end
   
   def valid?

@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  before_action :set_request, only: [:update]
+  before_action :set_request, only: [:update, :show]
 
   # GET /requests
   def index
@@ -24,7 +24,7 @@ class RequestsController < ApplicationController
   
   # Use callbacks to share common setup or constraints between actions.
   def set_request
-    @request = Request.find(params[:id])
+    @request = Request.first # Request.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.

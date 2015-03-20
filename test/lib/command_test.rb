@@ -1,19 +1,5 @@
 require 'test_helper'
 
-module CommandTestable
-  def execute(command, options={})
-    args = {
-      text:command,
-      to:%W[ request.#{@billing_enquiry.id}@getsupportflow.net ], 
-      from:@billing_enquiry.agent.email_address
-    }.merge! options
-    
-    command = Command.new Griddler::Email.new args
-    command.execute
-    command
-  end
-end
-
 class TagCommandTest < ActiveSupport::TestCase
   include CommandTestable
   
@@ -98,20 +84,6 @@ class InvalidAgentAssignmentCommandTest < ActiveSupport::TestCase
   test "dont release request for foreign agent" do
     execute "--release", from:@peldi.email_address
     assert_equal @rachel, @billing_enquiry.reload.agent
-  end
-end
-
-class StatusUpdateCommandTest < ActiveSupport::TestCase
-  include CommandTestable
-  
-  test "open request" do
-    execute "--status open"
-    assert_equal 'open', @billing_enquiry.reload.status
-  end
-  
-  test "close request" do
-    execute "--status close"
-    assert_equal 'close', @billing_enquiry.reload.status
   end
 end
 

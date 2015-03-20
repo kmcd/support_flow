@@ -13,6 +13,9 @@ class Reply
       mailbox:mailbox,
       customer:customer,
       agent:agent
+      
+    # TODO: Activity.new(request, agent).save
+    # Should be able to set activity from request.new_record?
   end
   
   def valid?

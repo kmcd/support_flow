@@ -3,5 +3,11 @@ class Message < ActiveRecord::Base
   belongs_to :request
   belongs_to :agent
   belongs_to :customer
-  serialize :content  # TODO: serialize as JSON
+  
+  # TODO: serialize Griddler::Email as JSON
+  serialize :content
+  
+  def sender
+    agent.present? ? agent : customer
+  end
 end

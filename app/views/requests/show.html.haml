@@ -1,57 +1,59 @@
 .request.row
   .col-md-9.col-md-offset-1
     %h2
-      = Faker::Hacker.say_something_smart
+      = @request.name
       
       %small
-        = "##{rand(4359..10_000).to_s}"
+        %i= "##{@request.id}"
         
-      %button.btn.btn-success
-        %span.glyphicon.glyphicon-ok-circle
-        Closed
-        
+      - if @request.open?
+        %button.btn.btn-danger
+          %span.glyphicon.glyphicon-exclamation-sign
+          Open
+      - else
+        %button.btn.btn-success
+          %span.glyphicon.glyphicon-ok-circle
+          Closed
+    
     .labels
-      %button.btn.btn-primary.btn-xs
-        = Faker::Commerce.department
+      - @request.tags.each do |tag|
+        %button.btn.btn-primary.btn-xs
+          = Faker::Commerce.department
         
-      %button.btn.btn-info.btn-xs
-        = Faker::Commerce.department
-      
-      %button.btn.btn-warning.btn-xs
-        = Faker::Commerce.department
-        
-      %button.btn.btn-xs
-        + Label
-     
     %br/
     
-    .btn-group
-      %button.btn.btn-default
-        Reply
-      %button.btn.btn-default
-        Open
-      %button.btn.btn-default
-        Status
-      %button.btn.btn-default
-        Merge
+    .actions.btn-group
+      - %w[ Reply Assign Label Rename Merge Close ].each {|_| default_button _ }
 
 %br/
 
 .request.row
-  - 10.times do
+
+  -# FIXME: change to request.activities
+  
+  - @request.messages.each do |message|
     .message
       .col-md-9.col-md-offset-1
         %a.pull-right{:href => '#'}
-          %img.img-rounded{:src => avatar }
+          %img.img-rounded{:src => message.sender.avatar }
           
         %h4
           %small
-            Opened on
-            %span.mark= '12 Dec 2015 20:37'
+            = description_for @request, message
+            on
+            %span.mark= message.created_at.to_s(:long)
             by
-          = link_to( Faker::Name.name, '#')
+          = link_to( message.sender.name, '#')
           
       .content.col-md-8.col-md-offset-1
         %blockquote
-          - rand(0..4).times do
-            %p= Faker::Lorem.paragraph
+          %p= message.content.body
+       
+.request.row
+  .actions.col-md-9.col-md-offset-1
+    .btn-group
+      - %w[ Reply Assign ].each {|_| default_button _ }
+        
+%br/
+%br/
+%br/

@@ -17,3 +17,17 @@ class ActiveSupport::TestCase
       from:'customer@example.org' }.merge!(options) )
   end
 end
+
+module CommandTestable
+  def execute(command, options={})
+    args = {
+      text:command,
+      to:%W[ request.#{@billing_enquiry.id}@getsupportflow.net ], 
+      from:@billing_enquiry.agent.email_address
+    }.merge! options
+    
+    command = Command.new Griddler::Email.new args
+    command.execute
+    command
+  end
+end
