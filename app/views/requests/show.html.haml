@@ -10,11 +10,17 @@
         %button.btn.btn-danger
           %span.glyphicon.glyphicon-exclamation-sign
           Open
+          
+        %small
+          &rarr;
+          = link_to @request.agent.email_address, agent_path(@request.agent), id:'assignee'
+            
       - else
         %button.btn.btn-success
           %span.glyphicon.glyphicon-ok-circle
           Closed
-    
+
+
     .labels
       - @request.tags.each do |tag|
         %button.btn.btn-primary.btn-xs
@@ -23,9 +29,12 @@
     %br/
     
     .actions.btn-group
-      - reply_button
+      .btn-group
+        - reply_button
+      .btn-group
+        - assign_button
         
-      - %w[ Assign Label Rename Merge Close ].each {|_| default_button _ }
+      - %w[ Label Rename Merge Close ].each {|_| default_button _ }
 
 %br/
 

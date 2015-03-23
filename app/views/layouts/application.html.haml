@@ -8,10 +8,13 @@
     = csrf_meta_tags
     %meta{ name:"viewport", content:"width=device-width, initial-scale=1" }
     
-    -# TODO: concatenate & minify assets using jammit, grunt
+    -# TODO: setup (jammit/grunt/bower) asset manager
     %script{:src => "/jquery-1.11.2.min.js"}
+    %script{:src => "/jquery-ui.min.js"}
+    %link{:href => "/jquery-ui.min.css", :rel => "stylesheet"}
     %link{:href => "/bootstrap.min.css", :rel => "stylesheet"}
     %script{:src => "/bootstrap.min.js"}
+    %script{:src => "/rails.js"}
     %link{:href => "/application.css", :rel => "stylesheet"}
     
   %body
@@ -29,14 +32,10 @@
               %span.badge
                 15
           
-          %li
-            = link_to 'Agents', agents_path
-          %li
-            = link_to 'Guides', guides_path
-          %li
-            = link_to 'Customers', customers_path
-          %li
-            = link_to 'Need help?', '/help'
+          %li= link_to 'Agents', agents_path
+          %li= link_to 'Customers', customers_path
+          %li= link_to 'Guides', guides_path
+          %li= link_to 'Need help?', '/help'
             
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown

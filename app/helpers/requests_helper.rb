@@ -9,14 +9,36 @@ module RequestsHelper
     haml_tag('button.btn.btn-default.btn-sm.') { haml_concat label }
   end
   
-  def reply_button
+  def dropdown_button(name)
     haml_tag('button.btn.btn-default.btn-sm.dropdown-toggle', 
       'data-toggle' => 'dropdown') do
-      haml_concat 'Reply'
+      haml_concat name
       haml_tag 'span.caret'
     end
-      
+    
     haml_tag 'ul.dropdown-menu' do
+      yield
+    end
+  end
+  
+  def assign_button
+    dropdown_button 'Assign' do
+      Team.first.agents.order(:email_address).each do |agent|
+        haml_tag('li') do
+          form = capture do
+            form_for(@request, class:'form-inline', remote:true, authenticity_token:true) do |form|
+              concat form.hidden_field(:agent_id, value:agent.id)
+              concat form.submit agent.email_address, class:'btn btn-link'
+            end
+          end
+          haml_concat form
+        end
+      end
+    end
+  end
+  
+  def reply_button
+    dropdown_button 'Reply' do
       haml_tag('li.dropdown-header') { haml_concat 'Customer' }
       
       haml_tag('li') do

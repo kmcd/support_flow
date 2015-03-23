@@ -7,16 +7,16 @@
 /public/guides
 /guides/search
 
-/customers      (stats)
+/customers      (stream, stats)
 /agents         (stream, stats)
-/agents/1       (stats)
-/customers/1
+/agents/1       (stream, stats, profile)
+/customers/1    (stream, stats, profile)
 
 /onboard        (demo/trial/paid)
   Authenticate  (google oauth)
   Authorise     (multi-tennant)
 
-/settings/mailboxes
+/settings/mailboxes (html view, attachments)
 /settings/billing
 
 == Installation

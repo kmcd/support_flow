@@ -12,11 +12,16 @@ class RequestsController < ApplicationController
 
   # PATCH/PUT /requests/1
   def update
-    if @request.update(request_params)
-      redirect_to @request, notice: 'Request was successfully updated.'
-    else
-      # FIXME: respond to error in-page
-      render :edit
+    # TODO: add error handling
+    
+    respond_to do |format|
+      if @request.update request_params
+        format.html do
+          redirect_to @request, notice: 'Request successfully updated.'
+        end
+        
+        format.js {}
+      end
     end
   end
 
@@ -29,6 +34,6 @@ class RequestsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def request_params
-    params[:request]
+    params.require(:request).permit :agent_id
   end
 end
