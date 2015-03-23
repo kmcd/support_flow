@@ -23,7 +23,9 @@
     %br/
     
     .actions.btn-group
-      - %w[ Reply Assign Label Rename Merge Close ].each {|_| default_button _ }
+      - reply_button
+        
+      - %w[ Assign Label Rename Merge Close ].each {|_| default_button _ }
 
 %br/
 
@@ -52,8 +54,7 @@
 .request.row
   .actions.col-md-9.col-md-offset-1
     .btn-group
-      - %w[ Reply Assign ].each {|_| default_button _ }
-        
+      - %w[ Reply Assign Label Close ].each {|_| default_button _ }
 
 %br/
 %br/

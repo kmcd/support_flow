@@ -10,19 +10,19 @@
           %h4.list-group-item-heading
             = link_to Faker::Hacker.say_something_smart, request_path(1)
             
-            %br/
-            
-            %button.btn.btn-primary.btn-xs
-              = Faker::Commerce.department
+            %small
+              = link_to Faker::Commerce.department, '#'
+              |
+              = link_to Faker::Commerce.department, '#'
+              &nbsp;
               
-            %button.btn.btn-info.btn-xs
-              = Faker::Commerce.department
-              
-            %button.btn.btn-warning.btn-xs
-              = Faker::Commerce.department
-              
-            %button.btn.btn-xs
-              + Label
+              - comments = rand(20)
+              - unless true
+                %a{:href => '#'}
+                  -# TODO: color based on activity
+                  %span.text-warning
+                    %span.glyphicon.glyphicon-comment
+                    = comments
               
           %span.text-muted
             Opened
@@ -35,7 +35,11 @@
             assigned to
             %a{:href => '#'}= Faker::Name.name
             
-          %a{:href => '#'}
-            %span.badge
-              %span.glyphicon.glyphicon-comment
-              = rand(20)
+            - comments = rand(20)
+            - unless comments == 0
+              &nbsp;
+              
+              %small
+                %a.text-muted{:href => '#'}
+                  %span.glyphicon.glyphicon-comment
+                  = comments

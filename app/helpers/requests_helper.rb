@@ -6,7 +6,64 @@ module RequestsHelper
   end
   
   def default_button(label)
-    haml_tag(:button, class:'btn btn-default') { haml_concat label }
+    haml_tag('button.btn.btn-default.btn-sm.') { haml_concat label }
+  end
+  
+  def reply_button
+    haml_tag('button.btn.btn-default.btn-sm.dropdown-toggle', 
+      'data-toggle' => 'dropdown') do
+      haml_concat 'Reply'
+      haml_tag 'span.caret'
+    end
+      
+    haml_tag 'ul.dropdown-menu' do
+      haml_tag('li.dropdown-header') { haml_concat 'Customer' }
+      
+      haml_tag('li') do
+        customer = @request.customer
+        haml_concat \
+          mail_to customer.email_address, customer.name,
+            :bcc      => "request.#{@request.id}@getsupportflow.net",
+            :subject  => "Re: #{@request.name}",
+            :body     => reply_template(customer.name)
+      end
+      
+      haml_tag('li.dropdown-header') { haml_concat 'Agents' }
+      
+      Team.first.agents.each do |agent|
+        haml_tag('li') do
+          haml_concat \
+            mail_to agent.email_address, agent.name,
+              :cc       => "request.#{@request.id}@getsupportflow.net",
+              :subject  => "Re: #{@request.name} [ Support Flow request##{@request.id} ]",
+              :body     => reply_template(agent.name, @request)
+        end
+      end
+      
+      haml_tag 'li.divider'
+      
+      haml_tag('li') do
+        haml_concat \
+          mail_to '', 'Blank',
+            :cc      => "request.#{@request.id}@getsupportflow.net",
+            :subject  => "Re: #{@request.name}",
+            :body     => reply_template('', @request)
+      end
+    end
+  end
+  
+  def reply_template(to, request=nil)
+    request_url = request && \
+      "https://getsupportflow.com/requests/#{request.id}" 
+    <<-MESSAGE.strip_heredoc
+    Hi #{to},
+    
+    #{request_url}
+    
+    Thanks,
+    
+    Keith
+    MESSAGE
   end
   
   def avatar(owner)
