@@ -7,6 +7,7 @@ gem 'textacular', '~> 3.0'
 gem 'griddler-mandrill'
 gem 'public_activity'
 gem 'delayed_job_active_record'
+gem 'acts-as-taggable-array-on'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

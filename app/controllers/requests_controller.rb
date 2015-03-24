@@ -8,20 +8,16 @@ class RequestsController < ApplicationController
 
   # GET /requests/1
   def show
+    @activities = @request.activities.order :created_at
+    message_ids = @activities.map {|_| _.parameters[:message_id] }.compact
+    @messages = Message.where(id:message_ids)
   end
 
   # PATCH/PUT /requests/1
   def update
     # TODO: add error handling
-    
-    respond_to do |format|
-      if @request.update request_params
-        format.html do
-          redirect_to @request, notice: 'Request successfully updated.'
-        end
-        
-        format.js {}
-      end
+    if @request.update request_params
+      @activity = Activity.create @request, @agent
     end
   end
 
@@ -30,6 +26,7 @@ class RequestsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_request
     @request = Request.first # Request.find(params[:id])
+    @agent = Agent.first # current_user
   end
 
   # Only allow a trusted parameter "white list" through.

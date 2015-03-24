@@ -5,8 +5,15 @@ class Activity
     @request, @owner = request, owner
   end
   
-  def tag(tags)
-    request.create_activity :tag, owner:owner, params:{tags:tags}
+  def self.create(request,owner)
+    if agent_id = request.previous_changes[:agent_id].try(&:last)
+      activity = new request:request,owner:owner
+      activity.assign Agent.find(agent_id)
+    end
+  end
+  
+  def label(labels)
+    request.create_activity :label, owner:owner, params:{labels:labels}
   end
   
   def assign(assignee=nil)

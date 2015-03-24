@@ -110,14 +110,15 @@ ActiveRecord::Schema.define(version: 20150319164338) do
     t.integer  "agent_id"
     t.integer  "customer_id",                null: false
     t.boolean  "open",        default: true
-    t.text     "tags",        default: [],                array: true
+    t.text     "labels",      array: true, default: '{}'
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
 
   add_index "requests", ["agent_id"], name: "index_requests_on_agent_id", using: :btree
   add_index "requests", ["customer_id"], name: "index_requests_on_customer_id", using: :btree
-
+  add_index "requests", ["labels"], name: "index_requests_on_labels", using: :gin
+    
   create_table "teams", force: :cascade do |t|
     t.string   "subdomain"
     t.string   "domain_name"

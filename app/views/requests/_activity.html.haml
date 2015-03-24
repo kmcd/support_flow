@@ -1,0 +1,20 @@
+.activity
+  .col-md-9.col-md-offset-1
+    %a.pull-right{:href => '#'}
+      %img.img-rounded{:src => avatar(activity.owner) }
+      
+    %p[activity]
+      %span.mark= time_day activity
+      %span.text-muted= month_year activity
+      &rArr;
+      = link_for activity.owner
+      
+      %span.text-muted
+        = description(activity).html_safe
+      
+  .content.col-md-8.col-md-offset-1
+    - if content = message_content(activity, @messages)
+      %blockquote
+        %p= content
+
+  %br/

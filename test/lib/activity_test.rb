@@ -35,15 +35,15 @@ class CommandActivityTest < ActiveSupport::TestCase
   end
   
   test "set agent from email sender" do
-    activity = command_activity "--tag billing"
+    activity = command_activity "--label billing"
     assert_equal @rachel, activity.owner
   end
   
-  test "tag" do
-    activity = command_activity "--tag billing"
+  test "label" do
+    activity = command_activity "--label billing"
     
-    assert_equal 'request.tag', activity.key
-    assert_equal({tags:'billing'}, activity.parameters)
+    assert_equal 'request.label', activity.key
+    assert_equal({labels:'billing'}, activity.parameters)
   end
   
   test "assign" do

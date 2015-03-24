@@ -7,7 +7,7 @@ require 'optparse'
 # --reply billing
 # Oh forgot to mention, call Peter for more assistance.
 # --assign joe
-# --tag billing, problem
+# --label billing, problem
 # --suggest
 # --report daily|weekly|team|agent
 # --claim
@@ -59,9 +59,9 @@ class Command
         activity.assign
       end
       
-      opts.on("-t", "--tag NAME") do |tags|
-        request.tag_with tags
-        activity.tag tags
+      opts.on("-t", "--label NAME") do |labels|
+        request.label_with labels
+        activity.label labels
       end
     end.parse! options
     

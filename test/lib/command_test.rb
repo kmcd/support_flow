@@ -18,29 +18,29 @@ end
 class TagCommandTest < ActiveSupport::TestCase
   include CommandTestable
   
-  test "single tag" do
-    execute "--tag billing"
-    assert_equal %w[ billing ], @billing_enquiry.reload.tags
+  test "single label" do
+    execute "--label billing"
+    assert_equal %w[ billing ], @billing_enquiry.reload.labels
   end
   
-  test "multiple tag" do
-    execute  "--tag billing urgent"
-    assert_equal %w[ billing urgent ], @billing_enquiry.reload.tags
+  test "multiple label" do
+    execute  "--label billing urgent"
+    assert_equal %w[ billing urgent ], @billing_enquiry.reload.labels
   end
   
-  test "multiple tags with commas" do
-    execute "--tag billing, urgent"
-    assert_equal %w[ billing urgent ], @billing_enquiry.reload.tags
+  test "multiple labels with commas" do
+    execute "--label billing, urgent"
+    assert_equal %w[ billing urgent ], @billing_enquiry.reload.labels
   end
   
-  test "multiple tags over single line" do
-    execute  "--tag billing --tag urgent"
-    assert_equal %w[ billing urgent ], @billing_enquiry.reload.tags
+  test "multiple labels over single line" do
+    execute  "--label billing --label urgent"
+    assert_equal %w[ billing urgent ], @billing_enquiry.reload.labels
   end
   
-  test "multiple tags over multiple lines" do
-    execute "--tag billing\n Foo\n --tag urgent"
-    assert_equal %w[ billing urgent ], @billing_enquiry.reload.tags
+  test "multiple labels over multiple lines" do
+    execute "--label billing\n Foo\n --label urgent"
+    assert_equal %w[ billing urgent ], @billing_enquiry.reload.labels
   end
 end
 
@@ -111,11 +111,11 @@ class InvalidCommandTest < ActiveSupport::TestCase
   end
   
   test "ingore previous commands in reply section" do
-    [ "\n-- Reply ABOVE THIS LINE --\n--tag bug",
-      "\n-- On 2010-01-01 12:00:00 Tristan wrote: --\n--tag bug"
+    [ "\n-- Reply ABOVE THIS LINE --\n--label bug",
+      "\n-- On 2010-01-01 12:00:00 Tristan wrote: --\n--label bug"
     ].each do |reply_format|
       command = execute reply_format
-      assert_empty @billing_enquiry.tags, reply_format
+      assert_empty @billing_enquiry.labels, reply_format
     end
   end
 end

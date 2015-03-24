@@ -4,6 +4,7 @@ class Request < ActiveRecord::Base
   belongs_to :customer
   has_many :messages, dependent: :destroy
   belongs_to :team
+  acts_as_taggable_array_on :labels
   
   def assign_from(name_or_email)
     return unless assignee = team.agents.
@@ -13,23 +14,15 @@ class Request < ActiveRecord::Base
     update_attributes agent:assignee
   end
   
-  # TODO: replace with https://github.com/tmiyamon/acts-as-taggable-array-on
-    before_save :ensure_unique_tags
+  def label_with(label_list, seperator=/(\s|,)/)
+    self.labels += label_list.
+      split(seperator).
+      reject {|_| _[seperator] || _.blank? }
+    save!
+  end
     
-    def tag_with(tag_list)
-      seperator = /(\s|,)/
-      tags << tag_list.
-        split(seperator).
-        reject {|_| _[seperator] || _.blank? }
-      save!
-    end
-    
-    def ensure_unique_tags
-      return unless tags_changed?
-      self.tags = tags.flatten.map(&:downcase).uniq
-    end
-  
   def name
-    messages.first.content.subject # FIXME: extract name from subject
+    # FIXME: extract name from subject & set field
+    messages.first.content.subject 
   end
 end

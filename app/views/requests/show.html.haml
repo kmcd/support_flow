@@ -11,59 +11,43 @@
           %span.glyphicon.glyphicon-exclamation-sign
           Open
           
-        %small
-          &rarr;
-          = link_to @request.agent.email_address, agent_path(@request.agent), id:'assignee'
-            
       - else
         %button.btn.btn-success
           %span.glyphicon.glyphicon-ok-circle
           Closed
+          
+      %small
+        &rarr;
+        = link_to @request.agent.email_address, agent_path(@request.agent), id:'assignee'
 
 
     .labels
-      - @request.tags.each do |tag|
+      - @request.labels.each do |label|
         %button.btn.btn-primary.btn-xs
-          = tag
+          = label
         
     %br/
     
     .actions.btn-group
-      .btn-group
-        - reply_button
-      .btn-group
-        - assign_button
+      - reply_button
+      - assign_button
+      - label_button
         
-      - %w[ Label Rename Merge Close ].each {|_| default_button _ }
+      - %w[ Rename Merge Close ].each {|_| default_button _ }
 
 %br/
 
-.request.row
-  - @request.activities.order(:created_at).each do |activity|
-    .message
-      .col-md-9.col-md-offset-1
-        %a.pull-right{:href => '#'}
-          %img.img-rounded{:src => avatar(activity.owner) }
-          
-        %p
-          %span.mark= timestamp activity
-          = link_for activity.owner
-          
-          %span.text-muted
-            = description(activity).html_safe
-          
-      .content.col-md-8.col-md-offset-1
-        - if activity.parameters[:message_id].present?
-          %blockquote
-            %p
-              = Message.find(activity.parameters[:message_id]).content.body
-
-    %br/
+.request.row.activities
+  = render partial:'activity', collection:@activities
     
 .request.row
   .actions.col-md-9.col-md-offset-1
     .btn-group
-      - %w[ Reply Assign Label Close ].each {|_| default_button _ }
+      - reply_button
+      - assign_button
+      - label_button
+      
+      - %w[ Close ].each {|_| default_button _ }
 
 %br/
 %br/

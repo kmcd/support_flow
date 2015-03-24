@@ -15,4 +15,4 @@ command:
   <<: *DEFAULTS
   request: billing_enquiry
   agent: rachel
-  content: --tag billing
+  content: --label billing

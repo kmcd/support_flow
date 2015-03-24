@@ -5,19 +5,26 @@ module RequestsHelper
       rand(1..60).to_s  + 'm' ].join ' '
   end
   
+  def message_content(activity, messages)
+    return unless message_id = activity.parameters[:message_id]
+    messages.find {|_| _.id == message_id }.content.body
+  end
+  
   def default_button(label)
     haml_tag('button.btn.btn-default.btn-sm.') { haml_concat label }
   end
   
   def dropdown_button(name)
-    haml_tag('button.btn.btn-default.btn-sm.dropdown-toggle', 
-      'data-toggle' => 'dropdown') do
-      haml_concat name
-      haml_tag 'span.caret'
-    end
-    
-    haml_tag 'ul.dropdown-menu' do
-      yield
+    haml_tag '.btn-group' do
+      haml_tag('button.btn.btn-default.btn-sm.dropdown-toggle', 
+        'data-toggle' => 'dropdown') do
+        haml_concat name
+        haml_tag 'span.caret'
+      end
+      
+      haml_tag 'ul.dropdown-menu' do
+        yield
+      end
     end
   end
   
@@ -74,6 +81,21 @@ module RequestsHelper
     end
   end
   
+  def label_button
+    dropdown_button 'Label' do
+      Request.all_labels.each do |label|
+        haml_tag :li do
+          haml_concat link_to label, '#'
+        end
+      end
+      
+      haml_tag 'li.divider'
+      haml_tag :li do
+        haml_concat link_to 'Add new label', '#'
+      end
+    end
+  end
+  
   def reply_template(to, request=nil)
     request_url = request && \
       "https://getsupportflow.com/requests/#{request.id}" 
@@ -92,21 +114,25 @@ module RequestsHelper
     owner && owner.avatar
   end
   
-  # TODO: render (_open, _reply, ... ) partials instead
   def description(activity)
+    # TODO: render haml from opened_request(activity) etc.
     case activity.key
-    when /request\.open/    ; "opened request"
-    when /request\.reply/   ; "replied to X"
-    when /request\.assign/  ; "assigned request to #{assignee(activity)}"
-    when /request\.tag/     ; "tagged request as #{tagged(activity)}"
-    when /request\.close/   ; "closed request"
+      when /request\.open/    ; "opened request"
+      when /request\.reply/   ; "replied to X"
+      when /request\.assign/  ; "assigned request to #{assignee(activity)}"
+      when /request\.label/   ; "labelled request as #{labelled(activity)}"
+      when /request\.close/   ; "closed request"
     else
       activity.key
     end
   end
   
-  def timestamp(activity)
-    activity.created_at.to_s(:long)
+  def time_day(activity)
+    activity.created_at.strftime "%H:%M %a"
+  end
+  
+  def month_year(activity)
+    activity.created_at.strftime "%b %d %Y"
   end
   
   def link_for(owner)
@@ -120,8 +146,11 @@ module RequestsHelper
     link_to agent.name, agent_path(agent)
   end
   
-  def tagged(activity)
-    # FIXME: render tags & colored buttons
-    activity.parameters[:tags].split(/(,|\s)/).flatten.join ','
+  def labelled(activity)
+    labels = activity.parameters[:labels].split(/(,|\s)/).flatten
+    
+    labels.map do |label|
+      capture_haml { haml_tag 'button.btn.btn-primary.btn-xs', label }
+    end.join ' '
   end
 end

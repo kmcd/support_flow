@@ -43,7 +43,7 @@ namespace :db do
       to:"request.#{request.id}@getsupportflow.com"
     
     create_message \
-      body:'--tag billing',
+      body:'--label billing',
       from:rachel.email_address,
       to:"request.#{request.id}@getsupportflow.com"
       

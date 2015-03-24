@@ -16,7 +16,7 @@
   Authenticate  (google oauth)
   Authorise     (multi-tennant)
 
-/settings/mailboxes (html view, attachments)
+/settings/mailboxes (replies, html view, attachments)
 /settings/billing
 
 == Installation
