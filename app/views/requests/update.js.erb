@@ -6,7 +6,5 @@
 <% end %>
 
 <% if @request.previous_changes[:labels] %>
-  $('#assignee').text("<%= @request.agent.email_address %>");
-  $("#assignee").effect("highlight", "", 3000);
-  <%-# TODO: update request timeline %>
+  $("div.labels span.labels").html("<%= escape_javascript render(partial:'label', collection:@request.labels) %>")
 <% end %>

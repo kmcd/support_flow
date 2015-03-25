@@ -14,9 +14,10 @@ module RequestsHelper
     haml_tag('button.btn.btn-default.btn-sm.') { haml_concat label }
   end
   
-  def dropdown_button(name)
+  # TODO: move buttons to partials
+  def dropdown_button(name, button_type="default")
     haml_tag '.btn-group' do
-      haml_tag('button.btn.btn-default.btn-sm.dropdown-toggle', 
+      haml_tag("button.btn.btn-#{button_type}.btn-sm.dropdown-toggle", 
         'data-toggle' => 'dropdown') do
         haml_concat name
         haml_tag 'span.caret'
@@ -81,17 +82,33 @@ module RequestsHelper
     end
   end
   
+  def team_labels
+    @team_labels ||= Request.all_labels
+  end
+  
   def label_button
-    dropdown_button 'Label' do
-      Request.all_labels.each do |label|
+    render('label') && return if team_labels.empty?
+    
+    new_request_labels =  team_labels - @request.labels
+      
+    dropdown_button 'Label', 'link' do
+      new_request_labels.each do |label|
         haml_tag :li do
-          haml_concat link_to label, '#'
+          form = capture do
+            form_for(@request, class:'hide', remote:true,
+              authenticity_token:true) do |form|
+              concat form.hidden_field(:label, value:label)
+            end
+          end
+          haml_concat form
+          
+          haml_concat link_to(label, '#', 'data-form' => "#edit_request_#{@request.id}")
         end
       end
       
       haml_tag 'li.divider'
       haml_tag :li do
-        haml_concat link_to 'Add new label', '#'
+        haml_concat link_to 'Add a new Label', '#'
       end
     end
   end
@@ -148,7 +165,6 @@ module RequestsHelper
   
   def labelled(activity)
     labels = activity.parameters[:labels].split(/(,|\s)/).flatten
-    
     labels.map do |label|
       capture_haml { haml_tag 'button.btn.btn-primary.btn-xs', label }
     end.join ' '

@@ -1,0 +1,9 @@
+%button.btn.btn-primary.btn-xs
+  = label
+  
+= form_for(@request, remote:true, authenticity_token:true, html:{class:'remove-label form-inline'}) do |form|
+  = form.hidden_field :label, value:"-#{label}"
+  
+  %button.remove.btn.btn-link.btn-sm
+    %small
+      %span.glyphicon.glyphicon-remove.text-danger

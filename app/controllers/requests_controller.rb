@@ -31,6 +31,6 @@ class RequestsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def request_params
-    params.require(:request).permit :agent_id
+    params.require(:request).permit :agent_id, :label
   end
 end

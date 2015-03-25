@@ -1,12 +1,52 @@
-nav.navbar { border: 0; border-radius: 0; }
-.navbar-right { margin-right: 0; }
-.navbar .badge { padding-left: 5px; }
-.list-group-item { border: thin solid white; margin-bottom: 1em; 
-  padding-left: 0; }
-.list-group-item-heading > a { color: black; }
-.list-group-item-heading > a:hover { color: blue;  }
-.img-rounded, .img-thumbnail { max-height: 40px; }
-.content blockquote { border-left: thin solid whitesmoke; }
-.content blockquote { font-family: courier; font-size: 1em; }
+.content blockquote { 
+  border-left: thin solid whitesmoke;
+  font-family: courier; font-size: 1em;
+}
 
-/* div { border: thin solid red; } */
+/* TODO: rename to form.label.create, form.label.destroy */
+form.add-label, form.remove-label {
+  display: inline-block;
+}
+
+form.remove-label button.remove {
+  padding-left: 0;
+  padding-right: 5px;
+}
+
+.img-rounded, .img-thumbnail { 
+  max-height: 40px; 
+}
+
+.labels.row span.labels {
+  line-height: 3em;
+}
+
+.labels.row form.add-label {
+  margin-bottom: 1em;
+}
+
+.list-group-item { 
+  border: thin solid white; 
+  margin-bottom: 1em; 
+  padding-left: 0; 
+}
+
+.list-group-item-heading > a { 
+  color: black; 
+}
+
+.list-group-item-heading > a:hover { 
+  color: blue;  
+}
+
+.navbar .badge {
+  padding-left: 5px; 
+}
+
+.navbar-right { 
+  margin-right: 0; 
+}
+
+nav.navbar { 
+  border: 0; border-radius: 0; 
+}

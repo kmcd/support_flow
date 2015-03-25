@@ -1,0 +1,13 @@
+= form_for(@request, remote:true, authenticity_token:true, html:{class:'add-label form-inline hide'}) do |form|
+  .form-group
+    .input-group.input-group-sm
+      = form.text_field :label, value:nil, class:'form-control'
+      
+      %span.input-group-btn
+        %button.btn.btn-default
+          Add Label
+        %button.cancel.btn.btn-default
+          Cancel
+      
+%button.add-label.btn.btn-sm.btn-link
+  Add Label

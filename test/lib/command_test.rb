@@ -25,12 +25,7 @@ class TagCommandTest < ActiveSupport::TestCase
   
   test "multiple label" do
     execute  "--label billing urgent"
-    assert_equal %w[ billing urgent ], @billing_enquiry.reload.labels
-  end
-  
-  test "multiple labels with commas" do
-    execute "--label billing, urgent"
-    assert_equal %w[ billing urgent ], @billing_enquiry.reload.labels
+    assert_equal ['billing urgent'], @billing_enquiry.reload.labels
   end
   
   test "multiple labels over single line" do

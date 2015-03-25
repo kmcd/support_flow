@@ -14,11 +14,14 @@ class Request < ActiveRecord::Base
     update_attributes agent:assignee
   end
   
-  def label_with(label_list, seperator=/(\s|,)/)
-    self.labels += label_list.
-      split(seperator).
-      reject {|_| _[seperator] || _.blank? }
-    save!
+  def label=(label)
+    return if label.gsub(/\W/,'').blank?
+    
+    self.labels = if label[/\A\-/]
+      self.labels - [ label.gsub(/\A\-/,'') ]
+    else
+      self.labels | [label]
+    end
   end
     
   def name

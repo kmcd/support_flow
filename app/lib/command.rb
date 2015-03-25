@@ -60,7 +60,7 @@ class Command
       end
       
       opts.on("-t", "--label NAME") do |labels|
-        request.label_with labels
+        request.update label:labels
         activity.label labels
       end
     end.parse! options

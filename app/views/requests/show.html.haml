@@ -1,5 +1,5 @@
 .request.row
-  .col-md-9.col-md-offset-1
+  .col-md-offset-1.col-md-9
     %h2
       = @request.name
       
@@ -21,23 +21,22 @@
         = link_to @request.agent.email_address, agent_path(@request.agent), id:'assignee'
 
 
-    .labels
-      - @request.labels.each do |label|
-        %button.btn.btn-primary.btn-xs
-          = label
-        
-    %br/
-    
-    .actions.btn-group
+.labels.row
+  .col-md-offset-1.col-md-9
+    %span.labels= render partial:'label', collection:@request.labels
+    = render partial:'label_create'
+
+.actions.row
+  .col-md-9.col-md-offset-1
+    .btn-group
       - reply_button
       - assign_button
-      - label_button
         
       - %w[ Rename Merge Close ].each {|_| default_button _ }
 
 %br/
 
-.request.row.activities
+.activities.row
   = render partial:'activity', collection:@activities
     
 .request.row
@@ -45,9 +44,5 @@
     .btn-group
       - reply_button
       - assign_button
-      - label_button
       
       - %w[ Close ].each {|_| default_button _ }
-
-%br/
-%br/

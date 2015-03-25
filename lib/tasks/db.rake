@@ -64,7 +64,7 @@ namespace :db do
     # Open request
     
     # Open tabs
-    `open http://localhost:3000/requests/#{request.id}`
+    # `open http://localhost:3000/requests/#{request.id}`
   end
 end
 
