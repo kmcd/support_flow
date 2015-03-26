@@ -21,8 +21,8 @@ form.remove-label button.remove {
   line-height: 3em;
 }
 
-.labels.row form.add-label {
-  margin-bottom: 1em;
+.actions.row {
+  margin-top: 0.6em;
 }
 
 .list-group-item { 

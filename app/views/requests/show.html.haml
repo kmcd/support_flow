@@ -1,7 +1,8 @@
 .request.row
   .col-md-offset-1.col-md-9
     %h2
-      = @request.name
+      %span.name
+        = @request.name
       
       %small
         %i= "##{@request.id}"
@@ -31,7 +32,10 @@
     .btn-group
       - reply_button
       - assign_button
-        
+      
+      %button.add-label.btn.btn-sm.btn-default
+        Add Label
+      
       - %w[ Rename Merge Close ].each {|_| default_button _ }
 
 %br/
