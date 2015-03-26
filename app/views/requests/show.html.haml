@@ -9,15 +9,7 @@
       %small
         %i= "##{@request.id}"
         
-      - if @request.open?
-        %button.btn.btn-danger
-          %span.glyphicon.glyphicon-exclamation-sign
-          Open
-          
-      - else
-        %button.btn.btn-success
-          %span.glyphicon.glyphicon-ok-circle
-          Closed
+      %span.status= render 'status'
           
       %small
         &rarr;
@@ -36,12 +28,18 @@
       - assign_button
       
       %button.add-label.btn.btn-sm.btn-default
-        Add Label
+        Label
         
       %button.name-edit.btn.btn-sm.btn-default
         Rename
-      
-      - %w[ Merge Close ].each {|_| default_button _ }
+        
+      %button.name-edit.btn.btn-sm.btn-default
+        Merge
+        
+      %button.status.btn.btn-sm.btn-default
+        = @request.open? ? 'Close' : 'Open'
+        
+    = render 'status_update'
 
 %br/
 
@@ -54,4 +52,5 @@
       - reply_button
       - assign_button
       
-      - %w[ Close ].each {|_| default_button _ }
+      %button.btn.btn-sm.btn-default
+        Close

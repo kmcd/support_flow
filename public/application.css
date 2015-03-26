@@ -4,7 +4,7 @@
 }
 
 /* TODO: rename to form.label.create, form.label.destroy */
-form.add-label, form.remove-label, form.name-edit {
+form.add-label, form.remove-label, form.name-edit, form.close {
   display: inline-block;
 }
 
@@ -15,10 +15,6 @@ form.remove-label button.remove {
 
 .img-rounded, .img-thumbnail { 
   max-height: 40px; 
-}
-
-.labels.row span.labels {
-  line-height: 3em;
 }
 
 .actions.row {

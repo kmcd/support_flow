@@ -14,3 +14,9 @@
   $(".request.row .name").toggle()
   $(".request.row form.name-edit").addClass('hide')
 <% end %>
+
+<% if @request.previous_changes[:open] %>
+  $(".actions.row button.status").text("<%= escape_javascript(@request.open? ? 'Close' : 'Open') %>")
+  $(".request.row span.status").html("<%= escape_javascript render('status') %>")
+  $("form.status").replaceWith("<%= escape_javascript render('status_update') %>")
+<% end %>

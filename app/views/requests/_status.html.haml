@@ -1,0 +1,9 @@
+- if @request.open?
+  %button.btn.btn-danger
+    %span.glyphicon.glyphicon-exclamation-sign
+    Open
+    
+- else
+  %button.btn.btn-success
+    %span.glyphicon.glyphicon-ok-circle
+    Closed

@@ -1,0 +1,2 @@
+= form_for(@request, remote:true, authenticity_token:true, html:{class:'status hide'}) do |form|
+  = form.hidden_field :open, value:!@request.open?

@@ -21,4 +21,8 @@ $(function() {
       $(".request.row .name").toggle()
       $(".request.row form.name-edit").addClass('hide')
   })
+  
+  $('button.status').click( function() {
+      $("form.status").submit()
+  })
 });

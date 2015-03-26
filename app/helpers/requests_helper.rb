@@ -10,10 +10,6 @@ module RequestsHelper
     messages.find {|_| _.id == message_id }.content.body
   end
   
-  def default_button(label)
-    haml_tag('button.btn.btn-default.btn-sm') { haml_concat label }
-  end
-  
   # TODO: move buttons to partials
   def dropdown_button(name, button_type="default")
     haml_tag '.btn-group' do
