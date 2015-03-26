@@ -23,9 +23,4 @@ class Request < ActiveRecord::Base
       self.labels | [label]
     end
   end
-    
-  def name
-    # FIXME: extract name from subject & set field
-    messages.first.content.subject 
-  end
 end

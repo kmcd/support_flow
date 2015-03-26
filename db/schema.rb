@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20150319164338) do
     t.integer  "team_id",                    null: false
     t.integer  "agent_id"
     t.integer  "customer_id",                null: false
+    t.string   "name"
     t.boolean  "open",        default: true
     t.text     "labels",      array: true, default: '{}'
     t.datetime "created_at",                 null: false

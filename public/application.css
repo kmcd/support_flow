@@ -4,7 +4,7 @@
 }
 
 /* TODO: rename to form.label.create, form.label.destroy */
-form.add-label, form.remove-label {
+form.add-label, form.remove-label, form.name-edit {
   display: inline-block;
 }
 

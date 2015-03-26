@@ -4,6 +4,8 @@
       %span.name
         = @request.name
       
+      = render 'name_edit'
+        
       %small
         %i= "##{@request.id}"
         
@@ -35,8 +37,11 @@
       
       %button.add-label.btn.btn-sm.btn-default
         Add Label
+        
+      %button.name-edit.btn.btn-sm.btn-default
+        Rename
       
-      - %w[ Rename Merge Close ].each {|_| default_button _ }
+      - %w[ Merge Close ].each {|_| default_button _ }
 
 %br/
 

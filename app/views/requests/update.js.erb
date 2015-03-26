@@ -8,3 +8,9 @@
 <% if @request.previous_changes[:labels] %>
   $("div.labels span.labels").html("<%= escape_javascript render(partial:'label', collection:@request.labels) %>")
 <% end %>
+
+<% if @request.previous_changes[:name] %>
+  $(".request.row .name").text("<%= escape_javascript @request.name %>")
+  $(".request.row .name").toggle()
+  $(".request.row form.name-edit").addClass('hide')
+<% end %>

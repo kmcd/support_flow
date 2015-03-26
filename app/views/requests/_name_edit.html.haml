@@ -1,0 +1,10 @@
+= form_for(@request, remote:true, authenticity_token:true, html:{class:'name-edit form-inline hide'}) do |form|
+  .form-group
+    .input-group.input-group-sm
+      = form.text_field :name, class:'form-control'
+      
+      %span.input-group-btn
+        %button.btn.btn-default{type:'submit'}
+          Rename
+        %button.cancel.btn.btn-default{type:'button'}
+          Cancel
