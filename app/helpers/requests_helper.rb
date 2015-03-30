@@ -165,4 +165,8 @@ module RequestsHelper
       capture_haml { haml_tag 'button.btn.btn-primary.btn-xs', label }
     end.join ' '
   end
+  
+  def show_merge?(request)
+    cookies["merge_request_#{request.id}"] == 'true'
+  end
 end

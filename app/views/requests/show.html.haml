@@ -48,7 +48,8 @@
     = render 'status_update'
     
     .merge.requests
-
+      = render('merges/new') if show_merge?(@request)
+    
 %br/
 
 .activities.row

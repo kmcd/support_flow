@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :guides
   
   resources :requests, only: %i[ index show update ] do
-    resource  :merge, only: %i[ new create ]
+    resource :merge, only: %i[ new create destroy ]
   end
   
   namespace :settings do

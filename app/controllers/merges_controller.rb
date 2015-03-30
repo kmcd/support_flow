@@ -1,9 +1,9 @@
 class MergesController < ApplicationController
-  before_action :set_request, only: [:new, :create]
+  before_action :set_request, only: %i[ new create destroy ]
 
   # GET /merge/1
   def new
-    @customer_requests = @request.customer.requests.where.not id:@request.id
+    cookies[ "merge_request_#{@request.id}"] = true
   end
 
   # POST /merge/1
@@ -11,7 +11,13 @@ class MergesController < ApplicationController
     @merged_request = Request.find params[:merge_request_id]
     Merge.new(@merged_request, @request).save
     
+    cookies[ "merge_request_#{@request.id}"] = false
     redirect_to request_path(@merged_request)
+  end
+  
+  def destroy
+    cookies[ "merge_request_#{@request.id}"] = false
+    redirect_to request_path(@request)
   end
   
   private
