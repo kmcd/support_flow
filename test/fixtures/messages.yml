@@ -16,3 +16,7 @@ command:
   request: billing_enquiry
   agent: rachel
   content: --label billing
+  
+duplicate:
+  <<: *DEFAULTS
+  request: duplicate_enquiry

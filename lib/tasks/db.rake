@@ -18,7 +18,6 @@ namespace :db do
   
   desc "Populate for UI development"
   task ui: [:environment, 'db:schema:load', 'db:fixtures:load'] do
-    Request.delete_all
     rachel = Agent.first
     peldi = Customer.first
     
@@ -28,7 +27,7 @@ namespace :db do
       from:peldi.email_address,
       to:rachel.team.mailboxes.first.email_address
     
-    request = Request.first
+    request = Request.last
     
     create_message \
       body:"We're on it Peldi :)",

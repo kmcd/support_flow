@@ -25,4 +25,8 @@ $(function() {
   $('button.status').click( function() {
       $("form.status").submit()
   })
+  
+  $('button.merge').click( function() {
+      $.get( "/requests/" + $(this).data('request') + "/merge/new" )
+  })
 });

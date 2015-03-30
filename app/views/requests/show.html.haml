@@ -7,12 +7,17 @@
       = render 'name_edit'
         
       %small
-        %i= "##{@request.id}"
+        %small
+          %i= "##{@request.id}"
         
-      %span.status= render 'status'
+        %br/
+        
+        %span.status
+          = render 'status'
+        
+        %small
+          and assigned to
           
-      %small
-        &rarr;
         = link_to @request.agent.email_address, agent_path(@request.agent), id:'assignee'
 
 
@@ -33,24 +38,27 @@
       %button.name-edit.btn.btn-sm.btn-default
         Rename
         
-      %button.name-edit.btn.btn-sm.btn-default
-        Merge
+      - unless @request.customer.requests.one?
+        %button.merge.btn.btn-sm.btn-default{'data-request' => @request.id}
+          Merge
         
       %button.status.btn.btn-sm.btn-default
         = @request.open? ? 'Close' : 'Open'
         
     = render 'status_update'
+    
+    .merge.requests
 
 %br/
 
 .activities.row
   = render partial:'activity', collection:@activities
-    
-.request.row
-  .actions.col-md-9.col-md-offset-1
+   
+.actions.row
+  .col-md-9.col-md-offset-1
     .btn-group
       - reply_button
       - assign_button
       
-      %button.btn.btn-sm.btn-default
-        Close
+      %button.status.btn.btn-sm.btn-default
+        = @request.open? ? 'Close' : 'Open'

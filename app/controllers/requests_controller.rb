@@ -20,12 +20,13 @@ class RequestsController < ApplicationController
       @activity = Activity.create @request, @agent
     end
   end
-
+  
   private
   
   # Use callbacks to share common setup or constraints between actions.
   def set_request
-    @request = Request.first # Request.find(params[:id])
+    # TODO: app layout 404 instead of exception
+    @request = Request.find params[:id]
     @agent = Agent.first # current_user
   end
 

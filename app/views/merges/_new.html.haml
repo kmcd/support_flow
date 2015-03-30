@@ -1,0 +1,8 @@
+= form_tag(request_merge_path(@request), method: :post) do
+  - @customer_requests.each do |request|
+    %span= request.name || "##{request.id}"
+    = radio_button_tag :merge_request_id, request.id
+    %br/
+    
+  %button
+    Merge

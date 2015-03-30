@@ -1,6 +1,6 @@
 = Backlog
 
-/requests/1     (actions)
+/requests/1     (actions, email rendering)
 /requests       (agent search)
 
 /guides

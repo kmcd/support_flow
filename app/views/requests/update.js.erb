@@ -2,7 +2,6 @@
   $('#assignee').text("<%= @request.agent.email_address %>");
   $("#assignee").effect("highlight", "", 3000);
   $(".activities").append("<%= escape_javascript render(partial:'activity', object:@activity) %>");
-  $("#public_activity_activity_<%= @activity.id %>").effect("highlight", "", 3000);
 <% end %>
 
 <% if @request.previous_changes[:labels] %>

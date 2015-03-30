@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-  resources :requests,  only: %i[ index show update ]
   resources :agents,    only: %i[ index show update ]
   resources :customers, only: %i[ index show update ]
   resources :guides
   
+  resources :requests, only: %i[ index show update ] do
+    resource  :merge, only: %i[ new create ]
+  end
+  
   namespace :settings do
-    resource :billing
-    resources :mailbox
+    resource :billing, only: %i[ show update ]
+    resources :mailboxes
   end
   
   get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
