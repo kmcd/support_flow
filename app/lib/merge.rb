@@ -8,6 +8,8 @@ class Merge
   def save
     duplicate.messages.update_all request_id:@original.id
     duplicate.activities.update_all trackable_id:@original.id
+    original.labels += duplicate.labels
+    original.save!
     duplicate.destroy!
   end
 end

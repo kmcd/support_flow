@@ -30,4 +30,13 @@ class MergeTest < ActiveSupport::TestCase
     
     assert_equal [activity], @billing_enquiry.reload.activities
   end
+  
+  test "merge labels" do
+    @billing_enquiry.update_attribute :labels, %w[ billing ]
+    @duplicate_enquiry.update_attribute :labels, %w[ pending ]
+    merge = Merge.new @billing_enquiry, @duplicate_enquiry
+    merge.save
+    
+    assert_equal %w[ billing pending ], @billing_enquiry.reload.labels
+  end
 end
