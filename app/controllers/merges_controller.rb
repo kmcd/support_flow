@@ -10,6 +10,7 @@ class MergesController < ApplicationController
   def create
     @merged_request = Request.find params[:merge_request_id]
     Merge.new(@merged_request, @request).save
+    Activity.new(request:@merged_request, owner:@agent).merge @request
     
     cookies[ "merge_request_#{@request.id}"] = false
     redirect_to request_path(@merged_request)

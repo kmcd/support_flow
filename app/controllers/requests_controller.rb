@@ -17,7 +17,8 @@ class RequestsController < ApplicationController
   def update
     # TODO: add error handling
     if @request.update request_params
-      @activity = Activity.create @request, @agent
+      Activity.create @request, @agent
+      @activity = @request.activities.order(:created_at).last
     end
   end
   

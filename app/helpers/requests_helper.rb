@@ -6,6 +6,7 @@ module RequestsHelper
   end
   
   def message_content(activity, messages)
+    return unless messages
     return unless message_id = activity.parameters[:message_id]
     messages.find {|_| _.id == message_id }.content.body
   end
@@ -127,6 +128,7 @@ module RequestsHelper
     owner && owner.avatar
   end
   
+  # TODO: move (activity) methods to ActivityView
   def description(activity)
     # TODO: render haml from opened_request(activity) etc.
     case activity.key
@@ -135,6 +137,8 @@ module RequestsHelper
       when /request\.assign/  ; "assigned request to #{assignee(activity)}"
       when /request\.label/   ; "labelled request as #{labelled(activity)}"
       when /request\.close/   ; "closed request"
+      when /request\.rename/  ; "renamed request as #{renamed(activity)}"
+      when /request\.merge/   ; "merged request #{merged(activity)}"
     else
       activity.key
     end
@@ -164,6 +168,17 @@ module RequestsHelper
     labels.map do |label|
       capture_haml { haml_tag 'button.btn.btn-primary.btn-xs', label }
     end.join ' '
+  end
+  
+  def renamed(activity)
+    capture_haml { haml_tag 'i', activity.parameters[:name] }
+  end
+  
+  def merged(activity)
+    capture_haml do 
+      haml_tag 'i', "##{activity.parameters[:request_id]}"
+      haml_tag 'strong', activity.parameters[:request_name]
+    end
   end
   
   def show_merge?(request)

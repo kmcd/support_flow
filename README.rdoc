@@ -1,6 +1,6 @@
 = Backlog
 
-/requests/1     (actions, email rendering)
+/requests/1     (activity stream)
 /requests       (agent search)
 
 /guides
@@ -12,11 +12,12 @@
 /agents/1       (stream, stats, profile)
 /customers/1    (stream, stats, profile)
 
+/settings/mailboxes (replies, html view, attachments)
+
 /onboard        (demo/trial/paid)
   Authenticate  (google oauth)
   Authorise     (multi-tennant)
 
-/settings/mailboxes (replies, html view, attachments)
 /settings/billing
 
 == Installation
