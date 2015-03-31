@@ -1,13 +1,25 @@
-= form_tag(request_merge_path(@request), method: :post) do
-  .form-group
-    - customer_requests.each do |request|
-      .radio
-        %label
-          = radio_button_tag :merge_request_id, request.id
-          = link_to (request.name || "##{request.id}"), request_path(request)
-    
-  .btn-group
-    %button.btn.btn-default
+%br/
+
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title 
       Merge
+      = @request.name
       
-    = link_to 'Cancel', request_merge_path(@request), method: :delete, class:'btn btn-default'
+      %span
+        %small.text-danger
+          &mdash; warning: merging CANNOT be undone !
+      
+  .panel-body
+    = form_tag(request_merge_path(@request), method: :post) do
+      .form-group
+        - customer_requests.each do |request|
+          .radio
+            %label
+              = radio_button_tag :merge_request_id, request.id
+              = link_to (request.name || "##{request.id}"), request_path(request)
+        
+      %button.btn.btn-danger.btn-sm
+        Merge
+       
+      = link_to 'Cancel', request_merge_path(@request), method: :delete, class:'btn btn-default btn-sm'
