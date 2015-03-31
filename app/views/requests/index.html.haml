@@ -5,41 +5,35 @@
 .request.row
   .col-md-9.col-md-offset-1
     .list-group
-      - 10.times do
+      - @requests.each do |request|
         .list-group-item
           %h4.list-group-item-heading
-            = link_to Faker::Hacker.say_something_smart, request_path(1)
+            = link_to name_for(request), request_path(request)
             
             %small
-              = link_to Faker::Commerce.department, '#'
-              |
-              = link_to Faker::Commerce.department, '#'
-              &nbsp;
-              
-              - comments = rand(20)
-              - unless true
-                %a{:href => '#'}
-                  -# TODO: color based on activity
-                  %span.text-warning
-                    %span.glyphicon.glyphicon-comment
-                    = comments
+              = labels_for(request)
               
           %span.text-muted
             Opened
             
-          %span.mark= open_since
+          %span.mark= time_ago_in_words(request.created_at)
             
           %span.text-muted
             ago by
-            %a{:href => '#'}=Faker::Name.name
-            assigned to
-            %a{:href => '#'}= Faker::Name.name
+            = link_to request.customer.name, customer_path(request.customer)
             
-            - comments = rand(20)
-            - unless comments == 0
+            assigned to
+            
+            - if request.agent.present?
+              = link_to request.agent.name, customer_path(request.agent)
+            - else
+              no-one.
+            
+            - unless request.messages.empty?
               &nbsp;
               
               %small
                 %a.text-muted{:href => '#'}
+                  -# TODO: color based on activity
                   %span.glyphicon.glyphicon-comment
-                  = comments
+                  = request.messages.count

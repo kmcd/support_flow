@@ -1,6 +1,5 @@
 = Backlog
 
-/requests/1     (activity stream)
 /requests       (agent search)
 
 /guides

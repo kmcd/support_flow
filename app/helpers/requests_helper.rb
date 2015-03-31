@@ -1,10 +1,4 @@
 module RequestsHelper
-  def open_since
-    [ rand(10).to_s + 'd',
-      rand(1..24).to_s  + 'h',
-      rand(1..60).to_s  + 'm' ].join ' '
-  end
-  
   def message_content(activity, messages)
     return unless messages
     return unless message_id = activity.parameters[:message_id]
@@ -183,5 +177,13 @@ module RequestsHelper
   
   def show_merge?(request)
     cookies["merge_request_#{request.id}"] == 'true'
+  end
+  
+  def name_for(request)
+    request.name || request.messages.first.content.subject
+  end
+  
+  def labels_for(request)
+    request.labels.map {|_| link_to _, '#' }.join("| &nbsp;").html_safe
   end
 end
