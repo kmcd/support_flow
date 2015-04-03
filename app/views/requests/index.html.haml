@@ -1,39 +1,46 @@
 = render 'search'
 
-%br/
+.results-summary.row
+  .col-md-9.col-md-offset-1.col-sm-9.col-sm-offset-1
+    %p.text-muted.pull-right
+      %i
+        -# 10 requests, average open time: 5 mins.
 
-.request.row
-  .col-md-9.col-md-offset-1
-    .list-group
-      - @requests.each do |request|
-        .list-group-item
-          %h4.list-group-item-heading
-            = link_to name_for(request), request_path(request)
-            
-            %small
-              = labels_for(request)
+- @requests.each do |request|
+  .request.row
+    .message_count.col-md-1.col-sm-1.col-xs-1
+      %p.text-right
+        - unless request.messages.one? == String
+          %small
+            %a.text-muted{:href => '#'}
+              -# TODO: color based on activity
+              %span.glyphicon.glyphicon-comment
+              = request.messages.count
               
-          %span.text-muted
-            Opened
-            
-          %span.mark= time_ago_in_words(request.created_at)
-            
-          %span.text-muted
-            ago by
-            = link_to request.customer.name, customer_path(request.customer)
-            
-            assigned to
-            
-            - if request.agent.present?
-              = link_to request.agent.name, customer_path(request.agent)
-            - else
-              no-one.
-            
-            - unless request.messages.empty?
-              &nbsp;
-              
-              %small
-                %a.text-muted{:href => '#'}
-                  -# TODO: color based on activity
-                  %span.glyphicon.glyphicon-comment
-                  = request.messages.count
+        - if request.open?
+          %span.text-danger
+            %span.glyphicon.glyphicon-exclamation-sign
+        - else
+          %span.text-success
+            %span.glyphicon.glyphicon-ok-circle
+          
+    .description.col-md-9.col-sm-9.col-xs-11
+      %h4
+        = link_to name_for(request), request_path(request), class:'name'
+        
+        %small= labels_for(request)
+        
+      %p.activity.text-muted
+        = link_to request.customer.name, customer_path(request.customer)
+        opened request
+        
+        -# TODO: color based on duration
+        %span.mark= time_ago_in_words(request.created_at)
+        
+        ago
+        &rarr;
+        
+        - if request.agent.present?
+          = link_to request.agent.name, customer_path(request.agent)
+        - else
+          no-one assinged &hellip;

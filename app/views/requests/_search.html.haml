@@ -1,17 +1,19 @@
-%br/
-
 .search.row
-  .col-md-6.col-md-offset-1
-    .input-group
-      %input{ :class => 'form-control', :type => 'text', 
-        :placeholder => 'Search Requests ...' }
-      
-      %span.input-group-btn
-        %button{ :class => 'btn btn-default dropdown-toggle',
+  .query.col-md-6.col-md-offset-1.col-sm-6.col-sm-offset-1.col-xs-10.col-xs-offset-1
+    %form
+      .form-group
+        %input.input-lg{ :class => 'form-control query', :type => 'text', 
+          :placeholder => 'Search Requests ...' }
+        
+  .filters.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.col-xs-11.col-xs-offset-1
+    .btn-group
+      .btn-group
+        %button{ :class => 'btn btn-default btn-xs dropdown-toggle',
         :type => 'button', 'data-toggle' => 'dropdown', 
         'aria-expanded' => false}
         
-          Filters
+          %span.text-muted
+            Filters
           %span.caret
         
         %ul{ :class => 'dropdown-menu', :role => 'menu' }
@@ -36,48 +38,50 @@
             %a{:href=>'#'}
               Clear all filters
       
-  .col.query
-    .btn-group
-      %button{ :class => 'btn btn-link dropdown-toggle',
+      .btn-group
+        %button{ :class => 'btn btn-default btn-xs dropdown-toggle',
           :type => 'button', 'data-toggle' => 'dropdown', 
           'aria-expanded' => false}
-        Label
-        %span.caret
+          %span.text-muted
+            Label
+          %span.caret
           
-      %ul{ :class => 'dropdown-menu', :role => 'menu' }
-        %li
-          %a{:href=>'#'}
-            Pending
-        %li
-          %a{:href=>'#'}
-            Urgent
+        %ul{ :class => 'dropdown-menu', :role => 'menu' }
+          %li
+            %a{:href=>'#'}
+              Pending
+          %li
+            %a{:href=>'#'}
+              Urgent
+          
+      .btn-group
+        %button{ :class => 'btn btn-default btn-xs dropdown-toggle',
+            :type => 'button', 'data-toggle' => 'dropdown', 
+            'aria-expanded' => false}
+          %span.text-muted
+            Agent
+          %span.caret
             
-    .btn-group
-      %button{ :class => 'btn btn-link dropdown-toggle',
-          :type => 'button', 'data-toggle' => 'dropdown', 
-          'aria-expanded' => false}
-        Agent
-        %span.caret
+        %ul{ :class => 'dropdown-menu', :role => 'menu' }
+          %li
+            %a{:href=>'#'}
+              Joe
+          %li
+            %a{:href=>'#'}
+              Peter
           
-      %ul{ :class => 'dropdown-menu', :role => 'menu' }
-        %li
-          %a{:href=>'#'}
-            Joe
-        %li
-          %a{:href=>'#'}
-            Peter
+      .btn-group
+        %button{ :class => 'btn btn-default btn-xs dropdown-toggle',
+            :type => 'button', 'data-toggle' => 'dropdown', 
+            'aria-expanded' => false}
+          %span.text-muted
+            Sort
+          %span.caret
             
-    .btn-group
-      %button{ :class => 'btn btn-link dropdown-toggle',
-          :type => 'button', 'data-toggle' => 'dropdown', 
-          'aria-expanded' => false}
-        Sort
-        %span.caret
-          
-      %ul{ :class => 'dropdown-menu', :role => 'menu' }
-        %li
-          %a{:href=>'#'}
-            Longest open
-        %li
-          %a{:href=>'#'}
-            Newest
+        %ul{ :class => 'dropdown-menu', :role => 'menu' }
+          %li
+            %a{:href=>'#'}
+              Longest open
+          %li
+            %a{:href=>'#'}
+              Newest

@@ -2,7 +2,7 @@
   .col-md-offset-1.col-md-9
     %h2
       %span.name
-        = @request.name
+        = name_for(@request)
       
       = render 'name_edit'
         
@@ -16,9 +16,13 @@
           = render 'status'
         
         %small
-          and assigned to
+          &rarr;
+          assigned to
           
-        = link_to @request.agent.email_address, agent_path(@request.agent), id:'assignee'
+          - if @request.agent
+            = link_to @request.agent.email_address, agent_path(@request.agent), id:'assignee'
+          - else
+            no-one
 
 
 .labels.row
@@ -56,11 +60,12 @@
   -# TODO: group by day
   = render partial:'activity', collection:@activities
    
-.actions.row
-  .col-md-9.col-md-offset-1
-    .btn-group
-      - reply_button
-      - assign_button
-      
-      %button.status.btn.btn-sm.btn-default
-        = @request.open? ? 'Close' : 'Open'
+- unless @activities.size < 2
+  .actions.row
+    .col-md-9.col-md-offset-1
+      .btn-group
+        - reply_button
+        - assign_button
+        
+        %button.status.btn.btn-sm.btn-default
+          = @request.open? ? 'Close' : 'Open'

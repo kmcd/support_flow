@@ -1,10 +1,13 @@
 class Request < ActiveRecord::Base
   include PublicActivity::Common
+  include Indexable
+  
   belongs_to :agent
   belongs_to :customer
   has_many :messages, dependent: :destroy
   belongs_to :team
   acts_as_taggable_array_on :labels
+  after_save :update_search_index
   
   def assign_from(name_or_email)
     return unless assignee = team.agents.

@@ -27,7 +27,7 @@ namespace :db do
       from:peldi.email_address,
       to:rachel.team.mailboxes.first.email_address
     
-    request = Request.last
+    request = Request.where(name:"Billing enquiry").first
     
     create_message \
       body:"We're on it Peldi :)",
@@ -60,10 +60,9 @@ namespace :db do
     # - rename
     # - reopen
     
-    # Open request
-    
-    # Open tabs
-    # `open http://localhost:3000/requests/#{request.id}`
+    [ Request.all, Message.all ].flatten.each do |_|
+      UpdateSearchIndexJob.perform_now _, _.attributes.to_json
+    end
   end
 end
 

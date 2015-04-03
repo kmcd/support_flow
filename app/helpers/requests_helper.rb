@@ -1,10 +1,4 @@
 module RequestsHelper
-  def message_content(activity, messages)
-    return unless messages
-    return unless message_id = activity.parameters[:message_id]
-    messages.find {|_| _.id == message_id }.content.body
-  end
-  
   # TODO: move buttons to partials
   def dropdown_button(name, button_type="default")
     haml_tag '.btn-group' do
@@ -104,6 +98,7 @@ module RequestsHelper
     end
   end
   
+  # TODO: find a home for mailto links
   def reply_template(to, request=nil)
     request_url = request && \
       "https://getsupportflow.com/requests/#{request.id}" 
@@ -122,59 +117,13 @@ module RequestsHelper
     owner && owner.avatar
   end
   
-  # TODO: move (activity) methods to ActivityView
-  def description(activity)
-    # TODO: render haml from opened_request(activity) etc.
-    case activity.key
-      when /request\.open/    ; "opened request"
-      when /request\.reply/   ; "replied to X"
-      when /request\.assign/  ; "assigned request to #{assignee(activity)}"
-      when /request\.label/   ; "labelled request as #{labelled(activity)}"
-      when /request\.close/   ; "closed request"
-      when /request\.rename/  ; "renamed request as #{renamed(activity)}"
-      when /request\.merge/   ; "merged request #{merged(activity)}"
-    else
-      activity.key
-    end
-  end
-  
-  def time_day(activity)
-    activity.created_at.strftime "%H:%M %a"
-  end
-  
-  def month_year(activity)
-    activity.created_at.strftime "%b %d %Y"
-  end
-  
   def link_for(owner)
     return unless owner
     link = owner.is_a?(Agent) ? agent_path(owner) : customer_path(owner)
     link_to owner.name, link
   end
   
-  def assignee(activity)
-    agent = Agent.find activity.parameters[:agent_id]
-    link_to agent.name, agent_path(agent)
-  end
-  
-  def labelled(activity)
-    labels = activity.parameters[:labels].split(/(,|\s)/).flatten
-    labels.map do |label|
-      capture_haml { haml_tag 'button.btn.btn-primary.btn-xs', label }
-    end.join ' '
-  end
-  
-  def renamed(activity)
-    capture_haml { haml_tag 'i', activity.parameters[:name] }
-  end
-  
-  def merged(activity)
-    capture_haml do 
-      haml_tag 'i', "##{activity.parameters[:request_id]}"
-      haml_tag 'strong', activity.parameters[:request_name]
-    end
-  end
-  
+  # TODO: move to RequestView
   def show_merge?(request)
     cookies["merge_request_#{request.id}"] == 'true'
   end
@@ -184,6 +133,6 @@ module RequestsHelper
   end
   
   def labels_for(request)
-    request.labels.map {|_| link_to _, '#' }.join("| &nbsp;").html_safe
+    request.labels.map {|_| link_to _, '#' }.join(" &bull; ").html_safe
   end
 end

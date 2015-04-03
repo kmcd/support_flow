@@ -39,8 +39,14 @@ GEM
     acts-as-taggable-array-on (0.3.0)
       activerecord (>= 4, < 5)
       activesupport (>= 4, < 5)
+    addressable (2.3.8)
     ansi (1.5.0)
     arel (6.0.0)
+    awesome_print (1.6.1)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
@@ -51,9 +57,13 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     coderay (1.1.0)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
     columnize (0.9.0)
     commands (0.2.1)
       rails (>= 3.2.0)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     daemons (1.1.9)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -62,13 +72,38 @@ GEM
     delayed_job_active_record (4.0.3)
       activerecord (>= 3.0, < 5.0)
       delayed_job (>= 3.0, < 4.1)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    elasticsearch (1.0.8)
+      elasticsearch-api (= 1.0.7)
+      elasticsearch-transport (= 1.0.7)
+    elasticsearch-api (1.0.7)
+      multi_json
+    elasticsearch-model (0.1.6)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-persistence (0.1.6)
+      activemodel (> 3)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      elasticsearch-model (>= 0.1)
+      hashie
+      virtus
+    elasticsearch-rails (0.1.6)
+    elasticsearch-transport (1.0.7)
+      faraday
+      multi_json
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
+    equalizer (0.0.11)
     erubis (2.7.0)
     eventmachine (1.0.7)
     faker (1.4.3)
       i18n (~> 0.5)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
     formatador (0.2.5)
     globalid (0.3.3)
@@ -102,6 +137,9 @@ GEM
     guard-rails (0.7.1)
       guard (~> 2.11)
       guard-compat (~> 1.0)
+    guard-shell (0.7.1)
+      guard (>= 2.0.0)
+      guard-compat (~> 1.0)
     haml (4.0.6)
       tilt
     haml-rails (0.8.2)
@@ -110,6 +148,7 @@ GEM
       haml (>= 3.1, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    hashie (3.4.1)
     hike (1.2.3)
     hitimes (1.2.2)
     html2haml (2.0.0)
@@ -120,6 +159,7 @@ GEM
     htmlentities (4.3.3)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
+    ice_nine (0.11.1)
     json (1.8.2)
     listen (2.8.5)
       celluloid (>= 0.15.2)
@@ -144,6 +184,7 @@ GEM
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.10.1)
+    multipart-post (2.0.0)
     nenv (0.2.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -194,6 +235,7 @@ GEM
     ruby-progressbar (1.7.1)
     ruby_parser (3.6.4)
       sexp_processor (~> 4.1)
+    safe_yaml (1.0.4)
     sexp_processor (4.4.5)
     shellany (0.0.1)
     shelly-dependencies (0.2.4)
@@ -210,8 +252,8 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    textacular (3.2.1)
-      activerecord (>= 3.0, < 5.0)
+    test_after_commit (0.4.1)
+      activerecord (>= 3.2)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -223,20 +265,33 @@ GEM
       hitimes
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    vcr (2.9.3)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
     web-console (2.0.0)
       activemodel (~> 4.0)
       binding_of_caller (>= 0.7.2)
       railties (~> 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    webmock (1.21.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   acts-as-taggable-array-on
+  awesome_print
   byebug
   commands
   delayed_job_active_record
+  elasticsearch-model
+  elasticsearch-persistence
+  elasticsearch-rails
   faker
   griddler-mandrill
   guard
@@ -244,6 +299,7 @@ DEPENDENCIES
   guard-livereload (~> 2.4)
   guard-minitest
   guard-rails
+  guard-shell
   haml-rails (~> 0.8)
   looksee
   minitest-reporters
@@ -253,5 +309,7 @@ DEPENDENCIES
   rails (= 4.2.0)
   shelly-dependencies
   spring
-  textacular (~> 3.0)
+  test_after_commit
+  vcr
   web-console (~> 2.0)
+  webmock

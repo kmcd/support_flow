@@ -69,6 +69,12 @@ guard :bundler do
   files.each { |file| watch(helper.real_path(file)) }
 end
 
+guard :shell, all_on_start:true do
+  watch(%r{^app/(.+)\.rb}) do
+    # `./bin/delayed_job restart`
+  end
+end
+
 # guard :minitest, spring:true do
   # # with Minitest::Unit
   # # watch(%r{^test/(.*)\/?test_(.*)\.rb$})

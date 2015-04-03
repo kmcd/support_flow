@@ -18,21 +18,7 @@ form.remove-label button.remove {
 }
 
 .actions.row {
-  margin-top: 0.6em;
-}
-
-.list-group-item { 
-  border: thin solid white; 
-  margin-bottom: 1em; 
-  padding-left: 0; 
-}
-
-.list-group-item-heading > a { 
-  color: black; 
-}
-
-.list-group-item-heading > a:hover { 
-  color: blue;  
+  margin-top: 5px;
 }
 
 .navbar .badge {
@@ -45,4 +31,30 @@ form.remove-label button.remove {
 
 nav.navbar { 
   border: 0; border-radius: 0; 
+}
+
+.request.row {
+  margin-bottom: 5px;
+}
+
+.request.row .message_count {
+  padding-right: 0;
+}
+
+.request.row .description h4 {
+  margin: 0 0 2.5px 0;
+}
+
+.request.row .description h4 a.name {
+  color: black;
+}
+
+.request.row .description h4 a.name:hover {
+  color: #337AB7;
+}
+
+@media screen and (min-width: 768px) {
+  .search.row .filters {
+    padding: 10px 0 0 0;
+  }
 }
