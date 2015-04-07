@@ -7,9 +7,7 @@ gem 'griddler-mandrill'
 gem 'public_activity'
 gem 'delayed_job_active_record'
 gem 'acts-as-taggable-array-on'
-gem 'elasticsearch-model'
-gem 'elasticsearch-persistence'
-gem 'elasticsearch-rails'
+gem 'textacular'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -39,8 +37,6 @@ group :test do
   gem 'minitest-reporters'
   gem 'mocha'
   gem 'test_after_commit'
-  gem 'vcr'
-  gem 'webmock'
 end
 
 group :production do

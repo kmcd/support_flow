@@ -1,22 +1,24 @@
 DEFAULTS: &DEFAULTS
   mailbox: support_flow_gmail
-  content: Help!
   
 enquiry:
   <<: *DEFAULTS
-  
+  content: <%= Griddler::Email.new(from:'peldi@balsamiq.com', to: %w[ help@getsupportflow.com ], text:'Help!').to_yaml.inspect %>
+    
 reply:
   <<: *DEFAULTS
   request: billing_enquiry
   customer: peldi
   agent: rachel
+  content: <%= Griddler::Email.new(from:'rachel@getsupportflow.com', to: %w[  peldi@balsamiq.com ], text:'On it').to_yaml.inspect %>
   
 command:
   <<: *DEFAULTS
   request: billing_enquiry
   agent: rachel
-  content: --label billing
+  content: <%= Griddler::Email.new(from:'rachel@getsupportflow.com', to: %w[  request.1@getsupportflow.com ], text:'--label billing').to_yaml.inspect %>
   
 duplicate:
   <<: *DEFAULTS
   request: duplicate_enquiry
+  content: <%= Griddler::Email.new(from:'peldi@balsamiq.com', to: %w[ help@getsupportflow.com ], text:'Help!').to_yaml.inspect %>

@@ -110,7 +110,7 @@ class InvalidCommandTest < ActiveSupport::TestCase
       "\n-- On 2010-01-01 12:00:00 Tristan wrote: --\n--label bug"
     ].each do |reply_format|
       command = execute reply_format
-      assert_empty @billing_enquiry.labels, reply_format
+      refute_includes @billing_enquiry.labels, 'bug'
     end
   end
 end

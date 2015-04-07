@@ -3,8 +3,6 @@ billing_enquiry:
   team: support_flow
   agent: rachel
   customer: peldi
-  labels:
-    - urgent
 
 duplicate_enquiry:
   name: "Billing enquiry follow up"

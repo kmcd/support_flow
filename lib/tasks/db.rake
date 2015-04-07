@@ -28,6 +28,7 @@ namespace :db do
       to:rachel.team.mailboxes.first.email_address
     
     request = Request.where(name:"Billing enquiry").first
+    request.update label:'urgent'
     
     create_message \
       body:"We're on it Peldi :)",
@@ -59,6 +60,8 @@ namespace :db do
     # - merge
     # - rename
     # - reopen
+    
+    RequestDocument.all.each &:delete
     
     [ Request.all, Message.all ].flatten.each do |_|
       UpdateSearchIndexJob.perform_now _, _.attributes.to_json

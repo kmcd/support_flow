@@ -26,15 +26,8 @@ class UpdateSearchIndexJob < ActiveJob::Base
     return unless message && message.request_id
     
     request_document = RequestDocument.find message.request_id
-    
-    # FIXME: always create Griddler::Email value object from text
-    email = if message.content.instance_of?(Griddler::Email)
-      [ message.content.subject, message.content.raw_text ].join ' '
-    else
-      message.content
-    end
-    
-    request_document.messages << email
+    request_document.messages << [ message.content.subject,
+      message.content.raw_text ].join(' ')
     request_document.save
   end
   

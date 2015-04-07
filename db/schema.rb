@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319164338) do
+ActiveRecord::Schema.define(version: 20150406172248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,9 +109,10 @@ ActiveRecord::Schema.define(version: 20150319164338) do
     t.integer  "team_id",                    null: false
     t.integer  "agent_id"
     t.integer  "customer_id",                null: false
+    t.integer  "messages_count",             default:0
     t.string   "name"
     t.boolean  "open",        default: true
-    t.text     "labels",      array: true, default: '{}'
+    t.text     "labels",      default: [],                array: true
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
@@ -119,7 +120,7 @@ ActiveRecord::Schema.define(version: 20150319164338) do
   add_index "requests", ["agent_id"], name: "index_requests_on_agent_id", using: :btree
   add_index "requests", ["customer_id"], name: "index_requests_on_customer_id", using: :btree
   add_index "requests", ["labels"], name: "index_requests_on_labels", using: :gin
-    
+  
   create_table "teams", force: :cascade do |t|
     t.string   "subdomain"
     t.string   "domain_name"

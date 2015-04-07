@@ -3,12 +3,6 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/reporters'
 require 'mocha/mini_test'
-require 'vcr'
-
-VCR.configure do |c|
-  c.cassette_library_dir = 'test/vcr_cassettes'
-  c.hook_into :webmock # or :fakeweb
-end
 
 Minitest::Reporters.
   use! [Minitest::Reporters::SpecReporter.new]
@@ -21,7 +15,8 @@ class ActiveSupport::TestCase
     Griddler::Email.new( \
       { to:[@support_flow_gmail.email_address],
         from:'customer@example.org',
-        text:"Help"
+        text:"Help",
+        subject:'Help'
       }.merge!(options) )
   end
 end
