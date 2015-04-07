@@ -135,4 +135,38 @@ module RequestsHelper
   def labels_for(request)
     request.labels.map {|_| link_to _, '#' }.join(" &bull; ").html_safe
   end
+  
+  def placeholder
+    'Search Requests ...' unless params[:q].present?
+  end
+  
+  def query
+    params[:q] || ""
+  end
+  
+  def facet(status)
+    query_string = query.clone
+    status_facet = "is:#{status.to_s}"
+    return query_string if query_string.gsub!(/is:\w+/, status_facet)
+    [ query_string, status_facet ].map(&:strip).join ' '
+  end
+  
+  def agent_facet(agent)
+    query_string = query.clone
+    agent = "agent:#{agent.id}"
+    return query_string if query_string.gsub!(/agent:\d+/, agent)
+    [ query_string, agent ].map(&:strip).join ' '
+  end
+  
+  def label_facet(label)
+    query_string = query.clone
+    return query_string if query_string =~ /label:#{label}/
+    [ query_string, "label:#{label}" ].map(&:strip).join ' '
+  end
+  
+  def sort_facet(order)
+    query_string = query.clone
+    return query_string if query_string.gsub!(/sort:\w+/, "sort:#{order}")
+    [ query_string, "sort:#{order}" ].map(&:strip).join ' '
+  end
 end

@@ -25,6 +25,10 @@ class EnquiryTest < ActiveSupport::TestCase
     assert_equal email.from[:email], \
       enquiry.customer.email_address
   end
+  
+  test "increment request message counter" do
+    assert_equal 1, enquiry.request.messages_count
+  end
 end
 
 class ExistingCustomerEnquiryTest < ActiveSupport::TestCase

@@ -35,7 +35,8 @@ module Mailboxable
   # TODO: move to email router; i.e. request.736 -> mailbox.438
   def request_address_mailbox
     return unless request_id
-    Request.find(request_id).messages.first
+    team = Request.find(request_id)
+    Mailbox.where(team_id:team.id).first
   end
   
   def request_id

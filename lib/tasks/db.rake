@@ -21,7 +21,7 @@ namespace :db do
     rachel = Agent.first
     peldi = Customer.first
     
-    create_message \
+    create_email \
       body:'Hi! I need help with billing. Peldi',
       subject:'Help',
       from:peldi.email_address,
@@ -30,24 +30,24 @@ namespace :db do
     request = Request.where(name:"Billing enquiry").first
     request.update label:'urgent'
     
-    create_message \
+    create_email \
       body:"We're on it Peldi :)",
       subject:'Help',
       from:rachel.team.mailboxes.first.email_address,
       to:peldi.email_address,
       cc:"request.#{request.id}@getsupportflow.com"
-      
-    create_message \
+    
+    create_email \
       body:'--assign keith',
       from:rachel.email_address,
       to:"request.#{request.id}@getsupportflow.com"
     
-    create_message \
+    create_email \
       body:'--label billing',
       from:rachel.email_address,
       to:"request.#{request.id}@getsupportflow.com"
       
-    create_message \
+    create_email \
       body:'--close',
       from:rachel.email_address,
       to:"request.#{request.id}@getsupportflow.com"
@@ -60,16 +60,10 @@ namespace :db do
     # - merge
     # - rename
     # - reopen
-    
-    RequestDocument.all.each &:delete
-    
-    [ Request.all, Message.all ].flatten.each do |_|
-      UpdateSearchIndexJob.perform_now _, _.attributes.to_json
-    end
   end
 end
 
-def create_message(to:, from:, subject:'', body:, cc:[])
+def create_email(to:, from:, subject:'', body:, cc:[])
   EmailProcessorJob.new.perform Griddler::Email.new( \
     to:[to], from:from, subject:subject, text:body, cc:[cc].flatten )
 end

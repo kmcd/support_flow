@@ -3,7 +3,7 @@ class RequestsController < ApplicationController
 
   # GET /requests
   def index
-    @requests = Request.all
+    @requests = AgentSearch.new(params[:q]).results
   end
 
   # GET /requests/1

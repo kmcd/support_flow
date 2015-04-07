@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class AgentSearchTest < ActiveSupport::TestCase
+  test "blank query returns all results" do
+    assert_equal Request.all, AgentSearch.new('').results
+    assert_equal Request.all, AgentSearch.new(nil).results
+  end
+  
   test "full text on request name" do
     @billing_enquiry.update name:'peldis card expiry'
     results = AgentSearch.new('card expiry').results
@@ -18,7 +23,7 @@ class AgentSearchTest < ActiveSupport::TestCase
   end
   
   test "full text on message subject" do
-    @billing_enquiry.messages.first.update content:email(subject:'please')
+    @billing_enquiry.messages.first.update subject:'please'
     results = AgentSearch.new('please').results
     
     assert_equal 1, results.size
@@ -26,7 +31,7 @@ class AgentSearchTest < ActiveSupport::TestCase
   end
   
   test "full text on message body" do
-    @billing_enquiry.messages.first.update content:email(text:'in progress')
+    @billing_enquiry.messages.first.update text_body:'in progress'
     results = AgentSearch.new('in progress').results
     
     assert_equal 1, results.size

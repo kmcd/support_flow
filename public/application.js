@@ -29,4 +29,11 @@ $(function() {
   $('button.merge').click( function() {
       $.get( "/requests/" + $(this).data('request') + "/merge/new" )
   })
+  
+  $('.filter a').click( function() {
+      facet = $(this).data('facet')
+      
+      $("form#search input#query").attr('value', facet )
+      $("form#search").submit()
+  })
 });

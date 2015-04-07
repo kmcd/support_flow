@@ -14,6 +14,7 @@ class Enquiry
     message.mailbox = mailbox
     message.request = customer.requests.create!(team:mailbox.team)
     message.save!
+    request.increment :messages_count
     
     Activity.new(request:request, owner:customer).enquiry message
   end

@@ -11,18 +11,20 @@ class AgentSearch
       status(status_facet).
       agent(agent_facet).
       label(label_facet).
-      sort_order(sort_facet)
+      sort_order(sort_facet).
+      to_a.uniq &:id
   end
   
   private
   
   def text_query
+    return if query.blank?
     [ query.split(/\s/) - facets ].join ' '
   end
   
   def status_facet
     return unless facet :is
-    facet(:is)[/\open/] ? true : false
+    facet(:is)[/open/] ? true : false
   end
   
   def agent_facet
@@ -45,19 +47,24 @@ class AgentSearch
   end
   
   def facets
+    return [] if query.blank?
     query.scan /\w+:\w+/
   end
   
+  # TODO: index name, labels, messages, status, agent, labels
+  # TODO: replace joins with materialized view
   Request.class_eval do
     scope :search_name_labels_messages, ->(query) {
-      joins(:messages).
-      basic_search(
-        { name:query, labels:query, messages:{ content:query } }, false ).
-      distinct unless query.blank?
+      if query.present?
+        joins(:messages).
+        basic_search( { name:query, labels:query,
+          # TODO: add (customer,agent) -> name, email
+          messages:{ subject:query, text_body:query } }, false )
+      end
     }
     
     scope :status, ->(status) { 
-      where(open:status) if status 
+      where(open:status) unless status.nil?
     }
     
     scope :agent, ->(agent_id) { 

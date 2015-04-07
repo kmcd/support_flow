@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.integer  "request_id"
     t.integer  "customer_id"
     t.integer  "agent_id"
+    t.string   "subject"
+    t.text     "text_body"
     t.text     "content",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
