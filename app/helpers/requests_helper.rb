@@ -158,6 +158,13 @@ module RequestsHelper
     [ query_string, agent ].map(&:strip).join ' '
   end
   
+  def customer_facet(customer)
+    query_string = query.clone
+    customer = "customer:#{customer.id}"
+    return query_string if query_string.gsub!(/customer:\d+/, customer)
+    [ query_string, customer ].map(&:strip).join ' '
+  end
+  
   def label_facet(label)
     query_string = query.clone
     return query_string if query_string =~ /label:#{label}/

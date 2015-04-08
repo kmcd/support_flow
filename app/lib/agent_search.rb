@@ -10,6 +10,7 @@ class AgentSearch
       search_name_labels_messages(text_query).
       status(status_facet).
       agent(agent_facet).
+      customer(customer_facet).
       label(label_facet).
       sort_order(sort_facet).
       to_a.uniq &:id
@@ -30,6 +31,11 @@ class AgentSearch
   def agent_facet
     return unless facet :agent
     facet(:agent)[/\d+/]
+  end
+  
+  def customer_facet
+    return unless facet :customer
+    facet(:customer)[/\d+/]
   end
   
   def label_facet
@@ -69,6 +75,10 @@ class AgentSearch
     
     scope :agent, ->(agent_id) { 
       where(agent_id:agent_id) if agent_id 
+    }
+    
+    scope :customer, ->(customer_id) { 
+      where(customer_id:customer_id) if customer_id 
     }
     
     scope :label, ->(labels) {

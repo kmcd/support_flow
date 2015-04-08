@@ -48,6 +48,7 @@ class Reply
   end
   
   def new_customer
+    # FIXME: request replied to from mailbox email_address
     Customer.create email_address:from, team:request.team
   end
   

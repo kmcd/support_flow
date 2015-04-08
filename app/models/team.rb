@@ -4,6 +4,7 @@ class Team < ActiveRecord::Base
   has_many :guides
   has_many :mailboxes
   has_many :messages, through: :mailboxes
+  has_many :requests
   
   def labels
     ActiveRecord::Base.connection.exec_query( \

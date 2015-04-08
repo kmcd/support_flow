@@ -30,8 +30,13 @@
             = link_to(requests_path) do
               Requests
               
-              %span.badge
-                15
+              -# TODO: change to team.open_requests_count
+              - open_count = current_agent.team.requests.where(open:true).count
+              - unless open_count.zero?
+                %span
+                  %small.text-danger
+                    = open_count
+                    open
           
           %li= link_to 'Guides', guides_path
           %li= link_to 'Agents', agents_path

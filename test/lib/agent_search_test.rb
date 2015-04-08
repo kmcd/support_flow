@@ -54,6 +54,15 @@ class AgentSearchFacetTest < ActiveSupport::TestCase
     assert_equal Request.where(agent:@rachel), results
   end
   
+  test "customer" do
+    search = AgentSearch.new "customer:#{@peldi.id}"
+    Request.update_all "customer_id = 1"
+    assert_empty search.results
+    
+    Request.update_all "customer_id = #{@peldi.id}"
+    assert_equal [@peldi.id], search.results.map(&:customer_id).uniq
+  end
+  
   test "one label" do
     @billing_enquiry.update label:'billing'
     results = AgentSearch.new("label:billing").results

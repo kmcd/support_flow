@@ -62,6 +62,20 @@
             %li
               %a{:href=>'#', 'data-facet' => agent_facet(agent) }
                 = agent.name
+                
+      .btn-group
+        %button{ :class => 'btn btn-default btn-xs dropdown-toggle',
+            :type => 'button', 'data-toggle' => 'dropdown', 
+            'aria-expanded' => false}
+          %span.text-muted
+            Customer
+          %span.caret
+            
+        %ul{ :class => 'dropdown-menu filter', :role => 'menu' }
+          - current_agent.team.customers.sort_by(&:name).each do |customer|
+            %li
+              %a{:href=>'#', 'data-facet' => customer_facet(customer) }
+                = customer.name
           
       .btn-group
         %button{ :class => 'btn btn-default btn-xs dropdown-toggle',

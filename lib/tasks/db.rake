@@ -33,7 +33,7 @@ namespace :db do
     create_email \
       body:"We're on it Peldi :)",
       subject:'Help',
-      from:rachel.team.mailboxes.first.email_address,
+      from:rachel.email_address,
       to:peldi.email_address,
       cc:"request.#{request.id}@getsupportflow.com"
     
