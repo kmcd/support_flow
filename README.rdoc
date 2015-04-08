@@ -1,7 +1,5 @@
 = Backlog
 
-/requests       (agent search)
-
 /guides
 /public/guides
 /guides/search

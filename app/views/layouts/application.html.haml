@@ -26,7 +26,7 @@
             %b Support Flow
           
         %ul.nav.navbar-nav
-          %li.active
+          %li{ active_page(requests_path) }
             = link_to(requests_path) do
               Requests
               
@@ -38,9 +38,9 @@
                     = open_count
                     open
           
-          %li= link_to 'Guides', guides_path
-          %li= link_to 'Agents', agents_path
-          %li= link_to 'Customers', customers_path
+          %li{ active_page(guides_path) }= link_to 'Guides', guides_path
+          %li{ active_page(agents_path) }= link_to 'Agents', agents_path
+          %li{ active_page(customers_path) }= link_to 'Customers', customers_path
           %li= link_to 'Need help?', '/help'
             
         %ul.nav.navbar-nav.navbar-right
