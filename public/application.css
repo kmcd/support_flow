@@ -30,7 +30,8 @@ form.remove-label button.remove {
 }
 
 nav.navbar { 
-  border: 0; border-radius: 0; 
+  border: 0; 
+  border-radius: 0;
 }
 
 .request.row {

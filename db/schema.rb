@@ -126,9 +126,20 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   create_table "teams", force: :cascade do |t|
     t.string   "subdomain"
     t.string   "domain_name"
-    t.json     "billing_info"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+  
+  create_table "assets", force: :cascade do |t|
+    t.integer  "team_id",                    null: false
+    t.string  "type",                     null: false
+    t.string  "thumb"
+    t.string  "image"
+    t.string  "title"
+    t.string  "link"
+    t.string  "size"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
 end

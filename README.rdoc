@@ -1,8 +1,7 @@
-= Backlog
+= v 0.1
 
 /guides
 /public/guides
-/guides/search
 
 /customers      (stream, stats)
 /agents         (stream, stats)
@@ -13,9 +12,18 @@
 
 /onboard        (demo/trial/paid)
   Authenticate  (google oauth)
-  Authorise     (multi-tennant)
+  Authorise
     
 /settings/billing
+
+= v 0.2
+
+/guides/search
+
+= v 0.3
+
+/agents/1 -> multi-tennant
+
 
 == Installation
 * Ruby version

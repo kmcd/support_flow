@@ -1,7 +1,7 @@
 namespace :db do
   desc "Populate with break even number of agents"
   task populate: :environment do
-    # TODO: load fixtures from db/data/breakeven/(agents|customers|...).yml
+    # TODO: load fixtures from db/fixtures/breakeven/(agents|customers|...).yml
     
     # Create:
     #   -> 630 agents
@@ -18,6 +18,8 @@ namespace :db do
   
   desc "Populate for UI development"
   task ui: [:environment, 'db:schema:load', 'db:fixtures:load'] do
+    # TODO: replace with db/fixtures/ui
+    
     rachel = Agent.first
     peldi = Customer.first
     

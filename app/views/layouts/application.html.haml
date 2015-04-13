@@ -8,7 +8,7 @@
     = csrf_meta_tags
     %meta{ name:"viewport", content:"width=device-width, initial-scale=1" }
     
-    -# TODO: setup (jammit/grunt/bower) asset manager
+    -# TODO: setup (jammit/grunt/bower/guard) asset packager
     %script{:src => "/jquery-1.11.2.min.js"}
     %script{:src => "/jquery-ui.min.js"}
     %link{:href => "/jquery-ui.min.css", :rel => "stylesheet"}
@@ -18,6 +18,8 @@
     %link{:href => "/application.css", :rel => "stylesheet"}
     %script{:src => "/application.js"}
     
+    = yield :head
+    
   %body
     %nav.navbar.navbar-default
       .container-fluid
@@ -26,7 +28,7 @@
             %b Support Flow
           
         %ul.nav.navbar-nav
-          %li{ active_page(requests_path) }
+          %li{ active_page(:requests) }
             = link_to(requests_path) do
               Requests
               
@@ -38,9 +40,9 @@
                     = open_count
                     open
           
-          %li{ active_page(guides_path) }= link_to 'Guides', guides_path
-          %li{ active_page(agents_path) }= link_to 'Agents', agents_path
-          %li{ active_page(customers_path) }= link_to 'Customers', customers_path
+          %li{ active_page(:guides) }= link_to 'Guides', guides_path
+          %li{ active_page(:agents) }= link_to 'Agents', agents_path
+          %li{ active_page(:customers) }= link_to 'Customers', customers_path
           %li= link_to 'Need help?', '/help'
             
         %ul.nav.navbar-nav.navbar-right
@@ -62,6 +64,6 @@
               %li
                 %a{ href:'#' }
                   Log out
-
+      
     .container
       = yield

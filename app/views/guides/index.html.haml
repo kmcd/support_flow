@@ -1,4 +1,22 @@
-.guides.row
-  .col-md-offset-1.col-md-9.col-sm-9.col-sm-offset-1.col-xs-11
-    %h1
-      Guides
+.header.row
+  .col-md-offset-1.col-md-9.col-sm-offset-1.col-sm-9.col-xs-12
+    %h3
+      Customer guides
+      
+      %small.text-muted
+        available at
+        = link_to "http://balsamiq.getsupportflow.com", '/balsamiq/guides'
+    
+    %br/
+    
+- unless @guides.empty?
+  .guides.row
+    .col-md-offset-1.col-md-9.col-sm-offset-1.col-sm-9.col-xs-12
+      - @guides.each do |guide|
+        %p= link_to guide.name, guide_path(guide)
+
+%br/
+
+.row
+  .col-md-offset-1.col-md-9.col-sm-offset-1.col-sm-9.col-xs-12
+    %p= link_to "New guide", new_guide_path, class:'btn btn-default'
