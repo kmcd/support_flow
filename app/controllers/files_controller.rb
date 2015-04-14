@@ -4,7 +4,7 @@ class FilesController < ApplicationController
     
     respond_to do |format|
       format.html do
-        render text:{filelink:"/assets/#{@file.link}"}.to_json
+        render text:{filelink:@file.link}.to_json
       end
     end
   end
