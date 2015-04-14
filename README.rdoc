@@ -1,6 +1,5 @@
 = v 0.1
 
-/guides/1
 /guides (template, default)
 /public/guides
 
@@ -14,17 +13,18 @@
 /onboard        (demo/trial/paid)
   Authenticate  (google oauth)
   Authorise
-    
-/settings/billing
 
 = v 0.2
 
-/guides/search
+/settings/billing
 
 = v 0.3
 
-/agents/1 -> multi-tennant
+/teams/1/contact
 
+= v 0.4
+
+/guides/search
 
 == Installation
 * Ruby version

@@ -1,10 +1,14 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-
+template:
+  team: support_flow
+  name: _template
+  content: '<html><!-- content --></html>'
+  
 home_page:
   team: support_flow
-  name: Support home
-  content: 'Welcome to Support Flow'
+  name: index
+  content: '<h1>Welcome to Support Flow</h1>'
+  
+faq:
+  team: support_flow
+  name: faq
+  content: '<h1>FAQ</h1>'

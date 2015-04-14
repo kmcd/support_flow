@@ -3,7 +3,7 @@ class GuidesController < ApplicationController
   delegate :team, to: :current_agent
   
   def index
-    @guides = team.guides
+    @guides = Guide.pages team
   end
   
   def new

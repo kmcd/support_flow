@@ -15,15 +15,15 @@
     
   .name.form-group
     %label.error.control-label.hide
-      Please give this guide a name
     = form.text_field :name, class:'form-control', placeholder:'Give this guide a name ...'
     
   .button.form-group
     %button.btn.btn-default
       Save
       
-    %button.delete.btn.btn-danger
-      Delete
+    - if @guide.deleteable?
+      %button.delete.btn.btn-danger
+        Delete
     
     %button.saved.btn.btn-success.hide
       %span.glyphicon.glyphicon-ok-circle
