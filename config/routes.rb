@@ -15,9 +15,13 @@ Rails.application.routes.draw do
   resources :teams, only:[] do
     resources :files, only: %i[ create index ]
     resources :images, only: %i[ create index ]
+    resources :guides, only: %i[ show ]
+    resources :links, only: %i[ index ]
   end
   
   get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
+  
+  get '/:team(/*guide)', to:'guides#public', as:'public_guide'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

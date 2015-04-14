@@ -1,4 +1,20 @@
 .guide.row
   .col-md-offset-1.col-md-9.col-sm-9.col-sm-offset-1.col-xs-11
+  
+    - if @guide.name == '_template'
+      %h3
+        Support pages template
+        
+      %p
+        Edit this template to customise your pages appearance &mdash;
+       
+        %span.text-danger
+          you must understand html &amp; css !
+      
+      %p
+        See our
+        %a{href:'#'} help guides for customising your pages appearance .
+        
     = render 'form'
+    
     = button_to :delete, guide_path(@guide), method: :delete, data:{ confirm:'You cannot undo this delete - are you sure?' }, form_class:'delete hide'

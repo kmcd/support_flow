@@ -1,8 +1,5 @@
 = v 0.1
 
-/guides (template, default)
-/public/guides
-
 /customers      (stream, stats)
 /agents         (stream, stats)
 /agents/1       (stream, stats, profile)
@@ -25,6 +22,14 @@
 = v 0.4
 
 /guides/search
+
+= v 0.5
+
+/public/guides subdomain
+
+== TODO
+
+/guides/ -> test coverage
 
 == Installation
 * Ruby version

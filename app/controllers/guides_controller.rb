@@ -32,6 +32,18 @@ class GuidesController < ApplicationController
     redirect_to guides_path
   end
   
+  def public
+    public_guide = PublicGuide.new params[:team], params[:guide]
+    
+    if public_guide.present?
+      public_guide.increment_view_count current_agent
+      render text:public_guide.html # OPTIMIZE: page caching
+    else
+      # TODO: bootstrap 404 pages
+      render file:"#{Rails.root}/public/404", layout:false, status: :not_found
+    end
+  end
+  
   private
   
   def set_guide

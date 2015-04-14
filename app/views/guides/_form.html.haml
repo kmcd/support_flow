@@ -9,6 +9,8 @@
   
 %br/
 
+%p= link_to_guide_url current_team, @guide
+
 = form_for(@guide, remote:true) do  |form|
   .content.form-group
     = form.text_area :content, class:'form-control'
@@ -34,25 +36,26 @@
       Not saved
       
 -# TODO: move to application.css -> infer team from <body data-team-id='1'>
-:javascript
-  $(function() {
-    $('#guide_content').redactor({
-      focus: true,
-      minHeight: 500,
-      replaceDivs: false,
-      deniedTags: ['script'],
-      removeEmpty: false,
-      replaceTags: [],
-      pastePlainText: false,
-      imageUpload: "/teams/#{current_team.id}/images",
-      imageManagerJson: "/teams/#{current_team.id}/images.json",
-      uploadImageFields: { 'authenticity_token':"#{form_authenticity_token}" },
-      fileUpload: "/teams/#{current_team.id}/files",
-      fileManagerJson: "/teams/#{current_team.id}/files.json",
-      definedLinks: '/defined-links.json',
-      plugins: ['table', 'imagemanager', 'filemanager', 'fullscreen', 'definedlinks']
-    })
-  });
+- unless @guide.name == '_template'
+  :javascript
+    $(function() {
+      $('#guide_content').redactor({
+        focus: true,
+        minHeight: 500,
+        replaceDivs: false,
+        deniedTags: [],
+        removeEmpty: false,
+        replaceTags: [],
+        pastePlainText: false,
+        imageUpload: "/teams/#{current_team.id}/images",
+        imageManagerJson: "/teams/#{current_team.id}/images.json",
+        uploadImageFields: { 'authenticity_token':"#{form_authenticity_token}" },
+        fileUpload: "/teams/#{current_team.id}/files",
+        fileManagerJson: "/teams/#{current_team.id}/files.json",
+        definedLinks: "/teams/#{current_team.id}/links.json",
+        plugins: ['table', 'imagemanager', 'filemanager', 'fullscreen', 'definedlinks']
+      })
+    });
   
 - if flash[:created]
   :javascript

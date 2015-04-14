@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
 
   create_table "guides", force: :cascade do |t|
     t.integer  "team_id",    null: false
+    t.integer  "view_count",    default: 0
     t.string   "name",       null: false
     t.text     "content"
     t.datetime "created_at", null: false
