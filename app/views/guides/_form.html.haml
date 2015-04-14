@@ -7,9 +7,20 @@
   %script{:src => "/redactor/fullscreen.js"}
   %script{:src => "/redactor/definedlinks.js"}
   
-%br/
-
-%p= link_to_guide_url current_team, @guide
+- if @guide.new_record?
+  %h3
+    Create a new guide
+    
+    %small.text-muted
+      &mdash;
+      see our
+      %a{href:'#'} help guides for editing pages
+      &hellip;
+  %br/
+  
+- else
+  %br/
+  %p= link_to_guide_url(current_team, @guide)
 
 = form_for(@guide, remote:true) do  |form|
   .content.form-group
