@@ -36,4 +36,8 @@ $(function() {
       $("form#search input#query").attr('value', facet )
       $("form#search").submit()
   })
+  
+  $('.guide button.delete').click(function() {
+      $('.guide form.delete input[type=submit]').click()
+  })
 });

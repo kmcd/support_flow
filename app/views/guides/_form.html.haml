@@ -1,3 +1,62 @@
-Title
-Save
-Content
+- content_for(:head) do
+  %link{:href => "/redactor/redactor.css", :rel => "stylesheet"}
+  %script{:src => "/redactor/redactor.js"}
+  %script{:src => "/redactor/table.js"}
+  %script{:src => "/redactor/imagemanager.js"}
+  %script{:src => "/redactor/filemanager.js"}
+  %script{:src => "/redactor/fullscreen.js"}
+  %script{:src => "/redactor/definedlinks.js"}
+  
+%br/
+
+= form_for(@guide, remote:true) do  |form|
+  .content.form-group
+    = form.text_area :content, class:'form-control'
+    
+  .name.form-group
+    %label.error.control-label.hide
+      Please give this guide a name
+    = form.text_field :name, class:'form-control', placeholder:'Give this guide a name ...'
+    
+  .button.form-group
+    %button.btn.btn-default
+      Save
+      
+    %button.delete.btn.btn-danger
+      Delete
+    
+    %button.saved.btn.btn-success.hide
+      %span.glyphicon.glyphicon-ok-circle
+      Saved
+    
+    %button.not-saved.btn.btn-warning.hide
+      %span.glyphicon.glyphicon-exclamation-sign
+      Not saved
+      
+-# TODO: move to application.css -> infer team from <body data-team-id='1'>
+:javascript
+  $(function() {
+    $('#guide_content').redactor({
+      focus: true,
+      minHeight: 500,
+      replaceDivs: false,
+      deniedTags: ['script'],
+      removeEmpty: false,
+      replaceTags: [],
+      pastePlainText: false,
+      imageUpload: "/teams/#{current_team.id}/images",
+      imageManagerJson: "/teams/#{current_team.id}/images.json",
+      uploadImageFields: { 'authenticity_token':"#{form_authenticity_token}" },
+      fileUpload: "/teams/#{current_team.id}/files",
+      fileManagerJson: "/teams/#{current_team.id}/files.json",
+      definedLinks: '/defined-links.json',
+      plugins: ['table', 'imagemanager', 'filemanager', 'fullscreen', 'definedlinks']
+    })
+  });
+  
+- if flash[:created]
+  :javascript
+    $(function() {
+      $("button.saved").removeClass('hide');
+      setTimeout(function(){ $("button.saved").addClass('hide') }, 4000)
+    })

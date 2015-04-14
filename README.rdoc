@@ -1,6 +1,7 @@
 = v 0.1
 
-/guides
+/guides/1
+/guides (template, default)
 /public/guides
 
 /customers      (stream, stats)

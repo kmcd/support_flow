@@ -1,5 +1,5 @@
 class GuidesController < ApplicationController
-  before_action :set_guide, only: [:update, :show, :edit]
+  before_action :set_guide, only: [:update, :show, :edit, :destroy]
   delegate :team, to: :current_agent
   
   def index
@@ -11,7 +11,11 @@ class GuidesController < ApplicationController
   end
   
   def create
-    if guide = team.guides.create(guide_params)
+    @guide = team.guides.new guide_params
+    
+    if @guide.save
+      flash[:created] = true
+      render text:"window.location.replace('#{guide_path(@guide)}')"
     end
   end
   
@@ -21,6 +25,11 @@ class GuidesController < ApplicationController
   
   def update
     @guide.update guide_params
+  end
+  
+  def destroy
+    @guide.delete
+    redirect_to guides_path
   end
   
   private
