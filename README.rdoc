@@ -1,4 +1,4 @@
-= v 0.1
+= v 0.1 MVP
 
 /customers      (stream, stats)
 /agents         (stream, stats)
@@ -11,27 +11,26 @@
   Authenticate  (google oauth)
   Authorise
 
-= v 0.2
+= v 0.2  Sales Pipeline
+
+customer flow
+crm customer journey
+crm campaigns, channels
+landing pages
+support integration
+  
+= v 0.3 Billing
 
 /settings/billing
 
-= v 0.3
+= v 0.X
 
+/public/guides -> local/remote subdomain
 /teams/1/contact
-
-= v 0.4
-
 /guides/search
 
-= v 0.5
-
-/public/guides subdomain
-
-== TODO
-
-/guides/ -> test coverage
-
 == Installation
+
 * Ruby version
 * System dependencies
 * Configuration
