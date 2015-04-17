@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  resources :agents,    only: %i[ index show update ]
-  resources :customers, only: %i[ index show update ]
+  namespace :activity do
+    get :agents, to:'/agents#activity'
+    get :customers, to:'/customers#activity'
+  end
+  
+  resources :agents,    only: %i[ index edit update ]
+  resources :customers, only: %i[ index edit update ]
   resources :guides
   
   resources :requests, only: %i[ index show update ] do

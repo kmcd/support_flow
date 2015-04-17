@@ -1,0 +1,59 @@
+.customer.row
+  .col-md-offset-1.col-md-9.col-sm-9.col-sm-offset-1.col-xs-11
+    %h3
+      = @customer.name
+      
+      %small
+        - unless @customer.name == @customer.email_address
+          = link_to @customer.email_address, '#'
+        
+        - unless @customer.company.blank?
+          from
+          = @customer.company
+    
+    %h4
+      %small 
+        Average
+        = '1<sup>st</sup>'.html_safe
+        reply
+      10 mins
+      %small &mdash; average close
+      10 mins
+      
+    %br/
+    
+    = form_for(@customer, html:{class:'form-horizontal'}) do |form|
+      .form-group
+        %label.col-sm-2.control-label Name
+        .col-sm-6
+          = form.text_field :name, placeholder:'Customer name', class:'form-control'
+          
+      .form-group
+        %label.col-sm-2.control-label Company
+        .col-sm-6
+          = form.text_field :company, placeholder:'Company name', class:'form-control'
+          
+      .form-group
+        %label.col-sm-2.control-label Phone
+        .col-sm-6
+          = form.text_field :phone, placeholder:'Phone number', class:'form-control'
+          
+      .form-group
+        %label.col-sm-2.control-label Notes
+        .col-sm-6
+          = form.text_area :notes, class:'form-control'
+            
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          %button.btn.btn-default{:type => "submit"} Save
+
+    %br/
+    
+    - @customer.activities.each do |activity|
+      %p[activity]
+        %span.mark= time_day activity
+        %span.text-muted= month_year activity
+        &rarr;
+        = @customer.name
+        %span.text-muted= description(activity).html_safe
+        = request_open(activity) if activity.key[/open/]

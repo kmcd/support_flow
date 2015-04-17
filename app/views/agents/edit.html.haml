@@ -1,0 +1,61 @@
+.agent.row
+  .col-md-offset-1.col-md-9.col-sm-9.col-sm-offset-1.col-xs-11
+    %h3
+      = @agent.name
+      %small
+        = link_to @agent.email_address, '#'
+      
+    %h4
+      - average_reply = statistic(:reply, @agent)
+      - if average_reply
+        %small
+          Average
+          = '1<sup>st</sup>'.html_safe
+          reply
+        = average_reply
+      
+      - average_close = statistic(:close, @agent)
+      = '&mdash;'.html_safe if average_reply && average_close
+      
+      - if average_close
+        %small
+          Average close
+        = average_close
+      
+    %br/
+    
+    = form_for(@agent, html:{class:'form-horizontal'}) do |form|
+      .form-group
+        %label.col-sm-2.control-label Email
+        .col-sm-6
+          = form.text_field :email_address, placeholder:'Agent work email', class:'form-control'
+          
+      .form-group
+        %label.col-sm-2.control-label Name
+        .col-sm-6
+          = form.text_field :name, placeholder:'Agent name', class:'form-control'
+          
+      .form-group
+        %label.col-sm-2.control-label Phone
+        .col-sm-6
+          = form.text_field :phone, placeholder:'Phone number', class:'form-control'
+          
+      .form-group
+        %label.col-sm-2.control-label Notes
+        .col-sm-6
+          = form.text_area :notes, class:'form-control'
+            
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          %button.btn.btn-default{type:'submit'} Save
+
+    %br/
+    
+    - @agent.activities.each do |activity|
+      %p[activity]
+        %span.mark= time_day activity
+        %span.text-muted= month_year activity
+        &rarr;
+        = @agent.name
+        %span.text-muted= description(activity).html_safe
+        = request_open(activity) if activity.key[/open/]

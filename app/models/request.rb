@@ -1,11 +1,21 @@
 class Request < ActiveRecord::Base
   include PublicActivity::Common
-  
   belongs_to :agent
   belongs_to :customer
   has_many :messages, dependent: :destroy
   belongs_to :team
   acts_as_taggable_array_on :labels
+  
+  scope :open, -> { where open:true }
+  scope :closed, -> { where open:false }
+  
+  scope :open_count, ->(filter, open=true) {
+    options = { open:open }
+    options.merge!({ team:filter })     if filter.is_a?(Team)
+    options.merge!({ agent:filter })    if filter.is_a?(Agent)
+    options.merge!({ customer:filter }) if filter.is_a?(Customer)
+    where( options ).count
+  }
   
   def assign_from(name_or_email)
     return unless assignee = team.agents.

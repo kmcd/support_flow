@@ -1,0 +1,29 @@
+team_average_close:
+  owner: support_flow (Team)
+  type: Statistic::Close
+  value: 5h 5m
+  
+team_average_reply:
+  owner: support_flow (Team)
+  type: Statistic::Reply
+  value: 2d 1hr
+  
+agent_average_close:
+  owner: rachel (Agent)
+  type: Statistic::Close
+  value: 10h 15m
+  
+agent_average_reply:
+  owner: rachel (Agent)
+  type: Statistic::Reply
+  value: 6hr
+  
+customer_average_close:
+  owner: peldi (Customer)
+  type: Statistic::Close
+  value: 2d 5hr
+  
+customer_average_reply:
+  owner: peldi (Customer)
+  type: Statistic::Reply
+  value: 4hr

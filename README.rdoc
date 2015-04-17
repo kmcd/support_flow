@@ -1,33 +1,45 @@
-= v 0.1 MVP
+= 0.1 MVP
 
-/customers      (stream, stats)
-/agents         (stream, stats)
-/agents/1       (stream, stats, profile)
-/customers/1    (stream, stats, profile)
+/customers/1 -> activity, profile
+/customers   -> activity, listing
+/agents      -> activity, listing
+/agents/1    -> activity, profile
 
-/settings/mailboxes (replies, html view, attachments)
+/settings/mailboxes -> mandrill
+/settings/mailboxes -> replies
+/settings/mailboxes -> html email rendering
+/settings/mailboxes -> show attachements ?
 
-/onboard        (demo/trial/paid)
-  Authenticate  (google oauth)
-  Authorise
+/onboard/demo
+/onboard/trial
+/onboard/authenticate -> google oauth?
+/onboard/authorise    -> team policy
 
-= v 0.2  Sales Pipeline
+flow test -> qa plan
 
-customer flow
-crm customer journey
-crm campaigns, channels
-landing pages
-support integration
-  
-= v 0.3 Billing
+= 0.2  Sales Pipeline
 
-/settings/billing
+help docs -> offload
+crm customer journey automation
+landing page
+crm channels, campaigns (ppc, newsletters, outreach)
 
-= v 0.X
+= 0.3 Billing
 
+/settings/billing -> stripe
+
+= 0.X
+
+/guides/search -> google index
 /public/guides -> local/remote subdomain
-/teams/1/contact
-/guides/search
+/teams/1/contact_us
+/settings/mailboxes -> notification policy
+/customers/1 -> full contact population
+/customers/1/edit -> arbitrary profile field crud
+/settings/sla -> create activity/notification
+/agents/avatar
+/customers/avatar
+/public/guides -> insert powered by logo fixed bottom center
 
 == Installation
 

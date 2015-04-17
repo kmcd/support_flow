@@ -1,2 +1,37 @@
-%h1 Agents#index
-%p Find me in app/views/agents/index.html.haml
+.agents.row
+  -# TODO: dry up content page grid setup
+  .description.col-md-offset-1.col-md-9.col-sm-9.col-sm-offset-1.col-xs-11
+    %h3
+      Agents
+      
+      %small
+        &mdash; view
+        = link_to 'recent agent activity', activity_agents_path
+        
+    %br/
+    
+    -# TODO: js sort table
+    %table.table.table-responsive
+      %thead
+        %tr
+          %th
+          %th.text-right open
+          %th.text-right closed
+          %th.text-right reply
+          %th.text-right close
+      
+        %tr
+          %td
+            %i.text-muted Total
+          %td.text-right= Request.open_count(current_team)
+          %td.text-right= Request.open_count(current_team, false)
+          %td.text-right= statistic :reply, current_team
+          %td.text-right= statistic :close, current_team
+      
+      - @agents.each do |agent|
+        %tr
+          %td= link_to agent.name, edit_agent_path(agent)
+          %td.text-right= Request.open_count(agent)
+          %td.text-right= Request.open_count(agent, false)
+          %td.text-right= statistic :reply, agent
+          %td.text-right= statistic :close, agent

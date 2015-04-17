@@ -1,2 +1,36 @@
-%h1 Customers#index
-%p Find me in app/views/customers/index.html.haml
+.customers.row
+  .description.col-md-offset-1.col-md-9.col-sm-9.col-sm-offset-1.col-xs-11
+    %h3
+      Customers
+      
+      %small
+        &mdash; view
+        = link_to 'recent customer activity', activity_customers_path
+        
+    %br/
+    
+    -# TODO: js sort table
+    %table.table.table-responsive
+      %thead
+        %tr
+          %th
+          %th.text-right open
+          %th.text-right closed
+          %th.text-right reply
+          %th.text-right close
+          
+        %tr
+          %td
+            %i.text-muted Total
+          %td.text-right= Request.open_count(current_team)
+          %td.text-right= Request.open_count(current_team, false)
+          %td.text-right= statistic :reply, current_team
+          %td.text-right= statistic :close, current_team
+            
+      - @customers.each do |customer|
+        %tr
+          %td= link_to customer.name, edit_customer_path(customer)
+          %td.text-right= Request.open_count(customer)
+          %td.text-right= Request.open_count(customer, false)
+          %td.text-right= statistic :reply, customer
+          %td.text-right= statistic :close, customer

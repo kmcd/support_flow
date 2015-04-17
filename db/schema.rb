@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   create_table "agents", force: :cascade do |t|
     t.integer  "team_id",                       null: false
     t.string   "email_address",                 null: false
-    t.json     "profile"
+    t.json     "profile", default:{}
     t.boolean  "active",        default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   create_table "customers", force: :cascade do |t|
     t.integer  "team_id",       null: false
     t.string   "email_address", null: false
-    t.json     "profile"
+    t.json     "profile", default:{}
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   create_table "mailboxes", force: :cascade do |t|
     t.integer  "team_id",       null: false
     t.string   "email_address", null: false
-    t.string   "credentials"
+    t.json     "credentials", default:{}
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -142,5 +142,13 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
-
+  
+  create_table "statistics", force: :cascade do |t|
+    t.integer  "owner_id",                   null: false
+    t.string   "owner_type",                 null: false
+    t.string   "type",                       null: false
+    t.string   "value"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 end
