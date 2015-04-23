@@ -1,10 +1,5 @@
 = 0.1 MVP
 
-/customers/1 -> activity, profile
-/customers   -> activity, listing
-/agents      -> activity, listing
-/agents/1    -> activity, profile
-
 /settings/mailboxes -> mandrill
 /settings/mailboxes -> replies
 /settings/mailboxes -> html email rendering
