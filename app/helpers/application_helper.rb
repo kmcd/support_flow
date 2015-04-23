@@ -4,9 +4,11 @@ module ApplicationHelper
     { :class => 'active' }
   end
   
-  def statistic(type, owner)
-    stat = "Statistic::#{type.to_s.classify}".constantize.
-      where(owner:owner).first
-    stat && stat.value
+  def duration(seconds)
+    seconds = seconds.to_i + rand(60*rand(5))
+    _, sec = seconds.divmod 60
+    _, mins = _.divmod 60
+    days, hours = _.divmod 60
+    [ hours, mins ]
   end
 end

@@ -25,13 +25,29 @@
             %i.text-muted Total
           %td.text-right= Request.open_count(current_team)
           %td.text-right= Request.open_count(current_team, false)
-          %td.text-right= statistic :reply, current_team
-          %td.text-right= statistic :close, current_team
+          
+          -# TODO: dry up with customers/index,show
+          %td.text-right
+            - hours, mins = duration current_team.average_reply
+            = "#{hours}h" if hours > 0
+            = "#{mins}m" if mins > 0
+            
+          %td.text-right
+            - hours, mins = duration current_team.average_close
+            = "#{hours}h" if hours > 0
+            = "#{mins}m" if mins > 0
       
       - @agents.each do |agent|
         %tr
           %td= link_to agent.name, edit_agent_path(agent)
           %td.text-right= Request.open_count(agent)
           %td.text-right= Request.open_count(agent, false)
-          %td.text-right= statistic :reply, agent
-          %td.text-right= statistic :close, agent
+          %td.text-right
+            - hours, mins = duration agent.average_reply
+            = "#{hours}h" if hours > 0
+            = "#{mins}m" if mins > 0
+            
+          %td.text-right
+            - hours, mins = duration agent.average_close
+            = "#{hours}h" if hours > 0
+            = "#{mins}m" if mins > 0

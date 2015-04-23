@@ -10,10 +10,9 @@
 /settings/mailboxes -> html email rendering
 /settings/mailboxes -> show attachements ?
 
+/auth/email
 /onboard/demo
 /onboard/trial
-/onboard/authenticate -> google oauth?
-/onboard/authorise    -> team policy
 
 flow test -> qa plan
 
@@ -37,9 +36,12 @@ crm channels, campaigns (ppc, newsletters, outreach)
 /customers/1 -> full contact population
 /customers/1/edit -> arbitrary profile field crud
 /settings/sla -> create activity/notification
-/agents/avatar
-/customers/avatar
+/agents/1/avatar
+/customers/1/avatar
 /public/guides -> insert powered by logo fixed bottom center
+/agents/1 -> currently waiting
+/customers/1 -> current waiting
+/stats/ -> xbar control chart
 
 == Installation
 

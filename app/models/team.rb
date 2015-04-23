@@ -1,4 +1,5 @@
 class Team < ActiveRecord::Base
+  include Statistics
   has_many :agents
   has_many :customers
   has_many :files

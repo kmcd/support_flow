@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
   include Profileable
+  include Statistics
   has_many :requests
   has_many :messages
   belongs_to :team

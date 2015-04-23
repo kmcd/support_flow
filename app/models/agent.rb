@@ -1,5 +1,6 @@
 class Agent < ActiveRecord::Base
   include Profileable
+  include Statistics
   belongs_to :team
   has_many :messages
   has_many :requests

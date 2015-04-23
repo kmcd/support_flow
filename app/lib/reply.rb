@@ -13,7 +13,11 @@ class Reply
       mailbox:mailbox,
       customer:customer,
       agent:agent
-    Activity.new(request:request, owner:agent).reply message
+    activity = Activity.new request:request, owner:agent,
+      recipient:request.customer
+    activity.reply message
+    activity.first_reply_time if first?
+    self
   end
   
   def valid?
@@ -58,5 +62,13 @@ class Reply
   
   def content_present?
     email.body.gsub(/\A\s*--\w+.*\Z/m, '').present?
+  end
+  
+  def first?
+    return unless agent.present?
+    return unless recipients.include?(message.request.customer.email_address)
+    
+    PublicActivity::Activity.where(trackable:message,
+      key:'request.first_reply').empty?
   end
 end

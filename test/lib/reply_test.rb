@@ -86,3 +86,26 @@ class InvalidReplyTest < ActiveSupport::TestCase
     end
   end
 end
+
+class FirstReplyTest < ActiveSupport::TestCase
+  test "save reply time" do
+    open = PublicActivity::Activity.create trackable:@billing_enquiry,
+      key:'request.open', created_at:5.days.ago
+    
+    reply = Reply.new email \
+      to:[ "request.#{@billing_enquiry.id}@getsupportflow.net",
+        @peldi.email_address ],
+      from:@rachel.email_address,
+      subject:"We're on it",
+      text:"We're on it"
+    reply.save
+    
+    first_reply = PublicActivity::Activity.where(trackable:@billing_enquiry, 
+      key:'request.first_reply').first
+    
+    five_days_in_seconds = 432000
+    assert_equal five_days_in_seconds, first_reply.parameters[:seconds]
+    assert_equal @rachel, first_reply.owner
+    assert_equal @peldi, first_reply.recipient
+  end
+end

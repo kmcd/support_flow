@@ -1,12 +1,12 @@
 class Activity
-  attr_reader :request, :owner
+  attr_reader :request, :owner, :recipient
   
-  def initialize(request:, owner:nil)
-    @request, @owner = request, owner
+  def initialize(request:, owner:nil, recipient:nil)
+    @request, @owner, @recipient = request, owner, recipient
   end
   
-  def self.create(request,owner)
-    activity = new request:request, owner:owner
+  def self.create(request,owner,recipient=nil)
+    activity = new request:request, owner:owner, recipient:recipient
     
     if agent_id = request.previous_changes[:agent_id].try(&:last)
       activity.assign Agent.find(agent_id)
@@ -37,12 +37,12 @@ class Activity
   end
   
   def enquiry(message)
-    request.create_activity :open, owner:owner, 
+    request.create_activity :open, owner:owner,
       params:{message_id:message.id}
   end
   
   def reply(message)
-    request.create_activity :reply, owner:owner, 
+    request.create_activity :reply, owner:owner,
       params:{message_id:message.id}
   end
   
@@ -61,5 +61,11 @@ class Activity
   def merge(merged_request)
     request.create_activity :merge, owner:owner,
       params:{request_id:merged_request.id, request_name:merged_request.name}
+  end
+  
+  def first_reply_time
+    return unless open = request.activities.where(key:'request.open').first
+    request.create_activity :first_reply, owner:owner, recipient:recipient,
+      params:{seconds:(Time.now - open.created_at.to_time).to_i}
   end
 end

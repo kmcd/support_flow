@@ -24,13 +24,27 @@
             %i.text-muted Total
           %td.text-right= Request.open_count(current_team)
           %td.text-right= Request.open_count(current_team, false)
-          %td.text-right= statistic :reply, current_team
-          %td.text-right= statistic :close, current_team
+          %td.text-right
+            - hours, mins = duration current_team.average_reply
+            = "#{hours}h" if hours > 0
+            = "#{mins}m" if mins > 0
+            
+          %td.text-right
+            - hours, mins = duration current_team.average_close
+            = "#{hours}h" if hours > 0
+            = "#{mins}m" if mins > 0
             
       - @customers.each do |customer|
         %tr
           %td= link_to customer.name, edit_customer_path(customer)
           %td.text-right= Request.open_count(customer)
           %td.text-right= Request.open_count(customer, false)
-          %td.text-right= statistic :reply, customer
-          %td.text-right= statistic :close, customer
+          %td.text-right
+            - hours, mins = duration customer.average_reply
+            = "#{hours}h" if hours > 0
+            = "#{mins}m" if mins > 0
+            
+          %td.text-right
+            - hours, mins = duration customer.average_close
+            = "#{hours}h" if hours > 0
+            = "#{mins}m" if mins > 0

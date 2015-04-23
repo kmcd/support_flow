@@ -6,21 +6,25 @@
         = link_to @agent.email_address, '#'
       
     %h4
-      - average_reply = statistic(:reply, @agent)
-      - if average_reply
+      - if average_reply = @agent.average_reply
         %small
           Average
           = '1<sup>st</sup>'.html_safe
           reply
-        = average_reply
+          
+        - hours, mins = duration @agent.average_reply
+        = "#{hours} hours" if hours > 0
+        = "#{mins} mins" if mins > 0
       
-      - average_close = statistic(:close, @agent)
+      - average_close = @agent.average_close
       = '&mdash;'.html_safe if average_reply && average_close
       
       - if average_close
         %small
           Average close
-        = average_close
+        - hours, mins = duration @agent.average_close
+        = "#{hours} hours" if hours > 0
+        = "#{mins} mins" if mins > 0
       
     %br/
     

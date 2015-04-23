@@ -1,29 +1,39 @@
 team_average_close:
   owner: support_flow (Team)
   type: Statistic::Close
-  value: 5h 5m
+  value: <%= 86400 * rand(1..5) %>
   
 team_average_reply:
   owner: support_flow (Team)
   type: Statistic::Reply
-  value: 2d 1hr
+  value: <%= 86400 * rand(1..5) %>
   
 agent_average_close:
   owner: rachel (Agent)
   type: Statistic::Close
-  value: 10h 15m
+  value: <%= 86400 * rand(1..5) %>
   
 agent_average_reply:
   owner: rachel (Agent)
   type: Statistic::Reply
-  value: 6hr
+  value: <%= 86400 * rand(1..5) %>
   
 customer_average_close:
   owner: peldi (Customer)
   type: Statistic::Close
-  value: 2d 5hr
+  value: <%= 86400 * rand(1..5) %>
   
 customer_average_reply:
   owner: peldi (Customer)
   type: Statistic::Reply
-  value: 4hr
+  value: <%= 3600 * rand(1..5) %>
+  
+agent_wait:
+  owner: rachel (Agent)
+  type: Statistic::Wait
+  value: <%= 3600 * rand(1..5) %>
+  
+customer_wait:
+  owner: peldi (Customer)
+  type: Statistic::Close
+  value: <%= 3600 * rand(1..5) %>

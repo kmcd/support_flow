@@ -31,7 +31,7 @@ class CommandActivityTest < ActiveSupport::TestCase
   
   def command_activity(command)
     execute command
-    @billing_enquiry.activities.first
+    @billing_enquiry.activities.last
   end
   
   test "set agent from email sender" do

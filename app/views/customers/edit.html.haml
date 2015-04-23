@@ -16,9 +16,14 @@
         Average
         = '1<sup>st</sup>'.html_safe
         reply
-      10 mins
+      - hours, mins = duration @customer.average_reply
+      = "#{hours} hours" if hours > 0
+      = "#{mins} mins" if mins > 0
+        
       %small &mdash; average close
-      10 mins
+      - hours, mins = duration @customer.average_close
+      = "#{hours} hours" if hours > 0
+      = "#{mins} mins" if mins > 0
       
     %br/
     
