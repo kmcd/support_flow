@@ -9,6 +9,7 @@ gem 'delayed_job_active_record'
 gem 'acts-as-taggable-array-on' # TODO: replace with (table/array)
 gem 'textacular'
 gem 'mini_magick'
+gem 'clockwork'
 
 group :development, :test do
   gem 'byebug'

@@ -51,6 +51,9 @@ GEM
       slop (~> 3.6)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    clockwork (1.2.0)
+      activesupport
+      tzinfo
     coderay (1.1.0)
     columnize (0.9.0)
     daemons (1.1.9)
@@ -233,6 +236,7 @@ DEPENDENCIES
   acts-as-taggable-array-on
   awesome_print
   byebug
+  clockwork
   delayed_job_active_record
   griddler-mandrill
   guard
