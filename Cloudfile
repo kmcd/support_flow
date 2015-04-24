@@ -3,6 +3,9 @@ support-flow:
   environment: production # RAILS_ENV
   domains:
     - support-flow.shellyapp.com
+    - getsupportflow.com
+    - getsupportflow.org # TODO: redirect .org, .net http(s) to .com
+    - getsupportflow.net
   servers:
     app1:
       size: small
