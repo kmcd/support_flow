@@ -37,6 +37,7 @@ crm channels, campaigns (ppc, newsletters, outreach)
 /agents/1 -> currently waiting
 /customers/1 -> current waiting
 /stats/ -> xbar control chart
+/cli/ -> market to developers?
 
 == Installation
 

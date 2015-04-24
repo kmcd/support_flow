@@ -27,13 +27,3 @@ customer_average_reply:
   owner: peldi (Customer)
   type: Statistic::Reply
   value: <%= 3600 * rand(1..5) %>
-  
-agent_wait:
-  owner: rachel (Agent)
-  type: Statistic::Wait
-  value: <%= 3600 * rand(1..5) %>
-  
-customer_wait:
-  owner: peldi (Customer)
-  type: Statistic::Close
-  value: <%= 3600 * rand(1..5) %>

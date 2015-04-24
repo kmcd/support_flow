@@ -9,8 +9,6 @@ class UpdateStatisticsJob < ActiveJob::Base
     agent_close
     customer_reply
     customer_close
-    agent_wait
-    customer_wait
   end
   
   private

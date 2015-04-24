@@ -53,9 +53,7 @@
               Settings
             
             %ul{ :class => 'dropdown-menu', :role => 'menu' }
-              %li
-                %a{ href:'#' }
-                  Mailboxes
+              %li= link_to 'Mailboxes', settings_mailboxes_path
               %li
                 %a{ href:'#' }
                   Billing
