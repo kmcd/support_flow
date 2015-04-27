@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount_griddler
+  
   namespace :activity do
     get :agents, to:'/agents#activity'
     get :customers, to:'/customers#activity'
@@ -23,8 +25,6 @@ Rails.application.routes.draw do
     resources :guides, only: %i[ show ]
     resources :links, only: %i[ index ]
   end
-  
-  get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
   
   get '/:team(/*guide)', to:'guides#public', as:'public_guide'
   
