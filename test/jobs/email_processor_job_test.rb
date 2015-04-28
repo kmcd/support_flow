@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EmailProcessorJobTest < ActiveJob::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  # TODO: ensure called with json & passed on to Enquiry, Reply, Command
+  # (or alter Enquiry, Reply, Command initialize with json)
 end

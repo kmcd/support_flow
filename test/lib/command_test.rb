@@ -34,7 +34,7 @@ class TagCommandTest < ActiveSupport::TestCase
   end
   
   test "multiple labels over multiple lines" do
-    execute "--label billing\n Foo\n --label urgent"
+    execute "--label billing\\n Foo\\n --label urgent"
     assert_equal %w[ billing urgent ], @billing_enquiry.reload.labels
   end
 end

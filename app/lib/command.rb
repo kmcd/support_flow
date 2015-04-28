@@ -93,7 +93,7 @@ class Command
   
   def arguments
     email.raw_text.
-      split(/\n/).
+      split(/\\n/).
       find_all {|_| _[/\A\s*--\w+.*\Z/] }.
       join.
       strip
