@@ -3,8 +3,8 @@ class EmailProcessorJob < ActiveJob::Base
   
   def perform(email_json)
     email = Griddler::Email.new JSON.parse(email_json)
-    Enquiry.new(email).save
-    Reply.new(email).save
-    Command.new(email).execute
+    # Enquiry.new(email).save
+    # Reply.new(email).save
+    # Command.new(email).execute
   end
 end
