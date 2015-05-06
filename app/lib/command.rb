@@ -73,7 +73,7 @@ class Command
   
   def options
     return [] unless arguments.present?
-      
+    
     arguments.
       split(/(--[A-Za-z]+)/)[1..-1].
       each_slice(2).
@@ -92,6 +92,7 @@ class Command
   end
   
   def arguments
+    return unless email.raw_text.present?
     email.raw_text.
       split(/\\n/).
       find_all {|_| _[/\A\s*--\w+.*\Z/] }.

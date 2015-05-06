@@ -9,11 +9,9 @@
 /onboard/demo
 /onboard/trial
 
-flow test -> qa plan
-
 = 0.2  Sales Pipeline
 
-help docs -> offload
+help docs -> offload (QA plan)
 crm customer journey automation
 landing page
 crm channels, campaigns (ppc, newsletters, outreach)
