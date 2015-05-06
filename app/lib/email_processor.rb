@@ -8,5 +8,6 @@ class EmailProcessor
   def process
     # TODO: remove this class, config Griddler use job directly
     # EmailProcessorJob.perform_later email.to_json
+    
   end
 end
