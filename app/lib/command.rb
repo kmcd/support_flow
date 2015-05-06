@@ -74,12 +74,12 @@ class Command
   def options
     return [] unless arguments.present?
     
-    # arguments.
-      # split(/(--[A-Za-z]+)/)[1..-1].
-      # each_slice(2).
-      # to_a.
-      # flatten.
-      # map &:strip
+    arguments.
+      split(/(--[A-Za-z]+)/)[1..-1].
+      each_slice(2).
+      to_a.
+      flatten.
+      map &:strip
   end
   
   def request
@@ -94,11 +94,11 @@ class Command
   def arguments
     return unless email.raw_text.present?
     
-    # email.raw_text.
-      # split(/\\n/).
-      # find_all {|_| _[/\A\s*--\w+.*\Z/] }.
-      # join.
-      # strip
+    email.raw_text.
+      split(/\\n/).
+      find_all {|_| _[/\A\s*--\w+.*\Z/] }.
+      join.
+      strip
   end
   
   def activity
