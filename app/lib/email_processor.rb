@@ -1,15 +1,15 @@
 class EmailProcessor
-  attr_reader :email
+  attr_reader :mandrill_payload
   
-  def initialize(email)
-    @email = email
+  def initialize(mandrill_payload)
+    @mandrill_payload = mandrill_payload
   end
   
   def process
     # TODO: remove this class, config Griddler use job directly
     # EmailProcessorJob.perform_later email.to_json
     
-    email = Griddler::Email.new email["params"]
+    email = Griddler::Email.new mandrill_payload
     Enquiry.new(email).save
     Reply.new(email).save
     Command.new(email).execute
