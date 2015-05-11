@@ -16,13 +16,14 @@ class SessionsController < ApplicationController
   end
   
   def show
-    authentication = Authentication.new params[:token]
+    authentication = Authentication.new params[:id]
     
     if authentication.valid?
-      agent = Agent.where email_address:authentication.session.email
-      redirect_to team_path(agent.team)
+      @current_agent = authentication.agent
+      redirect_to requests_path
     else
-      # errors
+      # FIXME: error messages
+      redirect_to new_sessions_path
     end
   end
   

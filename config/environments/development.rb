@@ -16,11 +16,12 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
   
   # TODO: move to config/initializers/mail.rb
   config.action_mailer.smtp_settings = {
     address:    'smtp.mandrillapp.com',
-    port:       25, #587,
+    port:       587,
     enable_starttls_auto: true,
     domain:     'getsupportflow.com',
     user_name:  'keith@dancingtext.com',
