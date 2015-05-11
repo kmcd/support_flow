@@ -1,3 +1,4 @@
+# TODO: rename resource to Login
 class SessionsController < ApplicationController
   def new
     @session = Session.new

@@ -20,11 +20,12 @@ Rails.application.configure do
   # TODO: move to config/initializers/mail.rb
   config.action_mailer.smtp_settings = {
     address:    'smtp.mandrillapp.com',
-    port:       587,
+    port:       25, #587,
+    enable_starttls_auto: true,
     domain:     'getsupportflow.com',
     user_name:  'keith@dancingtext.com',
     password:   'e1i8nKv2xDh7Ldpmbqv1sQ',
-    authentication:'plain'}
+    authentication: 'login' }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
