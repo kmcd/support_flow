@@ -66,6 +66,7 @@ namespace :db do
 end
 
 def create_email(to:, from:, subject:'', body:, cc:[])
-  EmailProcessorJob.new.perform Griddler::Email.new( \
-    to:[to], from:from, subject:subject, text:body, cc:[cc].flatten )
+  email = Griddler::Email.new to:[to], from:from, subject:subject, 
+    text:body, cc:[cc].flatten
+  EmailProcessor.new(email).process
 end

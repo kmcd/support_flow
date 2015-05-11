@@ -45,6 +45,18 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   end
 
   add_index "agents", ["team_id"], name: "index_agents_on_team_id", using: :btree
+  
+  create_table "assets", force: :cascade do |t|
+    t.integer  "team_id",                    null: false
+    t.string  "type",                     null: false
+    t.string  "thumb"
+    t.string  "image"
+    t.string  "title"
+    t.string  "link"
+    t.string  "size"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "customers", force: :cascade do |t|
     t.integer  "team_id",       null: false
@@ -80,7 +92,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
+  
   create_table "mailboxes", force: :cascade do |t|
     t.integer  "team_id",       null: false
     t.string   "email_address", null: false
@@ -125,23 +137,18 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   add_index "requests", ["customer_id"], name: "index_requests_on_customer_id", using: :btree
   add_index "requests", ["labels"], name: "index_requests_on_labels", using: :gin
   
+  create_table "sessions", force: :cascade do |t|
+    t.string  "email",    null: false
+    t.string  "token"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+  
   create_table "teams", force: :cascade do |t|
     t.string   "subdomain"
     t.string   "domain_name"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-  end
-  
-  create_table "assets", force: :cascade do |t|
-    t.integer  "team_id",                    null: false
-    t.string  "type",                     null: false
-    t.string  "thumb"
-    t.string  "image"
-    t.string  "title"
-    t.string  "link"
-    t.string  "size"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
   end
   
   create_table "statistics", force: :cascade do |t|

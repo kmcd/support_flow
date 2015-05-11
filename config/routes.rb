@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resources :mailboxes
   end
   
+  resources :sessions, only: %i[ new create show ] # TODO: rename to login
+  
   resources :teams, only:[] do
     resources :files, only: %i[ create index ]
     resources :images, only: %i[ create index ]

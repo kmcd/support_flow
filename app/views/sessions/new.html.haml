@@ -1,0 +1,10 @@
+.sessions.row
+  .col-md-offset-1.col-md-9.col-sm-9.col-sm-offset-1.col-xs-11
+  
+    %br/
+    
+    %h1 Login
+  
+    = form_for(@session) do |form|
+      = form.text_field :email, placeholder:'Your work email', class:'form-control'
+      %button.btn.btn-default{type:'submit'} Login
