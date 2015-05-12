@@ -3,7 +3,7 @@
 = render 'search'
 
 .results-summary.row
-  .col-md-9.col-md-offset-1.col-sm-9.col-sm-offset-1
+  .col-md-9.col-md-offset-0.col-sm-9.col-sm-offset-0
     %p.text-muted
       %small
         %i
@@ -11,35 +11,34 @@
 
 - if @requests.empty?
   .request.row
-    .description.col-md-offset-1.col-md-9.col-sm-9.col-sm-offset-1.col-xs-11
+    .description.col-md-offset-0.col-md-9.col-sm-9.col-sm-offset-0.col-xs-11
       %i
         No requests
           
 - @requests.each do |request|
   .request.row
-    .message_count.col-md-1.col-sm-1.col-xs-1
-      %p.text-right
-        - unless request.messages.one?
-          %small
-            %a.text-muted{:href => '#'}
-              -# TODO: color based on activity
-              %span.glyphicon.glyphicon-comment
-              = request.messages_count
-              
-        - if request.open?
-          %span.text-danger
-            %span.glyphicon.glyphicon-exclamation-sign
-        - else
-          %span.text-success
-            %span.glyphicon.glyphicon-ok-circle
-          
     .description.col-md-9.col-sm-9.col-xs-11
       %h4
         = link_to name_for(request), request_path(request), class:'name'
         
-        %small= labels_for(request)
+        %small
+          - if request.open?
+            %span.text-danger
+              %span.glyphicon.glyphicon-exclamation-sign
+          - else
+            %span.text-success
+            %span.glyphicon.glyphicon-ok-circle
+            
+          = labels_for(request)
         
       %p.activity.text-muted
+        - unless request.messages.one?
+          %small
+            %a.text-warning{:href => '#'}
+              -# TODO: color based on activity
+              %span.glyphicon.glyphicon-comment
+              = request.messages_count
+              
         -# TODO: change description if request closed
         -# e.g. customer opened request on date -> agent closed request ...
         -# or agent closed customers request on date after N hours

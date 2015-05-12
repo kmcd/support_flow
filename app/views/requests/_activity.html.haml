@@ -1,5 +1,5 @@
 .activity
-  .col-md-9.col-md-offset-1
+  .col-md-9.col-md-offset-0
     %a.pull-right{:href => '#'}
       %img.img-rounded{:src => avatar(activity.owner) }
       
@@ -13,7 +13,7 @@
         %span.text-muted
           = description(activity).html_safe
       
-  .content.col-md-8.col-md-offset-1
+  .content.col-md-8.col-md-offset-0
     - if content = message_content(activity, @messages)
       %blockquote
         %p= content

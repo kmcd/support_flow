@@ -34,6 +34,14 @@ nav.navbar {
   border-radius: 0;
 }
 
+.query.row .form-group {
+  margin-bottom: 5px;
+}
+
+.filters.row {
+  margin-bottom: 15px;
+}
+
 .request.row {
   margin-bottom: 5px;
 }

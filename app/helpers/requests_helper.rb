@@ -133,7 +133,9 @@ module RequestsHelper
   end
   
   def labels_for(request)
-    request.labels.map {|_| link_to _, '#' }.join(" &bull; ").html_safe
+    request.labels.map do |label|
+      link_to label, requests_path(q:"label:#{label}")
+    end.join(" &bull; ").html_safe
   end
   
   def placeholder
