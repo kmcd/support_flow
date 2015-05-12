@@ -28,7 +28,7 @@
     
   .name.form-group
     %label.error.control-label.hide
-    = form.text_field :name, class:'form-control', placeholder:'Give this guide a name ...'
+    = form.text_field :name, class:'form-control', readonly:!@guide.deleteable?, placeholder:'Give this guide a name ...'
     
   .button.form-group
     %button.btn.btn-default
