@@ -1,5 +1,7 @@
 # TODO: rename resource to Login
 class SessionsController < ApplicationController
+  skip_before_action :require_login
+ 
   def new
     @session = Session.new
   end
@@ -19,10 +21,10 @@ class SessionsController < ApplicationController
     authentication = Authentication.new params[:id]
     
     if authentication.valid?
-      @current_agent = authentication.agent
+      session[:current_agent_id] = authentication.agent.id
       redirect_to requests_path
     else
-      # FIXME: error messages
+      # FIXME: error messag
       redirect_to new_sessions_path
     end
   end

@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :customer_requests, :current_agent, :current_team
+  before_filter :require_login # TODO: integration test auth
   
   def customer_requests
     return [] if @request.blank?
@@ -10,10 +11,17 @@ class ApplicationController < ActionController::Base
   end
   
   def current_agent
-    @current_agent ||= Agent.first
+    @current_agent ||= Agent.find_by_id session[:current_agent_id]
   end
   
   def current_team
     current_agent.team
+  end
+  
+  private
+  
+  def require_login
+    return if current_agent.present?
+    redirect_to new_session_path
   end
 end

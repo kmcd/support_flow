@@ -7,6 +7,7 @@ class Authentication
   
   def valid?
     return unless tokens_match?
+    return unless agent.present?
     (5.minutes.ago..0.minutes.ago).cover? session.updated_at
   end
   
@@ -15,7 +16,7 @@ class Authentication
   end
   
   def agent
-    Agent.where(email_address:session.email).first
+    @agent ||= Agent.where(email_address:session.email).first
   end
   
   private
@@ -24,7 +25,7 @@ class Authentication
   # https://github.com/plataformatec/devise/blob/master/lib/devise.rb#L473
   def tokens_match?
     return if session_token.blank? || email_token.blank?
-    return if session_token.bytesize != email_token.bytesize
+    return unless session_token.bytesize == email_token.bytesize
     
     l = session_token.unpack "C#{session_token.bytesize}"
     res = 0
