@@ -1,4 +1,4 @@
-class Session < ActiveRecord::Base
+class Session < ActiveRecord::Base # TODO: rename to Login
   validates :email, presence:true, uniqueness:true, \
     format:{ with: /\A[^@]+@[^@]+\z/ }
   

@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   add_index "requests", ["customer_id"], name: "index_requests_on_customer_id", using: :btree
   add_index "requests", ["labels"], name: "index_requests_on_labels", using: :gin
   
-  create_table "sessions", force: :cascade do |t|
+  create_table "logins", force: :cascade do |t|
     t.string  "email",    null: false
     t.string  "token"
     t.datetime "created_at",    null: false
