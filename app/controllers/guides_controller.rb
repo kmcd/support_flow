@@ -1,4 +1,5 @@
 class GuidesController < ApplicationController
+  skip_before_filter :require_login, only:%i[ public ]
   before_action :set_guide, only: [:update, :show, :edit, :destroy]
   delegate :team, to: :current_agent
   
