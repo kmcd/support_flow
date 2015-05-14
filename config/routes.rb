@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :agents,    only: %i[ index edit update ]
   resources :customers, only: %i[ index edit update ]
   resources :guides
+  resources :logins, only: %i[ new create show ]
+  get '/login', to:'logins#new'
   
   resources :requests, only: %i[ index show update ] do
     resource :merge, only: %i[ new create destroy ]
@@ -19,7 +21,7 @@ Rails.application.routes.draw do
     resources :mailboxes
   end
   
-  resources :sessions, only: %i[ new create show ] # TODO: rename to login
+  resource :signup, only: %i[ new create ]
   
   resources :teams, only:[] do
     resources :files, only: %i[ create index ]

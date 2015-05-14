@@ -8,15 +8,15 @@ class Authentication
   def valid?
     return unless tokens_match?
     return unless agent.present?
-    (5.minutes.ago..0.minutes.ago).cover? session.updated_at
+    (5.minutes.ago..0.minutes.ago).cover? login.updated_at
   end
   
-  def session
-    @session ||= Session.find email_credentials[:session_id]
+  def login
+    @login ||= Login.find email_credentials[:login_id]
   end
   
   def agent
-    @agent ||= Agent.where(email_address:session.email).first
+    @agent ||= Agent.where(email_address:login.email).first
   end
   
   private
@@ -24,10 +24,10 @@ class Authentication
   # constant-time comparison algorithm to prevent timing attacks
   # https://github.com/plataformatec/devise/blob/master/lib/devise.rb#L473
   def tokens_match?
-    return if session_token.blank? || email_token.blank?
-    return unless session_token.bytesize == email_token.bytesize
+    return if login_token.blank? || email_token.blank?
+    return unless login_token.bytesize == email_token.bytesize
     
-    l = session_token.unpack "C#{session_token.bytesize}"
+    l = login_token.unpack "C#{login_token.bytesize}"
     res = 0
     email_token.each_byte { |byte| res |= byte ^ l.shift }
     res == 0
@@ -35,14 +35,14 @@ class Authentication
   
   def credentials(token)
     decoded = Base64.urlsafe_decode64 token
-    session_id = decoded[/^\d+/]
+    login_id = decoded[/^\d+/]
     token = decoded.gsub /^\d+\-/, ''
     
-    { session_id:session_id, token:token }
+    { login_id:login_id, token:token }
   end
   
-  def session_token
-    credentials(session.token)[:token]
+  def login_token
+    credentials(login.token)[:token]
   end
   
   def email_token

@@ -1,19 +1,17 @@
 class LoginMailer < ApplicationMailer
   layout false
   default from: 'rachel@getsupportflow.com'
-  attr_reader :session
+  attr_reader :login
   helper_method :login_link
-  attr_reader :session
   
-  def login_email(session)
-    @session = session
-    session.generate_token
-    
-    mail to:session.email, subject:'Login'
+  def login_email(login)
+    @login = login
+    login.generate_token
+    mail to:login.email, subject:'Login'
   end
   
   def login_link
-    session_url(session.token, host:host)
+    login_url(login.token, host:host)
   end
   
   private

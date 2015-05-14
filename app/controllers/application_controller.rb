@@ -22,6 +22,6 @@ class ApplicationController < ActionController::Base
   
   def require_login
     return if current_agent.present?
-    redirect_to new_session_path
+    redirect_to '/login'
   end
 end

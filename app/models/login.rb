@@ -1,4 +1,4 @@
-class Session < ActiveRecord::Base
+class Login < ActiveRecord::Base
   validates :email, presence:true, uniqueness:true, \
     format:{ with: /\A[^@]+@[^@]+\z/ }
   
