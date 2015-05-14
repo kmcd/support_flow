@@ -3,7 +3,7 @@
 = render 'search'
 
 .results-summary.row
-  .col-md-9.col-md-offset-0.col-sm-9.col-sm-offset-0
+  .col-md-10.col-md-offset-0.col-sm-10.col-sm-offset-0
     %p.text-muted
       %small
         %i
@@ -11,13 +11,13 @@
 
 - if @requests.empty?
   .request.row
-    .description.col-md-offset-0.col-md-9.col-sm-9.col-sm-offset-0.col-xs-11
+    .description.col-md-offset-0.col-md-10.col-sm-10.col-sm-offset-0.col-xs-11
       %i
         No requests
           
 - @requests.each do |request|
   .request.row
-    .description.col-md-9.col-sm-9.col-xs-11
+    .description.col-md-10.col-sm-10.col-xs-11
       %h4
         = link_to name_for(request), request_path(request), class:'name'
         

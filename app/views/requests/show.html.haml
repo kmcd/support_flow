@@ -1,5 +1,5 @@
 .request.row
-  .col-md-offset-0.col-md-9
+  .col-md-offset-0.col-md-10
     %h2
       %span.name
         = name_for(@request)
@@ -26,12 +26,12 @@
 
 
 .labels.row
-  .col-md-offset-0.col-md-9
+  .col-md-offset-0.col-md-10
     %span.labels= render partial:'label', collection:@request.labels
     = render partial:'label_create'
 
 .actions.row
-  .col-md-9.col-md-offset-0
+  .col-md-10.col-md-offset-0
     .btn-group
       - reply_button
       - assign_button
@@ -62,7 +62,7 @@
    
 - unless @activities.size < 2
   .actions.row
-    .col-md-9.col-md-offset-0
+    .col-md-10.col-md-offset-0
       .btn-group
         - reply_button
         - assign_button
