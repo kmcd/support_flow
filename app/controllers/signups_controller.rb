@@ -24,7 +24,7 @@ class SignupsController < ApplicationController
   
   
   def create_team(login)
-    # TODO: move to Signup service object
+    # TODO: move to Signup service object & test
     team = Team.create
     team.agents.create email_address:login.email
     
@@ -33,5 +33,7 @@ class SignupsController < ApplicationController
       content:'<h1>Welcome to Support Flow</h1>'
     team.guides.create name:'_template',
       content:"content: '<html><!-- content --></html>'"
+      
+    team.mailboxes.create email_address:"team.#{team.id}@getsupportflow.net"
   end
 end
