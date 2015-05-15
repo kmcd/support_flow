@@ -7,7 +7,11 @@ module ActivitiesHelper
   def message_content(activity, messages)
     return unless messages
     return unless message_id = activity.parameters[:message_id]
-    messages.find {|_| _.id == message_id }.content.body
+    return unless message = messages.find {|_| _.id == message_id }
+    html_part = message.content.raw_html
+    
+    # TODO: investigate implications of rendering html emails ...
+    html_part.present? ? html_part.html_safe : message.content.raw_text
   end
   
   def description(activity)

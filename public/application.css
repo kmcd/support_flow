@@ -21,6 +21,11 @@ form.remove-label button.remove {
   margin-top: 5px;
 }
 
+.activity .content pre {
+  background-color: white;
+  border: none;
+}
+
 .navbar .badge {
   padding-left: 5px; 
 }
