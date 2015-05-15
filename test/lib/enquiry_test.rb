@@ -31,6 +31,15 @@ class EnquiryTest < ActiveSupport::TestCase
   end
 end
 
+class AgentEnquiryTest < ActiveSupport::TestCase
+  test "dont create new customer for agent request" do
+    enquiry = Enquiry.new email(from:@rachel.email_address)
+    enquiry.stubs(:valid?).returns true
+    enquiry.save
+    assert_nil enquiry.customer
+  end
+end
+
 class ExistingCustomerEnquiryTest < ActiveSupport::TestCase
   attr_reader :enquiry
   

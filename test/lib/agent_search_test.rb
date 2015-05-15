@@ -1,14 +1,18 @@
 require 'test_helper'
 
+def agent_search(query=nil)
+  AgentSearch.new(query, @support_flow).results
+end
+
 class AgentSearchTest < ActiveSupport::TestCase
   test "blank query returns all results" do
-    assert_equal Request.all, AgentSearch.new('').results
-    assert_equal Request.all, AgentSearch.new(nil).results
+    assert_equal Request.all, agent_search('')
+    assert_equal Request.all, agent_search(nil)
   end
   
   test "full text on request name" do
     @billing_enquiry.update name:'peldis card expiry'
-    results = AgentSearch.new('card expiry').results
+    results = agent_search 'card expiry'
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry, results.first
@@ -16,7 +20,7 @@ class AgentSearchTest < ActiveSupport::TestCase
   
   test "full text on labels" do
     @billing_enquiry.update label:'urgent'
-    results = AgentSearch.new('urgent').results
+    results = agent_search 'urgent'
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry.labels, results.first.labels
@@ -24,7 +28,7 @@ class AgentSearchTest < ActiveSupport::TestCase
   
   test "full text on message subject" do
     @billing_enquiry.messages.first.update subject:'please'
-    results = AgentSearch.new('please').results
+    results = agent_search 'please'
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry, results.first
@@ -32,7 +36,7 @@ class AgentSearchTest < ActiveSupport::TestCase
   
   test "full text on message body" do
     @billing_enquiry.messages.first.update text_body:'in progress'
-    results = AgentSearch.new('in progress').results
+    results = agent_search 'in progress'
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry, results.first
@@ -42,30 +46,31 @@ end
 class AgentSearchFacetTest < ActiveSupport::TestCase
   test "open status" do
     @duplicate_enquiry.delete
-    results = AgentSearch.new("billing is:open").results
+    results = agent_search "billing is:open"
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry, results.first
   end
   
   test "assigned agent" do
-    results = AgentSearch.new("agent:#{@rachel.id}").results
+    results = agent_search "agent:#{@rachel.id}"
     
     assert_equal Request.where(agent:@rachel), results
   end
   
   test "customer" do
-    search = AgentSearch.new "customer:#{@peldi.id}"
     Request.update_all "customer_id = 1"
-    assert_empty search.results
+    results = agent_search "customer:#{@peldi.id}"
+    assert_empty results
     
     Request.update_all "customer_id = #{@peldi.id}"
-    assert_equal [@peldi.id], search.results.map(&:customer_id).uniq
+    results = agent_search "customer:#{@peldi.id}"
+    assert_equal [@peldi.id], results.map(&:customer_id).uniq
   end
   
   test "one label" do
     @billing_enquiry.update label:'billing'
-    results = AgentSearch.new("label:billing").results
+    results = agent_search "label:billing"
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry, results.first
@@ -74,7 +79,7 @@ class AgentSearchFacetTest < ActiveSupport::TestCase
   test "multiple labels" do
     @billing_enquiry.update label:'billing'
     @billing_enquiry.update label:'urgent'
-    results = AgentSearch.new("label:billing label:urgent").results
+    results = agent_search "label:billing label:urgent"
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry, results.first
@@ -83,9 +88,8 @@ class AgentSearchFacetTest < ActiveSupport::TestCase
   test "combined facets and text query" do
     @billing_enquiry.update label:'billing', name:'expiry'
     @billing_enquiry.update label:'urgent'
-    results = AgentSearch.new(
+    results = agent_search \
       "expiry is:open label:billing label:urgent agent:#{@rachel.id}"
-    ).results
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry, results.first
@@ -100,25 +104,25 @@ class AgentSearchSortTest < ActiveSupport::TestCase
   end
   
   test "sort by newest descending" do
-    results = AgentSearch.new("billing enquiry sort:new").results
+    results = agent_search "billing enquiry sort:new"
     assert_equal [@duplicate_enquiry, @billing_enquiry], results
   end
   
   test "sort by oldest descending" do
-    results = AgentSearch.new("billing enquiry sort:old").results
+    results = agent_search "billing enquiry sort:old"
     assert_equal [@billing_enquiry, @duplicate_enquiry], results
   end
   
   test "sort by messages" do
     Request.update_counters @billing_enquiry.id, messages_count:10
-    results = AgentSearch.new("billing enquiry sort:messages").results
+    results = agent_search "billing enquiry sort:messages"
     
     assert_equal [@billing_enquiry, @duplicate_enquiry], results
   end
   
   test "sort by recently updated" do
     @duplicate_enquiry.touch :updated_at
-    results = AgentSearch.new("billing enquiry sort:updated").results
+    results = agent_search "billing enquiry sort:updated"
     assert_equal [@duplicate_enquiry, @billing_enquiry], results
   end
 end

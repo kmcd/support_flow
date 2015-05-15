@@ -1,3 +1,4 @@
+# TODO: change to EmailProcessorJob, enqueue & update griddler
 class EmailProcessor
   attr_reader :email
   

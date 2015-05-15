@@ -2,6 +2,7 @@ class Enquiry
   include Mailboxable
   attr_reader :email, :message
   delegate :request, :customer, to: :message
+  delegate :team, to: :mailbox
   
   def initialize(email=Griddler::Email.new)
     @email = email
@@ -12,7 +13,7 @@ class Enquiry
     return unless valid?
     message.customer = existing_customer || create_customer
     message.mailbox = mailbox
-    message.request = customer.requests.create!(team:mailbox.team)
+    message.request = create_request
     message.save!
     request.increment :messages_count
     
@@ -36,6 +37,16 @@ class Enquiry
   end
   
   def create_customer
-    Customer.create email_address:from, team:mailbox.team
+    return if agent_enquiry?
+    Customer.create email_address:from, team:team
+  end
+  
+  def create_request
+    return team.requests.create! if agent_enquiry?
+    customer.requests.create!(team:team)
+  end
+  
+  def agent_enquiry?
+    team.agents.map(&:email_address).include?(from)
   end
 end

@@ -1,12 +1,13 @@
 class AgentSearch
-  attr_reader :query
+  attr_reader :query, :team
   
-  def initialize(query, agent=Agent.new, options={})
-    @query = query
+  def initialize(query, team, options={})
+    @query, @team = query, team
   end
   
   def results
     Request.
+      where(team:team).
       search_name_labels_messages(text_query).
       status(status_facet).
       agent(agent_facet).
