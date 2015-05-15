@@ -2,7 +2,7 @@ class RequestsController < ApplicationController
   before_action :set_request, only: %i[ update show ]
 
   def index
-    @requests = AgentSearch.new(params[:q]).results
+    @requests = AgentSearch.new(params[:q], current_team).results
   end
 
   def show

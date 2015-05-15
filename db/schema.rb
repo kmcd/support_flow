@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.integer  "team_id",                       null: false
     t.string   "email_address",                 null: false
     t.json     "profile", default:{}
-    t.boolean  "active",        default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
@@ -124,7 +123,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   create_table "requests", force: :cascade do |t|
     t.integer  "team_id",                    null: false
     t.integer  "agent_id"
-    t.integer  "customer_id",                null: false
+    t.integer  "customer_id"
     t.integer  "messages_count",             default:0
     t.string   "name"
     t.boolean  "open",        default: true

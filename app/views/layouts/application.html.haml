@@ -59,9 +59,7 @@
                   Billing
                   
               %li.divider
-              %li
-                %a{ href:'#' }
-                  Log out
+              %li= link_to "Log out", logout_path, method: :delete
       
     .container
       = yield

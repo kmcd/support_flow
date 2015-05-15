@@ -5,7 +5,7 @@ rachel:
   
 keith:
   team: support_flow
-  email_address: 'keith@dancingtext.com'
+  email_address: 'keith@getsupportflow.com'
   profile: <%= { name:'Keith' }.to_json %>
     
 peldi_support:

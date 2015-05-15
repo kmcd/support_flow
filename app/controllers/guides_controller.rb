@@ -1,18 +1,17 @@
 class GuidesController < ApplicationController
   skip_before_filter :require_login, only:%i[ public ]
   before_action :set_guide, only: [:update, :show, :edit, :destroy]
-  delegate :team, to: :current_agent
   
   def index
-    @guides = Guide.pages team
+    @guides = Guide.pages current_team
   end
   
   def new
-    @guide = team.guides.new
+    @guide = current_team.guides.new
   end
   
   def create
-    @guide = team.guides.new guide_params
+    @guide = current_team.guides.new guide_params
     
     if @guide.save
       flash[:created] = true

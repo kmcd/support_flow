@@ -20,12 +20,15 @@
   
 - else
   %br/
+  
   %p
     = link_to_guide_url(current_team, @guide)
     
     %span.text-muted.pull-right
       Read your
       %a{href:'/guides/editing'} guide for editing pages
+      
+%br/
 
 = form_for(@guide, remote:true) do  |form|
   .content.form-group

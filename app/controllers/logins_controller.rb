@@ -15,6 +15,7 @@ class LoginsController < ApplicationController
     end
   end
   
+  # TODO: should ~really~ be a singular resource token param in GET request
   def show
     authentication = Authentication.new params[:id]
     
@@ -24,6 +25,10 @@ class LoginsController < ApplicationController
     else
       redirect_to new_login_path # FIXME: error message
     end
+  end
+  
+  def destroy
+    session[:current_agent_id] = nil
   end
   
   def login_params

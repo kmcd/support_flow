@@ -1,50 +1,62 @@
-.customers.row
-  .description.col-md-10.col-sm-10.col-sm-offset-0.col-xs-11
-    %h3
-      Customers
-      
-      %small
-        &mdash; view
-        = link_to 'recent customer activity', activity_customers_path
-        
-    %br/
+-# TODO: move to controller -> render emtpy template
+- if @customers.empty?
+  %h3
+    Customers
     
-    -# TODO: js sort table
-    %table.table.table-responsive
-      %thead
-        %tr
-          %th
-          %th.text-right open
-          %th.text-right closed
-          %th.text-right reply
-          %th.text-right close
+    %small
+      &mdash;
+      have yet to contact you!
+      
+  -# TODO: help text on how to create a test customer via email
+  
+- else
+  .customers.row
+    .description.col-md-10.col-sm-10.col-sm-offset-0.col-xs-11
+      %h3
+        Customers
+        
+        %small
+          &mdash; view
+          = link_to 'recent customer activity', activity_customers_path
           
-        %tr
-          %td
-            %i.text-muted Total
-          %td.text-right= Request.open_count(current_team)
-          %td.text-right= Request.open_count(current_team, false)
-          %td.text-right
-            - hours, mins = duration current_team.average_reply
-            = "#{hours}h" if hours > 0
-            = "#{mins}m" if mins > 0
+      %br/
+      
+      -# TODO: js sort table
+      %table.table.table-responsive
+        %thead
+          %tr
+            %th
+            %th.text-right open
+            %th.text-right closed
+            %th.text-right reply
+            %th.text-right close
             
-          %td.text-right
-            - hours, mins = duration current_team.average_close
-            = "#{hours}h" if hours > 0
-            = "#{mins}m" if mins > 0
-            
-      - @customers.each do |customer|
-        %tr
-          %td= link_to customer.name, edit_customer_path(customer)
-          %td.text-right= Request.open_count(customer)
-          %td.text-right= Request.open_count(customer, false)
-          %td.text-right
-            - hours, mins = duration customer.average_reply
-            = "#{hours}h" if hours > 0
-            = "#{mins}m" if mins > 0
-            
-          %td.text-right
-            - hours, mins = duration customer.average_close
-            = "#{hours}h" if hours > 0
-            = "#{mins}m" if mins > 0
+          %tr
+            %td
+              %i.text-muted Total
+            %td.text-right= Request.open_count(current_team)
+            %td.text-right= Request.open_count(current_team, false)
+            %td.text-right
+              - hours, mins = duration current_team.average_reply
+              = "#{hours}h" if hours > 0
+              = "#{mins}m" if mins > 0
+              
+            %td.text-right
+              - hours, mins = duration current_team.average_close
+              = "#{hours}h" if hours > 0
+              = "#{mins}m" if mins > 0
+              
+        - @customers.each do |customer|
+          %tr
+            %td= link_to customer.name, edit_customer_path(customer)
+            %td.text-right= Request.open_count(customer)
+            %td.text-right= Request.open_count(customer, false)
+            %td.text-right
+              - hours, mins = duration customer.average_reply
+              = "#{hours}h" if hours > 0
+              = "#{mins}m" if mins > 0
+              
+            %td.text-right
+              - hours, mins = duration customer.average_close
+              = "#{hours}h" if hours > 0
+              = "#{mins}m" if mins > 0

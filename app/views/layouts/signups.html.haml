@@ -1,0 +1,17 @@
+!!!
+
+%html{ lang:'en'}
+  %head
+    %title Support Flow
+    
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    = csrf_meta_tags
+    %meta{ name:"viewport", content:"width=device-width, initial-scale=1" }
+    
+    -# TODO: setup (jammit/grunt/bower/guard) asset packager
+    %link{:href => "/bootstrap.min.css", :rel => "stylesheet"}
+    %link{:href => "/application.css", :rel => "stylesheet"}
+    
+  %body
+    .container
+      = yield

@@ -3,9 +3,10 @@
     %h3
       Customer guides
       
-      %small.text-muted
-        are available at
-        = link_to public_guide_url(current_team.subdomain)
+      - if current_team.subdomain
+        %small.text-muted
+          are available at
+          = link_to public_guide_url(current_team.subdomain)
         
     %p.text-muted
       %small
@@ -26,7 +27,6 @@
         - home_page = Guide.index current_team
         %td= link_to "home page", guide_path(home_page)
         %td= link_to_guide_url current_team, home_page
-          
         %td.text-right= home_page.view_count
         
       - @guides.each do |guide|

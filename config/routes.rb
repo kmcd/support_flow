@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   resources :agents,    only: %i[ index edit update ]
   resources :customers, only: %i[ index edit update ]
   resources :guides
-  resources :logins, only: %i[ new create show ]
+  
+  resources :logins, only: %i[ new create show destroy ]
   get '/login', to:'logins#new'
+  get '/logout', to:'logins#destroy', defaults:{ id:1 }, as:'logout'
   
   resources :requests, only: %i[ index show update ] do
     resource :merge, only: %i[ new create destroy ]
@@ -21,7 +23,8 @@ Rails.application.routes.draw do
     resources :mailboxes
   end
   
-  resource :signup, only: %i[ new create ]
+  resources :signups, only: %i[ new create ]
+  get '/signup', to:'signups#new'
   
   resources :teams, only:[] do
     resources :files, only: %i[ create index ]
