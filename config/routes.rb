@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :agents,    only: %i[ index edit update ]
   resources :customers, only: %i[ index edit update ]
   resources :guides
+  resources :logins, only: %i[ new create show ]
+  get '/login', to:'logins#new'
   
   resources :logins, only: %i[ new create show destroy ]
   get '/login', to:'logins#new'
