@@ -1,32 +1,36 @@
+# EnquiryJob ...
+
 class Enquiry
   include Mailboxable
-  attr_reader :email, :message
+  attr_reader :message
   delegate :request, :customer, to: :message
   delegate :team, to: :mailbox
   
-  def initialize(email=Griddler::Email.new)
-    @email = email
-    @message = Message.new content:email
+  def initialize(message)
+    @message = message
   end
   
-  def save
+  def process
     return unless valid?
     message.customer = existing_customer || create_customer
     message.mailbox = mailbox
     message.request = create_request
     message.save!
-    request.increment :messages_count
-    
+    request.increment :emails_count
     Activity.new(request:request, owner:customer).enquiry message
   end
   
   def valid?
-    return if Command.new(email).valid?
-    return if Reply.new(email).valid?
+    # return if Command.new(message).valid?
+    # return if Reply.new(message).valid?
     mailbox.present?
   end
   
   private
+  
+  def from
+    message.email.from_email
+  end
   
   def existing_customer
     Customer.

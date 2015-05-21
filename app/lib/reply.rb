@@ -2,8 +2,8 @@ class Reply
   include Mailboxable
   attr_reader :email, :message
   
-  def initialize(email=Griddler::Email.new)
-    @email = email
+  def initialize(message)
+    @message = message
   end
   
   def save

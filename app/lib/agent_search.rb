@@ -90,7 +90,7 @@ class AgentSearch
       case order
       when /new/      ; order(created_at:'desc')
       when /old/      ; order(created_at:'asc')
-      when /messages/ ; order(messages_count:'desc')
+      when /messages/ ; order(emails_count:'desc')
       when /updated/  ; order(updated_at:'desc')
       end if order
     }

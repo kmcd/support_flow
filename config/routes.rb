@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  mount_griddler
-  
   namespace :activity do
     get :agents, to:'/agents#activity'
     get :customers, to:'/customers#activity'
@@ -9,20 +7,21 @@ Rails.application.routes.draw do
   resources :agents,    only: %i[ index edit update ]
   resources :customers, only: %i[ index edit update ]
   resources :guides
-  resources :logins, only: %i[ new create show ]
-  get '/login', to:'logins#new'
   
+  # TODO: refactor auth
   resources :logins, only: %i[ new create show destroy ]
   get '/login', to:'logins#new'
   get '/logout', to:'logins#destroy', defaults:{ id:1 }, as:'logout'
+  
+  resources :emails, only: %i[ index create ]
   
   resources :requests, only: %i[ index show update ] do
     resource :merge, only: %i[ new create destroy ]
   end
   
   namespace :settings do
-    resource :billing, only: %i[ show update ]
-    resources :mailboxes
+    resource  :billing, only: %i[ show update ]
+    resources :mailboxes, only: %i[ index ]
   end
   
   resources :signups, only: %i[ new create ]

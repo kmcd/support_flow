@@ -56,6 +56,14 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
+  
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "email_id",  null: false
+    t.string  "name"
+    t.string  "type"
+    t.binary  "content"
+    t.boolean  "base64"
+  end
 
   create_table "customers", force: :cascade do |t|
     t.integer  "team_id",       null: false
@@ -80,6 +88,13 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+  
+  create_table "emails", force: :cascade do |t|
+    t.integer  "request_id"
+    t.json     "payload",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
@@ -92,39 +107,11 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.datetime "updated_at", null: false
   end
   
-  create_table "mailboxes", force: :cascade do |t|
-    t.integer  "team_id",       null: false
-    t.string   "email_address", null: false
-    t.json     "credentials", default:{}
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "mailboxes", ["email_address"], name: "index_mailboxes_on_email_address", using: :btree
-  add_index "mailboxes", ["team_id"], name: "index_mailboxes_on_team_id", using: :btree
-
-  create_table "messages", force: :cascade do |t|
-    t.integer  "mailbox_id"
-    t.integer  "request_id"
-    t.integer  "customer_id"
-    t.integer  "agent_id"
-    t.string   "subject"
-    t.text     "text_body"
-    t.text     "content",     null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "messages", ["agent_id"], name: "index_mailboxes_on_agent_id", using: :btree
-  add_index "messages", ["customer_id"], name: "index_mailboxes_on_customer_id", using: :btree
-  add_index "messages", ["mailbox_id"], name: "index_mailboxes_on_mailbox_id", using: :btree
-  add_index "messages", ["request_id"], name: "index_mailboxes_on_request_id", using: :btree
-
   create_table "requests", force: :cascade do |t|
     t.integer  "team_id",                    null: false
     t.integer  "agent_id"
     t.integer  "customer_id"
-    t.integer  "messages_count",             default:0
+    t.integer  "emails_count",             default:0
     t.string   "name"
     t.boolean  "open",        default: true
     t.text     "labels",      default: [],                array: true

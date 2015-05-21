@@ -1,18 +1,24 @@
-class Message < ActiveRecord::Base
-  belongs_to :mailbox
-  belongs_to :request, counter_cache:true
-  belongs_to :agent # TODO: change to belongs_to :owner, polymorphic:true
-  belongs_to :customer
-  serialize :content
-  before_create :set_subject_body
+class Message
+  attr_reader :payload
+  delegate *%i[ subject html text attachments ], to: :payload
   
-  def sender
-    agent.present? ? agent : customer
+  def initialize(payload)
+    @payload = OpenStruct.new payload['msg']
   end
   
-  def set_subject_body
-    return unless content.present?
-    self.subject = content.subject
-    self.text_body = content.raw_text
+  def to
+    payload.email
+  end
+  
+  def from
+    payload.from_email
+  end
+  
+  def recipients
+    payload.to
+  end
+  
+  def recipient_addresses
+    recipients.map &:first
   end
 end

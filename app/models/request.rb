@@ -2,8 +2,9 @@ class Request < ActiveRecord::Base
   include PublicActivity::Common
   belongs_to :agent
   belongs_to :customer
-  has_many :messages, dependent: :destroy
   belongs_to :team
+  has_many :emails
+  
   acts_as_taggable_array_on :labels
   after_commit :save_close_time
   
@@ -24,6 +25,8 @@ class Request < ActiveRecord::Base
       where.not("activities.key = 'request.first_reply'")
   }
   
+  # TODO: move to RequestAssignmentJob ->
+  # validate, carry out assignment, update activity stream ...
   def assign_from(name_or_email)
     return unless assignee = team.agents.
       where("email_address SIMILAR TO ? OR email_address = ?",
@@ -32,6 +35,7 @@ class Request < ActiveRecord::Base
     update_attributes agent:assignee
   end
   
+  # TODO: use taggable gem
   def label=(label)
     return if label.gsub(/\W/,'').blank?
     
@@ -44,6 +48,8 @@ class Request < ActiveRecord::Base
   
   private
   
+  # TODO: move to RequestCloseJob ->
+  # validate, close request, update activity stream
   def save_close_time
     return unless previous_changes[:open].present?
     return unless previous_changes[:open] == [true, false]

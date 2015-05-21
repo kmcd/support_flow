@@ -1,4 +1,8 @@
+# TODO: extract functionality & remove (mailboxes not needed)
 module Mailboxable
+  delegate :email, to: :message
+  delegate *%i[ recipient_addresses from ], to: :email
+  
   def mailbox
     @mailbox ||= \
       request_mailbox || \
@@ -7,18 +11,6 @@ module Mailboxable
   end
   
   private
-  
-  def to
-    email.to.map {|_| _.fetch :email }
-  end
-  
-  def from
-    email.from[:email]
-  end
-  
-  def recipients
-    [ email.to, email.cc ].flatten.map {|_| _.fetch :email }
-  end
   
   def request_mailbox
     return unless request
@@ -29,7 +21,8 @@ module Mailboxable
   end
   
   def addressed_to_mailbox
-    Mailbox.where( email_address:to ).first
+    # FIXME: ensure 1st address is sender
+    Mailbox.where( email_address:recipient_addresses ).first
   end
     
   # TODO: move to email router; i.e. request.736 -> mailbox.438
@@ -40,9 +33,8 @@ module Mailboxable
   end
   
   def request_id
-    requests = recipients.grep /request\.\d+/
+    requests = recipient_addresses.grep /request\.\d+/
     return if requests.empty?
-    
     requests.first.match(/request\.(\d+)/)[1]
   end
 end

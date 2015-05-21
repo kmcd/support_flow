@@ -114,7 +114,7 @@ class AgentSearchSortTest < ActiveSupport::TestCase
   end
   
   test "sort by messages" do
-    Request.update_counters @billing_enquiry.id, messages_count:10
+    Request.update_counters @billing_enquiry.id, emails_count:10
     results = agent_search "billing enquiry sort:messages"
     
     assert_equal [@billing_enquiry, @duplicate_enquiry], results

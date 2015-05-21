@@ -16,10 +16,9 @@ require 'optparse'
 # -a joe -t billing, todo, status:pending
 
 class Command
-  include Mailboxable
   attr_reader :email, :errors
   
-  def initialize(email=Griddler::Email.new)
+  def initialize(email)
     @email = email
     @errors = []
   end
@@ -32,7 +31,24 @@ class Command
   
   def execute
     return unless valid?
+    option_parser.parse! options
+    rescue OptionParser::InvalidOption => error
+      errors << error # TODO: handle request errors
+  end
+  
+  private
+  
+  def arguments
+    return unless email.text.present?
     
+    email.text.
+      split(/\\n/).
+      find_all {|_| _[/\A\s*-{1,2}\w+.*\Z/] }.
+      join.
+      strip
+  end
+  
+  def option_parser
     OptionParser.new do |opts|
       opts.on("-a", "--assign AGENT") do |name_or_email|
         request.assign_from name_or_email
@@ -63,19 +79,14 @@ class Command
         request.update label:labels
         activity.label labels
       end
-    end.parse! options
-    
-    rescue OptionParser::InvalidOption => error
-      errors << error # TODO: handle request errors
+    end
   end
-  
-  private
   
   def options
     return [] unless arguments.present?
     
     arguments.
-      split(/(--[A-Za-z]+)/)[1..-1].
+      split(/(-{1,2}[A-Za-z]+)/)[1..-1].
       each_slice(2).
       to_a.
       flatten.
@@ -83,22 +94,12 @@ class Command
   end
   
   def request
-    Reply.new(email).request
+    email.request
   end
   
   def agent
-    return unless mailbox.present?
-    mailbox.team.agents.where(email_address:from).first
-  end
-  
-  def arguments
-    return unless email.raw_text.present?
-    
-    email.raw_text.
-      split(/\\n/).
-      find_all {|_| _[/\A\s*--\w+.*\Z/] }.
-      join.
-      strip
+    return unless team.present?
+    team.agents.where(email_address:from).first
   end
   
   def activity

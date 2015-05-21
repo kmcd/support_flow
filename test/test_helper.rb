@@ -10,17 +10,9 @@ Minitest::Reporters.
 class ActiveSupport::TestCase
   fixtures :all
   self.use_instantiated_fixtures = true
-  
-  def email(options={})
-    Griddler::Email.new( \
-      { to:[@support_flow_gmail.email_address],
-        from:'customer@example.org',
-        text:"Help",
-        subject:'Help'
-      }.merge!(options) )
-  end
 end
 
+# TODO: move to email_command fixture
 module CommandTestable
   def execute(command, options={})
     args = {
@@ -29,7 +21,7 @@ module CommandTestable
       from:@billing_enquiry.agent.email_address
     }.merge! options
     
-    command = Command.new Griddler::Email.new args
+    command = Command.new Email.new args
     command.execute
     command
   end

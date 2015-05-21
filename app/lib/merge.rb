@@ -1,3 +1,4 @@
+# TODO: move to RequestMergeJob
 class Merge
   attr_reader :original, :duplicate
   

@@ -1,4 +1,4 @@
-class UpdateStatisticsJob < ActiveJob::Base
+class StatisticsJob < ActiveJob::Base
   queue_as :default
 
   # TODO: schedule job to run every 5 mins.

@@ -22,12 +22,12 @@ class EnquiryTest < ActiveSupport::TestCase
   end
   
   test "create new customer" do
-    assert_equal email.from[:email], \
+    assert_equal email.from, \
       enquiry.customer.email_address
   end
   
   test "increment request message counter" do
-    assert_equal 1, enquiry.request.messages_count
+    assert_equal 1, enquiry.request.emails_count
   end
 end
 
@@ -41,15 +41,11 @@ class AgentEnquiryTest < ActiveSupport::TestCase
 end
 
 class ExistingCustomerEnquiryTest < ActiveSupport::TestCase
-  attr_reader :enquiry
-  
-  def setup
-    @enquiry = Enquiry.new email(from:@peldi.email_address)
-    Message.create! mailbox:@support_flow_gmail, customer:@peldi, content:''
-    enquiry.stubs(:valid?).returns true
-  end
-  
   test "use existing customer" do
+    Message.create! mailbox:@support_flow_gmail, customer:@peldi, content:''
+    enquiry = Enquiry.new email(from:@peldi.email_address,
+      to:@support_flow_gmail.email_address)
+    
     assert_difference 'Customer.count', 0 do
       enquiry.save
       assert_equal @peldi.email_address, enquiry.customer.email_address
