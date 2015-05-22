@@ -15,7 +15,7 @@ class Message
   end
   
   def recipients
-    payload.to
+    payload.to | payload.cc
   end
   
   def recipient_addresses

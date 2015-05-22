@@ -1,4 +1,4 @@
-class Activity
+class Activity # OPTIMIZE: for clarity
   attr_reader :request, :owner, :recipient
   
   def initialize(request:, owner:nil, recipient:nil)

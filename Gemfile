@@ -13,7 +13,7 @@ gem 'clockwork'
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
-  gem 'spring'
+  gem 'guard-zeus'
 end
 
 group :development do
