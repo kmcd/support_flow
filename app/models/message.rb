@@ -17,6 +17,7 @@ class Message
   end
   
   def recipients
+    return payload.to if payload.cc.blank?
     payload.to | payload.cc
   end
   

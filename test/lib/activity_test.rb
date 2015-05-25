@@ -27,8 +27,6 @@ class ActivityTest < ActiveSupport::TestCase
 end
 
 class CommandActivityTest < ActiveSupport::TestCase
-  include CommandTestable
-  
   def command_activity(command)
     execute command
     @billing_enquiry.activities.last
