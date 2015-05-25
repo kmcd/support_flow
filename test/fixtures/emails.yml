@@ -38,7 +38,7 @@ agent_enquiry:
     }
   }.to_json %>
     
-command_email:
+command:
   payload: <%= {
     "event": "inbound",
     "ts": 1360822567,

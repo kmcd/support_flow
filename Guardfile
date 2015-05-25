@@ -1,12 +1,12 @@
 interactor :off
 logger device: 'guard.log'
 
-guard 'rails', daemon: true do
+guard :rails, daemon: true do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end
 
-guard 'livereload' do
+guard :livereload do
   watch(%r{app/views/.+\.(erb|haml|slim)$})
   watch(%r{app/helpers/.+\.rb})
   watch(%r{public/.+\.(css|js|html)})
@@ -25,15 +25,10 @@ guard :bundler do
   files.each { |file| watch(helper.real_path(file)) }
 end
 
-guard 'zeus', rspec:false, test_unit:true, run_all:true   do                  
+guard :zeus, rspec:false, test_unit:true, run_all:true   do                  
   # TestUnit
-  watch(%r|^test/(.*)_test\.rb$|)
-  watch(%r|^lib/(.*)([^/]+)\.rb$|)     {|m| "test/#{m[1]}test_#{m[2]}.rb" }
-  watch(%r|^test/test_helper\.rb$|)    { "test" }
-  watch(%r|^app/controllers/(.*)\.rb$|) \
-    {|m| "test/controllers/#{m[1]}_test.rb" }
-  watch(%r|^app/models/(.*)\.rb$|)  {|m| "test/unit/#{m[1]}_test.rb" }
-  watch(%r|^app/lib/(.*)\.rb$|)     {|m| "test/unit/#{m[1]}_test.rb" }
-  watch(%r|^app/jobs/(.*)\.rb$|)    {|m| "test/unit/#{m[1]}_test.rb" }
-  watch(%r|^app/mailers/(.*)\.rb$|) {|m| "test/unit/#{m[1]}_test.rb" }
+  # watch(%r|^test/(.*)_test\.rb$|)
+  # watch(%r|^lib/(.*)([^/]+)\.rb$|)     {|m| "test/#{m[1]}test_#{m[2]}.rb" }
+  # watch(%r|^test/test_helper\.rb$|)    { "test" }
+  # watch(%r|^app/(\w+)/(.*)\.rb$|)  {|m| "test/#{m[1]}/#{m[2]}_test.rb" }
 end
