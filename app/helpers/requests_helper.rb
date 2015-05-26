@@ -129,7 +129,7 @@ module RequestsHelper
   end
   
   def name_for(request)
-    request.name || request.messages.first.content.subject
+    request.name || request.emails.first.content.subject
   end
   
   def labels_for(request)

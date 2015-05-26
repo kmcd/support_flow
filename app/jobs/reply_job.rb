@@ -26,7 +26,8 @@ class ReplyJob < ActiveJob::Base
   end
 
   def activity
-    Activity.new request:request, owner:agent, recipient:request.customer
+    @activity ||= Activity.new request:request, owner:agent,
+      recipient:request.customer
   end
 
   def first_reply?

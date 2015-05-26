@@ -7,5 +7,5 @@
 <% else %>
   $(".name.form-group").addClass('has-error')
   $(".name.form-group label.error").removeClass('hide')
-  $(".name.form-group label.error").html('<%= @guide.errors.full_messages.join(' ') %>')
+  $(".name.form-group label.error").html('<%= @guide.errors.full_emails.join(' ') %>')
 <% end %>

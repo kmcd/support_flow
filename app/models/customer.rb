@@ -2,7 +2,7 @@ class Customer < ActiveRecord::Base
   include Profileable
   include Statistics
   has_many :requests
-  has_many :messages
+  has_many :emails
   belongs_to :team
   
   profile_entry %i[ name company phone notes avatar ]

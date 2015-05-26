@@ -8,7 +8,7 @@ class EnquiryJob < ActiveJob::Base
     return unless valid?
     assign_request
     assign_customer
-    # update_activity_stream
+    update_activity_stream
   end
   
   private
@@ -37,7 +37,7 @@ class EnquiryJob < ActiveJob::Base
   end
   
   def update_activity_stream
-    Activity.new(request:request, owner:customer).enquiry email
+    Activity.new(request:request, owner:request.customer).enquiry email
   end
   
   def team

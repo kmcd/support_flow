@@ -60,4 +60,14 @@ class EnquiryJobTest < ActiveSupport::TestCase
     @enquiry.payload['msg']['cc'] = [['request.123@bar.com', nil]]
     assert_enquiry.call
   end
+  
+  test "update activity stream" do
+    EnquiryJob.perform_now(@existing_customer_enquiry)
+    activity = @existing_customer_enquiry.request.activities.first
+    
+    assert_equal @peldi, activity.owner
+    assert_equal 'request.open', activity.key
+    
+    assert_equal({email_id:@existing_customer_enquiry.id}, activity.parameters)
+  end
 end

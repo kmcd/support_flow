@@ -105,3 +105,59 @@ class CommandJobTest < ActiveJob::TestCase
     end
   end
 end
+
+class CommandActivityTest < ActiveSupport::TestCase
+  def command_activity(syntax)
+    fixture = @command
+    fixture.payload['msg']['subject'] = \
+      "request.#{@billing_enquiry.id}@getsupportflow.net"
+    fixture.payload['msg']['from_email'] = @rachel.email_address
+    fixture.payload['msg']['text'] = syntax
+    CommandJob.perform_now fixture
+    
+    @billing_enquiry.activities.last
+  end
+  
+  test "set agent from email sender" do
+    activity = command_activity "--label billing"
+    assert_equal @rachel, activity.owner
+  end
+  
+  test "label" do
+    activity = command_activity "--label billing"
+    
+    assert_equal 'request.label', activity.key
+    assert_equal({labels:'billing'}, activity.parameters)
+  end
+  
+  test "assign" do
+    activity = command_activity "--assign keith"
+    
+    assert_equal 'request.assign', activity.key
+    assert_equal({agent_id:@keith.id}, activity.parameters)
+  end
+  
+  test "claim" do
+    activity = command_activity "--claim"
+    
+    assert_equal 'request.assign', activity.key
+    assert_equal({agent_id:@rachel.id}, activity.parameters)
+  end
+  
+  test "release" do
+    activity = command_activity "--release"
+    
+    assert_equal 'request.assign', activity.key
+    assert_equal({agent_id:nil}, activity.parameters)
+  end
+  
+  test "close" do
+    activity = command_activity "--close"
+    assert_equal 'request.close', activity.key
+  end
+  
+  test "open" do
+    activity = command_activity "--open"
+    assert_equal 'request.open', activity.key
+  end
+end

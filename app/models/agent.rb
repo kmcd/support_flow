@@ -2,7 +2,7 @@ class Agent < ActiveRecord::Base
   include Profileable
   include Statistics
   belongs_to :team
-  has_many :messages
+  has_many :emails
   has_many :requests
   
   profile_entry %i[ name phone notes avatar ]

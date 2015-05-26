@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class ReplyJobTest < ActiveJob::TestCase
+  # TODO: dry up fixture setting
+
   test "associate from subject" do
     reply = @enquiry
     reply.payload['msg']['subject'] = \
@@ -60,10 +62,27 @@ class ReplyJobTest < ActiveJob::TestCase
 
     first_reply = PublicActivity::Activity.where(trackable:@billing_enquiry,
       key:'request.first_reply').first
-    
+
     five_days_in_seconds = 432000
     assert_equal five_days_in_seconds, first_reply.parameters[:seconds]
     assert_equal @rachel, first_reply.owner
     assert_equal @peldi, first_reply.recipient
+  end
+
+  test "update activity stream" do
+    reply = @existing_customer_enquiry
+    reply.payload['msg']['to'] = \
+      [["request.#{@billing_enquiry.id}@getsupportflow.net"],
+        [@peldi.email_address, nil ]]
+    reply.payload['msg']['from_email'] = @rachel.email_address 
+      
+    ReplyJob.perform_now(reply)
+    activity = reply.reload.request.activities.
+      where(key:'request.reply').first
+
+    assert_equal @rachel, activity.owner
+    assert_equal @peldi, activity.recipient
+    assert_equal({email_id:@existing_customer_enquiry.id},
+      activity.parameters)
   end
 end

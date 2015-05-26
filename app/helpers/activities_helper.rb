@@ -1,13 +1,13 @@
 module ActivitiesHelper
   # TODO: delegate methods to ActivityView
   # ActivityView.new activity
-  # activity.message_content(messages)
+  # activity.message_content(emails)
   # activity.description
   
-  def message_content(activity, messages)
-    return unless messages
-    return unless message_id = activity.parameters[:message_id]
-    return unless message = messages.find {|_| _.id == message_id }
+  def message_content(activity, emails)
+    return unless emails
+    return unless email_id = activity.parameters[:email_id]
+    return unless message = emails.find {|_| _.id == email_id }
     html_part = message.content.raw_html
     
     # TODO: investigate implications of rendering html emails ...

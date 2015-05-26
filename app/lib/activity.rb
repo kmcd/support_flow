@@ -1,4 +1,6 @@
-class Activity # OPTIMIZE: for clarity
+# OPTIMIZE: for clarity
+# TODO: dry up owner/recipient setting
+class Activity
   attr_reader :request, :owner, :recipient
   
   def initialize(request:, owner:nil, recipient:nil)
@@ -28,38 +30,41 @@ class Activity # OPTIMIZE: for clarity
   end
   
   def label(labels)
-    request.create_activity :label, owner:owner, params:{labels:labels}
+    request.create_activity :label, owner:owner,recipient:recipient, 
+      params:{labels:labels}
   end
   
   def assign(assignee=nil)
     agent_id = assignee && assignee.id
-    request.create_activity :assign, owner:owner, params:{agent_id:agent_id}
+    request.create_activity :assign, owner:owner, recipient:recipient,
+      params:{agent_id:agent_id}
   end
   
   def enquiry(message)
-    request.create_activity :open, owner:owner,
-      params:{message_id:message.id}
+    request.create_activity :open, owner:owner, recipient:recipient,
+      params:{email_id:message.id}
   end
   
   def reply(message)
-    request.create_activity :reply, owner:owner,
-      params:{message_id:message.id}
+    request.create_activity :reply, owner:owner, recipient:recipient,
+      params:{email_id:message.id}
   end
   
   def open
-    request.create_activity :open, owner:owner
+    request.create_activity :open, owner:owner, recipient:recipient
   end
   
   def close
-    request.create_activity :close, owner:owner
+    request.create_activity :close, owner:owner, recipient:recipient
   end
   
   def rename(to)
-    request.create_activity :rename, owner:owner, params:{name:to}
+    request.create_activity :rename, owner:owner, recipient:recipient,
+      params:{name:to}
   end
   
   def merge(merged_request)
-    request.create_activity :merge, owner:owner,
+    request.create_activity :merge, owner:owner, recipient:recipient,
       params:{request_id:merged_request.id, request_name:merged_request.name}
   end
   

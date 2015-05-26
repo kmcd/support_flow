@@ -32,7 +32,7 @@
           = labels_for(request)
         
       %p.activity.text-muted
-        - unless request.messages.one?
+        - unless request.emails.one?
           %small
             %a.text-warning{:href => '#'}
               -# TODO: color based on activity

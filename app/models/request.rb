@@ -4,7 +4,6 @@ class Request < ActiveRecord::Base
   belongs_to :customer
   belongs_to :team
   has_many :emails
-  
   acts_as_taggable_array_on :labels
   after_commit :save_close_time
   
@@ -36,6 +35,7 @@ class Request < ActiveRecord::Base
   end
   
   # TODO: use taggable gem
+  # TODO: move to RequestLabelJob -> update labels & activity stream
   def label=(label)
     return if label.gsub(/\W/,'').blank?
     

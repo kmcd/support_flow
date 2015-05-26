@@ -12,7 +12,7 @@ class AgentSearchTest < ActiveSupport::TestCase
   
   test "full text on request name" do
     @billing_enquiry.update name:'peldis card expiry'
-    results = agent_search 'card expiry'
+    results = agent_search @billing_enquiry.name
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry, results.first
@@ -27,15 +27,15 @@ class AgentSearchTest < ActiveSupport::TestCase
   end
   
   test "full text on message subject" do
-    @billing_enquiry.messages.first.update subject:'please'
-    results = agent_search 'please'
+    @enquiry.update request:@billing_enquiry
+    results = agent_search @enquiry.text.strip
     
     assert_equal 1, results.size
     assert_equal @billing_enquiry, results.first
   end
   
   test "full text on message body" do
-    @billing_enquiry.messages.first.update text_body:'in progress'
+    @billing_enquiry.emails.first.update text_body:'in progress'
     results = agent_search 'in progress'
     
     assert_equal 1, results.size
@@ -113,9 +113,9 @@ class AgentSearchSortTest < ActiveSupport::TestCase
     assert_equal [@billing_enquiry, @duplicate_enquiry], results
   end
   
-  test "sort by messages" do
+  test "sort by emails" do
     Request.update_counters @billing_enquiry.id, emails_count:10
-    results = agent_search "billing enquiry sort:messages"
+    results = agent_search "billing enquiry sort:emails"
     
     assert_equal [@billing_enquiry, @duplicate_enquiry], results
   end

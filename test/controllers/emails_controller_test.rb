@@ -2,10 +2,10 @@ require 'test_helper'
 
 class EmailsControllerTest < ActionController::TestCase
   test "create email with payload" do
-    flunk
+    skip
   end
   
   test "create attachments" do
-    flunk
+    skip
   end
 end
