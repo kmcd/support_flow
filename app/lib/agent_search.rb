@@ -1,4 +1,3 @@
-# TODO: rename to RequestSearch
 class AgentSearch
   attr_reader :query, :team
 

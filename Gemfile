@@ -6,7 +6,7 @@ gem 'haml-rails', '~> 0.8'
 gem 'public_activity'
 gem 'delayed_job_active_record'
 gem 'acts-as-taggable-array-on' # TODO: replace with (table/array)
-gem 'textacular'
+gem 'elasticsearch'
 gem 'mini_magick'
 gem 'clockwork'
 

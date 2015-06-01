@@ -7,9 +7,7 @@ class Request < ActiveRecord::Base
   acts_as_taggable_array_on :labels
   after_commit :save_close_time
   
-  scope :open, -> { where open:true }
-  scope :closed, -> { where open:false }
-  
+  # TODO: move to search 
   scope :open_count, ->(filter, open=true) {
     options = { open:open }
     options.merge!({ team:filter })     if filter.is_a?(Team)
@@ -18,6 +16,7 @@ class Request < ActiveRecord::Base
     where( options ).count
   }
   
+  # TODO: move to search
   scope :unanswered, -> {
     joins(:activities).
       where("activities.trackable_type = 'Request'").

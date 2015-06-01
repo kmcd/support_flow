@@ -1,0 +1,2 @@
+class GuideSearch
+end
