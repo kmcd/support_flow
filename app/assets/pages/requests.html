@@ -20,6 +20,9 @@
     <style type="text/css">
       .skin-blue .main-header .navbar { background-color: #A8CCA1; }
       .main-footer { border-top: none; }
+      span.description { color: gray; }
+      .box-header { padding-bottom: 0; }
+      .row.request hr { margin: 10px 1.6em; }
     </style>
   </head>
   <body class="skin-blue layout-top-nav">
@@ -38,7 +41,7 @@
             <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Requests</a></li>
-                <li><a href="#">Guides</a></li>
+                <li><a href="guides.html">Guides</a></li>
                 <li><a href="#">Agents</a></li>
                 <li><a href="#">Customers</a></li>
                 <li class="dropdown">
@@ -73,7 +76,7 @@
                   
                   <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                      Filters <span class="caret"></span>
+                      Search <span class="caret"></span>
                     </button>
                     
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -96,7 +99,7 @@
                       <li><a href="#">Recently updated</a></li>
                       
                       <li class="divider"></li>
-                      <li><a href="#">Clear all</a></li>
+                      <li><a href="#">Clear</a></li>
                     </ul>
                   </div>
                 </div>
@@ -110,166 +113,105 @@
                 <h3 class="box-title">
                   24 <small>requests</small>
                 </h3>
-                
-                <div class="box-body table-responsive">
-                  <table class="table">
-                    <tr>
-                      <td><i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i></td>
-                      
-                      <td>
-                        <b>Bacon ipsum dolor sit amet salami &hellip;</b>
-                        <span class="label label-primary">Billing</span>
-                        
-                        <br/>
-                        #123 opened on 14 May 2014 18:15 by peldi@balsamiq.com
-                      </td>
-                      
-                      <td>
-                        Rachel
-                        <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
-                      </td>
-                    </tr>
+              </div>
+              
+              <div class="box-body">
+                <div class="row request">
+                  <hr/>
+                  
+                  <div class="col col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i>
+                  </div>
+                  
+                  <div class="col col-lg-11 col-md-11 col-sm-11 col-xs-10">
+                    <b>Bacon ipsum dolor sit amet salami &hellip;</b>
+                    <span class="label label-info">Billing</span>
                     
-                    <tr>
-                      <td><i class="fa fa-fw fa-check-circle" style="color: limegreen;"></i></td>
-                      
-                      <td>
-                        <b>Bacon ipsum dolor sit amet salami &hellip;</b>
-                        <span class="label label-primary">Billing</span>
-                        
-                        <br/>
-                        #123 opened on 14 May 2014 18:15 by peldi@balsamiq.com
-                      </td>
-                      
-                      <td>
-                        Rachel
-                        <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td><i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i></td>
-                      
-                      <td>
-                        <b>Bacon ipsum dolor sit amet salami &hellip;</b>
-                        <span class="label label-primary">Billing</span>
-                        
-                        <br/>
-                        #123 opened on 14 May 2014 18:15 by peldi@balsamiq.com
-                      </td>
-                      
-                      <td>
-                        Rachel
-                        <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td><i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i></td>
-                      
-                      <td>
-                        <b>
-                          Bacon ipsum dolor sit amet salami dolor sit amet salami
-                          &hellip;
-                        </b>
-                        <span class="label label-primary">Billing</span>
-                        
-                        <br/>
-                        #123 opened on 14 May 2014 18:15 by peldi@balsamiq.com
-                      </td>
-                      
-                      <td>
-                        Rachel
-                        <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td><i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i></td>
-                      
-                      <td>
-                        <b>Bacon ipsum dolor sit amet salami &hellip;</b>
-                        <span class="label label-primary">Billing</span>
-                        
-                        <br/>
-                        #123 opened on 14 May 2014 18:15 by peldi@balsamiq.com
-                      </td>
-                      
-                      <td>
-                        Rachel
-                        <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td><i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i></td>
-                      
-                      <td>
-                        <b>Bacon ipsum dolor sit amet salami &hellip;</b>
-                        <span class="label label-primary">Billing</span>
-                        
-                        <br/>
-                        #123 opened on 14 May 2014 18:15 by peldi@balsamiq.com
-                      </td>
-                      
-                      <td>
-                        Rachel
-                        <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td><i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i></td>
-                      
-                      <td>
-                        <b>Bacon ipsum dolor sit amet salami &hellip;</b>
-                        <span class="label label-primary">Billing</span>
-                        
-                        <br/>
-                        #123 opened on 14 May 2014 18:15 by peldi@balsamiq.com
-                      </td>
-                      
-                      <td>
-                        Rachel
-                        <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td><i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i></td>
-                      
-                      <td>
-                        <b>Bacon ipsum dolor sit amet salami &hellip;</b>
-                        <span class="label label-primary">Billing</span>
-                        
-                        <br/>
-                        #123 opened on 14 May 2014 18:15 by peldi@balsamiq.com
-                      </td>
-                      
-                      <td>
-                        Rachel
-                        <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td><i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i></td>
-                      
-                      <td>
-                        <b>Bacon ipsum dolor sit amet salami &hellip;</b>
-                        <span class="label label-primary">Billing</span>
-                        
-                        <br/>
-                        #123 opened on 14 May 2014 18:15 by peldi@balsamiq.com
-                      </td>
-                      
-                      <td>
-                        Rachel
-                        <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
-                      </td>
-                    </tr>
-                  </table>
+                    <br/>
+                    <span class="description">
+                      #123 opened by 
+                      <a href="#">peldi@balsamiq.com</a>
+                      on
+                      <b>14 May 2014 18:15</b>
+                      &rarr;
+                      <a href="#">Rachel</a>
+                      <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
+                    </span>
+                  </div>
                 </div>
+                
+                <div class="row request">
+                  <hr/>
+                  
+                  <div class="col col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i>
+                  </div>
+                  
+                  <div class="col col-lg-11 col-md-11 col-sm-11 col-xs-10">
+                    <b>Bacon ipsum dolor sit amet salami &hellip;</b>
+                    <span class="label label-info">Billing</span>
+                    
+                    <br/>
+                    <span class="description">
+                      #123 opened by 
+                      <a href="#">peldi@balsamiq.com</a>
+                      on
+                      <b>14 May 2014 18:15</b>
+                      &rarr;
+                      <a href="#">Rachel</a>
+                      <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="row request">
+                  <hr/>
+                  
+                  <div class="col col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i>
+                  </div>
+                  
+                  <div class="col col-lg-11 col-md-11 col-sm-11 col-xs-10">
+                    <b>Bacon ipsum dolor sit amet salami &hellip;</b>
+                    <span class="label label-info">Billing</span>
+                    
+                    <br/>
+                    <span class="description">
+                      #123 opened by 
+                      <a href="#">peldi@balsamiq.com</a>
+                      on
+                      <b>14 May 2014 18:15</b>
+                      &rarr;
+                      <a href="#">Rachel</a>
+                      <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="row request">
+                  <hr/>
+                  
+                  <div class="col col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <i class="fa fa-fw fa-exclamation-circle" style="color: red;"></i>
+                  </div>
+                  
+                  <div class="col col-lg-11 col-md-11 col-sm-11 col-xs-10">
+                    <b>Bacon ipsum dolor sit amet salami &hellip;</b>
+                    <span class="label label-info">Billing</span>
+                    
+                    <br/>
+                    <span class="description">
+                      #123 opened by 
+                      <a href="#">peldi@balsamiq.com</a>
+                      on
+                      <b>14 May 2014 18:15</b>
+                      &rarr;
+                      <a href="#">Rachel</a>
+                      <i class="fa fa-fw fa-comment" style="color: palegoldenrod;"></i> 14
+                    </span>
+                  </div>
+                </div>
+                
               </div>
             </div>
           </section>
