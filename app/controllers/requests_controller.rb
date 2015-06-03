@@ -8,7 +8,7 @@ class RequestsController < ApplicationController
   def show
     @activities = @request.activities.order :created_at
     email_ids = @activities.map {|_| _.parameters[:email_id] }.compact
-    @emails = Message.where(id:email_ids)
+    @emails = [] #Message.where(id:email_ids)
   end
 
   def update

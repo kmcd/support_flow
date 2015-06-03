@@ -27,7 +27,7 @@ namespace :db do
       body:'Hi! I need help with billing. Peldi',
       subject:'Help',
       from:peldi.email_address,
-      to:rachel.team.mailboxes.first.email_address
+      to:'help@getsupportflow.net'
     
     request = Request.where(name:"Billing enquiry").first
     request.update label:'urgent'
@@ -53,20 +53,11 @@ namespace :db do
       body:'--close',
       from:rachel.email_address,
       to:"request.#{request.id}@getsupportflow.com"
-    
-    # Message:
-    # - above fold reply
-    # - html only
-    # - text only
-    
-    # - merge
-    # - rename
-    # - reopen
   end
 end
 
 def create_email(to:, from:, subject:'', body:, cc:[])
-  email = Email.new to:[to], from:from, subject:subject, 
-    text:body, cc:[cc].flatten
-  EmailProcessor.new(email).process
+  # email = Email.new to:[to], from:from, subject:subject, 
+    # text:body, cc:[cc].flatten
+  # EmailProcessor.new(email).process
 end

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>AdminLTE 2 | Dashboard</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link href="file:///Users/kmcd/src/AdminLTE/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="file:///Users/kmcd/src/AdminLTE/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="file:///Users/kmcd/src/AdminLTE/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+  
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <style type="text/css">
+      .skin-blue .main-header .navbar { background-color: #A8CCA1; }
+      .main-footer { border-top: none; }
+      span.description { color: gray; }
+      .box-header { padding-bottom: 0; }
+      .row.customer hr { margin: 1em 1.6em 1em 1em; }
+      .btn-info { border: none; color: dimgray; background-color: LightBlue; }
+    </style>
+  </head>
+  <body class="skin-blue layout-top-nav">
+    <div class="wrapper">
+      <header class="main-header">
+        <nav class="navbar navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <a href="dashboard.html" class="navbar-brand">Support<i>Flow</i>
+              </a>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                <i class="fa fa-bars"></i>
+              </button>
+            </div>
+
+            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="requests.html">Requests</a></li>
+                <li><a href="guides.html">Guides</a></li>
+                <li><a href="agents.html">Agents</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Settings <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Mailboxes</a></li>
+                    <li><a href="#">Billing</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Logout</a></li>
+                  </ul>
+                  
+                  <li><a href="#">Need Help?</a></li>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <div class="content-wrapper">
+        <div class="container">
+          <section class="content-header">
+          </section>
+
+          <section class="content">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" aria-label="..." placeholder="Search customers ...">
+                  
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      Search <span class="caret"></span>
+                    </button>
+                    
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a href="#">Awaiting reply</a></li>
+                      <li><a href="#">Assigned to you</a></li>
+                      
+                      <li role="presentation" class="dropdown-header"><i>&mdash; Labelled as &mdash;</i></li>
+                      <li><a href="#">Billing</a></li>
+                      <li><a href="#">Urgent</a></li>
+                      <li><a href="#">Adwords</a></li>
+                      
+                      <li role="presentation" class="dropdown-header"><i>&mdash; Assigned to &mdash;</i></li>
+                      <li><a href="#">Rachel</a></li>
+                      <li><a href="#">Keith</a></li>
+                      
+                      <li role="presentation" class="dropdown-header"><i>&mdash; Sort by &mdash; </i></li>
+                      <li><a href="#">Name</a></li>
+                      <li><a href="#">Longest wait</a></li>
+                      
+                      <li class="divider"></li>
+                      <li><a href="#">Clear</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <br/>
+            
+            <div class="box box-default">
+              <div class="box-header">
+                <h3 class="box-title">
+                  24 <small>customers</small>
+                </h3>
+              </div>
+              
+              <div class="box-body">
+                <div class="row customer">
+                  <hr/>
+                  
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <b><a href="#">Joe Smith</a></b>
+                    <span class="text-muted">
+                      from
+                      <a href="#">Twitter</a>
+                    </span>
+                    &mdash;
+                    <a href="#">
+                      1 request open
+                    </a>
+                    
+                    <br/>
+                    
+                    <span class="text-muted">
+                      <i class="fa fa-envelope"></i>
+                      &nbsp;
+                      foo@bar.com
+                      &nbsp;
+                      <i class="fa fa-phone"></i>
+                      &nbsp;
+                      +400 468 921 213
+                    </span>
+                  </div>
+                    
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <span class="tags pull-right">
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">premium</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">feature X</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">adwords</button>
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="row customer">
+                  <hr/>
+                  
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <b><a href="#">Joe Smith</a></b>
+                    <span class="text-muted">
+                      from
+                      <a href="#">Twitter</a>
+                    </span>
+                    &mdash;
+                    <a href="#">
+                      1 request open
+                    </a>
+                    
+                    <br/>
+                    
+                    <span class="text-muted">
+                      <i class="fa fa-envelope"></i>
+                      &nbsp;
+                      foo@bar.com
+                      &nbsp;
+                      <i class="fa fa-phone"></i>
+                      &nbsp;
+                      +400 468 921 213
+                    </span>
+                  </div>
+                    
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <span class="tags pull-right">
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">premium</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">feature X</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">adwords</button>
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="row customer">
+                  <hr/>
+                  
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <b><a href="#">Joe Smith</a></b>
+                    <span class="text-muted">
+                      from
+                      <a href="#">Twitter</a>
+                    </span>
+                    &mdash;
+                    <a href="#">
+                      1 request open
+                    </a>
+                    
+                    <br/>
+                    
+                    <span class="text-muted">
+                      <i class="fa fa-envelope"></i>
+                      &nbsp;
+                      foo@bar.com
+                      &nbsp;
+                      <i class="fa fa-phone"></i>
+                      &nbsp;
+                      +400 468 921 213
+                    </span>
+                  </div>
+                    
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <span class="tags pull-right">
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">premium</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">feature X</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">adwords</button>
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="row customer">
+                  <hr/>
+                  
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <b><a href="#">Joe Smith</a></b>
+                    <span class="text-muted">
+                      from
+                      <a href="#">Twitter</a>
+                    </span>
+                    &mdash;
+                    <a href="#">
+                      1 request open
+                    </a>
+                    
+                    <br/>
+                    
+                    <span class="text-muted">
+                      <i class="fa fa-envelope"></i>
+                      &nbsp;
+                      foo@bar.com
+                      &nbsp;
+                      <i class="fa fa-phone"></i>
+                      &nbsp;
+                      +400 468 921 213
+                    </span>
+                  </div>
+                    
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <span class="tags pull-right">
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">premium</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">feature X</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">adwords</button>
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="row customer">
+                  <hr/>
+                  
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <b><a href="#">Joe Smith</a></b>
+                    <span class="text-muted">
+                      from
+                      <a href="#">Twitter</a>
+                    </span>
+                    &mdash;
+                    <a href="#">
+                      1 request open
+                    </a>
+                    
+                    <br/>
+                    
+                    <span class="text-muted">
+                      <i class="fa fa-envelope"></i>
+                      &nbsp;
+                      foo@bar.com
+                      &nbsp;
+                      <i class="fa fa-phone"></i>
+                      &nbsp;
+                      +400 468 921 213
+                    </span>
+                  </div>
+                    
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <span class="tags pull-right">
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">premium</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">feature X</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">adwords</button>
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="row customer">
+                  <hr/>
+                  
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <b><a href="#">Joe Smith</a></b>
+                    <span class="text-muted">
+                      from
+                      <a href="#">Twitter</a>
+                    </span>
+                    &mdash;
+                    <a href="#">
+                      1 request open
+                    </a>
+                    
+                    <br/>
+                    
+                    <span class="text-muted">
+                      <i class="fa fa-envelope"></i>
+                      &nbsp;
+                      foo@bar.com
+                      &nbsp;
+                      <i class="fa fa-phone"></i>
+                      &nbsp;
+                      +400 468 921 213
+                    </span>
+                  </div>
+                    
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <span class="tags pull-right">
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">premium</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">feature X</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">adwords</button>
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="row customer">
+                  <hr/>
+                  
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <b><a href="#">Joe Smith</a></b>
+                    <span class="text-muted">
+                      from
+                      <a href="#">Twitter</a>
+                    </span>
+                    &mdash;
+                    <a href="#">
+                      1 request open
+                    </a>
+                    
+                    <br/>
+                    
+                    <span class="text-muted">
+                      <i class="fa fa-envelope"></i>
+                      &nbsp;
+                      foo@bar.com
+                      &nbsp;
+                      <i class="fa fa-phone"></i>
+                      &nbsp;
+                      +400 468 921 213
+                    </span>
+                  </div>
+                    
+                  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <span class="tags pull-right">
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">premium</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">feature X</button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-info">adwords</button>
+                    </span>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      
+      <footer class="main-footer">
+        <div class="container">
+          <span>
+            &copy; 2015 Dancing Text Ltd. Terms Privacy Contact us
+          </span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="file:///Users/kmcd/src/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="file:///Users/kmcd/src/AdminLTE/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="file:///Users/kmcd/src/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src='file:///Users/kmcd/src/AdminLTE/plugins/fastclick/fastclick.min.js'></script>
+    <script src="file:///Users/kmcd/src/AdminLTE/dist/js/app.min.js" type="text/javascript"></script>
+    <script src="file:///Users/kmcd/src/AdminLTE/dist/js/demo.js" type="text/javascript"></script>
+  </body>
+</html>

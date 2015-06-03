@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
 gem 'pg'
-gem 'haml-rails', '~> 0.8'
-gem 'public_activity'
+gem 'haml-rails', '~> 0.8' # TODO: remove - bootstrap static -> ERB ftw
+gem 'public_activity' # TODO: replace with model
 gem 'delayed_job_active_record'
 gem 'acts-as-taggable-array-on' # TODO: replace with (table/array)
 gem 'elasticsearch'
