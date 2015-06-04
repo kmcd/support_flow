@@ -24,6 +24,9 @@
       .small-box * { color: black; }
       .box.actions { background-color:#ECF0F5; box-shadow: none; }
       .btn-info { border: none; color: dimgray; background-color: LightBlue; }
+      .box h1, .box h2, .box h3 { margin-top: 0; }
+      .btn-danger { background-color:#E79086; border-color:#E79086; }
+      .btn-danger:hover { border-color: darkgray; color: black; }
     </style>
   </head>
   <body class="skin-blue layout-top-nav">
@@ -67,81 +70,107 @@
       <div class="content-wrapper">
         <div class="container">
           <section class="content-header">
-            <h1>
-              Billing enquiry
-              <small>#12</small>
-            </h1>
-            
-            <br/>
-            
-            <div class="btn-group">
-              <button type="button" class="btn btn-default btn-xs">Open</button>
-              <button type="button" class="btn btn-default  btn-xs">Closed</button>
-            </div>
-            
-            <button type="button" class="btn btn-default btn-xs">Rename</button>
-            <button type="button" class="btn btn-default btn-xs">Merge</button>
-            
-            <div class="btn-group">
-              <button aria-expanded="false" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                Add Label
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <form class="edit_request" id="edit_request_773634807" action="/requests/773634807" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="_method" value="patch" type="hidden"><input name="authenticity_token" value="GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w==" type="hidden"><input value="721687368" name="request[agent_id]" id="request_agent_id" type="hidden"><input name="commit" value="keith@getsupportflow.com" class="btn btn-link" type="submit"></form>
-                </li>
-                <li>
-                  <form class="edit_request" id="edit_request_773634807" action="/requests/773634807" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="_method" value="patch" type="hidden"><input name="authenticity_token" value="GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w==" type="hidden"><input value="547562353" name="request[agent_id]" id="request_agent_id" type="hidden"><input name="commit" value="rachel@getsupportflow.com" class="btn btn-link" type="submit"></form>
-                </li>
-              </ul>
-            </div>
-            
-            <div class="btn-group">
-              <button aria-expanded="false" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                Assign
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <form class="edit_request" id="edit_request_773634807" action="/requests/773634807" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="_method" value="patch" type="hidden"><input name="authenticity_token" value="GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w==" type="hidden"><input value="721687368" name="request[agent_id]" id="request_agent_id" type="hidden"><input name="commit" value="keith@getsupportflow.com" class="btn btn-link" type="submit"></form>
-                </li>
-                <li>
-                  <form class="edit_request" id="edit_request_773634807" action="/requests/773634807" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="_method" value="patch" type="hidden"><input name="authenticity_token" value="GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w==" type="hidden"><input value="547562353" name="request[agent_id]" id="request_agent_id" type="hidden"><input name="commit" value="rachel@getsupportflow.com" class="btn btn-link" type="submit"></form>
-                </li>
-              </ul>
-            </div>
-            
-            <div class="btn-group">
-              <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                Reply
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li class="dropdown-header">
-                  Customer
-                </li>
-                <li>
-                  <a href="mailto:peldi@example.org?bcc=request.773634807%40getsupportflow.net&amp;body=Hi%20peldi%40example.org%2C%0A%0A%0A%0AThanks%2C%0A%0AKeith%0A&amp;subject=Re%3A%20Billing%20enquiry%20follow%20up">peldi@example.org</a>
-                </li>
-                <li class="dropdown-header">
-                  Agents
-                </li>
-                <li>
-                  <a href="mailto:rachel@getsupportflow.com?cc=request.773634807%40getsupportflow.net&amp;body=Hi%20Rachel%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&amp;subject=Re%3A%20Billing%20enquiry%20follow%20up%20%5B%20Support%20Flow%20request%23773634807%20%5D">Rachel</a>
-                </li>
-                <li>
-                  <a href="mailto:keith@getsupportflow.com?cc=request.773634807%40getsupportflow.net&amp;body=Hi%20Keith%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&amp;subject=Re%3A%20Billing%20enquiry%20follow%20up%20%5B%20Support%20Flow%20request%23773634807%20%5D">Keith</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                  <a href="mailto:?cc=request.773634807%40getsupportflow.net&amp;body=Hi%20%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&amp;subject=Re%3A%20Billing%20enquiry%20follow%20up">Blank</a>
-                </li>
-              </ul>
-            </div>
+            <button type="button" class="btn btn-default">Edit</button>
+            <button type="button" class="btn btn-default">Close</button>
           </section>
           
           <section class="content">
+            <div class="box">
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h1>
+                      Billing enquiry
+                      <small>#1253</small>
+                    </h1>
+                    
+                    <h4 class="text-muted">
+                      <a href="customer.html">Peldi Guizzonni</a>
+                      
+                      <small>
+                        <i class="fa fa-envelope"></i>
+                        &nbsp;
+                        <a href="#">foo@bar.com</a>
+                        &nbsp;
+                        <i class="fa fa-phone"></i>
+                        &nbsp;
+                        +400 468 921 213
+                      </small>
+                    </h4>
+                    
+                    <p class="text-muted">
+                      <a href="#" class="btn btn-xs bg-info">urgent</a>
+                      <a href="#" class="btn btn-xs bg-info">paid trial</a>
+                      <a href="#" class="btn btn-xs bg-info">balsamiq ltd</a>
+                      
+                      <button class="btn btn-default btn-xs">Add Label</button>
+                    </p>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <h2>14 <small>mins. 1<sup>st</sup> reply</small></h2>
+                    <h2>12 <small>hrs. open</small></h2>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <h2><a href="#">Keith <small>assigned</small></a></h2>
+                    
+                    <div class="btn-group">
+                      <button aria-expanded="false" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                        Assign
+                        <span class="caret"></span>
+                      </button>
+                      
+                      <ul class="dropdown-menu">
+                        <li>
+                          <form class="edit_request" id="edit_request_773634807" action="/requests/773634807" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="_method" value="patch" type="hidden"><input name="authenticity_token" value="GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w==" type="hidden"><input value="721687368" name="request[agent_id]" id="request_agent_id" type="hidden"><input name="commit" value="keith@getsupportflow.com" class="btn btn-link" type="submit"></form>
+                        </li>
+                        <li>
+                          <form class="edit_request" id="edit_request_773634807" action="/requests/773634807" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="_method" value="patch" type="hidden"><input name="authenticity_token" value="GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w==" type="hidden"><input value="547562353" name="request[agent_id]" id="request_agent_id" type="hidden"><input name="commit" value="rachel@getsupportflow.com" class="btn btn-link" type="submit"></form>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                <p>Add notes by <a href="#">editing this request</a>.</p>
+              </div>
+            </div>
+            
+            <div class="action">
+              <div class="btn-group">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  Reply
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header">
+                    Customer
+                  </li>
+                  <li>
+                    <a href="mailto:peldi@example.org?bcc=request.773634807%40getsupportflow.net&amp;body=Hi%20peldi%40example.org%2C%0A%0A%0A%0AThanks%2C%0A%0AKeith%0A&amp;subject=Re%3A%20Billing%20enquiry%20follow%20up">peldi@example.org</a>
+                  </li>
+                  <li class="dropdown-header">
+                    Agents
+                  </li>
+                  <li>
+                    <a href="mailto:rachel@getsupportflow.com?cc=request.773634807%40getsupportflow.net&amp;body=Hi%20Rachel%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&amp;subject=Re%3A%20Billing%20enquiry%20follow%20up%20%5B%20Support%20Flow%20request%23773634807%20%5D">Rachel</a>
+                  </li>
+                  <li>
+                    <a href="mailto:keith@getsupportflow.com?cc=request.773634807%40getsupportflow.net&amp;body=Hi%20Keith%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&amp;subject=Re%3A%20Billing%20enquiry%20follow%20up%20%5B%20Support%20Flow%20request%23773634807%20%5D">Keith</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="mailto:?cc=request.773634807%40getsupportflow.net&amp;body=Hi%20%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&amp;subject=Re%3A%20Billing%20enquiry%20follow%20up">Blank</a>
+                  </li>
+                </ul>
+              </div>
+              
+              
+            </div>
+            
+            <br/>
+            
             <ul class="timeline">
               <li class="time-label">
                 <span class="bg-none">10 Feb. 2014</span>
@@ -233,7 +262,7 @@
                       labelled request
                       <a href="#">#1234</a>
                       as
-                      <a href="#" class="btn bg-red">urgent</a>
+                      <a href="#" class="btn btn-xs bg-info">urgent</a>
                     </h3>
                 </div>
               </li>
