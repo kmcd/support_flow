@@ -82,3 +82,22 @@ nav.navbar {
     max-width: 300px;
   }
 }
+
+/* TODO: organise by app section */
+.box h1, .box h2 { margin-top: 0; }
+.box h1, .box h2, .box h3 { margin-top: 0; }
+.box-header h1 { margin: 0; }
+.box-header { padding-bottom: 0; }
+.box.actions { background-color:#ECF0F5; box-shadow: none; }
+.btn-danger { background-color:#E79086; border-color:#E79086; }
+.btn-danger:hover { border-color: darkgray; color: black; }
+.btn-info { border: none; color: dimgray; background-color: LightBlue; }
+.main-footer { border-top: none; }
+.open-requests { background-color: #E48A8A !important; }
+.row.customer hr { margin: 1em 1.6em 1em 1em; }
+.row.request hr { margin: 1em 1.6em 1em 1em; }
+.skin-blue .main-header .navbar { background-color: #A8CCA1; }
+.small-box * { color: black; }
+h1 { margin-top: 5px; }
+h1, h2 { margin-top: 0; }
+span.description { color: gray; }

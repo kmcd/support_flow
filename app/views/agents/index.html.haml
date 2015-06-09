@@ -1,53 +1,122 @@
-.agents.row
-  -# TODO: dry up content page grid setup
-  .description.col-md-offset-0.col-md-10.col-sm-10.col-sm-offset-0.col-xs-11
-    %h3
-      Agents
-      
-      %small
-        &mdash; view
-        = link_to 'recent agent activity', activity_agents_path
-        
-    %br/
-    
-    -# TODO: js sort table
-    %table.table.table-responsive
-      %thead
-        %tr
-          %th
-          %th.text-right open
-          %th.text-right closed
-          %th.text-right reply
-          %th.text-right close
-      
-        %tr
-          %td
-            %i.text-muted Total
-          %td.text-right= Request.open_count(current_team)
-          %td.text-right= Request.open_count(current_team, false)
-          
-          -# TODO: dry up with customers/index,show
-          %td.text-right
-            - hours, mins = duration current_team.average_reply
-            = "#{hours}h" if hours > 0
-            = "#{mins}m" if mins > 0
+%section.content-header
+  %button.btn.btn-default Invite an Agent
+
+%section.content
+  .row
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header
+          %h1 Team
+        .box-body
+          %table.table.table-condensed
+            %tr.text-muted
+              %td open
+              %td closed
+              %td 1st reply
+              %td close
+            %tr
+              %td
+                %a{:href => "search?q=agent:1"} 1
+              %td
+                %a{:href => "search?q=agent:1"} 52
+              %td 10 mins
+              %td 3 hrs
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header
+          %h1
+            = link_to "Keith", agent_path(721687368)
             
-          %td.text-right
-            - hours, mins = duration current_team.average_close
-            = "#{hours}h" if hours > 0
-            = "#{mins}m" if mins > 0
-      
-      - @agents.each do |agent|
-        %tr
-          %td= link_to agent.name, edit_agent_path(agent)
-          %td.text-right= Request.open_count(agent)
-          %td.text-right= Request.open_count(agent, false)
-          %td.text-right
-            - hours, mins = duration agent.average_reply
-            = "#{hours}h" if hours > 0
-            = "#{mins}m" if mins > 0
-            
-          %td.text-right
-            - hours, mins = duration agent.average_close
-            = "#{hours}h" if hours > 0
-            = "#{mins}m" if mins > 0
+            %small
+              %small.text-muted
+                %i.fa.fa-envelope
+                 
+                %a{:href => "#"} foo@bar.com
+                 
+                %i.fa.fa-phone
+                 
+                +400 468 921 213
+        .box-body
+          %table.table.table-condensed
+            %tr.text-muted
+              %td open
+              %td closed
+              %td 1st reply
+              %td close
+            %tr
+              %td
+                %a{:href => "search?q=agent:1"} 1
+              %td
+                %a{:href => "search?q=agent:1"} 52
+              %td 10 mins
+              %td 3 hrs
+
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header
+          %h1
+            = link_to "Rachel", agent_path(721687368)
+            %small
+              %small.text-muted
+                %i.fa.fa-envelope
+                 
+                %a{:href => "#"} foo@bar.com
+                 
+                %i.fa.fa-phone
+                 
+                +400 468 921 213
+        .box-body
+          %table.table.table-condensed
+            %tr.text-muted
+              %td open
+              %td closed
+              %td 1st reply
+              %td close
+            %tr
+              %td
+                %a{:href => "search?q=agent:1"} 1
+              %td
+                %a{:href => "search?q=agent:1"} 52
+              %td 10 mins
+              %td 3 hrs
+
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header
+          %h1
+            = link_to "Jo", agent_path(721687368)
+        .box-body
+          %table.table.table-condensed
+            %tr.text-muted
+              %td open
+              %td closed
+              %td 1st reply
+              %td close
+            %tr
+              %td
+                %a{:href => "search?q=agent:1"} 1
+              %td
+                %a{:href => "search?q=agent:1"} 52
+              %td 10 mins
+              %td 3 hrs
+
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header
+          %h1
+            = link_to "Valerie", agent_path(721687368)
+        .box-body
+          %table.table.table-condensed
+            %tr.text-muted
+              %td open
+              %td closed
+              %td 1st reply
+              %td close
+            %tr
+              %td
+                %a{:href => "search?q=agent:1"} 1
+              %td
+                %a{:href => "search?q=agent:1"} 52
+              %td 10 mins
+              %td 3 hrs
+

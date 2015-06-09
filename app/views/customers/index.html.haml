@@ -1,62 +1,243 @@
--# TODO: move to controller -> render emtpy template
-- if @customers.empty?
-  %h3
-    Customers
-    
-    %small
-      &mdash;
-      have yet to contact you!
-      
-  -# TODO: help text on how to create a test customer via email
-  
-- else
-  .customers.row
-    .description.col-md-10.col-sm-10.col-sm-offset-0.col-xs-11
-      %h3
-        Customers
-        
-        %small
-          &mdash; view
-          = link_to 'recent customer activity', activity_customers_path
-          
-      %br/
-      
-      -# TODO: js sort table
-      %table.table.table-responsive
-        %thead
-          %tr
-            %th
-            %th.text-right open
-            %th.text-right closed
-            %th.text-right reply
-            %th.text-right close
+%section.content
+  .row
+    .col-lg-6
+      .input-group
+        %input.form-control{"aria-label" => "...", :placeholder => "Search customers ...", :type => "text"}/
+        .input-group-btn
+          %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
+            Search
+            %span.caret
+          %ul.dropdown-menu.dropdown-menu-right{:role => "menu"}
+            %li
+              %a{:href => "#"} Awaiting reply
+            %li
+              %a{:href => "#"} Assigned to you
+            %li.dropdown-header{:role => "presentation"}
+              %i — Labelled as —
+            %li
+              %a{:href => "#"} Billing
+            %li
+              %a{:href => "#"} Urgent
+            %li
+              %a{:href => "#"} Adwords
+            %li.dropdown-header{:role => "presentation"}
+              %i — Assigned to —
+            %li
+              %a{:href => "#"} Rachel
+            %li
+              %a{:href => "#"} Keith
+            %li.dropdown-header{:role => "presentation"}
+              %i — Sort by —
+            %li
+              %a{:href => "#"} Name
+            %li
+              %a{:href => "#"} Longest wait
+            %li.divider
+            %li
+              %a{:href => "#"} Clear
+              
+  %br/
+  .box.box-default
+    .box-header
+      %h3.box-title
+        24
+        %small customers
+    .box-body
+      .row.customer
+        %hr/
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %b
+            = link_to 'Peldi', customer_path(121263609)
             
-          %tr
-            %td
-              %i.text-muted Total
-            %td.text-right= Request.open_count(current_team)
-            %td.text-right= Request.open_count(current_team, false)
-            %td.text-right
-              - hours, mins = duration current_team.average_reply
-              = "#{hours}h" if hours > 0
-              = "#{mins}m" if mins > 0
-              
-            %td.text-right
-              - hours, mins = duration current_team.average_close
-              = "#{hours}h" if hours > 0
-              = "#{mins}m" if mins > 0
-              
-        - @customers.each do |customer|
-          %tr
-            %td= link_to customer.name, edit_customer_path(customer)
-            %td.text-right= Request.open_count(customer)
-            %td.text-right= Request.open_count(customer, false)
-            %td.text-right
-              - hours, mins = duration customer.average_reply
-              = "#{hours}h" if hours > 0
-              = "#{mins}m" if mins > 0
-              
-            %td.text-right
-              - hours, mins = duration customer.average_close
-              = "#{hours}h" if hours > 0
-              = "#{mins}m" if mins > 0
+          %span.text-muted
+            from
+            = link_to 'Balsamiq', requests_path(q:'company:1')
+          —
+          %a{:href => "#"}
+            1 request open
+          %br/
+          %span.text-muted
+            %i.fa.fa-envelope
+             
+            foo@bar.com
+             
+            %i.fa.fa-phone
+             
+            +400 468 921 213
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} feature X
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.customer
+        %hr/
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %b
+            = link_to 'Peldi', customer_path(121263609)
+          %span.text-muted
+            from
+            = link_to 'Balsamiq', requests_path(q:'company:1')
+          —
+          %a{:href => "#"}
+            1 request open
+          %br/
+          %span.text-muted
+            %i.fa.fa-envelope
+             
+            foo@bar.com
+             
+            %i.fa.fa-phone
+             
+            +400 468 921 213
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} feature X
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.customer
+        %hr/
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %b
+            = link_to 'Peldi', customer_path(121263609)
+          %span.text-muted
+            from
+            = link_to 'Balsamiq', requests_path(q:'company:1')
+          —
+          %a{:href => "#"}
+            1 request open
+          %br/
+          %span.text-muted
+            %i.fa.fa-envelope
+             
+            foo@bar.com
+             
+            %i.fa.fa-phone
+             
+            +400 468 921 213
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} feature X
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.customer
+        %hr/
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %b
+            = link_to 'Peldi', customer_path(121263609)
+          %span.text-muted
+            from
+            = link_to 'Balsamiq', requests_path(q:'company:1')
+          —
+          %a{:href => "#"}
+            1 request open
+          %br/
+          %span.text-muted
+            %i.fa.fa-envelope
+             
+            foo@bar.com
+             
+            %i.fa.fa-phone
+             
+            +400 468 921 213
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} feature X
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.customer
+        %hr/
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %b
+            = link_to 'Peldi', customer_path(121263609)
+          %span.text-muted
+            from
+            = link_to 'Balsamiq', requests_path(q:'company:1')
+          —
+          %a{:href => "#"}
+            1 request open
+          %br/
+          %span.text-muted
+            %i.fa.fa-envelope
+             
+            foo@bar.com
+             
+            %i.fa.fa-phone
+             
+            +400 468 921 213
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} feature X
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.customer
+        %hr/
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %b
+            = link_to 'Peldi', customer_path(121263609)
+          %span.text-muted
+            from
+            = link_to 'Balsamiq', requests_path(q:'company:1')
+          —
+          %a{:href => "#"}
+            1 request open
+          %br/
+          %span.text-muted
+            %i.fa.fa-envelope
+             
+            foo@bar.com
+             
+            %i.fa.fa-phone
+             
+            +400 468 921 213
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} feature X
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.customer
+        %hr/
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %b
+            = link_to 'Peldi', customer_path(121263609)
+          %span.text-muted
+            from
+            = link_to 'Balsamiq', requests_path(q:'company:1')
+          —
+          %a{:href => "#"}
+            1 request open
+          %br/
+          %span.text-muted
+            %i.fa.fa-envelope
+             
+            foo@bar.com
+             
+            %i.fa.fa-phone
+             
+            +400 468 921 213
+        .col.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} feature X
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+

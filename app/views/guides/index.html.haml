@@ -1,43 +1,222 @@
-.header.row
-  .col-md-10.col-sm-10.col-xs-12
-    %h3
-      Customer guides
-      
-      - if current_team.subdomain
-        %small.text-muted
-          are available at
-          = link_to public_guide_url(current_team.subdomain)
-        
-    %p.text-muted
-      %small
-        See our
-        %a{href:'/guides/domains'} help guides for subdomains &amp; custom domains 
-        &hellip;
-        
-.guides.row
-  .col-md-10.col-sm-10.col-xs-12
-    %table.table.table-responsive
-      %thead
-        %tr
-          %th
-          %th
-          %th.text-right views
-        
-      %tr
-        - home_page = Guide.index current_team
-        %td= link_to "home page", guide_path(home_page)
-        %td= link_to_guide_url current_team, home_page
-        %td.text-right= home_page.view_count
-        
-      - @guides.each do |guide|
-        %tr
-          %td= link_to guide.name, guide_path(guide)
-          %td= link_to_guide_url current_team, guide
-          %td.text-right= guide.view_count
-
-.actions.row
-  .col-md-10.col-sm-10.col-xs-12
-    %p
-      = link_to "New guide", new_guide_path, class:'btn btn-default'
-      &nbsp;
-      = link_to "Customise your pages appearance", guide_path(Guide.template(current_team))
+%section.content-header
+  %button.btn.btn-default Create a Guide
+  %button.btn.btn-default Customise guide template
+  
+%section.content
+  .row
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              Home
+          %a{:href => "http://localhost:3000/help"} http://localhost:3000/help
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith
+              
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              Home
+          %a{:href => "http://localhost:3000/help"} http://localhost:3000/help
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith
+  .row
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              Home
+          %a{:href => "http://localhost:3000/help"} http://localhost:3000/help
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              FAQ
+          %a{:href => "http://localhost:3000/faq"} http://localhost:3000/faq
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith
+  .row
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              Home
+          %a{:href => "http://localhost:3000/help"} http://localhost:3000/help
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              Home
+          %a{:href => "http://localhost:3000/help"} http://localhost:3000/help
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith
+  .row
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              Home
+          %a{:href => "http://localhost:3000/help"} http://localhost:3000/help
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              Home
+          %a{:href => "http://localhost:3000/help"} http://localhost:3000/help
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith
+              
+  .row
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              Home
+          %a{:href => "http://localhost:3000/help"} http://localhost:3000/help
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith
+    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+      .box
+        .box-header.with-border
+          %h1
+            = link_to guide_path(892078063) do
+              Home
+          %a{:href => "http://localhost:3000/help"} http://localhost:3000/help
+          %p.pull-right
+            %i.fa.fa-eye
+            144 views
+        .box-body
+          %p
+            English. Many desktop publishing packages and web page
+            editors now use Lorem Ipsum as their default model text,
+            and a search for 'lorem ipsum' will uncover many web
+          %p.text-muted
+            %i
+              Created on 15 April 2015 by
+              %a{:href => "#"} Rachel
+              , updated on 15 April 2015 by
+              %a{:href => "#"} Keith

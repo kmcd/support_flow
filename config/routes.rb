@@ -1,41 +1,35 @@
 Rails.application.routes.draw do
-  namespace :activity do
-    get :agents, to:'/agents#activity'
-    get :customers, to:'/customers#activity'
-  end
-  
-  resources :agents,    only: %i[ index edit update ]
-  resources :customers, only: %i[ index edit update ]
-  resources :guides
-  
   # TODO: refactor auth
   resources :logins, only: %i[ new create show destroy ]
   get '/login', to:'logins#new'
   get '/logout', to:'logins#destroy', defaults:{ id:1 }, as:'logout'
-  
+  resources :signups, only: %i[ new create ]
+  get '/signup', to:'signups#new'
+
+  resources :agents
+  resources :customers
+  resources :guides
   resources :emails, only: %i[ index create ]
-  
+
   resources :requests, only: %i[ index show update ] do
     resource :merge, only: %i[ new create destroy ]
   end
-  
+
   namespace :settings do
     resource  :billing, only: %i[ show update ]
     resources :mailboxes, only: %i[ index ]
   end
-  
-  resources :signups, only: %i[ new create ]
-  get '/signup', to:'signups#new'
-  
-  resources :teams, only:[] do
+
+  resources :teams, only: %i[ show ] do
     resources :files, only: %i[ create index ]
     resources :images, only: %i[ create index ]
     resources :guides, only: %i[ show ]
     resources :links, only: %i[ index ]
   end
-  
+
+  root 'teams#show'
   get '/:team(/*guide)', to:'guides#public', as:'public_guide'
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

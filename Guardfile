@@ -8,6 +8,7 @@ end
 
 guard :livereload do
   watch(%r{app/views/.+\.(erb|haml|slim)$})
+  watch(%r{app/assets/.+\.(css|js|html)})
   watch(%r{app/helpers/.+\.rb})
   watch(%r{public/.+\.(css|js|html)})
   watch(%r{config/locales/.+\.yml})
@@ -25,7 +26,7 @@ guard :bundler do
   files.each { |file| watch(helper.real_path(file)) }
 end
 
-guard :zeus, rspec:false, test_unit:true, run_all:true   do                  
+guard :zeus, rspec:false, test_unit:true, run_all:true   do
   # TestUnit
   # watch(%r|^test/(.*)_test\.rb$|)
   # watch(%r|^lib/(.*)([^/]+)\.rb$|)     {|m| "test/#{m[1]}test_#{m[2]}.rb" }

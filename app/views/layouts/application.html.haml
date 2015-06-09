@@ -1,68 +1,55 @@
 !!!
 
-%html{ lang:'en'}
+%html
   %head
-    %title Support Flow
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title SupportFlow
+    %meta{:charset => "UTF-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}/
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application', media: 'all'
     
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-    = csrf_meta_tags
-    %meta{ name:"viewport", content:"width=device-width, initial-scale=1" }
-    
-    -# TODO: setup (jammit/grunt/bower/guard) asset packager
-    %script{:src => "/jquery-1.11.2.min.js"}
-    %script{:src => "/jquery-ui.min.js"}
-    %link{:href => "/jquery-ui.min.css", :rel => "stylesheet"}
-    %link{:href => "/bootstrap.min.css", :rel => "stylesheet"}
-    %script{:src => "/bootstrap.min.js"}
-    %script{:src => "/rails.js"}
-    %link{:href => "/application.css", :rel => "stylesheet"}
-    %script{:src => "/application.js"}
-    
-    = yield :head
-    
-  %body
-    %nav.navbar.navbar-default
-      .container-fluid
-        .navbar-header
-          %p.navbar-text
-            %b Support Flow
-          
-        %ul.nav.navbar-nav
-          %li{ active_page(:requests) }
-            = link_to(requests_path) do
-              Requests
-              
-              -# TODO: change to team.open_requests_count
-              - open_count = current_agent.team.requests.where(open:true).count
-              - unless open_count.zero?
-                %span
-                  %small.text-danger
-                    = open_count
-                    open
-          
-          %li{ active_page(:guides) }= link_to 'Guides', guides_path
-          %li{ active_page(:customers) }= link_to 'Customers', customers_path
-          %li{ active_page(:agents) }= link_to 'Agents', agents_path
-          %li= link_to 'Need help?', '/guides'
-            
-        %ul.nav.navbar-nav.navbar-right
-          %li.dropdown
-            %a{ href:'#', :class => 'dropdown-toggle navbar-right', 
-                  :role => 'button', 'data-toggle' => 'dropdown',
-                  'aria-expanded' => false }
-              Settings
-            
-            %ul{ :class => 'dropdown-menu', :role => 'menu' }
-              %li= link_to 'Mailboxes', settings_mailboxes_path
-              %li
-                %a{ href:'#' }
-                  Billing
+  %body.skin-blue.layout-top-nav
+    .wrapper
+      %header.main-header
+        %nav.navbar.navbar-static-top
+          .container
+            .navbar-header
+              %a.navbar-brand{ href:root_path }
+                Support
+                %i Flow
+              %button.navbar-toggle.collapsed{"data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+                %i.fa.fa-bars
+                
+            #navbar-collapse.collapse.navbar-collapse.pull-left
+              %ul.nav.navbar-nav
+                %li.active= link_to 'Requests', requests_path
+                %li= link_to 'Guides', guides_path
+                %li= link_to 'Agents', agents_path
+                %li= link_to 'Customers', customers_path
+                %li.dropdown
+                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    Settings
+                    %span.caret
+                  %ul.dropdown-menu{:role => "menu"}
+                    %li
+                      %a{:href => "#"} Mailboxes
+                    %li
+                      %a{:href => "#"} Billing
+                    %li.divider
+                    %li
+                      %a{:href => "#"} Logout
+                      
+            .navbar-custom-menu
+              %ul.nav.navbar-nav
+                %li
+                  %a{:href => "/help"} Need Help?
                   
-              %li.divider
-              %li= link_to "Log out", logout_path, method: :delete
-      
-    .container
-      = yield
-      
-    .footer
-      &nbsp;
+      .content-wrapper
+        .container
+          = yield
+          
+      %footer.main-footer
+        .container
+          %span
+            &copy; 2015 Dancing Text Ltd. Terms Privacy Contact us

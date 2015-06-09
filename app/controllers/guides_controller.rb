@@ -20,7 +20,6 @@ class GuidesController < ApplicationController
   end
   
   def show
-    render 'edit' # TODO: change to customer preview view
   end
   
   def update

@@ -1,58 +1,192 @@
-%br/
-
-= render 'search'
-
-.results-summary.row
-  .col-md-10.col-md-offset-0.col-sm-10.col-sm-offset-0
-    %p.text-muted
-      %small
-        %i
-          -# 10 requests &mdash; average open: 4 hours, response: 7 mins.
-
-- if @requests.empty?
-  .request.row
-    .description.col-md-offset-0.col-md-10.col-sm-10.col-sm-offset-0.col-xs-11
-      %i
-        No requests
-          
-- @requests.each do |request|
-  .request.row
-    .description.col-md-10.col-sm-10.col-xs-11
-      %h4
-        = link_to name_for(request), request_path(request), class:'name'
-        
-        %small
-          - if request.open?
-            %span.text-danger
-              %span.glyphicon.glyphicon-exclamation-sign
-          - else
-            %span.text-success
-            %span.glyphicon.glyphicon-ok-circle
-            
-          = labels_for(request)
-        
-      %p.activity.text-muted
-        - unless request.emails.one?
-          %small
-            %a.text-warning{:href => '#'}
-              -# TODO: color based on activity
-              %span.glyphicon.glyphicon-comment
-              = request.emails_count
-              
-        -# TODO: change description if request closed
-        -# e.g. customer opened request on date -> agent closed request ...
-        -# or agent closed customers request on date after N hours
-        
-        = link_to request.customer.name, customer_path(request.customer)
-        opened request
-        
-        -# TODO: color based on duration
-        %span.mark= time_ago_in_words(request.created_at)
-        
-        ago
-        &rarr;
-        
-        - if request.agent.present?
-          = link_to request.agent.name, customer_path(request.agent)
-        - else
-          no-one assinged &hellip;
+%section.content
+  .row
+    .col-lg-6
+      .input-group
+        %input.form-control{"aria-label" => "...", :placeholder => "Search requests ...", :type => "text"}/
+        .input-group-btn
+          %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
+            Search
+            %span.caret
+          %ul.dropdown-menu.dropdown-menu-right{:role => "menu"}
+            %li
+              %a{:href => "#"} Open
+            %li
+              %a{:href => "#"} Closed
+            %li
+              %a{:href => "#"} Assigned to you
+            %li.dropdown-header{:role => "presentation"}
+              %i — Labels —
+            %li
+              %a{:href => "#"} Billing
+            %li
+              %a{:href => "#"} Urgent
+            %li.dropdown-header{:role => "presentation"}
+              %i — Assigned to —
+            %li
+              %a{:href => "#"} Rachel
+            %li
+              %a{:href => "#"} Keith
+            %li.dropdown-header{:role => "presentation"}
+              %i — Sort by —
+            %li
+              %a{:href => "#"} Newest
+            %li
+              %a{:href => "#"} Oldest
+            %li
+              %a{:href => "#"} Most active
+            %li
+              %a{:href => "#"} Recently updated
+            %li.divider
+            %li
+              %a{:href => "#"} Clear
+  %br/
+  .box.box-default
+    .box-header
+      %h3.box-title
+        24
+        %small requests
+    .box-body
+      .row.request
+        %hr/
+        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
+          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
+          %span
+            %b= link_to 'Billing enquiry', request_path(773634807)
+            →
+            %a{:href => "#"} Rachel
+            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
+            %span.text-muted 14
+          %br/
+          %span.description
+            \#123 opened by
+            %a{:href => "#"} peldi@balsamiq.com
+            on
+            14 May 2014 18:15
+        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} urgent
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.request
+        %hr/
+        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
+          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
+          %span
+            %b= link_to 'Billing enquiry', request_path(773634807)
+            →
+            %a{:href => "#"} Rachel
+            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
+            %span.text-muted 14
+          %br/
+          %span.description
+            \#123 opened by
+            %a{:href => "#"} peldi@balsamiq.com
+            on
+            14 May 2014 18:15
+        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} urgent
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.request
+        %hr/
+        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
+          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
+          %span
+            %b= link_to 'Billing enquiry', request_path(773634807)
+            →
+            %a{:href => "#"} Rachel
+            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
+            %span.text-muted 14
+          %br/
+          %span.description
+            \#123 opened by
+            %a{:href => "#"} peldi@balsamiq.com
+            on
+            14 May 2014 18:15
+        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} urgent
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.request
+        %hr/
+        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
+          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
+          %span
+            %b= link_to 'Billing enquiry', request_path(773634807)
+            →
+            %a{:href => "#"} Rachel
+            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
+            %span.text-muted 14
+          %br/
+          %span.description
+            \#123 opened by
+            %a{:href => "#"} peldi@balsamiq.com
+            on
+            14 May 2014 18:15
+        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} urgent
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.request
+        %hr/
+        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
+          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
+          %span
+            %b= link_to 'Billing enquiry', request_path(773634807)
+            →
+            %a{:href => "#"} Rachel
+            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
+            %span.text-muted 14
+          %br/
+          %span.description
+            \#123 opened by
+            %a{:href => "#"} peldi@balsamiq.com
+            on
+            14 May 2014 18:15
+        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} urgent
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      .row.request
+        %hr/
+        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
+          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
+          %span
+            %b= link_to 'Billing enquiry', request_path(773634807)
+            →
+            %a{:href => "#"} Rachel
+            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
+            %span.text-muted 14
+          %br/
+          %span.description
+            \#123 opened by
+            %a{:href => "#"} peldi@balsamiq.com
+            on
+            14 May 2014 18:15
+        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
+          %span.tags.pull-right
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} premium
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} urgent
+             
+            %a.btn.btn-xs.bg-info{:href => "#"} adwords

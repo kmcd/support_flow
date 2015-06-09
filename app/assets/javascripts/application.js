@@ -11,5 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
+//= require bootstrap.min
+//= require rails
 //= require jquery_ujs
+//= require admin_lte.min
+//= require redactor
 //= require_tree .

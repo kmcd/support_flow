@@ -1,0 +1,110 @@
+%section.content-header
+  %button.btn.btn-default Edit agent
+  
+%section.content
+  .box
+    .box-body
+      .row
+        .col-sm-7
+          %h1 Keith McDonnell
+          %h4.text-muted
+            %span.text-muted
+              %i.fa.fa-envelope
+               
+              %a{:href => "#"} foo@bar.com
+               
+              %i.fa.fa-phone
+               
+              +400 468 921 213
+        .col-sm-2
+          %h2
+            %a{:href => "#"}
+              14
+              %small open
+          %h2
+            %a{:href => "#"}
+              231
+              %small closed
+        .col-sm-3
+          %h2
+            14
+            %small
+              mins 1
+              %sup st
+              reply
+          %h2
+            4.5
+            %small hrs avg. close
+      %p
+        %i
+          %a{:href => "#"} Edit agent
+          to add notes …
+  %ul.timeline
+    %li.time-label
+      %span.bg-none 10 Feb. 2014
+    %li
+      %i.fa.fa-envelope.bg-red
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          12:05
+        %h3.timeline-header
+          = link_to 'Peldi', customer_path(121263609)
+          created support request
+          %a{:href => "#"} #1234
+        .timeline-body
+          Hi, I'm wondering how do I pay for your AWESOME app?
+    %li
+      %i.fa.fa-check.bg-green
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          closed support request
+          %a{:href => "#"} #1234
+    %li
+      %i.fa.fa-book.bg-purple
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          created guide
+          %a{:href => "#"} FAQ
+    %li
+      %i.fa.fa-book.bg-purple
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          updated guide
+          %a{:href => "#"} Billing
+    %li
+      %i.fa.fa-tags.bg-yellow
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          labelled request
+          %a{:href => "#"} #1234
+          as
+          %a.btn.bg-red{:href => "#"} urgent
+    %li
+      %i.fa.fa-mail-reply.bg-yellow
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          15:37
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          replied to request
+          %a{:href => "#"} #1234
+    %li
+      %i.fa.fa-clock-o.bg-gray

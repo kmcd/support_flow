@@ -1,0 +1,113 @@
+%section.content-header
+  .row
+    .col-md-3.col-sm-3.col-xs-6
+      .small-box.bg-danger
+        .inner
+          %h3 124
+          %p Open requests
+
+    .col-md-3.col-sm-3.col-xs-6
+      .small-box.bg-warning
+        .inner
+          %h3
+            14
+            %small min
+          %p
+            Average 1
+            %sup st
+            reply
+
+    .col-md-3.col-sm-3.col-xs-6
+      .small-box.bg-success
+        .inner
+          %h3
+            72
+            %small hrs
+          %p Average close
+
+    .col-md-3.col-sm-3.col-xs-6
+      .small-box.bg-info
+        .inner
+          %h3
+            78
+            %small %
+          %p
+            Customer
+            %i.fa.fa-smile-o
+
+%section.content
+  %ul.timeline
+    %li.time-label
+      %span.bg-none 10 Feb. 2014
+    %li
+      %i.fa.fa-envelope.bg-red
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          12:05
+        %h3.timeline-header
+          = link_to 'Peldi', customer_path(121263609)
+          created support request
+          %b= link_to '#123', request_path(773634807)
+        .timeline-body
+          Hi, I'm wondering how do I pay for your AWESOME app?
+
+    %li
+      %i.fa.fa-check.bg-green
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          closed support request
+          %b= link_to '#123', request_path(773634807)
+
+    %li
+      %i.fa.fa-book.bg-purple
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          = link_to 'Rachel', agent_path(721687368)
+          created guide
+          = link_to 'FAQ', guide_path(892078063)
+
+    %li
+      %i.fa.fa-book.bg-purple
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          updated guide
+          %a{:href => "#"} Billing
+
+    %li
+      %i.fa.fa-tags.bg-yellow
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          labelled request
+          %b= link_to '#123', request_path(773634807)
+          as
+          %a.btn.btn-xs.bg-red{:href => "#"} urgent
+
+    %li
+      %i.fa.fa-mail-reply.bg-yellow
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          15:37
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          replied to request
+          %b= link_to '#123', request_path(773634807)
+
+    %li
+      %i.fa.fa-clock-o.bg-gray

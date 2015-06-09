@@ -1,71 +1,155 @@
-.request.row
-  .col-md-offset-0.col-md-10
-    %h2
-      %span.name
-        = name_for(@request)
-      
-      = render 'name_edit'
-        
-      %small
-        %small
-          %i= "##{@request.id}"
-        
-        %br/
-        
-        %span.status
-          = render 'status'
-        
-        %small
-          &rarr;
-          assigned to
-          
-          - if @request.agent
-            = link_to @request.agent.email_address, agent_path(@request.agent), id:'assignee'
-          - else
-            no-one
+%section.content-header
+  %button.btn.btn-default{:type => "button"} Edit
+  %button.btn.btn-default{:type => "button"} Close
 
+%section.content
+  .box
+    .box-body
+      .row
+        .col-sm-6
+          %h1
+            Billing enquiry
+            %small #1253
+          %h4.text-muted
+            %a{:href => "customer.html"} Peldi Guizzonni
+            %small
+              %i.fa.fa-envelope
+              %a{:href => "#"} foo@bar.com
+              %i.fa.fa-phone
+              +400 468 921 213
 
-.labels.row
-  .col-md-offset-0.col-md-10
-    %span.labels= render partial:'label', collection:@request.labels
-    = render partial:'label_create'
+          %p.text-muted
+            %a.btn.btn-xs.bg-info{:href => "#"} urgent
+            %a.btn.btn-xs.bg-info{:href => "#"} paid trial
+            %a.btn.btn-xs.bg-info{:href => "#"} balsamiq ltd
+            %button.btn.btn-default.btn-xs Add Label
 
-.actions.row
-  .col-md-10.col-md-offset-0
+        .col-sm-3
+          %h2
+            14
+            %small
+              mins. 1
+              %sup st
+              reply
+          %h2
+            12
+            %small hrs. open
+
+        .col-sm-3
+          %h2
+            %a{:href => "#"}
+              Keith
+              %small assigned
+
+          .btn-group
+            %button.btn.btn-default.btn-xs.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown"}
+              Assign
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                %form#edit_request_773634807.edit_request{"accept-charset" => "UTF-8", :action => "/requests/773634807", "data-remote" => "true", :method => "post"}
+                  %input{:name => "utf8", :type => "hidden", :value => "✓"}/
+                  %input{:name => "_method", :type => "hidden", :value => "patch"}/
+                  %input{:name => "authenticity_token", :type => "hidden", :value => "GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w=="}/
+                  %input#request_agent_id{:name => "request[agent_id]", :type => "hidden", :value => "721687368"}/
+                  %input.btn.btn-link{:name => "commit", :type => "submit", :value => "keith@getsupportflow.com"}/
+              %li
+                %form#edit_request_773634807.edit_request{"accept-charset" => "UTF-8", :action => "/requests/773634807", "data-remote" => "true", :method => "post"}
+                  %input{:name => "utf8", :type => "hidden", :value => "✓"}/
+                  %input{:name => "_method", :type => "hidden", :value => "patch"}/
+                  %input{:name => "authenticity_token", :type => "hidden", :value => "GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w=="}/
+                  %input#request_agent_id{:name => "request[agent_id]", :type => "hidden", :value => "547562353"}/
+                  %input.btn.btn-link{:name => "commit", :type => "submit", :value => "rachel@getsupportflow.com"}/
+      %p
+        Add notes by
+        = succeed "." do
+          %a{:href => "#"} editing this request
+  .action
     .btn-group
-      - reply_button
-      - assign_button
-      
-      %button.add-label.btn.btn-sm.btn-default
-        Label
-        
-      %button.name-edit.btn.btn-sm.btn-default
-        Rename
-        
-      - unless @request.customer.requests.one?
-        %button.merge.btn.btn-sm.btn-default{'data-request' => @request.id}
-          Merge
-        
-      %button.status.btn.btn-sm.btn-default
-        = @request.open? ? 'Close' : 'Open'
-        
-    = render 'status_update'
-    
-    .merge.requests
-      = render('merges/new') if show_merge?(@request)
-    
-%br/
-
-.activities.row
-  -# TODO: group by day
-  = render partial:'activity', collection:@activities
-   
-- unless @activities.size < 2
-  .actions.row
-    .col-md-10.col-md-offset-0
-      .btn-group
-        - reply_button
-        - assign_button
-        
-        %button.status.btn.btn-sm.btn-default
-          = @request.open? ? 'Close' : 'Open'
+      %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown"}
+        Reply
+        %span.caret
+      %ul.dropdown-menu
+        %li.dropdown-header
+          Customer
+        %li
+          %a{:href => "mailto:peldi@example.org?bcc=request.773634807%40getsupportflow.net&body=Hi%20peldi%40example.org%2C%0A%0A%0A%0AThanks%2C%0A%0AKeith%0A&subject=Re%3A%20Billing%20enquiry%20follow%20up"} peldi@example.org
+        %li.dropdown-header
+          Agents
+        %li
+          %a{:href => "mailto:rachel@getsupportflow.com?cc=request.773634807%40getsupportflow.net&body=Hi%20Rachel%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&subject=Re%3A%20Billing%20enquiry%20follow%20up%20%5B%20Support%20Flow%20request%23773634807%20%5D"} Rachel
+        %li
+          %a{:href => "mailto:keith@getsupportflow.com?cc=request.773634807%40getsupportflow.net&body=Hi%20Keith%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&subject=Re%3A%20Billing%20enquiry%20follow%20up%20%5B%20Support%20Flow%20request%23773634807%20%5D"} Keith
+        %li.divider
+        %li
+          %a{:href => "mailto:?cc=request.773634807%40getsupportflow.net&body=Hi%20%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&subject=Re%3A%20Billing%20enquiry%20follow%20up"} Blank
+  %br/
+  %ul.timeline
+    %li.time-label
+      %span.bg-none 10 Feb. 2014
+    %li
+      %i.fa.fa-envelope.bg-red
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          12:05
+        %h3.timeline-header
+          = link_to 'Peldi', customer_path(121263609)
+          created support request
+          %b= link_to '#123', request_path(773634807)
+        .timeline-body
+          Hi, I'm wondering how do I pay for your AWESOME app?
+    %li
+      %i.fa.fa-check.bg-green
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          closed support request
+          %b= link_to '#123', request_path(773634807)
+    %li
+      %i.fa.fa-book.bg-purple
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          created guide
+          %a{:href => "#"} FAQ
+    %li
+      %i.fa.fa-book.bg-purple
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          updated guide
+          %a{:href => "#"} Billing
+    %li
+      %i.fa.fa-tags.bg-yellow
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          14:32
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          labelled request
+          %b= link_to '#123', request_path(773634807)
+          as
+          %a.btn.btn-xs.bg-info{:href => "#"} urgent
+    %li
+      %i.fa.fa-mail-reply.bg-yellow
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          15:37
+        %h3.timeline-header
+          %a{:href => "#"} Rachel
+          replied to request
+          %b= link_to '#123', request_path(773634807)
+    %li
+      %i.fa.fa-clock-o.bg-gray
