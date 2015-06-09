@@ -1,0 +1,14 @@
+template:
+  team: demo_team
+  name: _template
+  content: '<html><!-- content --></html>'
+  
+home_page:
+  team: demo_team
+  name: index
+  content: '<h1>Welcome to Support Flow</h1>'
+  
+faq:
+  team: demo_team
+  name: faq
+  content: '<h1>FAQ</h1>'

@@ -1,0 +1,5 @@
+<% 1.upto(100).each do |customer_id| %>
+customer_<% customer_id %>:
+  team: demo_team
+  email_address: <%= Faker::Internet.safe_email %>
+<% end %>

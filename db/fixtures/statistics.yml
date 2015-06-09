@@ -1,0 +1,48 @@
+team_average_close:
+  owner: demo_team (Team)
+  type: Statistic::Close
+  value: <%= 3600 * rand(10..20) %>
+  
+team_average_reply:
+  owner: demo_team (Team)
+  type: Statistic::Reply
+  value: <%= 3600 * rand(1..9) %>
+    
+team_customer_happiness:
+  owner: demo_team (Team)
+  type: Statistic::Happiness
+  value: <%= rand(60..100) %>
+  
+agent_average_close:
+  owner: rachel (Agent)
+  type: Statistic::Close
+  value: <%= 86400 * rand(1..5) %>
+  
+agent_average_reply:
+  owner: rachel (Agent)
+  type: Statistic::Reply
+  value: <%= 86400 * rand(1..5) %>
+    
+<% 1.upto(15) do |agent_id| %>
+agent_<%= agent_id %>_customer_happiness:
+  owner: agent_<%= agent_id %> (Agent)
+  type: Statistic::Happiness
+  value: <%= rand(60..100) %>
+<% end %>
+  
+customer_average_close:
+  owner: peldi (Customer)
+  type: Statistic::Close
+  value: <%= 86400 * rand(1..5) %>
+  
+customer_average_reply:
+  owner: peldi (Customer)
+  type: Statistic::Reply
+  value: <%= 3600 * rand(1..5) %>
+    
+<% 1.upto(100) do |customer_id| %>
+customer_<%= customer_id %>_happiness:
+  owner: customer_<%= customer_id %> (Customer)
+  type: Statistic::Happiness
+  value: <%= rand(60..100) %>
+<% end %>

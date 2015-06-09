@@ -1,0 +1,52 @@
+enquiry:
+  payload: <%= {
+    "event": "inbound",
+    "ts": 1360822567,
+    "msg": {
+      "from_email": "new_customer@example.com",
+      "from_name": "New customer",
+      "email": 'team.181813285@getsupportflow.net',
+      "to": [ [ 'team.181813285@getsupportflow.net', nil ] ],
+      "cc": [ [ nil, nil ] ],
+      "subject": "How do I pay?",
+      "text": "How do I pay?\n\n",
+      "html": "<p>How do I pay?<p>"
+    }
+  }.to_json %>
+    
+existing_customer_enquiry:
+  payload: <%= {
+    "event": "inbound",
+    "ts": 1360822567,
+    "msg": {
+      "from_email": "peldi@example.org",
+      "from_name": "Peldi",
+      "email": 'team.181813285@getsupportflow.net',
+      "to": [ [ 'team.181813285@getsupportflow.net', nil ] ],
+    }
+  }.to_json %>
+   
+agent_enquiry:
+  payload: <%= {
+    "event": "inbound",
+    "ts": 1360822567,
+    "msg": {
+      "from_email": "rachel@getsupportflow.com",
+      "from_name": "Rachel",
+      "email": 'team.181813285@getsupportflow.net',
+      "to": [ [ 'team.181813285@getsupportflow.net', nil ] ],
+    }
+  }.to_json %>
+    
+command:
+  payload: <%= {
+    "event": "inbound",
+    "ts": 1360822567,
+    "msg": {
+      "from_email": "rachel@getsupportflow.com",
+      "from_name": "Rachel",
+      "email": 'request.1@getsupportflow.net',
+      "to": [ [ 'request.1@getsupportflow.net', nil ] ],
+      "text": "--close"
+    }
+  }.to_json %>

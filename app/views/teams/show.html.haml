@@ -3,15 +3,26 @@
     .col-md-3.col-sm-3.col-xs-6
       .small-box.bg-danger
         .inner
-          %h3 124
-          %p Open requests
+          %h3= dashboard.open_requests
+          %p
+            Open
+            = pluralized dashboard.open_requests
 
     .col-md-3.col-sm-3.col-xs-6
       .small-box.bg-warning
         .inner
           %h3
-            14
-            %small min
+            - hrs, mins = dashboard.first_reply.divmod(60)
+
+            - unless hrs.zero?
+              = hrs
+              %small hr
+
+            - unless mins.zero?
+              = mins
+              %small min
+
+
           %p
             Average 1
             %sup st
@@ -21,15 +32,23 @@
       .small-box.bg-success
         .inner
           %h3
-            72
-            %small hrs
+            - hrs, mins = dashboard.average_close.divmod(60)
+
+            - unless hrs.zero?
+              = hrs
+              %small hr
+
+            - unless mins.zero?
+              = mins
+              %small min
+
           %p Average close
 
     .col-md-3.col-sm-3.col-xs-6
       .small-box.bg-info
         .inner
           %h3
-            78
+            = dashboard.customer_happiness
             %small %
           %p
             Customer
@@ -39,6 +58,7 @@
   %ul.timeline
     %li.time-label
       %span.bg-none 10 Feb. 2014
+
     %li
       %i.fa.fa-envelope.bg-red
       .timeline-item

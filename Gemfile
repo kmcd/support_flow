@@ -10,6 +10,7 @@ gem 'acts-as-taggable-array-on' # TODO: replace with (table/array)
 gem 'elasticsearch'
 gem 'mini_magick'
 gem 'clockwork'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug'

@@ -1,0 +1,2 @@
+demo_team:
+  subdomain: <%= "demo-" << Faker::Company.ein.gsub(/-/, '') %>

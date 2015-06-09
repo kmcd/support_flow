@@ -1,63 +1,12 @@
+require 'active_record/fixtures'
+require 'faker'
+
 namespace :db do
-  desc "Populate with break even number of agents"
-  task populate: :environment do
-    # TODO: load fixtures from db/fixtures/breakeven/(agents|customers|...).yml
-    
-    # Create:
-    #   -> 630 agents
-    #   -> teams of 1 - 10 agents
-    #   -> 365 * 60 requests for each team
-    #   -> request activity
-    #   -> 365 * 60 * 10 search entries
-  end
-  
   desc "Populate for customer demo"
   task demo: :environment do
-    # TODO: load fixtures from db/data/demo/(agents|customers|...).yml
+    demo_fixture_dir = Rails.root.join 'db', 'fixtures'
+    demo_fixtures =  Dir["#{demo_fixture_dir}/*.yml"].
+      map {|_| File.basename _, '.yml' }
+    ActiveRecord::FixtureSet.create_fixtures demo_fixture_dir, demo_fixtures
   end
-  
-  desc "Populate for UI development"
-  task ui: [:environment, 'db:schema:load', 'db:fixtures:load'] do
-    # TODO: replace with db/fixtures/ui
-    
-    rachel = Agent.first
-    peldi = Customer.first
-    
-    create_email \
-      body:'Hi! I need help with billing. Peldi',
-      subject:'Help',
-      from:peldi.email_address,
-      to:'help@getsupportflow.net'
-    
-    request = Request.where(name:"Billing enquiry").first
-    request.update label:'urgent'
-    
-    create_email \
-      body:"We're on it Peldi :)",
-      subject:'Help',
-      from:rachel.email_address,
-      to:peldi.email_address,
-      cc:"request.#{request.id}@getsupportflow.com"
-    
-    create_email \
-      body:'--assign keith',
-      from:rachel.email_address,
-      to:"request.#{request.id}@getsupportflow.com"
-    
-    create_email \
-      body:'--label billing',
-      from:rachel.email_address,
-      to:"request.#{request.id}@getsupportflow.com"
-      
-    create_email \
-      body:'--close',
-      from:rachel.email_address,
-      to:"request.#{request.id}@getsupportflow.com"
-  end
-end
-
-def create_email(to:, from:, subject:'', body:, cc:[])
-  # email = Email.new to:[to], from:from, subject:subject, 
-    # text:body, cc:[cc].flatten
-  # EmailProcessor.new(email).process
 end

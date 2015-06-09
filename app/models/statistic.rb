@@ -6,4 +6,7 @@ class Statistic < ActiveRecord::Base
   
   class Close < self
   end
+  
+  class Happiness < self
+  end
 end

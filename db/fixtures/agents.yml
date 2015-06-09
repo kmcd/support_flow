@@ -1,0 +1,6 @@
+<% 1.upto(15) do |agent_id| %>
+agent_<%= agent_id %>:
+  team: demo_team
+  email_address: <%= Faker::Internet.safe_email %>
+  profile: <%= { name:Faker::Name.name  }.to_json %>
+<% end %>
