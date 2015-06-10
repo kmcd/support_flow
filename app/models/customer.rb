@@ -13,6 +13,6 @@ class Customer < ActiveRecord::Base
   end
   
   def activities
-    PublicActivity::Activity.where owner_id:id, owner_type:Customer
+    Activity.where owner_id:id, owner_type:Customer
   end
 end

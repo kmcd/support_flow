@@ -49,7 +49,7 @@ class ReplyJobTest < ActiveJob::TestCase
   end
 
   test "save reply time" do
-    open = PublicActivity::Activity.create trackable:@billing_enquiry,
+    open = Activity.create trackable:@billing_enquiry,
       key:'request.open', created_at:5.days.ago
 
     reply = @enquiry
@@ -60,7 +60,7 @@ class ReplyJobTest < ActiveJob::TestCase
 
     ReplyJob.perform_now(reply)
 
-    first_reply = PublicActivity::Activity.where(trackable:@billing_enquiry,
+    first_reply = Activity.where(trackable:@billing_enquiry,
       key:'request.first_reply').first
 
     five_days_in_seconds = 432000

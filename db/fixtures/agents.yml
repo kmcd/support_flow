@@ -1,6 +1,7 @@
-<% 1.upto(15) do |agent_id| %>
+<% (1..15).each do |agent_id| %>
 agent_<%= agent_id %>:
+  id: <%= agent_id %>
   team: demo_team
   email_address: <%= Faker::Internet.safe_email %>
-  profile: <%= { name:Faker::Name.name  }.to_json %>
+  profile: <%= { name:[Faker::Name.first_name, Faker::Name.last_name].join(' ') }.to_json %>
 <% end %>

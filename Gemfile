@@ -4,7 +4,6 @@ gem 'rails', '4.2.0'
 gem 'pg'
 gem 'jquery-rails'
 gem 'haml-rails'
-gem 'public_activity' # TODO: replace with Timeline/Event model
 gem 'delayed_job_active_record'
 gem 'acts-as-taggable-array-on' # TODO: replace with (table/array)
 gem 'elasticsearch'

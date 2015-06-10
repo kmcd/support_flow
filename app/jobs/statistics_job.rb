@@ -65,7 +65,7 @@ class StatisticsJob < ActiveJob::Base
     Team.all.each do |team|
       request_ids = team.requests.map &:id
       
-      activities = PublicActivity::Activity.where \
+      activities = Activity.where \
         key:"request.#{activity_key.to_s}",
         trackable_id:request_ids,
         trackable_type:'Request'
@@ -77,7 +77,7 @@ class StatisticsJob < ActiveJob::Base
   
   def agent_activities(activity_key)
     Agent.all.each do |agent|
-      activities = PublicActivity::Activity.where \
+      activities = Activity.where \
         key:"request.#{activity_key.to_s}",
         owner:agent
         
@@ -88,7 +88,7 @@ class StatisticsJob < ActiveJob::Base
   
   def customer_activities(activity_key)
     Customer.all.each do |customer|
-      activities = PublicActivity::Activity.where \
+      activities = Activity.where \
         key:"request.#{activity_key.to_s}",
         recipient:customer
         

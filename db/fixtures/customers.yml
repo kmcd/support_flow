@@ -1,5 +1,6 @@
-<% 1.upto(100).each do |customer_id| %>
-customer_<% customer_id %>:
+<% (1..100).each do |customer_id| %>
+customer_<%= customer_id %>:
+  id: <%= customer_id %>
   team: demo_team
-  email_address: <%= Faker::Internet.safe_email %>
+  email_address: <%= Faker::Internet.safe_email.gsub(/@/,"-#{customer_id}@") %>
 <% end %>

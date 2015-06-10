@@ -16,7 +16,7 @@ class RequestTest < ActiveSupport::TestCase
     @billing_enquiry.update created_at:5.days.ago
     @billing_enquiry.update open:false
     
-    close_time = PublicActivity::Activity.where(trackable:@billing_enquiry,
+    close_time = Activity.where(trackable:@billing_enquiry,
       key:'request.close_time').last
     
     five_days_in_seconds = 432000

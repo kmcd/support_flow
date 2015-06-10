@@ -1,14 +1,17 @@
 template:
+  id: 1
   team: demo_team
   name: _template
   content: '<html><!-- content --></html>'
   
 home_page:
+  id: 2
   team: demo_team
   name: index
   content: '<h1>Welcome to Support Flow</h1>'
   
 faq:
+  id: 3
   team: demo_team
   name: faq
   content: '<h1>FAQ</h1>'

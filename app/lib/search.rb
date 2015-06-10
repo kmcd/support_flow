@@ -1,4 +1,4 @@
-class AgentSearch
+class Search
   attr_reader :query, :team
 
   def initialize(query, team, options={})

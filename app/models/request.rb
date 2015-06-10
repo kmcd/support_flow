@@ -1,5 +1,4 @@
 class Request < ActiveRecord::Base
-  include PublicActivity::Common
   belongs_to :agent
   belongs_to :customer
   belongs_to :team

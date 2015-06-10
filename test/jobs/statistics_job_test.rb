@@ -10,14 +10,14 @@ class StatisticsJobTest < ActiveJob::TestCase
   end
   
   test "team reply" do
-    PublicActivity::Activity.create trackable:@billing_enquiry,
+    Activity.create trackable:@billing_enquiry,
       key:'request.reply_time', parameters:{ time:days_in_seconds(5) }
     StatisticsJob.perform_now
     
     assert_equal days_in_seconds(5), Statistic::Reply.
       where(owner:@support_flow).first.value.to_i
     
-    PublicActivity::Activity.create trackable:@duplicate_enquiry,
+    Activity.create trackable:@duplicate_enquiry,
       key:'request.reply_time', parameters:{ time:days_in_seconds(10)}
     StatisticsJob.perform_now
     
@@ -26,14 +26,14 @@ class StatisticsJobTest < ActiveJob::TestCase
   end
   
   test "team close" do
-    PublicActivity::Activity.create trackable:@billing_enquiry,
+    Activity.create trackable:@billing_enquiry,
       key:'request.close_time', parameters:{ time:days_in_seconds(5) }
     StatisticsJob.perform_now
     
     assert_equal days_in_seconds(5), Statistic::Close.
       where(owner:@support_flow).first.value.to_i
     
-    PublicActivity::Activity.create trackable:@duplicate_enquiry,
+    Activity.create trackable:@duplicate_enquiry,
       key:'request.close_time', parameters:{ time:days_in_seconds(10)}
     StatisticsJob.perform_now
     
@@ -42,14 +42,14 @@ class StatisticsJobTest < ActiveJob::TestCase
   end
   
   test "agent reply" do
-    PublicActivity::Activity.create trackable:@billing_enquiry, owner:@rachel,
+    Activity.create trackable:@billing_enquiry, owner:@rachel,
       key:'request.reply_time', parameters:{ time:days_in_seconds(5) }
     StatisticsJob.perform_now
     
     assert_equal days_in_seconds(5), Statistic::Reply.
       where(owner:@rachel).first.value.to_i
     
-    PublicActivity::Activity.create trackable:@billing_enquiry, owner:@rachel,
+    Activity.create trackable:@billing_enquiry, owner:@rachel,
       key:'request.reply_time', parameters:{ time:days_in_seconds(10) }
     StatisticsJob.perform_now
     
@@ -58,14 +58,14 @@ class StatisticsJobTest < ActiveJob::TestCase
   end
   
   test "agent close" do
-    PublicActivity::Activity.create trackable:@billing_enquiry, owner:@rachel,
+    Activity.create trackable:@billing_enquiry, owner:@rachel,
       key:'request.close_time', parameters:{ time:days_in_seconds(5) }
     StatisticsJob.perform_now
     
     assert_equal days_in_seconds(5), Statistic::Close.
       where(owner:@rachel).first.value.to_i
     
-    PublicActivity::Activity.create trackable:@billing_enquiry, owner:@rachel,
+    Activity.create trackable:@billing_enquiry, owner:@rachel,
       key:'request.close_time', parameters:{ time:days_in_seconds(10) }
     StatisticsJob.perform_now
     
@@ -74,7 +74,7 @@ class StatisticsJobTest < ActiveJob::TestCase
   end
   
   test "customer reply" do
-    PublicActivity::Activity.create trackable:@billing_enquiry,
+    Activity.create trackable:@billing_enquiry,
       recipient:@peldi, key:'request.reply_time', 
       parameters:{ time:days_in_seconds(5) }
     StatisticsJob.perform_now
@@ -82,7 +82,7 @@ class StatisticsJobTest < ActiveJob::TestCase
     assert_equal days_in_seconds(5), Statistic::Reply.
       where(owner:@peldi).first.value.to_i
     
-    PublicActivity::Activity.create trackable:@billing_enquiry, 
+    Activity.create trackable:@billing_enquiry, 
       recipient:@peldi, key:'request.reply_time', 
       parameters:{ time:days_in_seconds(10) }
     StatisticsJob.perform_now
@@ -92,7 +92,7 @@ class StatisticsJobTest < ActiveJob::TestCase
   end
   
   test "customer close" do
-    PublicActivity::Activity.create trackable:@billing_enquiry, 
+    Activity.create trackable:@billing_enquiry, 
       recipient:@peldi, key:'request.close_time', 
       parameters:{ time:days_in_seconds(5) }
     StatisticsJob.perform_now
@@ -100,7 +100,7 @@ class StatisticsJobTest < ActiveJob::TestCase
     assert_equal days_in_seconds(5), Statistic::Close.
       where(owner:@peldi).first.value.to_i
     
-    PublicActivity::Activity.create trackable:@billing_enquiry, 
+    Activity.create trackable:@billing_enquiry, 
       recipient:@peldi, key:'request.close_time', 
       parameters:{ time:days_in_seconds(10) }
     StatisticsJob.perform_now

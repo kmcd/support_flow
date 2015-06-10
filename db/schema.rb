@@ -18,12 +18,13 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   enable_extension "hstore"
 
   create_table "activities", force: :cascade do |t|
+    t.integer  "team_id"
     t.integer  "trackable_id"
     t.string   "trackable_type"
     t.integer  "owner_id"
     t.string   "owner_type"
     t.string   "key"
-    t.text     "parameters"
+    t.json     "parameters"
     t.integer  "recipient_id"
     t.string   "recipient_type"
     t.datetime "created_at"
@@ -34,7 +35,8 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
   add_index "activities", ["key"], name: "index_activities_on_key", using: :btree
-  
+  add_index "activities", ["team_id"], name: "index_activities_on_team_id", using: :btree
+
   create_table "agents", force: :cascade do |t|
     t.integer  "team_id",                       null: false
     t.string   "email_address",                 null: false
@@ -44,7 +46,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   end
 
   add_index "agents", ["team_id"], name: "index_agents_on_team_id", using: :btree
-  
+
   create_table "assets", force: :cascade do |t|
     t.integer  "team_id",                    null: false
     t.string  "type",                     null: false
@@ -56,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
-  
+
   create_table "attachments", force: :cascade do |t|
     t.integer  "email_id",  null: false
     t.string  "name"
@@ -88,7 +90,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  
+
   create_table "emails", force: :cascade do |t|
     t.integer  "request_id"
     t.json     "payload",     null: false
@@ -106,7 +108,7 @@ ActiveRecord::Schema.define(version: 20150406172248) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-  
+
   create_table "requests", force: :cascade do |t|
     t.integer  "team_id",                    null: false
     t.integer  "agent_id"
@@ -122,21 +124,21 @@ ActiveRecord::Schema.define(version: 20150406172248) do
   add_index "requests", ["agent_id"], name: "index_requests_on_agent_id", using: :btree
   add_index "requests", ["customer_id"], name: "index_requests_on_customer_id", using: :btree
   add_index "requests", ["labels"], name: "index_requests_on_labels", using: :gin
-  
+
   create_table "logins", force: :cascade do |t|
     t.string  "email",    null: false
     t.string  "token"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
-  
+
   create_table "teams", force: :cascade do |t|
     t.string   "subdomain"
     t.string   "domain_name"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-  
+
   create_table "statistics", force: :cascade do |t|
     t.integer  "owner_id",                   null: false
     t.string   "owner_type",                 null: false

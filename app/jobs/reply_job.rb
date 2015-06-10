@@ -32,7 +32,7 @@ class ReplyJob < ActiveJob::Base
 
   def first_reply?
     return unless from_agent? && to_customer?
-    PublicActivity::Activity.where(trackable:email,
+    Activity.where(trackable:email,
       key:'request.first_reply').empty?
   end
 

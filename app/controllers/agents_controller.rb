@@ -14,7 +14,7 @@ class AgentsController < ApplicationController
   end
   
   def activity
-    @activities = PublicActivity::Activity.
+    @activities = Activity.
       where owner_type:Agent, owner_id:current_team.agents.map(&:id)
   end
 

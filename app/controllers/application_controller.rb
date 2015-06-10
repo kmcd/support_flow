@@ -11,12 +11,13 @@ class ApplicationController < ActionController::Base
   end
   
   def current_agent
-    @current_agent ||= Agent.find_by_id session[:current_agent_id]
+    # @current_agent ||= Agent.find_by_id session[:current_agent_id]
     Agent.first
   end
   
   def current_team
-    current_agent.team
+    # current_agent.team
+    Team.first
   end
   
   private

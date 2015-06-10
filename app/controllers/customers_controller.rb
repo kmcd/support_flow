@@ -20,7 +20,7 @@ class CustomersController < ApplicationController
   end
   
   def activity
-    @activities = PublicActivity::Activity.
+    @activities = Activity.
       where owner_type:Customer, owner_id:current_team.customers.map(&:id)
   end
 

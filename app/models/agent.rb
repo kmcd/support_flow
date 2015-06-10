@@ -12,6 +12,6 @@ class Agent < ActiveRecord::Base
   end
   
   def activities
-    PublicActivity::Activity.where owner_id:id, owner_type:Agent
+    Activity.where owner_id:id, owner_type:Agent
   end
 end
