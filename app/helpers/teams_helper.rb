@@ -13,7 +13,7 @@ module TeamsHelper
       when /request.comment/
         haml_tag 'i.fa.fa-comment-o'
       when /request.assign/
-        haml_tag 'i.fa.fa-cogs'
+        haml_tag 'i.fa.fa-user-plus'
       when /request.label/
         haml_tag 'i.fa.fa-tags'
       when /request.rename/
