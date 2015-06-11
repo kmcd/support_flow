@@ -9,7 +9,7 @@
             = pluralized dashboard.open_requests
 
     .col-md-3.col-sm-3.col-xs-6
-      .small-box.bg-warning
+      .small-box.bg-info
         .inner
           %h3
             - hrs, mins = dashboard.first_reply.divmod(60)
@@ -44,7 +44,7 @@
           %p Average close
 
     .col-md-3.col-sm-3.col-xs-6
-      .small-box.bg-info
+      .small-box.bg-warning
         .inner
           %h3
             = dashboard.customer_happiness

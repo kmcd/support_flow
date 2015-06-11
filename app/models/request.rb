@@ -44,6 +44,10 @@ class Request < ActiveRecord::Base
     end
   end
   
+  def assigned?
+    agent_id.present?
+  end
+  
   private
   
   # TODO: move to RequestCloseJob ->

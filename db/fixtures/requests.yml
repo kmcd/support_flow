@@ -2,8 +2,10 @@
 request_<%= request_id %>:
   id: <%= request_id %>
   name: <%= Faker::Hacker.say_something_smart %>
-  team: demo_team
+  team_id: 1
   open: <%= rand(0..100) >= 90 ? 'true' : 'false' %>
-  agent_id: <%= rand(1..15) %>
-  customer_id: <%= rand(1..100) %> %>
+  agent_id: <%= rand(0..100) >= 30 ? rand(1..15) : nil %>
+  customer_id: <%= rand(1..100) %>
+  labels: <%= %w[ urgent billing faq domains editing file-upload credit-card].sample rand(4) %>
+  emails_count: <%= rand(0..20) %>
 <% end %>

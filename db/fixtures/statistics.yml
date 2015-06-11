@@ -1,15 +1,18 @@
 team_average_close:
-  owner: demo_team (Team)
+  owner_id: 1
+  owner_type: Team
   type: Statistic::Close
   value: <%= 3600 * rand(10..20) %>
   
 team_average_reply:
-  owner: demo_team (Team)
+  owner_id: 1
+  owner_type: Team
   type: Statistic::Reply
   value: <%= 3600 * rand(1..9) %>
     
 team_customer_happiness:
-  owner: demo_team (Team)
+  owner_id: 1
+  owner_type: Team
   type: Statistic::Happiness
   value: <%= rand(60..100) %>
   

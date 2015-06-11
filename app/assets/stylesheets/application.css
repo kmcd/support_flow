@@ -131,3 +131,6 @@ h1 { margin-top: 5px; }
 h1, h2 { margin-top: 0; }
 span.description { color: gray; }
 .skin-blue .main-header .navbar { background-color: #A8CCA1; }
+.request.row i.open { color: red; }
+.request.row i.closed { color: green; }
+.request.row i.comments { color: palegoldenrod; }

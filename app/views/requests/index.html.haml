@@ -40,153 +40,65 @@
             %li
               %a{:href => "#"} Clear
   %br/
+
   .box.box-default
     .box-header
       %h3.box-title
-        24
+        = @requests.count
         %small requests
+
     .box-body
-      .row.request
-        %hr/
-        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
-          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
-          %span
-            %b= link_to 'Billing enquiry', request_path(773634807)
-            →
-            %a{:href => "#"} Rachel
-            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
-            %span.text-muted 14
-          %br/
-          %span.description
-            \#123 opened by
-            %a{:href => "#"} peldi@balsamiq.com
-            on
-            14 May 2014 18:15
-        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
-          %span.tags.pull-right
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} premium
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} urgent
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} adwords
-      .row.request
-        %hr/
-        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
-          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
-          %span
-            %b= link_to 'Billing enquiry', request_path(773634807)
-            →
-            %a{:href => "#"} Rachel
-            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
-            %span.text-muted 14
-          %br/
-          %span.description
-            \#123 opened by
-            %a{:href => "#"} peldi@balsamiq.com
-            on
-            14 May 2014 18:15
-        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
-          %span.tags.pull-right
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} premium
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} urgent
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} adwords
-      .row.request
-        %hr/
-        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
-          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
-          %span
-            %b= link_to 'Billing enquiry', request_path(773634807)
-            →
-            %a{:href => "#"} Rachel
-            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
-            %span.text-muted 14
-          %br/
-          %span.description
-            \#123 opened by
-            %a{:href => "#"} peldi@balsamiq.com
-            on
-            14 May 2014 18:15
-        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
-          %span.tags.pull-right
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} premium
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} urgent
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} adwords
-      .row.request
-        %hr/
-        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
-          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
-          %span
-            %b= link_to 'Billing enquiry', request_path(773634807)
-            →
-            %a{:href => "#"} Rachel
-            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
-            %span.text-muted 14
-          %br/
-          %span.description
-            \#123 opened by
-            %a{:href => "#"} peldi@balsamiq.com
-            on
-            14 May 2014 18:15
-        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
-          %span.tags.pull-right
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} premium
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} urgent
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} adwords
-      .row.request
-        %hr/
-        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
-          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
-          %span
-            %b= link_to 'Billing enquiry', request_path(773634807)
-            →
-            %a{:href => "#"} Rachel
-            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
-            %span.text-muted 14
-          %br/
-          %span.description
-            \#123 opened by
-            %a{:href => "#"} peldi@balsamiq.com
-            on
-            14 May 2014 18:15
-        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
-          %span.tags.pull-right
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} premium
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} urgent
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} adwords
-      .row.request
-        %hr/
-        .col.col-lg-7.col-md-7.col-sm-7.col-xs-7
-          %i.fa.fa-fw.fa-exclamation-circle{:style => "color: red;"}
-          %span
-            %b= link_to 'Billing enquiry', request_path(773634807)
-            →
-            %a{:href => "#"} Rachel
-            %i.fa.fa-fw.fa-comment{:style => "color: palegoldenrod;"}
-            %span.text-muted 14
-          %br/
-          %span.description
-            \#123 opened by
-            %a{:href => "#"} peldi@balsamiq.com
-            on
-            14 May 2014 18:15
-        .col.col-lg-5.col-md-5.col-sm-5.col-xs-5
-          %span.tags.pull-right
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} premium
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} urgent
-             
-            %a.btn.btn-xs.bg-info{:href => "#"} adwords
+      - @requests.each do |request|
+        .row.request
+          %hr/
+
+          .col.col-lg-10.col-md-10.col-sm-10.col-xs-12
+            - if request.open?
+              %i.open.fa.fa-fw.fa-exclamation-circle
+            - else
+              %i.closed.fa.fa-fw.fa-check-circle
+
+            %span
+              %b= link_to request.name, request_path(request)
+
+              - request.labels.each do |label|
+                = link_to label, requests_path(q:label),
+                    class:'btn btn-xs bg-info'
+
+            %br/
+
+            %span.description
+              = "##{request.id}"
+              opened by
+              = link_to request.customer.name, customer_path(request.customer)
+              assigned to
+              - if request.assigned?
+                = link_to request.agent.name, agent_path(request.agent)
+              - else
+                no-one
+
+              - unless request.emails_count.zero?
+                %i.comments.fa.fa-fw.fa-comment
+                %span.text-muted= request.emails_count
+
+
+          .col.col-lg-2.col-md-2.col-sm-2.col-xs-12
+            %p.pull-right
+              %span.time{style:'color: #999; font-size: 12px; padding-right: 1em;'}
+                = request.created_at.strftime "%R"
+                %i.fa.fa-clock-o
+                = request.created_at.strftime "%-d %b %Y"
+
+  .paginator
+    .btn-group
+      %button.btn.btn-default
+        %i.fa.fa-chevron-left
+      %button.btn.btn-default 1
+      %button.btn.btn-default.active 2
+      %button.btn.btn-default 3
+      %button.btn.btn-default 4
+      %button.btn.btn-default 5
+      %button.btn.btn-default 6
+      %button.btn.btn-default 7
+      %button.btn.btn-default{:type => "button"}
+        %i.fa.fa-chevron-right
