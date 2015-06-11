@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: %i[ edit update show ]
   
   def index
-    @customers = current_team.customers.order :email_address
+    @customers = current_team.customers.limit(25)
   end
 
   def show

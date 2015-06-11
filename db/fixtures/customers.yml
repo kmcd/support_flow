@@ -1,6 +1,8 @@
 <% (1..100).each do |customer_id| %>
 customer_<%= customer_id %>:
   id: <%= customer_id %>
-  team: demo_team
-  email_address: <%= Faker::Internet.safe_email.gsub(/@/,"-#{customer_id}@") %>
+  team_id: 1
+  <% name = [Faker::Name.first_name, Faker::Name.last_name].join(' ') %>
+  email_address: <%= Faker::Internet.safe_email(name).gsub(/@/,"-#{customer_id}@") %>
+  profile: <%= { name:name, phone:Faker::PhoneNumber.phone_number, company:Faker::Company.name }.to_json %>
 <% end %>

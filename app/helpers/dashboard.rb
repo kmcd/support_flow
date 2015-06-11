@@ -38,6 +38,6 @@ class Dashboard
     @timeline ||= Activity.
       where(team:team).
       group_by {|_| _.created_at.to_date }.
-      sort &:first
+      sort_by &:first
   end
 end

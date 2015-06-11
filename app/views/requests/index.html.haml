@@ -71,6 +71,13 @@
               = "##{request.id}"
               opened by
               = link_to request.customer.name, customer_path(request.customer)
+              
+              - if request.customer.company
+                from
+                = link_to request.customer.company, requests_path(q:'company:1')
+                
+              &mdash;
+              
               assigned to
               - if request.assigned?
                 = link_to request.agent.name, agent_path(request.agent)

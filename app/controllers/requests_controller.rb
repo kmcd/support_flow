@@ -2,7 +2,7 @@ class RequestsController < ApplicationController
   before_action :set_request, only: %i[ update show ]
 
   def index
-    @requests = current_team.requests.limit 10
+    @requests = current_team.requests.limit 25
   end
 
   def show
