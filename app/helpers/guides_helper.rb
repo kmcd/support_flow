@@ -10,4 +10,8 @@ module GuidesHelper
     
     link_to guide_url, guide_url
   end
+  
+  def summary(guide)
+    truncate Nokogiri::HTML(guide.content).text, length:100
+  end
 end

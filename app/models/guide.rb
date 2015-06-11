@@ -19,6 +19,20 @@ class Guide < ActiveRecord::Base
   end
   
   def deleteable?
-    name =~  /^(_template|index)$/ ? false : true
+    name !~  /^(_template|index)$/
+  end
+  
+  def created_activity
+    activities.where(key:'guide.create').first
+  end
+  
+  def updated_activity
+    activities.where(key:'guide.update').last
+  end
+  
+  private
+  
+  def activities
+    @activities ||= Activity.where trackable:self
   end
 end

@@ -88,10 +88,10 @@ close_request_activity_1:
 
 create_guide_activity_1:
   team_id: 1
-  owner_id: <%= rand(1..15) %>
   owner_type: Agent
-  trackable_id: 3
+  owner_id: <%= rand(1..15) %>
   trackable_type: Guide
+  trackable_id: 1
   key: 'guide.create'
   created_at: <%= 1.day.ago + rand(80..90).minutes %>
 
@@ -113,3 +113,21 @@ delete_guide_activity_1:
   key: 'guide.delete'
   parameters: <%= {deleted_guide_name:'Billing error help'}.to_json %>
   created_at: <%= 1.day.ago + rand(100..110).minutes %>
+
+<% (1..6).each do |guide_id| %>
+create_guide_<%= guide_id %>_activity:
+  team_id: 1
+  owner_type: Agent
+  owner_id: <%= rand(1..15) %>
+  trackable_type: Guide
+  trackable_id: <%= guide_id %>
+  key: 'guide.create'
+
+update_guide_<%= guide_id %>_activity:
+  team_id: 1
+  owner_id: <%= rand(1..15) %>
+  owner_type: Agent
+  trackable_type: Guide
+  trackable_id: <%= guide_id %>
+  key: 'guide.update'
+<% end %>
