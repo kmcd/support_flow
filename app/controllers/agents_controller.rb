@@ -1,8 +1,9 @@
 class AgentsController < ApplicationController
   before_action :set_agent, only: %i[ edit update ]
+  helper_method :dashboard
   
   def index
-    @agents = current_team.agents.order :email_address
+    @agents = current_team.agents
   end
 
   def edit
@@ -26,5 +27,9 @@ class AgentsController < ApplicationController
 
   def agent_params
     params.require(:agent).permit %i[ email_address name phone notes ]
+  end
+  
+  def dashboard
+    @dashboard ||= Dashboard.new current_team
   end
 end

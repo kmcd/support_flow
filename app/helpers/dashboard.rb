@@ -8,6 +8,10 @@ class Dashboard
   def open_requests
     team.requests.where(open:true).size
   end
+  
+  def closed_requests
+    team.requests.where(open:false).size
+  end
 
   def first_reply
     @first_reply ||= Statistic::Reply.

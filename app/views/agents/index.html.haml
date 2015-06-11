@@ -7,35 +7,14 @@
       .box
         .box-header
           %h1 Team
-        .box-body
-          %table.table.table-condensed
-            %tr.text-muted
-              %td open
-              %td closed
-              %td 1st reply
-              %td close
-            %tr
-              %td
-                %a{:href => "search?q=agent:1"} 1
-              %td
-                %a{:href => "search?q=agent:1"} 52
-              %td 10 mins
-              %td 3 hrs
-    .col-lg-6.col-md-6.col-sm-6.col-xs-12
-      .box
-        .box-header
-          %h1
-            = link_to "Keith", agent_path(721687368)
+
+          %p.text-muted
+            %i.fa.fa-envelope-o
+            = mail_to "help@balsamiq.com"
             
-            %small
-              %small.text-muted
-                %i.fa.fa-envelope
-                 
-                %a{:href => "#"} foo@bar.com
-                 
-                %i.fa.fa-phone
-                 
-                +400 468 921 213
+            %i.fa.fa-phone
+            = Faker::PhoneNumber.phone_number
+
         .box-body
           %table.table.table-condensed
             %tr.text-muted
@@ -43,80 +22,71 @@
               %td closed
               %td 1st reply
               %td close
-            %tr
-              %td
-                %a{:href => "search?q=agent:1"} 1
-              %td
-                %a{:href => "search?q=agent:1"} 52
-              %td 10 mins
-              %td 3 hrs
 
-    .col-lg-6.col-md-6.col-sm-6.col-xs-12
-      .box
-        .box-header
-          %h1
-            = link_to "Rachel", agent_path(721687368)
-            %small
-              %small.text-muted
-                %i.fa.fa-envelope
-                 
-                %a{:href => "#"} foo@bar.com
-                 
-                %i.fa.fa-phone
-                 
-                +400 468 921 213
-        .box-body
-          %table.table.table-condensed
-            %tr.text-muted
-              %td open
-              %td closed
-              %td 1st reply
-              %td close
             %tr
-              %td
-                %a{:href => "search?q=agent:1"} 1
-              %td
-                %a{:href => "search?q=agent:1"} 52
-              %td 10 mins
-              %td 3 hrs
+              %td= link_to dashboard.open_requests, requests_path(q:"open:true")
+              %td= link_to dashboard.closed_requests, requests_path(q:"open:false")
 
-    .col-lg-6.col-md-6.col-sm-6.col-xs-12
-      .box
-        .box-header
-          %h1
-            = link_to "Jo", agent_path(721687368)
-        .box-body
-          %table.table.table-condensed
-            %tr.text-muted
-              %td open
-              %td closed
-              %td 1st reply
-              %td close
-            %tr
+              - hrs, mins = dashboard.first_reply.divmod(60)
               %td
-                %a{:href => "search?q=agent:1"} 1
-              %td
-                %a{:href => "search?q=agent:1"} 52
-              %td 10 mins
-              %td 3 hrs
+                - unless hrs.zero?
+                  = hrs
+                  %small hr
 
-    .col-lg-6.col-md-6.col-sm-6.col-xs-12
-      .box
-        .box-header
-          %h1
-            = link_to "Valerie", agent_path(721687368)
-        .box-body
-          %table.table.table-condensed
-            %tr.text-muted
-              %td open
-              %td closed
-              %td 1st reply
-              %td close
-            %tr
-              %td
-                %a{:href => "search?q=agent:1"} 1
-              %td
-                %a{:href => "search?q=agent:1"} 52
-              %td 10 mins
-              %td 3 hrs
+                - unless mins.zero?
+                  = mins
+                  %small min
 
+              - hrs, mins = dashboard.average_close.divmod(60)
+              %td
+                - unless hrs.zero?
+                  = hrs
+                  %small hr
+
+                - unless mins.zero?
+                  = mins
+                  %small min
+
+    - @agents.sort_by(&:name).each do |agent|
+      .col-lg-6.col-md-6.col-sm-6.col-xs-12
+        .box
+          .box-header
+            %h2= link_to agent.name, agent_path(agent)
+
+            %p.text-muted
+              %i.fa.fa-envelope-o
+              = mail_to agent.email_address
+              %i.fa.fa-phone
+              = agent.profile['phone']
+
+          .box-body
+            %table.table.table-condensed
+              %tr.text-muted
+                %td open
+                %td closed
+                %td 1st reply
+                %td close
+
+              %tr
+                %td= link_to Request.open_count(agent), requests_path(q:"open:true")
+                %td= link_to Request.open_count(agent, false), requests_path(q:"open:true")
+
+                - hrs, mins = agent.average_reply.to_i.divmod(60)
+                %td
+                  - unless hrs.zero?
+                    = hrs
+                    %small hr
+
+                  - unless mins.zero?
+                    = mins
+                    %small min
+
+                - hrs, mins = agent.average_close.to_i.divmod(60)
+                %td
+                  - unless hrs.zero?
+                    = hrs
+                    %small hr
+
+                  - unless mins.zero?
+                    = mins
+                    %small min

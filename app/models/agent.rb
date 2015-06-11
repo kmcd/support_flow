@@ -11,6 +11,7 @@ class Agent < ActiveRecord::Base
     profile['name'] || email_address
   end
   
+  # FIXME: change to has_many polymorphic
   def activities
     Activity.where owner_id:id, owner_type:Agent
   end
