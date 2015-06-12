@@ -98,7 +98,7 @@
                 = activity.created_at.strftime "%R"
 
               %h3.timeline-header
-                - owner_link(activity) unless activity.owner.eql?(@agent)
+                - owner_link(activity) unless activity.owner.eql?(@customer)
                 - description activity
 
               - timeline_body activity
