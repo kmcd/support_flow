@@ -5,6 +5,10 @@ class AgentsController < ApplicationController
   def index
     @agents = current_team.agents
   end
+  
+  def show
+    @agent = current_team.agents.find params[:id]
+  end
 
   def edit
   end
