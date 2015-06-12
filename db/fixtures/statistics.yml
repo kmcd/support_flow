@@ -50,19 +50,26 @@ agent_<%= agent_id %>_customer_happiness:
   value: <%= rand(60..100) %>
 <% end %>
 
-customer_average_close:
-  owner: peldi (Customer)
-  type: Statistic::Close
-  value: <%= 86400 * rand(1..5) %>
-
-customer_average_reply:
-  owner: peldi (Customer)
+<% 1.upto(100) do |customer_id| %>
+customer_<%= customer_id %>_average_reply:
+  owner_id: <%= customer_id %>
+  owner_type: Customer
   type: Statistic::Reply
-  value: <%= 3600 * rand(1..5) %>
+  value: <%= rand(60..100) %>
+<% end %>
 
 <% 1.upto(100) do |customer_id| %>
+customer_<%= customer_id %>_average_close:
+  owner_id: <%= customer_id %>
+  owner_type: Customer
+  type: Statistic::Close
+  value: <%= rand(100..400) %>
+<% end %>
+  
+<% 1.upto(100) do |customer_id| %>
 customer_<%= customer_id %>_happiness:
-  owner: customer_<%= customer_id %> (Customer)
+  owner_id: <%= customer_id %>
+  owner_type: Customer
   type: Statistic::Happiness
   value: <%= rand(60..100) %>
 <% end %>

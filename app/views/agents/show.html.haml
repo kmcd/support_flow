@@ -6,7 +6,8 @@
     .box-body
       .row
         .col-sm-7
-          %h2= @agent.name
+          %h2
+            = @agent.name
 
           %p.text-muted
             %i.fa.fa-envelope-o
@@ -68,9 +69,6 @@
         %i
           %a{:href => "#"} Edit agent
           to add notes …
-
-
-
 
   - unless @agent.timeline.empty?
     %ul.timeline
