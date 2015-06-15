@@ -1,6 +1,7 @@
 <% (1..999).each do |request_id| %>
 request_<%= request_id %>:
   id: <%= request_id %>
+  number: <%= request_id %>
   name: <%= Faker::Hacker.say_something_smart %>
   team_id: 1
   open: <%= rand(0..100) >= 90 ? 'true' : 'false' %>

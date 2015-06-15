@@ -24,4 +24,10 @@ class RequestTest < ActiveSupport::TestCase
     assert_equal @rachel, close_time.owner
     assert_equal @peldi, close_time.recipient
   end
+  
+  test "set number" do
+    Request.delete_all
+    request = Request.create team_id:1
+    assert_equal 1, request.reload.number
+  end
 end

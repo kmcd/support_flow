@@ -1,4 +1,35 @@
 Rails.application.routes.draw do
+  # TODO: param: :name instead of id
+  resources :teams, only: %i[ show ], path:'/' do
+    shallow do
+      resources :agents
+      resources :customers
+      resources :guides
+    end
+
+    resources :files,     only: %i[ create index ]
+    resources :images,    only: %i[ create index ]
+    resources :links,     only: %i[ index ]
+    
+    # TODO: change request id to number
+    resources :requests,  only: %i[ index show update ]
+  end
+
+  resources :requests, only:[] do
+    resource :merge, only: %i[ new create destroy ]
+  end
+
+  resources :emails, only: %i[ index create ] # Mandrill webhook endpoint
+
+  namespace :settings do
+    with_options(only: %i[]) do |app|
+      app.resources :mailboxes
+      app.resource  :templates
+      app.resource  :notifications
+      app.resource  :billing
+    end
+  end
+
   # TODO: refactor auth
   resources :logins, only: %i[ new create show destroy ]
   get '/login', to:'logins#new'
@@ -6,82 +37,6 @@ Rails.application.routes.draw do
   resources :signups, only: %i[ new create ]
   get '/signup', to:'signups#new'
 
-  resources :agents
-  resources :customers
-  resources :guides
-  resources :emails, only: %i[ index create ]
-
-  resources :requests, only: %i[ index show update ] do
-    resource :merge, only: %i[ new create destroy ]
-  end
-
-  namespace :settings do
-    resource  :billing, only: %i[ show update ]
-    resources :mailboxes, only: %i[ index ]
-  end
-
-  resources :teams, only: %i[ show ] do
-    resources :files, only: %i[ create index ]
-    resources :images, only: %i[ create index ]
-    resources :guides, only: %i[ show ]
-    resources :links, only: %i[ index ]
-  end
-
-  root 'teams#show'
+  # TODO: change to teams#show (how to preview if logged in?)
   get '/:team(/*guide)', to:'guides#public', as:'public_guide'
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

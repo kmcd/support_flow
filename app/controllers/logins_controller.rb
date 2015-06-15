@@ -20,8 +20,10 @@ class LoginsController < ApplicationController
     authentication = Authentication.new params[:id]
     
     if authentication.valid?
-      session[:current_agent_id] = authentication.agent.id
-      redirect_to requests_path
+      agent = authentication.agend
+      session[:current_agent_id] = agent.id
+      session[:current_team_id] = agent.team.id
+      redirect_to team_path(agent.team.name)
     else
       redirect_to new_login_path # FIXME: error message
     end

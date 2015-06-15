@@ -15,18 +15,19 @@
         %nav.navbar.navbar-static-top
           .container
             .navbar-header
-              %a.navbar-brand{ href:root_path }
+              = link_to current_team, class:'navbar-brand' do
                 Support
                 %i Flow
+                
               %button.navbar-toggle.collapsed{"data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
                 %i.fa.fa-bars
                 
             #navbar-collapse.collapse.navbar-collapse.pull-left
               %ul.nav.navbar-nav
-                %li.active= link_to 'Requests', requests_path
-                %li= link_to 'Guides', guides_path
-                %li= link_to 'Customers', customers_path
-                %li= link_to 'Agents', agents_path
+                %li.active= link_to 'Requests', team_requests_path(current_team, )
+                %li= link_to 'Guides', team_guides_path(current_team)
+                %li= link_to 'Customers', team_customers_path(current_team)
+                %li= link_to 'Agents', team_agents_path(current_team)
                 %li.dropdown
                   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                     Settings

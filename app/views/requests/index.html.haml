@@ -59,10 +59,10 @@
               %i.closed.fa.fa-fw.fa-check-circle
 
             %span
-              %b= link_to request.name, request_path(request)
+              %b= link_to request.name, team_request_path(current_team,request)
 
               - request.labels.each do |label|
-                = link_to label, requests_path(q:label),
+                = link_to label, team_requests_path(current_team, q:label),
                     class:'btn btn-xs bg-info'
 
             %br/
@@ -74,7 +74,7 @@
               
               - if request.customer.company
                 from
-                = link_to request.customer.company, requests_path(q:'company:1')
+                = link_to request.customer.company, team_requests_path(current_team, q:'company:1')
                 
               &mdash;
               

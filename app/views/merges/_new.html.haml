@@ -17,7 +17,7 @@
           .radio
             %label
               = radio_button_tag :merge_request_id, request.id
-              = link_to (request.name || "##{request.id}"), request_path(request)
+              = link_to (request.name || "##{request.id}"), team_request_path(current_team, request)
         
       %button.btn.btn-danger.btn-sm
         Merge

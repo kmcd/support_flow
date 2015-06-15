@@ -13,7 +13,7 @@ module TeamsHelper
       when /request.comment/
         haml_tag 'i.fa.fa-comment-o'
       when /request.assign/
-        haml_tag 'i.fa.fa-user-plus'
+        haml_tag 'i.fa.fa-user-plus.text-yellow'
       when /request.label/
         haml_tag 'i.fa.fa-tags'
       when /request.rename/
@@ -109,7 +109,7 @@ module TeamsHelper
         activity_description 'updated guide'
         haml_concat link_to activity.trackable.name,
           guide_path(activity.trackable)
-          
+
       when /guide\.delete/
         activity_description 'deleted guide'
         haml_tag :s do
@@ -141,7 +141,7 @@ module TeamsHelper
   def link_to_request(activity)
     haml_tag :b do
       haml_concat link_to "##{activity.trackable.id}",
-        request_path(activity.trackable)
+        team_request_path(current_team, activity.trackable.number)
     end
   end
 

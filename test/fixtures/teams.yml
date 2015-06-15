@@ -1,5 +1,5 @@
 support_flow:
-  subdomain: help
+  name: help
   
 balsamiq:
-  subdomain: balsamiq
+  name: balsamiq

@@ -5,77 +5,85 @@
   .box
     .box-body
       .row
-        .col-lg-7.col-md-7.col-sm-7.col-xs-12
-          %h2
+        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+          %h1
             = @customer.name
 
             - if @customer.company.present?
               %small
                 %small
                   from
-                = link_to @customer.company, customers_path(q:'')
-
-          %p.text-muted
-            %i.fa.fa-envelope-o
-            = mail_to @customer.email_address
+                  = link_to @customer.company, team_customers_path(current_team,q:'')
+          
+          %h3.text-muted
             %i.fa.fa-phone
             = @customer.phone
+            
+          %h5.text-muted
+            %i.fa.fa-envelope-o
+            = mail_to @customer.email_address
+            
+            
+          %p.text-muted
+            %a.btn.btn-xs.bg-info{:href => "#"} urgent
+            %a.btn.btn-xs.bg-info{:href => "#"} paid trial
+            %a.btn.btn-xs.bg-info{:href => "#"} balsamiq ltd
 
           - unless @customer.labels.empty?
             %p.text-muted
               - @customer.labels.each do |label|
-                = link_to label, requests_path(q:"label:#{label}"),
+                = link_to label, team_requests_path(current_team, q:"label:#{label}"),
                     class:'btn btn-xs bg-info'
                  
-        .col-sm-2.col-xs-5
-          %h3
-            = link_to Request.open_count(@customer), requests_path(q:'customer:1')
-            %small open
-
-          %h3
-            = link_to Request.open_count(@customer, false), requests_path(q:'customer:1')
-            %small closed
-            
-        .col-sm-3.col-xs-7
+        .col-lg-3.col-md-3.col-sm-3.col-xs-3
           - hrs, mins = @customer.average_reply.to_i.divmod(60)
 
-          %h3
+          %h4
             - unless hrs.zero?
               %span= hrs
               %sup
                 %small
-                  hr
+                  h
 
             - unless mins.zero?
               = mins
               %sup
                 %small
-                  min
+                  m
 
             %small
-              &rarr;
+              &nbsp;
               1
               %sup st
               reply
 
           - hrs, mins = @customer.average_close.to_i.divmod(60)
 
-          %h3
+          %h4
             - unless hrs.zero?
               = hrs
               %sup
                 %small
-                  hr
+                  h
 
             - unless mins.zero?
               = mins
               %sup
                 %small
-                  min
+                  m
 
             %small
-              &rarr;
+              &nbsp;
               close
+              
+          %h4
+            = link_to Request.open_count(@customer), team_requests_path(current_team, q:'customer:1')
+            %small 
+              open
+              &mdash;
+              
+            = link_to Request.open_count(@customer, false), team_requests_path(current_team, q:'customer:1')
+            %small closed
 
       %p
         Add notes by

@@ -134,7 +134,7 @@ module RequestsHelper
   
   def labels_for(request)
     request.labels.map do |label|
-      link_to label, requests_path(q:"label:#{label}")
+      link_to label, team_requests_path(current_team, q:"label:#{label}")
     end.join(" &bull; ").html_safe
   end
   

@@ -13,12 +13,12 @@ class MergesController < ApplicationController
     Activity.new(request:@merged_request, owner:@agent).merge @request
     
     cookies[ "merge_request_#{@request.id}"] = false
-    redirect_to request_path(@merged_request)
+    redirect_to team_request_path(current_team, @merged_request)
   end
   
   def destroy
     cookies[ "merge_request_#{@request.id}"] = false
-    redirect_to request_path(@request)
+    redirect_to team_request_path(current_team, @request)
   end
   
   private

@@ -5,26 +5,19 @@
   .box
     .box-body
       .row
-        .col-sm-7
-          %h2
+        .col-lg-8.col-md-8.col-sm-8.col-xs-8
+          %h1
             = @agent.name
 
-          %p.text-muted
-            %i.fa.fa-envelope-o
-            = mail_to @agent.email_address
+          %h3.text-muted
             %i.fa.fa-phone
             = @agent.phone
+            
+          %h5.text-muted
+            %i.fa.fa-envelope-o
+            = mail_to @agent.email_address
 
-        .col-sm-2
-          %h3
-            = link_to Request.open_count(@agent), requests_path(q:'agent:1')
-            %small open
-
-          %h3
-            = link_to Request.open_count(@agent, false), requests_path(q:'agent:1')
-            %small closed
-
-        .col-sm-3
+        .col-lg-4.col-md-4.col-sm-4.col-xs-4
           - hrs, mins = @agent.average_reply.to_i.divmod(60)
 
           %h3
@@ -32,16 +25,16 @@
               %span= hrs
               %sup
                 %small
-                  hr
+                  h
 
             - unless mins.zero?
               = mins
               %sup
                 %small
-                  min
+                  m
 
             %small
-              &rarr;
+              &nbsp;
               1
               %sup st
               reply
@@ -53,17 +46,26 @@
               = hrs
               %sup
                 %small
-                  hr
+                  h
 
             - unless mins.zero?
               = mins
               %sup
                 %small
-                  min
+                  m
 
             %small
-              &rarr;
+              &nbsp;
               close
+              
+          %h3
+            = link_to Request.open_count(@agent), team_requests_path(current_team, q:'agent:1')
+            %small 
+              open
+              &mdash;
+              
+            = link_to Request.open_count(@agent, false), team_requests_path(current_team, q:'agent:1')
+            %small closed
 
       %p
         %i
