@@ -1,8 +1,8 @@
 class PublicGuide
   attr_reader :team, :guide
   
-  def initialize(subdomain, name)
-    @team = Team.where(subdomain:subdomain).first
+  def initialize(name, name)
+    @team = Team.where(name:name).first
     @guide = name.present? ? team_guide(name) : home_page
   end
   

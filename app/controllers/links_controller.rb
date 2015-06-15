@@ -16,6 +16,6 @@ class LinksController < ApplicationController
   
   def link_json(name, guide=nil)
     page = guide.present? ? guide.name : nil
-    { name:name, url:public_guide_url(current_team.subdomain, page)  }
+    { name:name, url:public_guide_url(current_team.name, page)  }
   end
 end

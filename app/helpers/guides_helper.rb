@@ -1,11 +1,11 @@
 module GuidesHelper
   def link_to_guide_url(current_team, guide)
-    return unless current_team.subdomain
+    return unless current_team.name
     
     guide_url = if guide.name == 'index'
-      public_guide_url current_team.subdomain
+      public_guide_url current_team.name
     else
-      public_guide_url current_team.subdomain, guide.name
+      public_guide_url current_team.name, guide.name
     end
     
     link_to guide_url, guide_url
