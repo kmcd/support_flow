@@ -6,64 +6,84 @@
   .box
     .box-body
       .row
-        .col-sm-6
-          %h1
-            Billing enquiry
-            %small #1253
-          %h4.text-muted
-            %a{:href => "customer.html"} Peldi Guizzonni
-            %small
-              %i.fa.fa-envelope
-              %a{:href => "#"} foo@bar.com
-              %i.fa.fa-phone
-              +400 468 921 213
-
+        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+          %h3
+            = @request.name
+            %small= "##{@request.number}"
+            
           %p.text-muted
             %a.btn.btn-xs.bg-info{:href => "#"} urgent
             %a.btn.btn-xs.bg-info{:href => "#"} paid trial
             %a.btn.btn-xs.bg-info{:href => "#"} balsamiq ltd
             %button.btn.btn-default.btn-xs Add Label
 
-        .col-sm-3
-          %h2
+        .col-lg-3.col-md-3.col-sm-3.col-xs-3
+          %h3
             14
+            %sup
+              %small m
+
             %small
-              mins. 1
+              1
               %sup st
               reply
-          %h2
+
+          %h3
             12
-            %small hrs. open
+            %sup
+              %small h
+              
+            %small
+              open
 
-        .col-sm-3
-          %h2
-            %a{:href => "#"}
-              Keith
-              %small assigned
+      .row
+        .col-lg-12.col-md-12.col-sm-12.col-xs-12
+          
 
-          .btn-group
-            %button.btn.btn-default.btn-xs.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown"}
-              Assign
-              %span.caret
-            %ul.dropdown-menu
-              %li
-                %form#edit_request_773634807.edit_request{"accept-charset" => "UTF-8", :action => "/requests/773634807", "data-remote" => "true", :method => "post"}
-                  %input{:name => "utf8", :type => "hidden", :value => "✓"}/
-                  %input{:name => "_method", :type => "hidden", :value => "patch"}/
-                  %input{:name => "authenticity_token", :type => "hidden", :value => "GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w=="}/
-                  %input#request_agent_id{:name => "request[agent_id]", :type => "hidden", :value => "721687368"}/
-                  %input.btn.btn-link{:name => "commit", :type => "submit", :value => "keith@getsupportflow.com"}/
-              %li
-                %form#edit_request_773634807.edit_request{"accept-charset" => "UTF-8", :action => "/requests/773634807", "data-remote" => "true", :method => "post"}
-                  %input{:name => "utf8", :type => "hidden", :value => "✓"}/
-                  %input{:name => "_method", :type => "hidden", :value => "patch"}/
-                  %input{:name => "authenticity_token", :type => "hidden", :value => "GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w=="}/
-                  %input#request_agent_id{:name => "request[agent_id]", :type => "hidden", :value => "547562353"}/
-                  %input.btn.btn-link{:name => "commit", :type => "submit", :value => "rachel@getsupportflow.com"}/
-      %p
-        Add notes by
-        = succeed "." do
-          %a{:href => "#"} editing this request
+      .row
+        .col-lg-12.col-md-12.col-sm-12.col-xs-12
+          %h3.text-muted
+            %small Opened by
+            = link_to @request.customer.name, customer_path(@request.customer)
+
+            - if @request.customer.company.present?
+              %small
+                from
+                = link_to @request.customer.company,
+                    team_requests_path(current_team, q:"company:1")
+
+
+            %small
+              &mdash; assigned to
+
+            .btn-group
+              %button.btn.btn-default.btn-xs.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown"}
+                Keith
+                %span.caret
+              %ul.dropdown-menu
+                %li
+                  %form#edit_request_773634807.edit_request{"accept-charset" => "UTF-8", :action => "/requests/773634807", "data-remote" => "true", :method => "post"}
+                    %input{:name => "utf8", :type => "hidden", :value => "✓"}/
+                    %input{:name => "_method", :type => "hidden", :value => "patch"}/
+                    %input{:name => "authenticity_token", :type => "hidden", :value => "GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w=="}/
+                    %input#request_agent_id{:name => "request[agent_id]", :type => "hidden", :value => "721687368"}/
+                    %input.btn.btn-link{:name => "commit", :type => "submit", :value => "keith@getsupportflow.com"}/
+                %li
+                  %form#edit_request_773634807.edit_request{"accept-charset" => "UTF-8", :action => "/requests/773634807", "data-remote" => "true", :method => "post"}
+                    %input{:name => "utf8", :type => "hidden", :value => "✓"}/
+                    %input{:name => "_method", :type => "hidden", :value => "patch"}/
+                    %input{:name => "authenticity_token", :type => "hidden", :value => "GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w=="}/
+                    %input#request_agent_id{:name => "request[agent_id]", :type => "hidden", :value => "547562353"}/
+                    %input.btn.btn-link{:name => "commit", :type => "submit", :value => "rachel@getsupportflow.com"}/
+
+
+
+          %p
+            %i.fa.fa-envelope-o
+            %a{:href => "#"} foo@bar.com
+            %i.fa.fa-phone
+            +400 468 921 213
+
   .action
     .btn-group
       %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown"}
@@ -96,7 +116,7 @@
         %h3.timeline-header
           = link_to 'Peldi', customer_path(121263609)
           created support request
-          %b= link_to '#123', request_path(773634807)
+          %b= link_to '#123', team_request_path(current_team, 773634807)
         .timeline-body
           Hi, I'm wondering how do I pay for your AWESOME app?
     %li
@@ -108,7 +128,7 @@
         %h3.timeline-header
           %a{:href => "#"} Rachel
           closed support request
-          %b= link_to '#123', request_path(773634807)
+          %b= link_to '#123', team_request_path(current_team, 773634807)
     %li
       %i.fa.fa-book.bg-purple
       .timeline-item
@@ -138,7 +158,7 @@
         %h3.timeline-header
           %a{:href => "#"} Rachel
           labelled request
-          %b= link_to '#123', request_path(773634807)
+          %b= link_to '#123', team_request_path(current_team, 773634807)
           as
           %a.btn.btn-xs.bg-info{:href => "#"} urgent
     %li
@@ -150,6 +170,6 @@
         %h3.timeline-header
           %a{:href => "#"} Rachel
           replied to request
-          %b= link_to '#123', request_path(773634807)
+          %b= link_to '#123', team_request_path(current_team, 773634807)
     %li
       %i.fa.fa-clock-o.bg-gray
