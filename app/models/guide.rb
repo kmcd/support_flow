@@ -2,6 +2,7 @@ class Guide < ActiveRecord::Base
   belongs_to :team
   validates :name, presence:true
   validates :name, uniqueness:{ scope: :team }
+  validate :name_contains_no_slashes
   
   def self.pages(team)
     where(team:team).
@@ -32,7 +33,13 @@ class Guide < ActiveRecord::Base
   
   private
   
+  # TODO: change
   def activities
     @activities ||= Activity.where trackable:self
+  end
+  
+  def name_contains_no_slashes
+    errors[:name] << "forward slash prohibited" if /\//.match name
+    errors[:name] << "back slash prohibited" if /\\/.match name
   end
 end
