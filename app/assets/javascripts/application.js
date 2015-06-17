@@ -18,3 +18,11 @@
 //= require admin_lte.min
 //= require redactor
 //= require_tree .
+
+$(function() {
+  $('.search .filter a').click( function() {
+    facet = $(this).data('facet')
+    $("form#search input#query").attr('value', facet )
+    $("form#search").submit()
+  })
+});

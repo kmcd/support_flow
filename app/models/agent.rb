@@ -26,4 +26,8 @@ class Agent < ActiveRecord::Base
       group_by {|_| _.created_at.to_date }.
       sort_by &:first
   end
+  
+  def team_members
+    team.agents.where.not(id:id).sort_by &:name
+  end
 end

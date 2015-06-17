@@ -1,8 +1,9 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: %i[ update show ]
+  helper_method :search_query
 
   def index
-    @requests = current_team.requests.limit 25
+    @requests = RequestSearch.new(search_query, current_team).records
   end
 
   def show
@@ -28,5 +29,9 @@ class RequestsController < ApplicationController
 
   def request_params
     params.require(:request).permit %i[ agent_id label name open ]
+  end
+  
+  def search_query
+    params[:q].present? ? params[:q] : 'sort:new'
   end
 end

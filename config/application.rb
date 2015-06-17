@@ -6,6 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 require "sprockets/railtie"
+require 'elasticsearch/rails/instrumentation'
 
 module SupportFlow
   class Application < Rails::Application

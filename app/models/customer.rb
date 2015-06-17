@@ -1,4 +1,5 @@
 class Customer < ActiveRecord::Base
+  include Indexable
   include Profileable
   include Statistics
   has_many :requests

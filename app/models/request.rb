@@ -1,29 +1,24 @@
 class Request < ActiveRecord::Base
+  include Elasticsearch::Model
+  include Indexable
   belongs_to :agent
   belongs_to :customer
   belongs_to :team
   has_many :emails
-  has_many :activities,
-    -> { where trackable_type:name  }, 
+  has_many :activities, -> { where trackable_type:name  },
     foreign_key:'trackable_id'
   acts_as_taggable_array_on :labels
-  after_commit :save_close_time
   after_create :set_number
+  after_commit :save_close_time # FIXME: on update
+  
+  # after_commit :update_search_index
 
-  # TODO: move to search
   scope :open_count, ->(filter, open=true) {
     options = { open:open }
     options.merge!({ team:filter })     if filter.is_a?(Team)
     options.merge!({ agent:filter })    if filter.is_a?(Agent)
     options.merge!({ customer:filter }) if filter.is_a?(Customer)
     where( options ).count
-  }
-
-  # TODO: move to search
-  scope :unanswered, -> {
-    joins(:activities).
-      where("activities.trackable_type = 'Request'").
-      where.not("activities.key = 'request.first_reply'")
   }
 
   # TODO: move to RequestAssignmentJob ->
@@ -54,12 +49,8 @@ class Request < ActiveRecord::Base
 
   private
 
-  # TODO: move to RequestCloseJob ->
-  # validate, close request, update activity stream
   def save_close_time
-    throw 
-    return unless previous_changes[:open].present?
-    return unless previous_changes[:open] == [true, false]
+    return unless now_closing?
 
     activities.create key: :close_time,
       owner:agent,
@@ -69,5 +60,10 @@ class Request < ActiveRecord::Base
 
   def set_number
     update number:Request.count
+  end
+
+  def now_closing?
+    previous_changes[:open].present? && \
+      previous_changes[:open] == [true, false]
   end
 end

@@ -73,6 +73,12 @@ GEM
       elasticsearch-transport (= 1.0.12)
     elasticsearch-api (1.0.12)
       multi_json
+    elasticsearch-dsl (0.1.1)
+    elasticsearch-model (0.1.7)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.7)
     elasticsearch-transport (1.0.12)
       faraday
       multi_json
@@ -123,6 +129,7 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    hashie (3.4.2)
     hitimes (1.2.2)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
@@ -146,7 +153,6 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (2.6.1)
     mini_magick (4.2.7)
@@ -157,8 +163,6 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    mocha (1.1.0)
-      metaclass (~> 0.0.1)
     multi_json (1.11.0)
     multipart-post (2.0.0)
     nenv (0.2.0)
@@ -241,6 +245,7 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    vcr (2.9.3)
     web-console (2.1.2)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -260,6 +265,9 @@ DEPENDENCIES
   coffee-rails
   delayed_job_active_record
   elasticsearch
+  elasticsearch-dsl
+  elasticsearch-model
+  elasticsearch-rails
   faker
   guard
   guard-bundler
@@ -271,11 +279,11 @@ DEPENDENCIES
   looksee
   mini_magick
   minitest-reporters
-  mocha
   pg
   rails (= 4.2.0)
   sass-rails
   shelly-dependencies
   test_after_commit
   uglifier
+  vcr
   web-console (~> 2.0)

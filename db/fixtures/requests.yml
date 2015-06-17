@@ -9,4 +9,6 @@ request_<%= request_id %>:
   customer_id: <%= rand(1..100) %>
   labels: <%= %w[ urgent billing faq domains editing file-upload credit-card].sample rand(4) %>
   emails_count: <%= rand(0..20) %>
+  created_at: <%= rand(10..20).days.ago %>
+  updated_at: <%= rand(1..10).days.ago %>
 <% end %>
