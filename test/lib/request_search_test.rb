@@ -53,4 +53,3 @@ class RequestSearchTest < ActiveSupport::TestCase
     end
   end
 end
-end

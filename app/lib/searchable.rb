@@ -5,8 +5,9 @@ module Searchable
   RESULTS_PER_PAGE = 25
   FACET_REGEX = /\w+:\w+/
 
-  def initialize(text, team)
+  def initialize(text, team, page=1)
     @text, @team = text, team
+    @page = page || 1
   end
 
   private

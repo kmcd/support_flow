@@ -1,12 +1,12 @@
 class RequestSearch
   include Searchable
   
-  def records
-    Request.search(definition, size:RESULTS_PER_PAGE).records
+  def response
+    Request.search(definition).page(@page)
   end
   
   private
-
+  
   def definition
     # TODO: investigate elasticsearch dsl scoping
     full_text       = extract_full_text

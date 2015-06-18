@@ -47,5 +47,3 @@ class CustomerSearchTest < ActiveSupport::TestCase
     end
   end
 end
-
-end

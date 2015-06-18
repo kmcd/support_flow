@@ -16,8 +16,9 @@ end
 class ActiveSupport::TestCase
   fixtures :all
   self.use_instantiated_fixtures = true
-  
-  def cassette(name, options={})
-    VCR.use_cassette(name, options) { yield }
-  end
+end
+
+# FIXME: why is this not available to ActiveSupport::TestCase sub classes?
+def cassette(name, options={})
+  VCR.use_cassette(name, options) { yield }
 end

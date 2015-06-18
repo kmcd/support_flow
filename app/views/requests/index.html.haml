@@ -1,27 +1,27 @@
 %section.content
   .search.row
     .col-lg-12.col-md-12.col-sm-12.col-xs-12
-      = form_tag team_requests_path(current_team), id: :search, method: :get do
+      = form_tag team_requests_path(current_team), id: :search, method: :get, enforce_utf8:false do
         .input-group
           = search_field_tag :q, search_query, id:'query',
               class:'form-control', placeholder:"Search requests ..."
-          
+
           .input-group-btn
             = button_tag 'Search', class:'btn btn-default'
             = button_tag class:'btn btn-default dropdown-toggle',
                 'aria-expanded' => 'false', 'data-toggle' => 'dropdown' do
               Filter
               %span.caret
-              
+
             %ul.filter.dropdown-menu.dropdown-menu-right{:role => "menu"}
               %li= link_to 'Clear all', team_requests_path(current_team)
-              
+
               %li &nbsp;
               %li.dropdown-header{:role => "presentation"}
                 %i &mdash; Status &mdash;
               %li= link_to 'Open', '#', 'data-facet' => open_facet
               %li= link_to 'Closed', '#', 'data-facet' => closed_facet
-              
+
               %li &nbsp;
               %li.dropdown-header{:role => "presentation"}
                 %i &mdash; Sort by &mdash;
@@ -29,25 +29,23 @@
               %li= link_to 'Oldest', '#', 'data-facet' => old_facet
               %li= link_to 'Recently updated', '#', 'data-facet' => updated_facet
               %li= link_to 'Most active', '#', 'data-facet' => active_facet
-              
+
               %li &nbsp;
               %li.dropdown-header{:role => "presentation"}
                 %i &mdash; Assigned to &mdash;
-                
+
               %li= link_to 'You', '#', 'data-facet' => agent_facet(current_agent)
-              
+
               - current_agent.team_members.each do |agent|
                 %li= link_to agent.name, '#','data-facet' => agent_facet(agent)
-              
+
   %br/
 
   .box.box-default
-    .box-header
-      %h3.box-title
-        = @requests.count
-        %small requests
-
     .box-body
+      .summary
+        %p.text-muted= page_entries_info @requests
+      
       - @requests.each do |request|
         .row.request
           %hr/
@@ -70,13 +68,13 @@
               = "##{request.id}"
               opened by
               = link_to request.customer.name, customer_path(request.customer)
-              
+
               - if request.customer.company
                 from
                 = link_to request.customer.company, team_requests_path(current_team, q:request.customer.company)
-                
+
               &mdash;
-              
+
               assigned to
               - if request.assigned?
                 = link_to request.agent.name, agent_path(request.agent)
@@ -95,16 +93,4 @@
                 %i.fa.fa-clock-o
                 = request.created_at.strftime "%-d %b %Y"
 
-  .paginator
-    .btn-group
-      %button.btn.btn-default
-        %i.fa.fa-chevron-left
-      %button.btn.btn-default 1
-      %button.btn.btn-default.active 2
-      %button.btn.btn-default 3
-      %button.btn.btn-default 4
-      %button.btn.btn-default 5
-      %button.btn.btn-default 6
-      %button.btn.btn-default 7
-      %button.btn.btn-default{:type => "button"}
-        %i.fa.fa-chevron-right
+  = will_paginate @requests

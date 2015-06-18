@@ -3,7 +3,9 @@ class RequestsController < ApplicationController
   helper_method :search_query
 
   def index
-    @requests = RequestSearch.new(search_query, current_team).records
+    @requests = RequestSearch.new(search_query, current_team,
+      params[:page]).response.records
+    # throw @requests.response.records
   end
 
   def show
@@ -32,6 +34,7 @@ class RequestsController < ApplicationController
   end
   
   def search_query
+    # TODO: remove sort:new from default search box
     params[:q].present? ? params[:q] : 'sort:new'
   end
 end
