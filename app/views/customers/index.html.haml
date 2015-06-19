@@ -14,7 +14,16 @@
               %span.caret
 
             %ul.filter.dropdown-menu.dropdown-menu-right{:role => "menu"}
-              %li
+              %li= link_to 'Clear all', team_requests_path(current_team)
+
+              %li &nbsp;
+              %li.dropdown-header{:role => "presentation"}
+                %i &mdash; Sort by &mdash;
+              %li= link_to 'Newest customer', '#', 'data-facet' => new_facet
+              %li= link_to 'Oldest customer', '#', 'data-facet' => old_facet
+              %li= link_to 'Open requests', '#', 'data-facet' => open_requests_facet
+              %li= link_to 'Closed requests', '#', 'data-facet' => closed_requests_facet
+
 
   %br/
 

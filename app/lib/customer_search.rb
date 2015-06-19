@@ -35,6 +35,15 @@ class CustomerSearch
           end
         end
       end
+      
+      sort do
+        case sort_by
+          when /new/i     ; by(:created_at,   order: 'desc')
+          when /old/i     ; by(:created_at,   order: 'asc')
+          when /open/i    ; by(:open_count,   order: 'desc')
+          when /closed/i  ; by(:close_count,  order: 'desc')
+        end
+      end
     end
   end
 end

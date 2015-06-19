@@ -32,17 +32,4 @@ module RequestsHelper
     link_to label, team_requests_path(current_team, q:label_query),
       class:'btn btn-xs bg-info'
   end
-  
-  private
-  
-  def append_facet(name)
-    query = case name
-      when /open/     ; search_query.gsub /open:\w+/, ''
-      when /sort/     ; search_query.gsub /sort:\w+/, ''
-      when /agent_id/ ; search_query.gsub /agent_id:\w+/, ''
-      when /labels/   ; search_query.gsub /#{name}/, ''
-    end
-    
-    [ query, name ].join(' ').gsub /\s+/, ' '
-  end
 end

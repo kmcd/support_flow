@@ -7,7 +7,8 @@ namespace :search do
 
   desc "Delete elasticsearch index"
   task delete: :environment do
-    Request.all.each  {|_| IndexJob.perform_now(_, :delete) }
-    Customer.all.each {|_| IndexJob.perform_now(_, :delete) }
+    [Request,Customer].each do |klass|
+      klass.__elasticsearch__.client.indices.delete index:klass.index_name
+    end
   end
 end

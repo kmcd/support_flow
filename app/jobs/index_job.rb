@@ -6,7 +6,7 @@ class IndexJob < ActiveJob::Base
 
   def perform(record, operation)
     @record = record
-    method(operation).call
+    method(operation.to_sym).call
   end
 
   private
