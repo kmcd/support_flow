@@ -5,6 +5,8 @@ class Customer < ActiveRecord::Base
   has_many :requests
   has_many :emails
   belongs_to :team
+  validates :email_address, presence:true, uniqueness:true
+  # TODO: validate email_address format
   
   profile_entry %i[ name company phone notes avatar ]
   
@@ -31,5 +33,13 @@ class Customer < ActiveRecord::Base
         team, id, id, id).
       group_by {|_| _.created_at.to_date }.
       sort_by &:first
+  end
+  
+  def open_count
+    Request.open_count self
+  end
+  
+  def close_count
+    Request.open_count self, false
   end
 end

@@ -2,7 +2,6 @@ require 'elasticsearch/dsl'
 
 module Searchable
   include Elasticsearch::DSL
-  RESULTS_PER_PAGE = 25
   FACET_REGEX = /\w+:\w+/
 
   def initialize(text, team, page=1)

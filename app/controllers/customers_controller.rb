@@ -1,8 +1,10 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: %i[ edit update show ]
+  helper_method :search_query
   
   def index
-    @customers = current_team.customers.limit(25)
+    @customers = CustomerSearch.
+      new(search_query, current_team, params[:page]).customers
   end
 
   def show
@@ -32,5 +34,10 @@ class CustomersController < ApplicationController
 
   def customer_params
     params.require(:customer).permit %i[ name company phone notes ]
+  end
+  
+  def search_query
+    # TODO: remove sort:new from default search box
+    params[:q].present? ? params[:q] : 'sort:new'
   end
 end

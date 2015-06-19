@@ -1,12 +1,12 @@
 class RequestSearch
   include Searchable
-  
-  def response
-    Request.search(definition).page(@page)
+
+  def requests
+    Request.search(definition).page(@page).records
   end
-  
+
   private
-  
+
   def definition
     # TODO: investigate elasticsearch dsl scoping
     full_text       = extract_full_text
@@ -20,7 +20,7 @@ class RequestSearch
     search do
       query do
         filtered do
-          
+
           if full_text.present?
             query do
               multi_match do
@@ -36,13 +36,13 @@ class RequestSearch
               end
             end
           end
-          
+
           filter do
             and_filters = [
               team_facet,
               open_facet,
               customer_facet,
-              agent_facet 
+              agent_facet
             ]
             and_filters.push(label_facets) unless label_facets.empty?
             _and filters:and_filters

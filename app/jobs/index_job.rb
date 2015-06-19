@@ -50,19 +50,24 @@ Request.class_eval do
   end
 end
 
+# TODO: dry up index fields with CustomerSearch
 Customer.class_eval do
   def as_indexed_json(options={})
     self.as_json(
       {
         only: %i[ id team_id ],
         methods: %i[
+          id
+          team_id
           name
           labels
-          open_count
-          close_count
           company
           phone
-          email
+          email_address
+          open_count
+          close_count
+          created_at
+          updated_at
         ]
       }.merge!(options)
     )

@@ -3,9 +3,8 @@ class RequestsController < ApplicationController
   helper_method :search_query
 
   def index
-    @requests = RequestSearch.new(search_query, current_team,
-      params[:page]).response.records
-    # throw @requests.response.records
+    @requests = RequestSearch.
+      new(search_query, current_team, params[:page]).requests
   end
 
   def show

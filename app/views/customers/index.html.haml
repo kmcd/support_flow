@@ -1,56 +1,34 @@
 %section.content
-  .row
-    .col-lg-6
-      .input-group
-        %input.form-control{"aria-label" => "...", :placeholder => "Search customers ...", :type => "text"}/
-        .input-group-btn
-          %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
-            Search
-            %span.caret
-          %ul.dropdown-menu.dropdown-menu-right{:role => "menu"}
-            %li
-              %a{:href => "#"} Awaiting reply
-            %li
-              %a{:href => "#"} Assigned to you
-            %li.dropdown-header{:role => "presentation"}
-              %i — Labelled as —
-            %li
-              %a{:href => "#"} Billing
-            %li
-              %a{:href => "#"} Urgent
-            %li
-              %a{:href => "#"} Adwords
-            %li.dropdown-header{:role => "presentation"}
-              %i — Assigned to —
-            %li
-              %a{:href => "#"} Rachel
-            %li
-              %a{:href => "#"} Keith
-            %li.dropdown-header{:role => "presentation"}
-              %i — Sort by —
-            %li
-              %a{:href => "#"} Name
-            %li
-              %a{:href => "#"} Longest wait
-            %li.divider
-            %li
-              %a{:href => "#"} Clear
+  .search.row
+    .col-lg-12.col-md-12.col-sm-12.col-xs-12
+      = form_tag team_customers_path(current_team), id: :search, method: :get, enforce_utf8:false do
+        .input-group
+          = search_field_tag :q, search_query, id:'query',
+              class:'form-control', placeholder:"Search customers ..."
+
+          .input-group-btn
+            = button_tag 'Search', class:'btn btn-default'
+            = button_tag class:'btn btn-default dropdown-toggle',
+                'aria-expanded' => 'false', 'data-toggle' => 'dropdown' do
+              Filter
+              %span.caret
+
+            %ul.filter.dropdown-menu.dropdown-menu-right{:role => "menu"}
+              %li
 
   %br/
 
   .box.box-default
-    .box-header
-      %h3.box-title
-        = @customers.size
-        %small customers
-
     .box-body
+      .summary
+        %p.text-muted= page_entries_info @customers
+
       - @customers.each do |customer|
         .row.customer
           %hr/
 
           .col.col-lg-6.col-md-6.col-sm-7.col-xs-6
-          
+
             %b= link_to customer.name, customer_path(customer)
 
             - if customer.company
@@ -70,7 +48,7 @@
 
             - unless open_requests.zero?
               &rarr;
-              
+
               = link_to team_requests_path(current_team, q:'company:1') do
                 = open_requests
                 %i.open.fa.fa-fw.fa-exclamation-circle{style:'color: red;'}
@@ -90,16 +68,4 @@
               %a.btn.btn-xs.bg-info{:href => "#"} feature X
               %a.btn.btn-xs.bg-info{:href => "#"} adwords
 
-  .paginator
-    .btn-group
-      %button.btn.btn-default
-        %i.fa.fa-chevron-left
-      %button.btn.btn-default 1
-      %button.btn.btn-default.active 2
-      %button.btn.btn-default 3
-      %button.btn.btn-default 4
-      %button.btn.btn-default 5
-      %button.btn.btn-default 6
-      %button.btn.btn-default 7
-      %button.btn.btn-default{:type => "button"}
-        %i.fa.fa-chevron-right
+  = will_paginate @customers
