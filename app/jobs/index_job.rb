@@ -39,11 +39,12 @@ Request.class_eval do
           created_at
           updated_at
         ],
-        methods:  %i[ name labels ],
+        methods:  %i[ name ],
         include: {
           agent:    { methdods: %i[ name ], only: %i[] },
           customer: { methods:  %i[ name company ], only: %i[] },
-          emails:   { methods:  %i[ text ], only: %i[] }
+          emails:   { methods:  %i[ text ], only: %i[] },
+          labels:   { only: %i[ name ] }
         }
       }.merge!(options)
     )

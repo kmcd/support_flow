@@ -5,4 +5,5 @@ customer_<%= customer_id %>:
   <% name = [Faker::Name.first_name, Faker::Name.last_name].join(' ') %>
   email_address: <%= Faker::Internet.safe_email(name).gsub(/@/,"-#{customer_id}@") %>
   profile: <%= { name:name, phone:Faker::PhoneNumber.phone_number, company:Faker::Company.name }.to_json %>
+  labels: <%= %w[ urgent billing faq domains editing file-upload credit-card].sample(4) %>
 <% end %>

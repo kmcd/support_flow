@@ -72,9 +72,10 @@
           %a{:href => "#"} Edit agent
           to add notes …
 
-  - unless @agent.timeline.empty?
+  - timeline = Timeline.new @agent
+  - unless timeline.empty?
     %ul.timeline
-      - @agent.timeline.each do |day, activities|
+      - timeline.each do |day, activities|
         %li.time-label
           %span.bg-none= day.strftime "%d %b %Y"
 

@@ -1,12 +1,3 @@
-- content_for(:head) do
-  %link{:href => "/redactor/redactor.css", :rel => "stylesheet"}
-  %script{:src => "/redactor/redactor.js"}
-  %script{:src => "/redactor/table.js"}
-  %script{:src => "/redactor/imagemanager.js"}
-  %script{:src => "/redactor/filemanager.js"}
-  %script{:src => "/redactor/fullscreen.js"}
-  %script{:src => "/redactor/definedlinks.js"}
-  
 - if @guide.new_record?
   %h3
     Create a new guide
@@ -30,7 +21,7 @@
       
 %br/
 
-= form_for(@guide, remote:true) do  |form|
+= form_for(@guide) do  |form|
   .content.form-group
     = form.text_area :content, class:'form-control'
     
@@ -75,10 +66,3 @@
         plugins: ['table', 'imagemanager', 'filemanager', 'fullscreen', 'definedlinks']
       })
     });
-  
-- if flash[:created]
-  :javascript
-    $(function() {
-      $("button.saved").removeClass('hide');
-      setTimeout(function(){ $("button.saved").addClass('hide') }, 4000)
-    })

@@ -71,10 +71,12 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.integer  "team_id",                    null: false
     t.string   "email_address",              null: false
     t.json     "profile",       default: {}
+    t.text     "labels",       default: [],                array: true
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "customers", ["team_id"], name: "index_customers_on_team_id", using: :btree
   add_index "customers", ["email_address"], name: "index_customers_on_email_address", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -159,6 +161,8 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.string   "name"
     t.boolean  "open",         default: true
     t.text     "labels",       default: [],                array: true
+    t.text     "notes"
+    t.integer  "happiness", default: 100
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end

@@ -11,8 +11,7 @@ Rails.application.routes.draw do
     resources :images,    only: %i[ create index ]
     resources :links,     only: %i[ index ]
     
-    # TODO: change request id to number
-    resources :requests,  only: %i[ index show update ]
+    resources :requests # TODO: change request id to number
   end
 
   resources :requests, only:[] do

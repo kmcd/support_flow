@@ -1,47 +1,35 @@
 %section.content-header
-  %button.btn.btn-default{:type => "button"} Edit
-  %button.btn.btn-default{:type => "button"} Close
+  = link_to 'Edit', edit_team_request_path(current_team, @request),
+      class:'btn btn-default'
+
+  .btn-group
+    %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown"}
+      Reply
+      %span.caret
+    %ul.dropdown-menu
+      %li
+        = link_to 'Customer', '#'
+      %li
+        = link_to 'Agents', '#'
 
 %section.content
-  .box
+  .request.box
     .box-body
-      .row
+      .info.row
         .col-lg-9.col-md-9.col-sm-9.col-xs-12
           %h2
             = @request.name
             %small= "##{@request.number}"
-            
+
           %p.text-muted
-            %a.btn.btn-xs.bg-info{:href => "#"} urgent
-            %a.btn.btn-xs.bg-info{:href => "#"} paid trial
-            %a.btn.btn-xs.bg-info{:href => "#"} balsamiq ltd
-            %button.btn.btn-default.btn-xs Add Label
+            - if @request.labels.empty?
+              = link_to 'Edit', edit_team_request_path(current_team, @request)
+              to add labels
 
-        .col-lg-3.col-md-3.col-sm-3.col-xs-12
-          %h3
-            14
-            %sup
-              %small m
+            - @request.labels.each do |label|
+              = link_to label, team_requests_path(current_team, q:label),
+                  class:'btn btn-xs bg-info'
 
-            %small
-              1
-              %sup st
-              reply
-
-          %h3
-            12
-            %sup
-              %small h
-              
-            %small
-              open
-
-      .row
-        .col-lg-12.col-md-12.col-sm-12.col-xs-12
-          
-
-      .row
-        .col-lg-12.col-md-12.col-sm-12.col-xs-12
           %h3.text-muted
             %small Opened by
             = link_to @request.customer.name, customer_path(@request.customer)
@@ -52,124 +40,89 @@
                 = link_to @request.customer.company,
                     team_requests_path(current_team, q:"company:1")
 
-
-            %small
-              &mdash; assigned to
-
-            .btn-group
-              %button.btn.btn-default.btn-xs.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown"}
-                Keith
-                %span.caret
-              %ul.dropdown-menu
-                %li
-                  %form#edit_request_773634807.edit_request{"accept-charset" => "UTF-8", :action => "/requests/773634807", "data-remote" => "true", :method => "post"}
-                    %input{:name => "utf8", :type => "hidden", :value => "✓"}/
-                    %input{:name => "_method", :type => "hidden", :value => "patch"}/
-                    %input{:name => "authenticity_token", :type => "hidden", :value => "GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w=="}/
-                    %input#request_agent_id{:name => "request[agent_id]", :type => "hidden", :value => "721687368"}/
-                    %input.btn.btn-link{:name => "commit", :type => "submit", :value => "keith@getsupportflow.com"}/
-                %li
-                  %form#edit_request_773634807.edit_request{"accept-charset" => "UTF-8", :action => "/requests/773634807", "data-remote" => "true", :method => "post"}
-                    %input{:name => "utf8", :type => "hidden", :value => "✓"}/
-                    %input{:name => "_method", :type => "hidden", :value => "patch"}/
-                    %input{:name => "authenticity_token", :type => "hidden", :value => "GUnDvHpvhoQXSOKiSt0tZ0PVh+h6cPPBinaMcelpqQ5NS8iWmAqOA3z5JYY5RLSz90wQ+dYjNANjAPTayDfG7w=="}/
-                    %input#request_agent_id{:name => "request[agent_id]", :type => "hidden", :value => "547562353"}/
-                    %input.btn.btn-link{:name => "commit", :type => "submit", :value => "rachel@getsupportflow.com"}/
-
-
-
           %p
             %i.fa.fa-envelope-o
             %a{:href => "#"} foo@bar.com
             %i.fa.fa-phone
             +400 468 921 213
 
-  .action
-    .btn-group
-      %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown"}
-        Reply
-        %span.caret
-      %ul.dropdown-menu
-        %li.dropdown-header
-          Customer
-        %li
-          %a{:href => "mailto:peldi@example.org?bcc=request.773634807%40getsupportflow.net&body=Hi%20peldi%40example.org%2C%0A%0A%0A%0AThanks%2C%0A%0AKeith%0A&subject=Re%3A%20Billing%20enquiry%20follow%20up"} peldi@example.org
-        %li.dropdown-header
-          Agents
-        %li
-          %a{:href => "mailto:rachel@getsupportflow.com?cc=request.773634807%40getsupportflow.net&body=Hi%20Rachel%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&subject=Re%3A%20Billing%20enquiry%20follow%20up%20%5B%20Support%20Flow%20request%23773634807%20%5D"} Rachel
-        %li
-          %a{:href => "mailto:keith@getsupportflow.com?cc=request.773634807%40getsupportflow.net&body=Hi%20Keith%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&subject=Re%3A%20Billing%20enquiry%20follow%20up%20%5B%20Support%20Flow%20request%23773634807%20%5D"} Keith
-        %li.divider
-        %li
-          %a{:href => "mailto:?cc=request.773634807%40getsupportflow.net&body=Hi%20%2C%0A%0Ahttps%3A%2F%2Fgetsupportflow.com%2Frequests%2F773634807%0A%0AThanks%2C%0A%0AKeith%0A&subject=Re%3A%20Billing%20enquiry%20follow%20up"} Blank
-  %br/
-  %ul.timeline
-    %li.time-label
-      %span.bg-none 10 Feb. 2014
-    %li
-      %i.fa.fa-envelope.bg-red
-      .timeline-item
-        %span.time
-          %i.fa.fa-clock-o
-          12:05
-        %h3.timeline-header
-          = link_to 'Peldi', customer_path(121263609)
-          created support request
-          %b= link_to '#123', team_request_path(current_team, 773634807)
-        .timeline-body
-          Hi, I'm wondering how do I pay for your AWESOME app?
-    %li
-      %i.fa.fa-check.bg-green
-      .timeline-item
-        %span.time
-          %i.fa.fa-clock-o
-          14:32
-        %h3.timeline-header
-          %a{:href => "#"} Rachel
-          closed support request
-          %b= link_to '#123', team_request_path(current_team, 773634807)
-    %li
-      %i.fa.fa-book.bg-purple
-      .timeline-item
-        %span.time
-          %i.fa.fa-clock-o
-          14:32
-        %h3.timeline-header
-          %a{:href => "#"} Rachel
-          created guide
-          %a{:href => "#"} FAQ
-    %li
-      %i.fa.fa-book.bg-purple
-      .timeline-item
-        %span.time
-          %i.fa.fa-clock-o
-          14:32
-        %h3.timeline-header
-          %a{:href => "#"} Rachel
-          updated guide
-          %a{:href => "#"} Billing
-    %li
-      %i.fa.fa-tags.bg-yellow
-      .timeline-item
-        %span.time
-          %i.fa.fa-clock-o
-          14:32
-        %h3.timeline-header
-          %a{:href => "#"} Rachel
-          labelled request
-          %b= link_to '#123', team_request_path(current_team, 773634807)
-          as
-          %a.btn.btn-xs.bg-info{:href => "#"} urgent
-    %li
-      %i.fa.fa-mail-reply.bg-yellow
-      .timeline-item
-        %span.time
-          %i.fa.fa-clock-o
-          15:37
-        %h3.timeline-header
-          %a{:href => "#"} Rachel
-          replied to request
-          %b= link_to '#123', team_request_path(current_team, 773634807)
-    %li
-      %i.fa.fa-clock-o.bg-gray
+        .col-lg-3.col-md-3.col-sm-3.col-xs-12
+        
+          - if @request.first_reply.zero?
+            %h3
+              = distance_of_time_in_words_to_now @request.created_at
+              %small waiting
+          - else
+            %h3
+              - hrs, mins = @agent.average_reply.to_i.divmod(60)
+              
+              = hrs
+              %sup
+                %small h
+              
+              = mins
+              %sup
+                %small m
+  
+              %small
+                1
+                %sup st
+                reply
+
+            %h3
+              = distance_of_time_in_words_to_now @request.created_at
+              %small open
+
+          %h3
+            - if @request.agent.present?
+              = link_to @request.agent.name, agent_path(@request.agent)
+            - else
+              no-one
+
+            %small
+              %small
+                assigned
+
+          %h3
+            = @request.happiness
+
+            %sup
+              %small %
+
+            %small
+              customer happiness
+
+      
+      - if @request.notes.present?
+        .notes.row
+          .col-lg-12.col-md-12.col-sm-12.col-xs-12
+            %p.text-muted
+              %i
+                &mdash; Notes &mdash;
+            = @request.notes.html_safe
+        
+  - timeline = Timeline.new @request
+  - unless timeline.empty?
+    %ul.timeline
+      -# TODO: dry up with dashboard ...
+      - timeline.activities.each do |day, activities|
+        %li.time-label
+          %span.bg-none= day.strftime "%d %b %Y"
+
+        - activities.each do |activity|
+          %li
+            - timeline_icon activity
+
+            .timeline-item
+              %span.time
+                %i.fa.fa-clock-o
+                = activity.created_at.strftime "%R"
+
+              %h3.timeline-header
+                - owner_link activity
+                - description activity
+
+              - timeline_body activity
+
+      %li
+        %i.fa.fa-clock-o.bg-gray

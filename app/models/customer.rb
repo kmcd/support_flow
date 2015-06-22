@@ -15,24 +15,9 @@ class Customer < ActiveRecord::Base
     email_address
   end
   
-  def activities
-    Activity.where owner_id:id, owner_type:Customer
-  end
-  
+  # TODO: move to acts_as_taggable ...
   def labels
     []
-  end
-  
-  def timeline
-    @timeline ||= Activity.
-      where(
-        "team_id = ? AND (
-          ( owner_type = 'Customer' AND owner_id = ? ) OR
-          ( trackable_type = 'Customer' AND trackable_id = ? ) OR
-          ( recipient_type = 'Customer' AND recipient_id = ? ))", 
-        team, id, id, id).
-      group_by {|_| _.created_at.to_date }.
-      sort_by &:first
   end
   
   def open_count

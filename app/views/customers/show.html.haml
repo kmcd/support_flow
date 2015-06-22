@@ -90,9 +90,10 @@
         = succeed "." do
           %a{:href => "#"} editing this customer
 
-  - unless @customer.timeline.empty?
+  - timeline = Timeline.new @customer
+  - unless timeline.empty?
     %ul.timeline
-      - @customer.timeline.each do |day, activities|
+      - timeline.activities.each do |day, activities|
         %li.time-label
           %span.bg-none= day.strftime "%d %b %Y"
 

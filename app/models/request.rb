@@ -1,18 +1,16 @@
 class Request < ActiveRecord::Base
-  include Elasticsearch::Model
   include Indexable
+  include Labelable
   belongs_to :agent
   belongs_to :customer
   belongs_to :team
   has_many :emails
   has_many :activities, -> { where trackable_type:name  },
     foreign_key:'trackable_id'
-  acts_as_taggable_array_on :labels
   after_create :set_number
-  after_commit :save_close_time # FIXME: on update
-  
-  # after_commit :update_search_index
+  after_commit :save_close_time, if: :closing?
 
+  # TODO: move to RequestCount.new(agent).open
   scope :open_count, ->(filter, open=true) {
     options = { open:open }
     options.merge!({ team:filter })     if filter.is_a?(Team)
@@ -31,24 +29,17 @@ class Request < ActiveRecord::Base
     update_attributes agent:assignee
   end
 
-  # TODO: use taggable gem
-  # TODO: move to RequestLabelJob -> update labels & activity stream
-  def label=(label)
-    return if label.gsub(/\W/,'').blank?
-
-    self.labels = if label[/\A\-/]
-      self.labels - [ label.gsub(/\A\-/,'') ]
-    else
-      self.labels | [label]
-    end
-  end
-
   def assigned?
     agent_id.present?
   end
-
+  
+  def first_reply
+    Statistic::Reply.where(owner:self).first_or_initialize.value.to_i / 60
+  end
+  
   private
 
+  # TODO: move to RequestCloseJob
   def save_close_time
     return unless now_closing?
 
@@ -62,7 +53,7 @@ class Request < ActiveRecord::Base
     update number:Request.count
   end
 
-  def now_closing?
+  def closing?
     previous_changes[:open].present? && \
       previous_changes[:open] == [true, false]
   end

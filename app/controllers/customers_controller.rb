@@ -35,9 +35,4 @@ class CustomersController < ApplicationController
   def customer_params
     params.require(:customer).permit %i[ name company phone notes ]
   end
-  
-  def search_query
-    # TODO: remove sort:new from default search box
-    params[:q].present? ? params[:q] : 'sort:new'
-  end
 end
