@@ -1,5 +1,5 @@
 class AgentsController < ApplicationController
-  before_action :set_agent, only: %i[ edit update ]
+  before_action :set_agent, only: %i[ edit update show ]
   helper_method :dashboard
   
   def index
@@ -7,7 +7,6 @@ class AgentsController < ApplicationController
   end
   
   def show
-    @agent = current_team.agents.find params[:id]
   end
 
   def edit
@@ -15,7 +14,7 @@ class AgentsController < ApplicationController
   
   def update
     @agent.update agent_params
-    redirect_to edit_agent_path(@agent)
+    redirect_to agent_path @agent
   end
   
   def activity
@@ -30,7 +29,7 @@ class AgentsController < ApplicationController
   end
 
   def agent_params
-    params.require(:agent).permit %i[ email_address name phone notes ]
+    params.require(:agent).permit %i[ name phone email_address notes ]
   end
   
   def dashboard

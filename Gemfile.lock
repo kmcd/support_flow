@@ -117,6 +117,10 @@ GEM
     guard-rails (0.7.1)
       guard (~> 2.11)
       guard-compat (~> 1.0)
+    guard-zeus (2.0.1)
+      guard (~> 2.0)
+      guard-compat (~> 1.1)
+      zeus (~> 0)
     haml (4.0.6)
       tilt
     haml-rails (0.9.0)
@@ -255,6 +259,8 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
     will_paginate (3.0.7)
+    zeus (0.15.4)
+      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -274,6 +280,7 @@ DEPENDENCIES
   guard-bundler
   guard-livereload (~> 2.4)
   guard-rails
+  guard-zeus
   haml-rails
   jquery-rails
   looksee

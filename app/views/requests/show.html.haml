@@ -92,14 +92,20 @@
             %small
               customer happiness
 
-      
-      - if @request.notes.present?
-        .notes.row
-          .col-lg-12.col-md-12.col-sm-12.col-xs-12
+      .notes.row
+        .col-lg-12.col-md-12.col-sm-12.col-xs-12
+          - if @request.notes.present?
             %p.text-muted
               %i
                 &mdash; Notes &mdash;
             = @request.notes.html_safe
+          - else
+            %p.text-muted
+              %i
+                &mdash;
+                = link_to 'Edit', edit_team_request_path(current_team, @request)
+                to add notes
+                &mdash;
         
   - timeline = Timeline.new @request
   - unless timeline.empty?

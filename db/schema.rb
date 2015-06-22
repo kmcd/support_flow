@@ -40,7 +40,9 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   create_table "agents", force: :cascade do |t|
     t.integer  "team_id",                    null: false
     t.string   "email_address",              null: false
-    t.json     "profile",       default: {}
+    t.string   "name",              null: false
+    t.string   "phone"
+    t.text     "notes"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
@@ -69,9 +71,12 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   create_table "customers", force: :cascade do |t|
     t.integer  "team_id",                    null: false
-    t.string   "email_address",              null: false
-    t.json     "profile",       default: {}
-    t.text     "labels",       default: [],                array: true
+    t.string   "name",              null: false
+    t.string   "email_address"
+    t.string   "phone"
+    t.string   "company"
+    t.text     "notes"
+    t.text     "labels",       default: [], array: true
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
@@ -190,10 +195,10 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
+    # 
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "teams", ["name"], name: "index_teams_on_name", using: :btree
-
 end

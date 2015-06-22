@@ -1,11 +1,11 @@
 %section.content-header
-  %button.btn.btn-default Edit agent
+  = link_to 'Edit', edit_agent_path(@agent), class:'btn btn-default'
 
 %section.content
-  .box
+  .request.box
     .box-body
-      .row
-        .col-lg-8.col-md-8.col-sm-8.col-xs-8
+      .info.row
+        .col-lg-9.col-md-9.col-sm-9.col-xs-12
           %h1
             = @agent.name
 
@@ -17,7 +17,7 @@
             %i.fa.fa-envelope-o
             = mail_to @agent.email_address
 
-        .col-lg-4.col-md-4.col-sm-4.col-xs-4
+        .col-lg-3.col-md-3.col-sm-3.col-xs-12
           - hrs, mins = @agent.average_reply.to_i.divmod(60)
 
           %h3
@@ -59,23 +59,36 @@
               close
               
           %h3
-            = link_to Request.open_count(@agent), team_requests_path(current_team, q:'agent:1')
+            = link_to Request.open_count(@agent), 
+                team_requests_path(current_team, q:"agent_id:#{@agent.id} open:true")
             %small 
               open
               &mdash;
               
-            = link_to Request.open_count(@agent, false), team_requests_path(current_team, q:'agent:1')
+            = link_to Request.open_count(@agent, false), 
+              team_requests_path(current_team, q:"agent_id:#{@agent.id} open:false")
             %small closed
 
-      %p
-        %i
-          %a{:href => "#"} Edit agent
-          to add notes …
-
+      
+      .notes.row
+        .col-lg-12.col-md-12.col-sm-12.col-xs-12
+          - if @agent.notes.present?
+            %p.text-muted
+              %i
+                &mdash; Notes &mdash;
+            = @agent.notes.html_safe
+          - else
+            %p.text-muted
+              %i
+                &mdash;
+                = link_to 'Edit', edit_agent_path(@agent)
+                to add notes
+                &mdash;
+          
   - timeline = Timeline.new @agent
   - unless timeline.empty?
     %ul.timeline
-      - timeline.each do |day, activities|
+      - timeline.activities.each do |day, activities|
         %li.time-label
           %span.bg-none= day.strftime "%d %b %Y"
 

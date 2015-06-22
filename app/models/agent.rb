@@ -1,14 +1,10 @@
 class Agent < ActiveRecord::Base
-  include Profileable
   include Statistics
   belongs_to :team
   has_many :emails
   has_many :requests
-  profile_entry %i[ name phone notes avatar ]
-  
-  def name
-    profile['name'] || email_address
-  end
+  validates :name, presence:true
+  validates :email_address, presence:true
   
   # FIXME: change to has_many polymorphic
   def activities

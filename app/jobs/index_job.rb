@@ -34,17 +34,17 @@ Request.class_eval do
           team_id
           agent_id
           customer_id
+          name
           open
+          labels
           emails_count
           created_at
           updated_at
         ],
-        methods:  %i[ name ],
         include: {
-          agent:    { methdods: %i[ name ], only: %i[] },
-          customer: { methods:  %i[ name company ], only: %i[] },
+          agent:    { only: %i[ name ] },
+          customer: { only: %i[ name company labels ] },
           emails:   { methods:  %i[ text ], only: %i[] },
-          labels:   { only: %i[ name ] }
         }
       }.merge!(options)
     )
@@ -61,10 +61,10 @@ Customer.class_eval do
           id
           team_id
           name
-          labels
-          company
-          phone
           email_address
+          labels
+          phone
+          company
           open_count
           close_count
           created_at

@@ -1,65 +1,55 @@
-.agent.row
-  .col-md-offset-0.col-md-10.col-sm-10.col-sm-offset-0.col-xs-11
-    %h3
-      = @agent.name
-      %small
-        = link_to @agent.email_address, '#'
-      
-    %h4
-      - if average_reply = @agent.average_reply
-        %small
-          Average
-          = '1<sup>st</sup>'.html_safe
-          reply
-          
-        - hours, mins = duration @agent.average_reply
-        = "#{hours} hours" if hours > 0
-        = "#{mins} mins" if mins > 0
-      
-      - average_close = @agent.average_close
-      = '&mdash;'.html_safe if average_reply && average_close
-      
-      - if average_close
-        %small
-          Average close
-        - hours, mins = duration @agent.average_close
-        = "#{hours} hours" if hours > 0
-        = "#{mins} mins" if mins > 0
-      
-    %br/
-    
-    = form_for(@agent, html:{class:'form-horizontal'}) do |form|
-      .form-group
-        %label.col-sm-2.control-label Email
-        .col-sm-6
-          = form.text_field :email_address, placeholder:'Agent work email', class:'form-control'
-          
-      .form-group
-        %label.col-sm-2.control-label Name
-        .col-sm-6
-          = form.text_field :name, placeholder:'Agent name', class:'form-control'
-          
-      .form-group
-        %label.col-sm-2.control-label Phone
-        .col-sm-6
-          = form.text_field :phone, placeholder:'Phone number', class:'form-control'
-          
-      .form-group
-        %label.col-sm-2.control-label Notes
-        .col-sm-6
-          = form.text_area :notes, class:'form-control'
-            
-      .form-group
-        .col-sm-offset-2.col-sm-10
-          %button.btn.btn-default{type:'submit'} Save
+= form_for(@agent, html:{class:'form-horizontal'}) do |form|
 
-    %br/
-    
-    - @agent.activities.each do |activity|
-      %p[activity]
-        %span.mark= time_day activity
-        %span.text-muted= month_year activity
-        &rarr;
-        = @agent.name
-        %span.text-muted= description(activity).html_safe
-        = request_open(activity) if activity.key[/open/]
+  %section.content-header
+    = link_to 'Cancel', agent_path(@agent),class:'btn btn-default'
+    = form.button 'Save', class:'btn btn-default'
+
+  %section.content
+    .box
+      .box-header.with-border
+        %h3
+          %small.text-muted
+            Edit agent
+
+        = flash[:errors]
+
+      .box-body
+        .form-group.text-muted
+          = form.label :name, 'Name', class:'col-sm-2 control-label'
+
+          .col-sm-6.col-xs-6
+            = form.text_field :name, class:'form-control',
+                placeholder:'Agent name'
+                
+        .form-group.text-muted
+          = form.label :name, 'Phone', class:'col-sm-2 control-label'
+
+          .col-sm-6.col-xs-6
+            = form.text_field :phone, class:'form-control', 
+                placeholder:'Agent phone number'
+                
+        .form-group.text-muted
+          = form.label :email_address, 'Email', class:'col-sm-2 control-label'
+
+          .col-sm-6.col-xs-6
+            = form.text_field :email_address, class:'form-control', 
+                placeholder:'Agent email address'
+
+        .form-group
+          = form.label :notes, 'Notes', class:'col-sm-2 control-label text-muted'
+
+          .col-sm-9.col-xs-9
+            = form.text_area :notes, class:'form-control'
+
+:javascript
+  $(function() {
+    $('#agent_notes').redactor({
+      focus: false,
+      minHeight: 250,
+      replaceDivs: false,
+      deniedTags: [],
+      removeEmpty: false,
+      replaceTags: [],
+      pastePlainText: false
+    })
+  });

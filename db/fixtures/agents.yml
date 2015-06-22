@@ -4,5 +4,6 @@ agent_<%= agent_id %>:
   team_id: 1
   <% name = [Faker::Name.first_name, Faker::Name.last_name].join(' ') %>
   email_address: <%= Faker::Internet.safe_email(name) %>
-  profile: <%= { name:name, phone:Faker::PhoneNumber.phone_number  }.to_json %>
+  name: <%= name %>
+  phone: <%= Faker::PhoneNumber.phone_number %>
 <% end %>
