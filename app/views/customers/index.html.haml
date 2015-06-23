@@ -1,6 +1,6 @@
 %section.content
   .search.row
-    .col-lg-12.col-md-12.col-sm-12.col-xs-12
+    .col-lg-10.col-md-10.col-sm-10.col-xs-12
       = form_tag team_customers_path(current_team), id: :search, method: :get, enforce_utf8:false do
         .input-group
           = search_field_tag :q, search_query, id:'query',
@@ -24,6 +24,10 @@
               %li= link_to 'Open requests', '#', 'data-facet' => open_requests_facet
               %li= link_to 'Closed requests', '#', 'data-facet' => closed_requests_facet
 
+    .col-lg-2.col-md-2.col-sm-2.col-xs-12
+      %p.pull-right
+        = link_to 'New Customer', new_team_customer_path(current_team), 
+            class:'btn btn-default'
 
   %br/
 

@@ -105,11 +105,10 @@
             = @request.notes.html_safe
           - else
             %p.text-muted
-              %i
-                &mdash;
-                = link_to 'Edit', edit_team_request_path(current_team, @request)
-                to add notes
-                &mdash;
+              &mdash;
+              = link_to 'Edit', edit_team_request_path(current_team, @request)
+              to add notes
+              &mdash;
 
   - timeline = Timeline.new @request
   - unless timeline.empty?

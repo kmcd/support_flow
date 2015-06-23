@@ -1,5 +1,5 @@
 %section.content-header
-  %button.btn.btn-default Edit customer
+  = link_to 'Edit', edit_customer_path(@customer), class:'btn btn-default'
 
 %section.content
   .box
@@ -13,104 +13,89 @@
               %small
                 %small
                   from
-                  = link_to @customer.company, team_customers_path(current_team,q:'')
-          
-          %h3.text-muted
-            %i.fa.fa-phone
-            = @customer.phone
-            
-          %h5.text-muted
-            %i.fa.fa-envelope-o
-            = mail_to @customer.email_address
-            
-            
-          %p.text-muted
-            %a.btn.btn-xs.bg-info{:href => "#"} urgent
-            %a.btn.btn-xs.bg-info{:href => "#"} paid trial
-            %a.btn.btn-xs.bg-info{:href => "#"} balsamiq ltd
+                  = link_to @customer.company,
+                      team_customers_path(current_team,q:@customer.company)
+
+          - unless @customer.phone.blank?
+            %h3.text-muted
+              %i.fa.fa-phone
+              = @customer.phone
+
+          - unless @customer.email_address.blank?
+            %h5.text-muted
+              %i.fa.fa-envelope-o
+              = mail_to @customer.email_address
 
           - unless @customer.labels.empty?
             %p.text-muted
               - @customer.labels.each do |label|
                 = link_to label, team_requests_path(current_team, q:"label:#{label}"),
                     class:'btn btn-xs bg-info'
-                 
+
         .col-lg-4.col-md-4.col-sm-4.col-xs-12
           - hrs, mins = @customer.average_reply.to_i.divmod(60)
 
-          %h3
-            - unless hrs.zero?
-              %span= hrs
-              %sup
-                %small
-                  h
+          - if !hrs.zero? && !mins.zero?
+            %h3
+              - unless hrs.zero?
+                %span= hrs
+                %sup
+                  %small
+                    h
 
-            - unless mins.zero?
-              = mins
-              %sup
-                %small
-                  m
+              - unless mins.zero?
+                = mins
+                %sup
+                  %small
+                    m
 
-            %small
-              &nbsp;
-              1
-              %sup st
-              reply
+              %small
+                &nbsp;
+                1
+                %sup st
+                reply
 
           - hrs, mins = @customer.average_close.to_i.divmod(60)
+          - if !hrs.zero? && !mins.zero?
+            %h3
+              - unless hrs.zero?
+                = hrs
+                %sup
+                  %small
+                    h
 
-          %h3
-            - unless hrs.zero?
-              = hrs
-              %sup
+              - unless mins.zero?
+                = mins
+                %sup
+                  %small
+                    m
+
+              %small
+                &nbsp;
+                close
+
+          - open_requests = Request.open_count @customer
+          - closed_requests = Request.open_count @customer, false
+          - unless open_requests.zero? && closed_requests.zero?
+            %h3
+              - unless open_requests.zero?
+                = link_to open_requests,
+                    team_requests_path(current_team, q:'open:true')
+                    
                 %small
-                  h
+                  open
+                  - if !open_requests.zero? && !closed_requests.zero?
+                    &mdash;
+                    
+              - unless open_requests.zero?
+                = link_to closed_requests, 
+                    team_requests_path(current_team, q:'open:false')
+                %small closed
 
-            - unless mins.zero?
-              = mins
-              %sup
-                %small
-                  m
+      %p.text-muted
+        &mdash;
+        = link_to 'Edit', edit_customer_path(@customer)
+        to add notes
+        &mdash;
 
-            %small
-              &nbsp;
-              close
-              
-          %h3
-            = link_to Request.open_count(@customer), team_requests_path(current_team, q:'customer:1')
-            %small 
-              open
-              &mdash;
-              
-            = link_to Request.open_count(@customer, false), team_requests_path(current_team, q:'customer:1')
-            %small closed
-
-      %p
-        Add notes by
-        = succeed "." do
-          %a{:href => "#"} editing this customer
-
-  - timeline = Timeline.new @customer
-  - unless timeline.empty?
-    %ul.timeline
-      - timeline.activities.each do |day, activities|
-        %li.time-label
-          %span.bg-none= day.strftime "%d %b %Y"
-
-        - activities.each do |activity|
-          %li
-            - timeline_icon activity
-
-            .timeline-item
-              %span.time
-                %i.fa.fa-clock-o
-                = activity.created_at.strftime "%R"
-
-              %h3.timeline-header
-                - owner_link(activity) unless activity.owner.eql?(@customer)
-                - description activity
-
-              - timeline_body activity
-
-      %li
-        %i.fa.fa-clock-o.bg-gray
+  = render partial:'timeline'

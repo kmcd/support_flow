@@ -1,0 +1,24 @@
+- timeline = Timeline.new @customer
+- unless timeline.empty?
+  %ul.timeline
+    - timeline.activities.each do |day, activities|
+      %li.time-label
+        %span.bg-none= day.strftime "%d %b %Y"
+
+      - activities.each do |activity|
+        %li
+          - timeline_icon activity
+
+          .timeline-item
+            %span.time
+              %i.fa.fa-clock-o
+              = activity.created_at.strftime "%R"
+
+            %h3.timeline-header
+              - owner_link(activity) unless activity.owner.eql?(@customer)
+              - description activity
+
+            - timeline_body activity
+
+    %li
+      %i.fa.fa-clock-o.bg-gray

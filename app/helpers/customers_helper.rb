@@ -11,4 +11,12 @@ module CustomersHelper
   def closed_requests_facet
     append_facet 'sort:closed'
   end
+  
+  def name_input_placeholder
+    if @customer.errors[:name].present?
+      @customer.errors[:name].join ','
+    else
+      "Customer name e.g. Billing enquiry"
+    end
+  end
 end

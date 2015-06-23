@@ -1,11 +1,11 @@
 class Customer < ActiveRecord::Base
   include Indexable
   include Statistics
+  include Labelable
   has_many :requests
   has_many :emails
   belongs_to :team
-  validates :email_address, presence:true, uniqueness:true
-  # TODO: validate email_address format
+  validates :name, presence:true, uniqueness:true
   
   # TODO: move to RequestCount.new(customer).open
   def open_count
