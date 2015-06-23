@@ -1,7 +1,8 @@
 %section.content
   .search.row
-    .col-lg-12.col-md-12.col-sm-12.col-xs-12
-      = form_tag team_requests_path(current_team), id: :search, method: :get, enforce_utf8:false do
+    .col-lg-10.col-md-10.col-sm-10.col-xs-12
+      = form_tag team_requests_path(current_team), id: :search, method: :get,
+          enforce_utf8:false do
         .input-group
           = search_field_tag :q, search_query, id:'query',
               class:'form-control', placeholder:"Search requests ..."
@@ -38,6 +39,13 @@
 
               - current_agent.team_members.each do |agent|
                 %li= link_to agent.name, '#','data-facet' => agent_facet(agent)
+
+
+
+    .col-lg-2.col-md-2.col-sm-2.col-xs-12
+      %p.pull-right
+        = link_to 'New Request', new_team_request_path(current_team),
+          class:'btn btn-default'
 
   %br/
 

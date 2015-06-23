@@ -5,7 +5,7 @@
   .box
     .box-body
       .row
-        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+        .col-lg-8.col-md-8.col-sm-8.col-xs-12
           %h1
             = @customer.name
 
@@ -35,10 +35,10 @@
                 = link_to label, team_requests_path(current_team, q:"label:#{label}"),
                     class:'btn btn-xs bg-info'
                  
-        .col-lg-3.col-md-3.col-sm-3.col-xs-3
+        .col-lg-4.col-md-4.col-sm-4.col-xs-12
           - hrs, mins = @customer.average_reply.to_i.divmod(60)
 
-          %h4
+          %h3
             - unless hrs.zero?
               %span= hrs
               %sup
@@ -59,7 +59,7 @@
 
           - hrs, mins = @customer.average_close.to_i.divmod(60)
 
-          %h4
+          %h3
             - unless hrs.zero?
               = hrs
               %sup
@@ -76,7 +76,7 @@
               &nbsp;
               close
               
-          %h4
+          %h3
             = link_to Request.open_count(@customer), team_requests_path(current_team, q:'customer:1')
             %small 
               open

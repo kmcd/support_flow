@@ -16,19 +16,10 @@
   .request.box
     .box-body
       .info.row
-        .col-lg-9.col-md-9.col-sm-9.col-xs-12
+        .col-lg-8.col-md-8.col-sm-8.col-xs-12
           %h2
             = @request.name
             %small= "##{@request.number}"
-
-          %p.text-muted
-            - if @request.labels.empty?
-              = link_to 'Edit', edit_team_request_path(current_team, @request)
-              to add labels
-
-            - @request.labels.each do |label|
-              = link_to label, team_requests_path(current_team, q:label),
-                  class:'btn btn-xs bg-info'
 
           %h3.text-muted
             %small Opened by
@@ -41,13 +32,27 @@
                     team_requests_path(current_team, q:"company:1")
 
           %p
-            %i.fa.fa-envelope-o
-            %a{:href => "#"} foo@bar.com
-            %i.fa.fa-phone
-            +400 468 921 213
+            - if @request.customer.email_address
+              %i.fa.fa-envelope-o
+              = link_to @request.customer.email_address
 
-        .col-lg-3.col-md-3.col-sm-3.col-xs-12
-        
+            - if @request.customer.phone
+              %i.fa.fa-phone
+              = @request.customer.phone
+
+          %p.text-muted
+            - if @request.labels.empty?
+              = link_to 'Edit', edit_team_request_path(current_team, @request)
+              to add labels
+            - else
+              %i
+                Labelled as
+              - @request.labels.each do |label|
+                = link_to label, team_requests_path(current_team, q:label),
+                    class:'btn btn-xs bg-info'
+
+        .col-lg-4.col-md-4.col-sm-4.col-xs-12
+
           - if @request.first_reply.zero?
             %h3
               = distance_of_time_in_words_to_now @request.created_at
@@ -55,15 +60,15 @@
           - else
             %h3
               - hrs, mins = @agent.average_reply.to_i.divmod(60)
-              
+
               = hrs
               %sup
                 %small h
-              
+
               = mins
               %sup
                 %small m
-  
+
               %small
                 1
                 %sup st
@@ -96,8 +101,7 @@
         .col-lg-12.col-md-12.col-sm-12.col-xs-12
           - if @request.notes.present?
             %p.text-muted
-              %i
-                &mdash; Notes &mdash;
+              &mdash; Notes &mdash;
             = @request.notes.html_safe
           - else
             %p.text-muted
@@ -106,7 +110,7 @@
                 = link_to 'Edit', edit_team_request_path(current_team, @request)
                 to add notes
                 &mdash;
-        
+
   - timeline = Timeline.new @request
   - unless timeline.empty?
     %ul.timeline
