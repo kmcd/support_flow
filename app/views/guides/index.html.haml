@@ -3,7 +3,8 @@
       class:'btn btn-default'
 
   = link_to 'Customise guide template',
-      edit_guide_path(Guide.template(current_team)), class:'btn btn-default'
+      edit_guide_path(current_team, Guide.template(current_team)), 
+      class:'btn btn-default'
 
 %section.content
   - @guides.in_groups_of(2).each do |guides|
@@ -15,7 +16,8 @@
               %h1
                 = link_to guide.name, edit_guide_path(guide)
 
-              = link_to guide_url(guide), guide_url(guide)
+              = link_to public_guide_url(current_team, guide.name.parameterize),
+                  public_guide_url(current_team, guide.name.parameterize)
 
               %p.pull-right
                 %i.fa.fa-eye

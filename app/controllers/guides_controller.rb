@@ -1,6 +1,7 @@
 class GuidesController < ApplicationController
   skip_before_filter :require_login, only:%i[ public ]
-  before_action :set_guide, only: %i[ update show edit destroy ]
+  before_action :set_guide, only: %i[ update edit destroy ]
+  layout false, only: :show
 
   def index
     @guides = Guide.pages current_team
@@ -14,15 +15,24 @@ class GuidesController < ApplicationController
     @guide = current_team.guides.new guide_params
 
     if @guide.save
-      redirect_to guide_path(@guide)
+      redirect_to guide_path(current_team,@guide)
     else
       render :new
     end
   end
 
   def show
+    @guide = PublicGuide.new params[:team_name], params[:guide_name]
+    
+    if @guide.present?
+      @guide.increment_view_count current_agent
+    else
+      render file:"#{Rails.root}/public/404",
+        layout:false,
+        status: :not_found
+    end
   end
-  
+
   def edit
   end
 
@@ -39,21 +49,10 @@ class GuidesController < ApplicationController
     redirect_to guides_path
   end
 
-  def public
-    public_guide = PublicGuide.new params[:team], params[:guide]
-
-    if public_guide.present?
-      public_guide.increment_view_count current_agent
-      render text:public_guide.html
-    else
-      render file:"#{Rails.root}/public/404", layout:false, status: :not_found
-    end
-  end
-
   private
 
   def set_guide
-    @guide = Guide.find params[:id]
+    @guide = current_team.guides.find params[:id]
   end
 
   def guide_params

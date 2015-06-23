@@ -103,12 +103,12 @@ module TeamsHelper
       when /guide\.create/
         activity_description 'created guide'
         haml_concat link_to activity.trackable.name,
-          guide_path(activity.trackable)
+          guide_path(current_team, activity.trackable)
 
       when /guide\.update/
         activity_description 'updated guide'
         haml_concat link_to activity.trackable.name,
-          guide_path(activity.trackable)
+          guide_path(current_team, activity.trackable)
 
       when /guide\.delete/
         activity_description 'deleted guide'

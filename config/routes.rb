@@ -1,19 +1,18 @@
 Rails.application.routes.draw do
-  # TODO: param: :name instead of id
-  resources :teams, only: %i[ show ], path:'/' do
+  resources :teams, only: %i[ show ], path:'/', param: :name do
     shallow do
       resources :agents
       resources :customers
       resources :guides
     end
-
+    
+    resources :requests, param: :name
     resources :files,     only: %i[ create index ]
     resources :images,    only: %i[ create index ]
     resources :links,     only: %i[ index ]
-    
-    resources :requests # TODO: change request id to number
   end
 
+  # TODO: remove nesting - pass request param instead
   resources :requests, only:[] do
     resource :merge, only: %i[ new create destroy ]
   end
@@ -35,7 +34,6 @@ Rails.application.routes.draw do
   get '/logout', to:'logins#destroy', defaults:{ id:1 }, as:'logout'
   resources :signups, only: %i[ new create ]
   get '/signup', to:'signups#new'
-
-  # TODO: change to teams#show (how to preview if logged in?)
-  get '/:team(/*guide)', to:'guides#public', as:'public_guide'
+  
+  get '/:team_name/:guide_name', to:'guides#show', as:'public_guide'
 end

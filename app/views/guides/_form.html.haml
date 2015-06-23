@@ -8,7 +8,7 @@
         %div{ class:"form-group #{ 'has-error' if @guide.errors[:name].present? }"}
           = form.text_field :name, class:"form-control input-default",
              placeholder:"Page name"
-             
+
           - if @guide.errors.any?
             %small.text-danger
               = @guide.errors.to_a.join ','
@@ -27,15 +27,17 @@
           - unless @guide.new_record?
             %small.text-muted
               Public URL:
-              = link_to guide_url(@guide), guide_url(@guide)
+              = link_to public_guide_url(current_team.name.parameterize, @guide.name.parameterize), 
+                  public_guide_url(current_team.name.parameterize, @guide.name.parameterize)
+                  
               &rArr;
               = @guide.view_count
               views
-              
+
     .row
       .col-sm-12.col-xs-12
         = form.text_area :content
-        
+
 :javascript
   $(function() {
     $('#guide_content').redactor({

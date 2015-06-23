@@ -39,7 +39,7 @@ class RequestsController < ApplicationController
 
   def set_request
     # TODO: app layout 404 instead of exception
-    @request = current_team.requests.where(number:params[:id]).first
+    @request = current_team.requests.where(number:params[:number]).first
   end
 
   def request_params
