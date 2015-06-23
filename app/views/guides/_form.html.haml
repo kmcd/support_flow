@@ -1,68 +1,57 @@
-- if @guide.new_record?
-  %h3
-    Create a new guide
-    
-    %small.text-muted
-      &mdash;
-      see your
-      %a{href:'/guides/editing'} guide for creating pages
-      &hellip;
-  %br/
-  
-- else
-  %br/
-  
-  %p
-    = link_to_guide_url(current_team, @guide)
-    
-    %span.text-muted.pull-right
-      Read your
-      %a{href:'/guides/editing'} guide for editing pages
-      
-%br/
+- guide_url = @guide.new_record? ? [current_team, @guide] : @guide
 
-= form_for(@guide) do  |form|
-  .content.form-group
-    = form.text_area :content, class:'form-control'
-    
-  .name.form-group
-    %label.error.control-label.hide
-    = form.text_field :name, class:'form-control', readonly:!@guide.deleteable?, placeholder:'Give this guide a name ...'
-    
-  .button.form-group
-    %button.btn.btn-default
-      Save
-      
-    - if @guide.deleteable?
-      %button.delete.btn.btn-danger
-        Delete
-    
-    %button.saved.btn.btn-success.hide
-      %span.glyphicon.glyphicon-ok-circle
-      Saved
-    
-    %button.not-saved.btn.btn-warning.hide
-      %span.glyphicon.glyphicon-exclamation-sign
-      Not saved
-      
--# TODO: move to application.css -> infer team from <body data-team-id='1'>
-- unless @guide.name == '_template'
-  :javascript
-    $(function() {
-      $('#guide_content').redactor({
-        focus: true,
-        minHeight: 500,
-        replaceDivs: false,
-        deniedTags: [],
-        removeEmpty: false,
-        replaceTags: [],
-        pastePlainText: false,
-        imageUpload: "/teams/#{current_team.id}/images",
-        imageManagerJson: "/teams/#{current_team.id}/images.json",
-        uploadImageFields: { 'authenticity_token':"#{form_authenticity_token}" },
-        fileUpload: "/teams/#{current_team.id}/files",
-        fileManagerJson: "/teams/#{current_team.id}/files.json",
-        definedLinks: "/teams/#{current_team.id}/links.json",
-        plugins: ['table', 'imagemanager', 'filemanager', 'fullscreen', 'definedlinks']
-      })
-    });
+= form_for(guide_url) do |form|
+  %section.content
+    .row
+      .col-sm-4.col-xs-5
+
+        %div{ class:"form-group #{ 'has-error' if @guide.errors[:name].present? }"}
+          = form.text_field :name, class:"form-control input-default",
+             placeholder:"Page name"
+             
+          - if @guide.errors.any?
+            %small.text-danger
+              = @guide.errors.to_a.join ','
+
+      .col-sm-3.col-xs-7
+        = form.button 'Save', class:"btn btn-default"
+
+        - if @guide.new_record?
+          = link_to 'Cancel', :back, class:"btn btn-default"
+        - else
+          = link_to 'Delete', @guide, method: :delete,
+              class:"btn btn-default", data:{ confirm: "Definitely delete?" }
+
+      .col-sm-5.col-xs-12
+        %p
+          - unless @guide.new_record?
+            %small.text-muted
+              Public URL:
+              = link_to guide_url(@guide), guide_url(@guide)
+              &rArr;
+              = @guide.view_count
+              views
+              
+    .row
+      .col-sm-12.col-xs-12
+        = form.text_area :content
+        
+:javascript
+  $(function() {
+    $('#guide_content').redactor({
+      focus: true,
+      minHeight: 500,
+      replaceDivs: false,
+      deniedTags: [],
+      removeEmpty: false,
+      replaceTags: [],
+      pastePlainText: false,
+      imageUpload: "/teams/181813285/images",
+      imageManagerJson: "/teams/181813285/images.json",
+      uploadImageFields: { 'authenticity_token':"/fZWABEU9rHUkWKs5vG46sSrZ3BXbIDYrb+NJGYl1myp9F0q83H+Nr8gpYiVaCE+cDLwYfs/RxpEyfWPR3u5jQ==" },
+      fileUpload: "/teams/181813285/files",
+      fileManagerJson: "/teams/181813285/files.json",
+      definedLinks: "/teams/181813285/links.json",
+      plugins: ['table', 'imagemanager', 'filemanager', 'fullscreen', 'definedlinks']
+    })
+  });

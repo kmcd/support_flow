@@ -1,6 +1,9 @@
 %section.content-header
-  %button.btn.btn-default Create a Guide
-  %button.btn.btn-default Customise guide template
+  = link_to 'Create new Guide', new_team_guide_path(current_team),
+      class:'btn btn-default'
+
+  = link_to 'Customise guide template',
+      edit_guide_path(Guide.template(current_team)), class:'btn btn-default'
 
 %section.content
   - @guides.in_groups_of(2).each do |guides|
@@ -10,7 +13,7 @@
           .box
             .box-header.with-border
               %h1
-                = link_to guide.name, guide_path(guide)
+                = link_to guide.name, edit_guide_path(guide)
 
               = link_to guide_url(guide), guide_url(guide)
 
