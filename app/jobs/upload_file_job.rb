@@ -14,7 +14,7 @@ class UploadFileJob < ActiveJob::Base
     filename = file.original_filename
     
     Asset::File.create! team:team,
-      link:File.join('/assets', File.basename(asset_path)),
+      link:File.join('/files', File.basename(asset_path)),
       title:File.basename(filename, File.extname(filename)),
       size:number_to_human_size(file.size)
   end

@@ -30,7 +30,7 @@ module UploadableAsset
       File.basename(file.original_filename).downcase
     ].join('-').gsub /_/, '-'
     
-    full_path = Rails.root.join 'disk', 'assets', name
+    full_path = Rails.root.join 'disk', 'files', name
     
     File.exists?(full_path) ? unique_asset_path : full_path
   end

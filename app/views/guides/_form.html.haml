@@ -7,7 +7,7 @@
 
         %div{ class:"form-group #{ 'has-error' if @guide.errors[:name].present? }"}
           = form.text_field :name, class:"form-control input-default",
-             placeholder:"Page name"
+             placeholder:"Page name", readonly:!@guide.deleteable?
 
           - if @guide.errors.any?
             %small.text-danger
@@ -29,8 +29,7 @@
           - unless @guide.new_record?
             %small.text-muted
               Public URL:
-              = link_to public_guide_url(current_team.name.parameterize, @guide.name.parameterize),
-                  public_guide_url(current_team.name.parameterize, @guide.name.parameterize)
+              = link_to_public @guide
 
               &rArr;
               = @guide.view_count
@@ -50,11 +49,11 @@
       removeEmpty: false,
       replaceTags: [],
       pastePlainText: false,
-      imageUpload: "/teams/181813285/images",
-      imageManagerJson: "/teams/181813285/images.json",
-      uploadImageFields: { 'authenticity_token':"/fZWABEU9rHUkWKs5vG46sSrZ3BXbIDYrb+NJGYl1myp9F0q83H+Nr8gpYiVaCE+cDLwYfs/RxpEyfWPR3u5jQ==" },
-      fileUpload: "/teams/181813285/files",
-      fileManagerJson: "/teams/181813285/files.json",
+      imageUpload: "#{ team_images_path current_team }",
+      imageManagerJson: "#{ team_images_path current_team, format:'json' }",
+      uploadImageFields: { 'authenticity_token':"#{form_authenticity_token}" },
+      fileUpload: "#{ team_files_path current_team }",
+      uploadFileFields: { 'authenticity_token':"#{form_authenticity_token}" },
       definedLinks: "#{ team_links_path current_team }",
       plugins: ['table', 'imagemanager', 'filemanager', 'fullscreen', 'definedlinks']
     })

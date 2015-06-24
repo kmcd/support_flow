@@ -37,6 +37,6 @@ class UploadImageJob < ActiveJob::Base
   end
   
   def relative(path)
-    File.join '/assets', File.basename(path)
+    File.join '/files', File.basename(path)
   end
 end
