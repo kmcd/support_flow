@@ -17,6 +17,9 @@
 //= require jquery_ujs
 //= require admin_lte.min
 //= require redactor
+//= require jquery.cookie
+//= require jstz
+//= require browser_timezone_rails/set_time_zone
 //= require_tree .
 
 $(function() {

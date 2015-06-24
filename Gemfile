@@ -12,6 +12,7 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-dsl'
 gem 'mini_magick'
 gem 'clockwork'
+gem 'browser-timezone-rails'
 
 group :development do
   gem 'looksee'
