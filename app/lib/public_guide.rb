@@ -1,9 +1,9 @@
 class PublicGuide
-  attr_reader :team, :guide
+  attr_reader :team
   
   def initialize(team_name, guide_name)
     @team = Team.where(name:team_name).first
-    @guide = team.guides.where(name:guide_name.titleize).first if team
+    @guide_name = guide_name
   end
   
   def present?
@@ -21,5 +21,17 @@ class PublicGuide
     return unless guide.present?
     return if team.agents.include?(current_agent)
     guide.increment! :view_count
+  end
+  
+  private
+  
+  def guide
+    return unless team
+    name = home_page? ? @guide_name : @guide_name.titleize
+    @guide ||= team.guides.where(name:name).first
+  end
+  
+  def home_page?
+    @guide_name == 'index'
   end
 end

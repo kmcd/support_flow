@@ -3,7 +3,7 @@
       class:'btn btn-default'
 
   = link_to 'Customise guide template',
-      edit_guide_path(current_team, Guide.template(current_team)), 
+      edit_guide_path(current_team, Guide.template(current_team)),
       class:'btn btn-default'
 
 %section.content
@@ -14,10 +14,9 @@
           .box
             .box-header.with-border
               %h1
-                = link_to guide.name.titleize, edit_guide_path(guide)
+                = guide_link guide
 
-              = link_to public_guide_url(current_team, guide.name.parameterize),
-                  public_guide_url(current_team, guide.name.parameterize)
+              = link_to_public guide
 
               %p.pull-right
                 %i.fa.fa-eye
@@ -31,7 +30,7 @@
                 Created
                 - activity = guide.created_activity
                 = activity.created_at.strftime "%-d %B %Y"
-                
+
                 by
                 - agent = activity.owner
                 = link_to agent.name, agent_path(agent)

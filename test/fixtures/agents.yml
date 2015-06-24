@@ -1,14 +1,14 @@
 rachel:
   team: support_flow
   email_address: 'rachel@getsupportflow.com'
-  profile: <%= { name:'Rachel' }.to_json %>
+  name: Rachel
   
 keith:
   team: support_flow
   email_address: 'keith@getsupportflow.com'
-  profile: <%= { name:'Keith' }.to_json %>
+  profile: Keith
     
 peldi_support:
   team: balsamiq
   email_address: 'peldi@example.org'
-  profile: <%= { name:'Peldi' }.to_json %>
+  profile: Peldi

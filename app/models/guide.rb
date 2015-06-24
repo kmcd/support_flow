@@ -5,10 +5,13 @@ class Guide < ActiveRecord::Base
   validate :name_contains_no_slashes
   
   def self.pages(team)
-    where(team:team).
-      where.not(name:'_template').
-      where.not(name:'index').
-      order(:name)
+    [
+      where(name:'index').first,
+      where(team:team).
+        where.not(name:'_template').
+        where.not(name:'index').
+        order(:name)
+    ].flatten
   end
   
   def self.template(team)
@@ -29,6 +32,10 @@ class Guide < ActiveRecord::Base
   
   def updated_activity
     activities.where(key:'guide.update').last
+  end
+  
+  def home_page?
+    name == 'index'
   end
   
   private

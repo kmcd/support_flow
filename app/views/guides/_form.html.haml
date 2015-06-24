@@ -18,18 +18,20 @@
 
         - if @guide.new_record?
           = link_to 'Cancel', :back, class:"btn btn-default"
-        - else
+
+        - elsif @guide.deleteable?
           = link_to 'Delete', @guide, method: :delete,
-              class:"btn btn-default", data:{ confirm: "Definitely delete?" }
+              class:"btn btn-default",
+              data:{ confirm: "Definitely delete?" }
 
       .col-sm-5.col-xs-12
         %p
           - unless @guide.new_record?
             %small.text-muted
               Public URL:
-              = link_to public_guide_url(current_team.name.parameterize, @guide.name.parameterize), 
+              = link_to public_guide_url(current_team.name.parameterize, @guide.name.parameterize),
                   public_guide_url(current_team.name.parameterize, @guide.name.parameterize)
-                  
+
               &rArr;
               = @guide.view_count
               views

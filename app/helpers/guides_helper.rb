@@ -1,17 +1,23 @@
 module GuidesHelper
-  def link_to_guide_url(current_team, guide)
-    return unless current_team.name
-    
-    guide_url = if guide.name == 'index'
-      public_guide_url current_team.name
-    else
-      public_guide_url current_team.name, guide.name
-    end
-    
-    link_to guide_url, guide_url
-  end
-  
   def summary(guide)
     truncate Nokogiri::HTML(guide.content).text, length:100
+  end
+  
+  def guide_link(guide)
+    name =  guide.home_page? ? 'Home Page' : guide.name.titleize
+    link_to name, edit_guide_path(guide)
+  end
+  
+  def link_to_public(guide)
+    host = case Rails.env
+      when /development/  ; 'dev.getsupportflow.com'
+      when /test/         ; 'test.getsupportflow.com'
+      when /production/   ; 'getsupportflow.com'
+    end
+    
+    name = guide.home_page? ? '' : guide.name.parameterize
+    
+    url = public_guide_url current_team, name, host:host
+    link_to url, url
   end
 end
