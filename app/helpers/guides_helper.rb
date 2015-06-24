@@ -20,4 +20,9 @@ module GuidesHelper
     url = public_guide_url current_team, name, host:host
     link_to url, url
   end
+  
+  def readonly?(guide)
+    return if guide.new_record?
+    !guide.deleteable?
+  end
 end

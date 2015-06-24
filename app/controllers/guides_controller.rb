@@ -48,7 +48,7 @@ class GuidesController < ApplicationController
 
   def destroy
     @guide.delete
-    redirect_to guides_path
+    redirect_to team_guides_path(current_team)
   end
 
   private
