@@ -35,5 +35,6 @@ Rails.application.routes.draw do
   resources :signups, only: %i[ new create ]
   get '/signup', to:'signups#new'
   
+  # TODO: validate nested resources
   get '/:team_name/:guide_name', to:'guides#show', as:'public_guide'
 end

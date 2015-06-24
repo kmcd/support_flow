@@ -15,7 +15,9 @@ class GuidesController < ApplicationController
     @guide = current_team.guides.new guide_params
 
     if @guide.save
-      redirect_to guide_path(current_team,@guide)
+      Activity.create trackable:@guide, owner:current_agent,
+        key:'guide.create'
+      redirect_to team_guides_path(current_team)
     else
       render :new
     end

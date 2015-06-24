@@ -33,7 +33,7 @@ class Guide < ActiveRecord::Base
   
   private
   
-  # TODO: change
+  # TODO: change to has_many
   def activities
     @activities ||= Activity.where trackable:self
   end

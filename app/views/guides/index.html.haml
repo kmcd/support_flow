@@ -9,12 +9,12 @@
 %section.content
   - @guides.in_groups_of(2).each do |guides|
     .row
-      - guides.each do |guide|
+      - guides.compact.each do |guide|
         .col-lg-6.col-md-6.col-sm-6.col-xs-12
           .box
             .box-header.with-border
               %h1
-                = link_to guide.name, edit_guide_path(guide)
+                = link_to guide.name.titleize, edit_guide_path(guide)
 
               = link_to public_guide_url(current_team, guide.name.parameterize),
                   public_guide_url(current_team, guide.name.parameterize)
@@ -28,10 +28,10 @@
               %p= summary(guide)
 
               %small.text-muted
-
                 Created
                 - activity = guide.created_activity
                 = activity.created_at.strftime "%-d %B %Y"
+                
                 by
                 - agent = activity.owner
                 = link_to agent.name, agent_path(agent)
