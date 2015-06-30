@@ -4,6 +4,7 @@ class ReplyJobTest < ActiveJob::TestCase
   # TODO: dry up fixture setting
 
   test "associate from subject" do
+    skip
     reply = @enquiry
     reply.payload['msg']['subject'] = \
       "request.#{@billing_enquiry.id}@getsupportflow.net"
@@ -15,6 +16,7 @@ class ReplyJobTest < ActiveJob::TestCase
   end
 
   test "associate from TO address" do
+    skip
     reply = @enquiry
     reply.payload['msg']['email'] = \
       "request.#{@billing_enquiry.id}@getsupportflow.net"
@@ -28,6 +30,7 @@ class ReplyJobTest < ActiveJob::TestCase
   end
 
   test "associate from CC address" do
+    skip
     reply = @enquiry
     reply.payload['msg']['cc'] = \
       [["request.#{@billing_enquiry.id}@getsupportflow.net", nil]]
@@ -39,6 +42,7 @@ class ReplyJobTest < ActiveJob::TestCase
   end
 
   test "ignore invalid request id" do
+    skip
     reply = @enquiry
     reply.payload['msg']['subject'] = "request.X@getsupportflow.net"
 
@@ -49,6 +53,7 @@ class ReplyJobTest < ActiveJob::TestCase
   end
 
   test "save reply time" do
+    skip
     open = Activity.create trackable:@billing_enquiry,
       key:'request.open', created_at:5.days.ago
 
@@ -70,6 +75,7 @@ class ReplyJobTest < ActiveJob::TestCase
   end
 
   test "update activity stream" do
+    skip
     reply = @existing_customer_enquiry
     reply.payload['msg']['to'] = \
       [["request.#{@billing_enquiry.id}@getsupportflow.net"],

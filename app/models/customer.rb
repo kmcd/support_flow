@@ -1,7 +1,7 @@
 class Customer < ActiveRecord::Base
   include Indexable
-  include Statistics
   include Labelable
+  include Statistics
   has_many :requests
   has_many :emails
   belongs_to :team

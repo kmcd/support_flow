@@ -44,7 +44,7 @@ class RequestSearchTest < ActiveSupport::TestCase
       skip
     end
   
-    test "sort by recenctly updated" do
+    test "sort by recently updated" do
       skip
     end
   

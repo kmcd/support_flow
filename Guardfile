@@ -29,6 +29,3 @@ guard :livereload do
   watch(%r{lib/.+\.rb})
   watch(%r{public/.+\.(css|js|html)})
 end
-
-guard :zeus, rspec:false, test_unit:true, run_all:false do
-end

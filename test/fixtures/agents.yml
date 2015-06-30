@@ -6,9 +6,9 @@ rachel:
 keith:
   team: support_flow
   email_address: 'keith@getsupportflow.com'
-  profile: Keith
+  name: Keith
     
 peldi_support:
   team: balsamiq
   email_address: 'peldi@example.org'
-  profile: Peldi
+  name: Peldi

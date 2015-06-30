@@ -34,11 +34,18 @@
                 placeholder:'Searchable labels e.g. urgent faq billing'
 
         .form-group.text-muted
-          = form.label :open, 'Closed', class:'col-sm-2 control-label'
+          = form.label :status, 'Status', class:'col-sm-2 control-label'
 
-          .col-sm-8.col-xs-8
-            .checkbox
-              = form.check_box :open, class:'col-sm-1 control-checkbox'
+          .radio
+            .col-sm-1.col-xs-1
+              %label
+                = form.radio_button :open, true
+                Open
+
+            .col-sm-1.col-xs-1
+              %label
+                = form.radio_button :open, false
+                Closed
 
         .form-group.text-muted
           = form.label :customer, 'Customer', class:'col-sm-2 control-label'

@@ -1,3 +1,4 @@
+# TODO: dry up with app/helpers/dashboard
 class Timeline
   def initialize(objekt)
     @objekt = objekt
@@ -8,10 +9,12 @@ class Timeline
       "team_id = ? AND (
         ( owner_type = '#{type}' AND owner_id = ? ) OR
         ( trackable_type = '#{type}' AND trackable_id = ? ) OR
-        ( recipient_type = '#{type}' AND recipient_id = ? ))", 
+        ( recipient_type = '#{type}' AND recipient_id = ? ))",
       team_id, id, id, id).
-    group_by {|_| _.created_at.to_date }.
-    sort_by &:first
+      order(created_at:'desc').
+      group_by {|_| _.created_at.to_date }.
+      sort_by(&:first).
+      reverse
   end
   
   def empty?

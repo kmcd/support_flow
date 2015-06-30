@@ -1,14 +1,16 @@
-open_support_request_activity_1:
+<% (1..999).each do |request_id| %>
+open_support_request_activity_<%= request_id %>:
   team_id: 1
   owner_id: <%= rand(1..15) %>
   owner_type: Customer
   recipient_id: 1
   recipient_type: Team
-  trackable_id: <%= rand(1..999) %>
+  trackable_id: <%= request_id %>
   trackable_type: Request
   key: 'request.open'
-  parameters: <%= {message:"Hi there, I'm wondering how do I pay?"}.to_json %>
-  created_at: <%= 1.day.ago %>
+  parameters: <%= { message:Faker::Hacker.say_something_smart }.to_json %>
+  created_at: <%= request_id.days.ago %>
+<% end %>
 
 reply_request_activity_1:
   team_id: 1
@@ -16,11 +18,12 @@ reply_request_activity_1:
   owner_type: Agent
   recipient_id: 1
   recipient_type: Customer
-  trackable_id: <%= rand(1..999) %>
+  <% request_id = rand(1..999) %>
+  trackable_id: <%= request_id %>
   trackable_type: Request
   key: 'request.reply'
   parameters: <%= {message:"Hi! Thanks for asking :)"}.to_json %>
-  created_at: <%= 1.day.ago + rand(0..20).minutes %>
+  created_at: <%= request_id.days.ago + rand(0..20).minutes %>
 
 comment_request_activity_1:
   team_id: 1

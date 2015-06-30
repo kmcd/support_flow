@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         resources :guides
       end
 
-      resources :requests, param: :name
+      resources :requests, param: :number
       resources :files,     only: %i[ create index ]
       resources :images,    only: %i[ create index ]
       resources :links,     only: %i[ index ]

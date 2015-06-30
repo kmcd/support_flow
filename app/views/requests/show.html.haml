@@ -1,5 +1,5 @@
 %section.content-header
-  = link_to 'Edit', edit_team_request_path(current_team, @request),
+  = link_to 'Edit', edit_team_request_path(current_team, @request.number),
       class:'btn btn-default'
 
   .btn-group
@@ -18,8 +18,22 @@
       .info.row
         .col-lg-8.col-md-8.col-sm-8.col-xs-12
           %h2
+            %small
+              - if @request.open?
+                %i.fa.fa-exclamation-circle.text-danger
+              - else
+                %i.fa.fa-check.text-success
+              = "##{@request.number}"
             = @request.name
-            %small= "##{@request.number}"
+            
+            %small.text-muted
+            - if @request.labels.empty?
+              = link_to 'Edit', edit_team_request_path(current_team, @request)
+              to add labels
+            - else
+              - @request.labels.each do |label|
+                = link_to label, team_requests_path(current_team, q:label),
+                    class:'btn btn-xs bg-info'
 
           %h3.text-muted
             %small Opened by
@@ -39,17 +53,6 @@
             - if @request.customer.phone
               %i.fa.fa-phone
               = @request.customer.phone
-
-          %p.text-muted
-            - if @request.labels.empty?
-              = link_to 'Edit', edit_team_request_path(current_team, @request)
-              to add labels
-            - else
-              %i
-                Labelled as
-              - @request.labels.each do |label|
-                = link_to label, team_requests_path(current_team, q:label),
-                    class:'btn btn-xs bg-info'
 
         .col-lg-4.col-md-4.col-sm-4.col-xs-12
 
@@ -101,7 +104,7 @@
         .col-lg-12.col-md-12.col-sm-12.col-xs-12
           - if @request.notes.present?
             %p.text-muted
-              &mdash; Notes &mdash;
+              %i &mdash; Notes &mdash;
             = @request.notes.html_safe
           - else
             %p.text-muted
@@ -129,7 +132,7 @@
 
               %h3.timeline-header
                 - owner_link activity
-                - description activity
+                - description activity, false
 
               - timeline_body activity
 
