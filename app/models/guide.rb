@@ -37,6 +37,10 @@ class Guide < ActiveRecord::Base
   def home_page?
     name == 'index'
   end
+
+  def template?
+    name == '_template'
+  end
   
   private
   

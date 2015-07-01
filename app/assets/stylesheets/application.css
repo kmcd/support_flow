@@ -135,3 +135,8 @@ span.description { color: gray; }
 .request.row i.closed { color: green; }
 .request.row i.comments { color: palegoldenrod; }
 .pagination { margin-top: 0 }
+
+.redactor-box textarea {
+  background-color: black;
+  color: LimeGreen;
+}

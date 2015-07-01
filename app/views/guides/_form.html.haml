@@ -26,7 +26,7 @@
 
       .col-sm-5.col-xs-12
         %p
-          - unless @guide.new_record?
+          - unless @guide.new_record? || @guide.template?
             %small.text-muted
               Public URL:
               = link_to_public @guide
