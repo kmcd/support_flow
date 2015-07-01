@@ -140,3 +140,23 @@ span.description { color: gray; }
   background-color: black;
   color: LimeGreen;
 }
+
+.navbar.requests a[ href *='requests' ] {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.navbar.guides a[ href *='guides' ] {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.navbar.customers a[ href *='customers' ] {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.navbar.agents a[ href *='agents' ] {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.navbar.teams a.navbar-brand  {
+  background: rgba(0, 0, 0, 0.1);
+}

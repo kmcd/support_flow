@@ -1,9 +1,4 @@
 module ApplicationHelper
-  def active_page(controller_name)
-    return {} unless controller.controller_name == controller_name.to_s
-    { :class => 'active' }
-  end
-  
   def duration(seconds)
     seconds = seconds.to_i + rand(60*rand(5))
     _, sec = seconds.divmod 60

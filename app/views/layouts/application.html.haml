@@ -12,7 +12,7 @@
   %body.skin-blue.layout-top-nav
     .wrapper
       %header.main-header
-        %nav.navbar.navbar-static-top
+        %nav{class:" navbar navbar-static-top #{controller_name}"}
           .container
             .navbar-header
               = link_to current_team, class:'navbar-brand' do
@@ -24,7 +24,7 @@
                 
             #navbar-collapse.collapse.navbar-collapse.pull-left
               %ul.nav.navbar-nav
-                %li.active= link_to 'Requests', team_requests_path(current_team, )
+                %li= link_to 'Requests', team_requests_path(current_team)
                 %li= link_to 'Guides', team_guides_path(current_team)
                 %li= link_to 'Customers', team_customers_path(current_team)
                 %li= link_to 'Agents', team_agents_path(current_team)
