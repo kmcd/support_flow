@@ -1,8 +1,8 @@
 class Dashboard
-  attr_reader :team
+  attr_reader :team, :page
 
-  def initialize(team)
-    @team = team
+  def initialize(team, page=1)
+    @team, @page = team, page
   end
 
   def open_requests
@@ -33,10 +33,13 @@ class Dashboard
       first_or_initialize.
       value.to_i
   end
-
+  
+  def activities
+    Activity.where(team:team).page page
+  end
+  
   def timeline
-    @timeline ||= Activity.
-      where(team:team).
+    @timeline ||= activities.
       group_by {|_| _.created_at.to_date }.
       sort_by(&:first).
       reverse

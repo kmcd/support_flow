@@ -5,6 +5,6 @@ class TeamsController < ApplicationController
   end
   
   def dashboard
-    @dashboard ||= Dashboard.new current_team
+    @dashboard ||= Dashboard.new current_team, params[:page]
   end
 end

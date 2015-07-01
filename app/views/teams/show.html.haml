@@ -56,25 +56,30 @@
 
 %section.content
   %ul.timeline
-    - dashboard.timeline.each do |day, activities|
-
-      %li.time-label
-        %span.bg-none= day.strftime "%d %b %Y"
-
-      - activities.each do |activity|
-        %li
-          - timeline_icon activity
-
-          .timeline-item
-            %span.time
-              %i.fa.fa-clock-o
-              = activity.created_at.strftime "%R"
-
-            %h3.timeline-header
-              - owner_link activity
-              - description activity
-
-            - timeline_body activity
+    - cache(dashboard.activities.first) do
+      - dashboard.timeline.each do |day, activities|
+        %li.time-label
+          %span.bg-none= day.strftime "%d %b %Y"
+  
+          - activities.each do |activity|
+            - cache(activity) do
+              %li
+                - timeline_icon activity
+  
+                .timeline-item
+                  %span.time
+                    %i.fa.fa-clock-o
+                    = activity.created_at.strftime "%R"
+  
+                  %h3.timeline-header
+                    - owner_link activity
+                    - description activity
+  
+                  - timeline_body activity
 
     %li
       %i.fa.fa-clock-o.bg-gray
+
+  %br/
+
+  %h4= will_paginate(dashboard.activities)
