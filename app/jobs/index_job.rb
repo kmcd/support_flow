@@ -74,3 +74,18 @@ Customer.class_eval do
     )
   end
 end
+
+Guide.class_eval do
+  def as_indexed_json(options={})
+    return {}.to_json if template?
+    
+    self.as_json(
+      {
+        methods: %i[
+          name
+          text_content
+        ]
+      }.merge!(options)
+    )
+  end
+end

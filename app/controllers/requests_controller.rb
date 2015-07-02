@@ -5,17 +5,17 @@ class RequestsController < ApplicationController
   def new
     @request = Request.new
   end
-  
+
   def create
     @request = current_team.requests.new request_params
-    
+
     if @request.save
       redirect_to team_request_path(current_team, @request.number)
     else
       render :new
     end
   end
-  
+
   def index
     @requests = RequestSearch.
       new(search_query, current_team, params[:page]).requests

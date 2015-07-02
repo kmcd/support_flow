@@ -1,7 +1,9 @@
 class GuidesController < ApplicationController
-  skip_before_filter :require_login, only:%i[ public ]
+  PUBLIC_ACTIONS = %i[ show search ]
   before_action :set_guide, only: %i[ update edit destroy ]
-  layout false, only: :show
+  skip_before_filter :authenticate_agent, except:PUBLIC_ACTIONS
+  skip_before_filter :authorise_agent,  except:PUBLIC_ACTIONS
+  layout false, only:PUBLIC_ACTIONS
 
   def index
     @guides = Guide.pages current_team
@@ -49,6 +51,11 @@ class GuidesController < ApplicationController
   def destroy
     @guide.delete
     redirect_to team_guides_path(current_team)
+  end
+  
+  def search
+    @team = Team.where(name:params[:team_name]).first
+    @guides = GuideSearch.new(search_query, @team, params[:page]).guides
   end
 
   private

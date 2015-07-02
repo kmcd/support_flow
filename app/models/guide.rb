@@ -1,4 +1,5 @@
 class Guide < ActiveRecord::Base
+  include Indexable
   belongs_to :team
   validates :name, presence:true
   validates :name, uniqueness:{ scope: :team }
@@ -23,7 +24,7 @@ class Guide < ActiveRecord::Base
   end
   
   def deleteable?
-    name !~  /^(_template|index)$/
+    !( home_page? || template? )
   end
   
   def created_activity
@@ -40,6 +41,10 @@ class Guide < ActiveRecord::Base
 
   def template?
     name == '_template'
+  end
+  
+  def text_content
+    Nokogiri::HTML(content).text
   end
   
   private

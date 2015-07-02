@@ -25,4 +25,8 @@ module GuidesHelper
     return if guide.new_record?
     !guide.deleteable?
   end
+  
+  def guide_name(guide)
+    guide.home_page? ? 'Home' : guide.name.titleize
+  end
 end

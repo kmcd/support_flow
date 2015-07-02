@@ -2,39 +2,39 @@ template:
   id: 1
   team_id: 1
   name: _template
-  content: '<html><!-- content --></html>'
+  content: "<html><!-- content --></html>"
   
 home_page:
   id: 2
   team_id: 1
   name: index
   view_count: <%= rand(400) %>
-  content: '<h1>Welcome to Support Flow</h1>'
+  content: "<h1>Welcome to Support Flow</h1><p><%= Faker::Lorem.paragraph(rand(1..10)) %></p>"
   
 faq:
   id: 3
   team_id: 1
   name: faq
   view_count: <%= rand(100) %>
-  content: '<h1>FAQ</h1>'
+  content: "<h1>Questions</h1><p><%= Faker::Lorem.paragraph(rand(1..10)) %></p>"
   
 billing:
   id: 4
   team_id: 1
   name: Billing
   view_count: <%= rand(50) %>
-  content: '<h1>Billing</h1>'
+  content: "<h1>Invoices</h1><p><%= Faker::Lorem.paragraph(rand(1..10)) %></p>"
   
 editing:
   id: 5
   team_id: 1
   name: Editing Guides
   view_count: <%= rand(300) %>
-  content: '<h1>Editing Guides</h1>'
+  content: "<h1>Guide pages</h1><p><%= Faker::Lorem.paragraph(rand(1..10)) %></p>"
   
 handbook:
   id: 6
   team_id: 1
   name: Customer Support Handbook
   view_count: <%= rand(900) %>
-  content: '<h1>Your guide to excellent customer support</h1>'
+  content: "<h1>Your guide to excellent customer support</h1><p><%= Faker::Lorem.paragraph(rand(1..10)) %></p>"

@@ -13,13 +13,6 @@ Rails.application.routes.draw do
       resources :links,     only: %i[ index ]
     end
 
-    # TODO: remove nesting - pass request param instead
-    resources :requests, only:[] do
-      resource :merge, only: %i[ new create destroy ]
-    end
-
-    resources :emails, only: %i[ index create ] # Mandrill webhook endpoint
-
     namespace :settings do
       with_options(only: %i[]) do |app|
         app.resources :mailboxes
@@ -29,7 +22,11 @@ Rails.application.routes.draw do
       end
     end
 
-    # TODO: refactor auth
+    resources :emails, only: %i[ index create ] # Mandrill webhook endpoint
+
+    # TODO: refactor auth to:
+    # resource :login
+    # resource :signup
     resources :logins, only: %i[ new create show destroy ]
     get '/login', to:'logins#new'
     get '/logout', to:'logins#destroy', defaults:{ id:1 }, as:'logout'
@@ -38,6 +35,10 @@ Rails.application.routes.draw do
   end
 
   constraints({ domain: /\.com$/i }) do
+    get '/:team_name/search',
+      to:'guides#search',
+      as:'guides_search'
+
     get '/:team_name/(:guide_name)',
       to:'guides#show',
       as:'public_guide',

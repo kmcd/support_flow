@@ -1,0 +1,69 @@
+!!!
+
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title SupportFlow
+    %meta{:charset => "UTF-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}/
+    = stylesheet_link_tag 'search', media: 'all'
+
+  %body.wrapper
+    .content-wrapper
+      .container-fluid
+        .team.row
+          .col-sm-offset-2.col-sm-7
+            %h1
+              = link_to @team.name.titleize, public_guide_url(@team.name.parameterize, :index)
+
+              %small
+                guides search
+
+            %p.text-muted
+              %small
+                Available guides
+                &nbsp;
+
+              - Guide.pages(@team).each do |guide|
+                = link_to guide_name(guide), public_guide_url(@team.name.parameterize, guide.name.parameterize)
+                &nbsp;
+
+        .search.row
+          .col-sm-offset-2.col-sm-7
+            %br/
+
+            = form_tag guides_search_url(params[:team_name]),
+                method:'get', enforce_utf8:false do
+                
+              .input-group
+                %input.form-control{placeholder:"How can we help you today?", type:"search", value:params[:q], name:'q'}
+                  %span.input-group-btn
+                    %button.btn.btn-default{type:"button"} Search
+
+            %br/
+
+        .summary.row
+          .col-sm-offset-2.col-sm-7
+
+        .results.row
+          .col-sm-offset-2.col-sm-7
+            - if @guides.empty?
+              %p
+                No guides found &hellip;
+            
+            - @guides.each do |guide|
+              %h4
+                = link_to guide.name.titleize, '#'
+                %br/
+
+                %small.text-success
+                  = public_guide_url(@team.name.parameterize, guide.name.parameterize)
+
+                %br/
+
+                %small{style:'color:black;'}= guide.text_content
+
+                %br/
+                %br/
+
+        = will_paginate @guides
