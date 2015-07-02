@@ -42,7 +42,8 @@ class GuidesController < ApplicationController
 
   def update
     if @guide.update guide_params
-      redirect_to team_guides_path(current_team)
+      flash.notice = 'saved'
+      redirect_to edit_guide_path(@guide)
     else
       render :edit
     end

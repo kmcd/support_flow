@@ -20,9 +20,14 @@
           = link_to 'Cancel', :back, class:"btn btn-default"
 
         - elsif @guide.deleteable?
-          = button_to 'Delete', @guide, method: :delete,
+          = link_to 'Delete', @guide, method: :delete,
               class:"btn btn-default",
               data:{ confirm: "Definitely delete?" }
+              
+        - if guide_saved?
+          %span.text-success
+            %i.fa.fa-fw.fa-check-circle-o
+            Saved
 
       .col-sm-5.col-xs-12
         %p

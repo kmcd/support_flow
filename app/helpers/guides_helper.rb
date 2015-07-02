@@ -33,4 +33,8 @@ module GuidesHelper
   def guide_link(team, guide)
     public_guide_url team.name.parameterize, guide.name.parameterize
   end
+  
+  def guide_saved?
+    flash.notice == 'saved'
+  end
 end
