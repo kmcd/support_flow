@@ -53,11 +53,11 @@
             
             - @guides.each do |guide|
               %h4
-                = link_to guide.name.titleize, '#'
+                = link_to guide_name(guide), guide_link(@team, guide)
                 %br/
 
                 %small.text-success
-                  = public_guide_url(@team.name.parameterize, guide.name.parameterize)
+                  = guide_link(@team, guide)
 
                 %br/
 
