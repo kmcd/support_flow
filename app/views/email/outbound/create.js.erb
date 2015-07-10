@@ -1,0 +1,19 @@
+$(".recipients.error").addClass('hidden')
+$(".message_content.error").addClass('hidden')
+$(".attachments.error").addClass('hidden')
+
+$("#new_email_outbound").fadeOut( 125,
+   function() {
+     $("#new_email_outbound").addClass('hidden')
+     $('#new_email_outbound').trigger("reset")
+   }
+)
+
+$(".flash.hidden").fadeIn( 250,
+  function() {
+    $(".flash.hidden").removeClass('hidden')
+    $(".flash .sent.hidden").removeClass('hidden')
+  }
+)
+
+$(".flash.hidden").fadeOut(4000)

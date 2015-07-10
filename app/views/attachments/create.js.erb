@@ -1,0 +1,6 @@
+<% if @attachment.persisted? %>
+  alert('ATTACHED')
+  $("#attachments").append("<%= j render(@attachment) %>")
+<% else %>
+  alert("Failed to upload: <%= j @attachment.errors.full_messages.join(', ').html_safe %>")
+<% end %>

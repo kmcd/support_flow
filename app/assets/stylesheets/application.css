@@ -161,3 +161,15 @@ span.description { color: gray; }
 .navbar.teams a.navbar-brand  {
   background: rgba(0, 0, 0, 0.1);
 }
+
+#email_outbound_attachments {
+  display: inline;
+}
+
+#new_email_outbound .reply.box, #email_outbound .reply.box {
+  background-color: rgb(250, 250, 270);
+}
+
+.file_upload {
+  padding-left: 5px;
+}

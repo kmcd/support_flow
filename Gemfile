@@ -14,6 +14,7 @@ gem 'mini_magick'
 gem 'clockwork'
 gem 'browser-timezone-rails'
 gem 'dalli'
+gem 'remotipart', '~> 1.2'
 
 group :development do
   gem 'looksee'

@@ -1,6 +1,6 @@
-class UploadFileJob < ActiveJob::Base
+class FileJob < ActiveJob::Base
   include ActionView::Helpers::NumberHelper
-  include UploadableAsset
+  include Uploadable
   attr_reader :name
 
   def perform(team, file)

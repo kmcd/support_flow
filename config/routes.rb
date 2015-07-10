@@ -13,6 +13,12 @@ Rails.application.routes.draw do
       resources :links,     only: %i[ index ]
     end
 
+    namespace :email do
+      resources :inbound,     only: %i[ index create ]
+      resources :outbound,    only: %i[ create update destroy ]
+      resources :attachments,  only: %i[ destroy ]
+    end
+
     namespace :settings do
       with_options(only: %i[]) do |app|
         app.resources :mailboxes
@@ -21,8 +27,6 @@ Rails.application.routes.draw do
         app.resource  :billing
       end
     end
-
-    resources :emails, only: %i[ index create ] # Mandrill webhook endpoint
 
     # TODO: refactor auth to:
     # resource :login

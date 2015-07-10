@@ -1,4 +1,4 @@
-class PayloadJob < ActiveJob::Base
+class InboundEmailJob < ActiveJob::Base
   attr_reader :events, :emails
   queue_as :default
 
@@ -9,6 +9,7 @@ class PayloadJob < ActiveJob::Base
     create_enquiries
     update_replies
     execute_commands
+    remove_received_outbound_email
   end
   
   private
@@ -21,8 +22,8 @@ class PayloadJob < ActiveJob::Base
   
   def create_attachments
     email_attachments.each do |attachment|
-      # FIXME: set email_id!
       Attatchment.create \
+        # FIXME: set email_id, team_id, request_id
         name:     attachment['name'],
         type:     attachment['type'],
         content:  attachment['content'],
@@ -48,5 +49,8 @@ class PayloadJob < ActiveJob::Base
   
   def execute_commands
     emails.each {|email| CommandJob.perform_later email }
+  end
+  
+  def remove_received_outbound_email
   end
 end

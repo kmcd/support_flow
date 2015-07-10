@@ -1,5 +1,5 @@
-class UploadImageJob < ActiveJob::Base
-  include UploadableAsset
+class ImageJob < ActiveJob::Base
+  include Uploadable
 
   def perform(team, file)
     super

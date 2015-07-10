@@ -9,6 +9,7 @@
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application', media: 'all'
+    = yield :head
     
   %body.skin-blue.layout-top-nav
     .wrapper
@@ -34,10 +35,10 @@
                     Settings
                     %span.caret
                   %ul.dropdown-menu{:role => "menu"}
-                    %li
-                      %a{:href => "#"} Mailboxes
-                    %li
-                      %a{:href => "#"} Billing
+                    %li= link_to 'Mailboxes', '#'
+                    %li= link_to 'Reply Templates', '#'
+                    %li= link_to 'Notifications', '#'
+                    %li= link_to 'Billing', '#'
                     %li.divider
                     %li
                       %a{:href => "#"} Logout

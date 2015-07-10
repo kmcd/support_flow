@@ -5,7 +5,7 @@ class Team < ActiveRecord::Base
   has_many :assets
   has_many :agents
   has_many :customers
-  has_many :emails, through: :requests
+  has_many :emails
   validates :name, presence:true, uniqueness:true
   
   # TODO: replace with acts_as_taggable

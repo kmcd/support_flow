@@ -1,0 +1,18 @@
+<% if @outbound_email.errors[:recipients].any? %>
+  $(".recipients.error.hidden").removeClass('hidden')
+  <% messages = @outbound_email.errors[:recipients].join(", ").html_safe %>
+  $(".recipients.error .addresses").text("<%= messages %>")
+<% else %>
+  $(".recipients.error").addClass('hidden')
+<% end %>
+
+<% if @outbound_email.errors[:message_content] %>
+  $(".message_content.error.hidden").removeClass('hidden')
+<% else %>
+  $(".recipients.error").addClass('hidden')
+<% end %>
+
+// Agent forced to re-upload files? (could be acceptable initially ...)
+
+<% if @outbound_email.errors[:attachments] %>
+<% end %>

@@ -14,7 +14,7 @@
 //= require jquery-ui
 //= require bootstrap.min
 //= require rails
-//= require jquery_ujs
+//= require jquery.remotipart
 //= require admin_lte.min
 //= require redactor
 //= require jquery.cookie
@@ -27,5 +27,40 @@ $(function() {
     facet = $(this).data('facet')
     $("form#search input#query").attr('value', facet )
     $("form#search").submit()
+  })
+  
+  $('.reply.dropdown-menu a').click( function() {
+    email = $(this).data('email')
+    recipient_list = $("#email_outbound_recipients").val()
+    
+    if ( !recipient_list.match( email ) ) {
+      recipient_list +=  ' '
+      recipient_list += email
+      recipient_list +=  ' '
+    }
+    
+    $("#email_outbound_recipients").val(recipient_list)
+    $('#new_email_outbound').removeClass('hidden')
+    $('#new_email_outbound').fadeIn(125)
+  })
+  
+  $('#email_outbound_message_content').redactor({
+    focus: false,
+    minHeight: 250,
+    replaceDivs: false,
+    deniedTags: [],
+    removeEmpty: false,
+    replaceTags: [],
+    pastePlainText: true,
+    plugins: ['table', 'imagemanager', 'filemanager', 'definedlinks']
+  })
+
+  $("#email_outbound_attachments").change( function() {
+    $("#new_email_outbound").submit()
+  })
+  
+  $('#new_email_outbound button.cancel').click( function() {
+     $('#new_email_outbound').addClass('hidden')
+     $('#new_email_outbound').trigger("reset")
   })
 });

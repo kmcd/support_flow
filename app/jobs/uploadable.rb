@@ -1,7 +1,7 @@
 require 'securerandom'
 require 'fileutils'
 
-module UploadableAsset
+module Uploadable
   extend ActiveSupport::Concern
   
   included do

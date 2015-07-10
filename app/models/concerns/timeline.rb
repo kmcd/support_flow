@@ -1,4 +1,7 @@
 # TODO: dry up with app/helpers/dashboard
+# or separate out into CustomerTimeline, RequestTimeline, DashboardTimeline
+# e.g. CustomerTimeline < Timeline
+# Do timelines belong in app/lib (i.e. core model) ?
 class Timeline
   def initialize(objekt)
     @objekt = objekt

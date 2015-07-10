@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.string   "name",              null: false
     t.string   "phone"
     t.text     "notes"
+    t.hstore   "notification_policy"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
@@ -101,8 +102,14 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "emails", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "sender_id"
+    t.string   "sender_type"
+    t.integer  "team_id"
     t.integer  "request_id"
-    t.json     "payload",    null: false
+    t.string   "recipients"
+    t.text     "message_content"
+    t.json     "payload"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -149,14 +156,6 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   add_index "messages", ["mailbox_id"], name: "index_mailboxes_on_mailbox_id", using: :btree
   add_index "messages", ["request_id"], name: "index_mailboxes_on_request_id", using: :btree
 
-  create_table "pg_search_documents", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "searchable_id"
-    t.string   "searchable_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
   create_table "requests", force: :cascade do |t|
     t.integer  "team_id",                     null: false
     t.integer  "number",       default: 0
@@ -195,7 +194,6 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
-    # 
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

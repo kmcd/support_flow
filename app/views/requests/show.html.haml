@@ -1,3 +1,7 @@
+= content_for :head do
+  - if @request.emails.outbound.any?
+    = tag :meta, 'http-equiv' => 'refresh', content:15
+  
 %section.content-header
   = link_to 'Edit', edit_team_request_path(current_team, @request.number),
       class:'btn btn-default'
@@ -6,13 +10,34 @@
     %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown"}
       Reply
       %span.caret
-    %ul.dropdown-menu
-      %li
-        = link_to 'Customer', '#'
-      %li
-        = link_to 'Agents', '#'
 
+    %ul.reply.dropdown-menu
+      %li
+        %li.dropdown-header{:role => "presentation"}
+          %i &mdash; Customer &mdash;
+      %li= link_to @request.customer.name, '#', 'data-email' => @request.customer.email_address
+
+      %li &nbsp;
+      %li
+        %li.dropdown-header{:role => "presentation"}
+          %i &mdash; Templates &mdash;
+      %li= link_to 'Default reply', '#'
+      %li= link_to 'Billing enquiry', '#'
+      
+      %li &nbsp;
+      %li.dropdown-header{:role => "presentation"}
+        %i &mdash; Agents &mdash;
+
+        - current_team.agents.sort_by(&:name).each do |agent|
+          %li= link_to agent.name, '#', 'data-email' => agent.email_address
+
+  .flash.btn.btn-warning.disabled.hidden.pull-right
+    .sent.hidden
+      Email sent
+  
 %section.content
+  = render partial:'email/outbound/new'
+
   .request.box
     .box-body
       .info.row
@@ -25,7 +50,7 @@
                 %i.fa.fa-check.text-success
               = "##{@request.number}"
             = @request.name
-            
+
             %small.text-muted
             - if @request.labels.empty?
               = link_to 'Edit', edit_team_request_path(current_team, @request)
