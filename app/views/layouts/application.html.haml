@@ -10,7 +10,7 @@
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application', media: 'all'
     = yield :head
-    
+
   %body.skin-blue.layout-top-nav
     .wrapper
       %header.main-header
@@ -20,10 +20,10 @@
               = link_to current_team, class:'navbar-brand' do
                 Support
                 %i Flow
-                
+
               %button.navbar-toggle.collapsed{"data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
                 %i.fa.fa-bars
-                
+
             #navbar-collapse.collapse.navbar-collapse.pull-left
               %ul.nav.navbar-nav
                 %li= link_to 'Requests', team_requests_path(current_team)
@@ -42,16 +42,16 @@
                     %li.divider
                     %li
                       %a{:href => "#"} Logout
-                      
+
             .navbar-custom-menu
               %ul.nav.navbar-nav
                 %li
                   %a{:href => "/help"} Need Help?
-                  
+
       .content-wrapper
         .container
           = yield
-          
+
       %footer.main-footer
         .container
           %small

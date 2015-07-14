@@ -15,7 +15,7 @@ class Email::Outbound < Email
 
   def recipient_list_format
     return if recipient_list.valid?
-    
+
     recipient_list.invalid.each do |email|
       errors.add :recipients, "#{email} is invalid"
     end

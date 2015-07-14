@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
 gem 'pg'
+gem 'activerecord-session_store'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'delayed_job_active_record'

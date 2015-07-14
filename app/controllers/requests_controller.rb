@@ -1,4 +1,6 @@
 class RequestsController < ApplicationController
+  include Attachable
+  helper :all
   before_action :set_request, only: %i[ show edit update ]
   helper_method :search_query
 

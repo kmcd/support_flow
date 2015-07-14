@@ -1,0 +1,2 @@
+$("#email_attachment_<%= @attachment.id %>").remove()
+$(".attachments .size").html('<%= escape_javascript render(partial:"email/attachments/size") %>')

@@ -15,8 +15,8 @@ Rails.application.routes.draw do
 
     namespace :email do
       resources :inbound,     only: %i[ index create ]
-      resources :outbound,    only: %i[ create update destroy ]
-      resources :attachments,  only: %i[ destroy ]
+      resources :outbound,    only: %i[ create destroy ]
+      resources :attachments, only: %i[ destroy ]
     end
 
     namespace :settings do
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
     # TODO: refactor auth to:
     # resource :login
-    # resource :signup
+    # resource :signup (or trial?)
     resources :logins, only: %i[ new create show destroy ]
     get '/login', to:'logins#new'
     get '/logout', to:'logins#destroy', defaults:{ id:1 }, as:'logout'

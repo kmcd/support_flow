@@ -24,11 +24,21 @@
           %label.text-danger
             Your attachments exceed 25mb &mdash; time to remove some of those
             files &hellip;
-            
-        Attach files
-        &rarr;
-        = form.file_field :attachments, multiple:true
-        
+
+        - if attachments_under_limit?
+          %span.upload-control
+            Attach files
+            &rarr;
+            = form.file_field :attachments, multiple:true
+
+        .attachments
+          - unless attachments.empty?
+            %span.uploaded
+              = render partial:'email/outbound/attachment', collection:attachments
+              
+            %span.size
+              = render partial:'email/attachments/size'
+
       .actions.col-sm-3
         .pull-right
           = form.button 'Send', class:'btn btn-default'
