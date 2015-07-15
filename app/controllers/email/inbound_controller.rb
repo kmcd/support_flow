@@ -1,5 +1,6 @@
 class Email::InboundController < ApplicationController
   skip_before_filter :require_login
+  skip_before_action :verify_authenticity_token
   before_filter :authenticate_webhook
   
   def index
@@ -7,7 +8,7 @@ class Email::InboundController < ApplicationController
   end
   
   def create
-    InboundEmail.create_from mandrill_payload
+    Email::Inbound.create_from mandrill_payload
     head :ok
   end
   

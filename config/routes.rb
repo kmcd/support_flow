@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     end
 
     namespace :email do
-      resources :inbound,     only: %i[ index create ]
       resources :outbound,    only: %i[ create destroy ]
       resources :attachments, only: %i[ destroy ]
     end
@@ -47,5 +46,11 @@ Rails.application.routes.draw do
       to:'guides#show',
       as:'public_guide',
       defaults: { guide_name:'index' }
+  end
+
+  # TODO: move to .net constraint when deploying
+  # FIXME: development mail send/receive (local tunnel)
+  namespace :email do
+    resources :inbound, only: %i[ index create ]
   end
 end

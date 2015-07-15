@@ -1,6 +1,8 @@
 = form_for( Email::Outbound.new, url:email_outbound_index_path,
     html:{ multipart:true }, remote:true ) do |form|
 
+  = form.hidden_field :request_id, value:@request.id
+
   .reply.box
     .box-header
       .recipients.error.hidden
@@ -32,12 +34,11 @@
             = form.file_field :attachments, multiple:true
 
         .attachments
-          - unless attachments.empty?
-            %span.uploaded
-              = render partial:'email/outbound/attachment', collection:attachments
-              
-            %span.size
-              = render partial:'email/attachments/size'
+          %span.uploaded
+            = render partial:'email/outbound/attachment', collection:attachments
+
+          %span.size
+            = render partial:'email/attachments/size'
 
       .actions.col-sm-3
         .pull-right

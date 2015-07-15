@@ -4,6 +4,7 @@ class Email::Outbound < Email
   validates :message_content, presence:true
   validate  :recipient_list_format
   validate  :attachments_under_size_limit
+  validate  :sender_team_agent
   composed_of :recipient_list, mapping:%w[ recipients ]
 
   private
@@ -19,5 +20,10 @@ class Email::Outbound < Email
     recipient_list.invalid.each do |email|
       errors.add :recipients, "#{email} is invalid"
     end
+  end
+  
+  def sender_team_agent
+    return if team.agents.include? sender
+    errors.add :sender, "invalid team" # TODO: flag url hacking
   end
 end

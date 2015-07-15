@@ -14,12 +14,12 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
   config.cache_store = :mem_cache_store
   
-  # Don't care if the mailer can't send.
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   
   # TODO: move to config/initializers/mail.rb
+  # TODO: setup development mail config
   config.action_mailer.smtp_settings = {
     address:    'smtp.mandrillapp.com',
     port:       587,

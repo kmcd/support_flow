@@ -1,56 +1,50 @@
 class InboundEmailJob < ActiveJob::Base
-  attr_reader :events, :emails
+  attr_reader :payloads, :emails
   queue_as :default
 
-  def perform(mandrill_events)
-    @events, @emails = JSON.parse(mandrill_events), []
+  def perform(mandrill_payloads)
+    initialise mandrill_payloads
     create_emails
     create_attachments
-    create_enquiries
-    update_replies
-    execute_commands
-    remove_received_outbound_email
+    process_arrivals
   end
-  
+
   private
-  
+
+  def initialise(mandrill_payloads)
+    @payloads = JSON.parse mandrill_payloads
+    @emails = []
+  end
+
   def create_emails
-    email_payloads.each do |payload|
-      emails << Email.create!(payload:payload)
+    payloads.each do |payload|
+      next unless payload['event'] == 'inbound'
+      
+      # FIXME: set request, team from bcc request#id
+      emails << Email.create!(payload:payload['msg'])
     end
   end
-  
+
   def create_attachments
-    email_attachments.each do |attachment|
-      Attatchment.create \
-        # FIXME: set email_id, team_id, request_id
-        name:     attachment['name'],
-        type:     attachment['type'],
-        content:  attachment['content'],
-        base64:   attachment['base64']
+    payloads.each do |payload|
+      next unless payload['event'] == 'inbound'
+      next unless payload['msg'].has_key? 'attachments'
+
+      payload['attachments'].each do |attachment|
+        Email::Attachment.create \
+          name:attachment['name'],
+          type:attachment['type'],
+          content:attachment['content'],
+          base64:attachment['base64']
+      end
     end
   end
-  
-  def email_payloads
-    events.find_all {|_| _['event'] == 'inbound' }
-  end
-  
-  def email_attachments
-    email_payloads.find_all {|_| _['attachments'].tap &:any? }
-  end
-  
-  def create_enquiries
-    emails.each {|email| EnquiryJob.perform_later email }
-  end
-  
-  def update_replies
-    emails.each {|email| ReplyJob.perform_later email }
-  end
-  
-  def execute_commands
-    emails.each {|email| CommandJob.perform_later email }
-  end
-  
-  def remove_received_outbound_email
+
+  def process_arrivals
+    emails.each do |_|
+      EnquiryJob.perform_later _
+      ReplyJob.perform_later _
+      CommandJob.perform_later _
+    end
   end
 end

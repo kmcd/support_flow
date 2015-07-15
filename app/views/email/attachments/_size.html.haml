@@ -1,7 +1,6 @@
-%strong= number_to_human_size attachments_size
-
-attachments &mdash;
-
-%strong
-  = number_to_human_size Attachable::MAX_ATTACHMENTS_SIZE
-  max
+- unless attachments.empty?
+  %strong= number_to_human_size attachments_size
+  attachments &mdash;
+  %strong
+    = number_to_human_size Attachable::MAX_ATTACHMENTS_SIZE
+    max

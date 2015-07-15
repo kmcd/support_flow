@@ -1,7 +1,6 @@
 <% if attachments_under_limit? && uploads_under_limit? %>
-  attachments = '<%= escape_javascript render(partial:'email/outbound/attachment', collection:attachments) %>'
-  $('.attachments .uploaded').html(attachments);
-  
+  attachments = '<%= escape_javascript render(partial:"email/outbound/attachment", collection:attachments) %>'
+  $('.attachments .uploaded').html(attachments)
   size = '<%= escape_javascript render(partial:"email/attachments/size") %>'
   $(".attachments .size").html(size)
 <% end %>

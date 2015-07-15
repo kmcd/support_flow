@@ -4,6 +4,8 @@ class Email::Inbound < Email
   delegate *%i[ to from subject text command_arguments ], to: :message
 
   def self.create_from(mandrill_payload)
+    # FIXME: handle attachment file i/o on background queue (somehow)
+    # May require using S3 file system (if so - move all files to S3)
     # Must perform_now to handle attachments - uploaded tmpfiles are not
     # available accross web processes or background workers
     InboundEmailJob.perform_now mandrill_payload
