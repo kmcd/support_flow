@@ -3,15 +3,21 @@ module Timelineable
 
   included do
     after_create :set_number
-    after_commit :save_close_time
+    
+    after_create :enquiry_open
+    after_update :customer_reply
+    after_update :first_reply_time
+    
     after_update :assignment_activity
     after_update :rename_activity
     after_update :add_label_activity
     after_update :remove_label_activity
-    after_update :close_activity
     after_update :change_customer_activity
     after_update :customer_happiness_activity
     after_update :notes_activity
+    
+    after_update :close_activity
+    after_commit :save_close_time
     after_update :reopen_activity
   end
 
@@ -20,22 +26,16 @@ module Timelineable
   def set_number
     update number:Request.count
   end
-
-  def save_close_time
-    return unless closing?
-
-    Activity.create key:'request.close_time',
-      team_id:team_id,
-      trackable:self
-      owner:agent,
-      recipient:customer,
-      parameters:{seconds:(Time.now - created_at.to_time).to_i}
+  
+  def enquiry_open
   end
-
-  def closing?
-    open_changed? && closed?
+  
+  def customer_reply
   end
-
+  
+  def first_reply_time
+  end
+  
   def assignment_activity
     return unless agent_id_changed?
     create_activity 'request.assignment', recipient:agent
@@ -55,7 +55,7 @@ module Timelineable
         parameters:{ label:removed_labels }
     end
   end
-
+  
   def add_label_activity
     return unless labels_changed?
     new_labels = labels_change.last - labels_change.first
@@ -65,13 +65,6 @@ module Timelineable
     end
   end
 
-  def close_activity
-    return unless closing?
-    close_time_in_seconds = (0.minutes.ago - created_at).to_i
-    create_activity 'request.close', recipient:customer,
-      parameters:{ close_time_in_seconds:close_time_in_seconds }
-  end
-  
   def change_customer_activity
     return unless customer_id_changed?
     create_activity 'request.customer', recipient:customer,
@@ -88,7 +81,29 @@ module Timelineable
     return unless notes_changed?
     create_activity 'request.notes'
   end
+
+  def close_activity
+    return unless closing?
+    close_time_in_seconds = (0.minutes.ago - created_at).to_i
+    create_activity 'request.close', recipient:customer,
+      parameters:{ close_time_in_seconds:close_time_in_seconds }
+  end
   
+  def save_close_time
+    return unless closing?
+
+    Activity.create key:'request.close_time',
+      team_id:team_id,
+      trackable:self
+      owner:agent,
+      recipient:customer,
+      parameters:{seconds:(Time.now - created_at.to_time).to_i}
+  end
+
+  def closing?
+    open_changed? && closed?
+  end
+
   def reopen_activity
     return unless open_changed? && !closed?
     create_activity 'request.reopen'

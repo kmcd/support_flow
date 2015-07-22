@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   add_index "agents", ["team_id"], name: "index_agents_on_team_id", using: :btree
 
-  # TODO: rename to files & combine with attachments:
-  # e.g. File::GuideImage, File::GuideFile, File::EmailAttachment
+  # TODO: rename to files to avoid rails assets confusion
+  # e.g. File::GuideImage, File::GuideFile
   create_table "assets", force: :cascade do |t|
     t.integer  "team_id",    null: false
     t.string   "type",       null: false
@@ -60,18 +60,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.string   "title"
     t.string   "link"
     t.string   "size"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "attachments", force: :cascade do |t|
-    t.integer "team_id"
-    t.integer "email_id"
-    t.string  "name"
-    t.string  "content_type"
-    t.binary  "content"
-    t.boolean "base64"
-    t.integer "size"
+    t.timestamps null: false
   end
 
   create_table "customers", force: :cascade do |t|
@@ -105,17 +94,30 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  # Merge with emails? 
+  # e.g. Email::Outbound.new payload:'{attachments ... }'
+  # or Email::Draft.new payload:'{attachments ... }'
+  # May solve waiting for inbound issue by flagging Outbound as received
+  create_table "attachments", force: :cascade do |t|
+    t.integer "team_id" # why do we need a team?
+    t.integer "email_id"
+    t.string  "name"
+    t.string  "content_type"
+    t.binary  "content"
+    t.boolean "base64"
+    t.integer "size"
+  end
+  
   create_table "emails", force: :cascade do |t|
     t.string   "type"
-    t.integer  "sender_id"
-    t.string   "sender_type"
     t.integer  "team_id"
     t.integer  "request_id"
+    t.integer  "sender_id"
+    t.string   "sender_type"
     t.string   "recipients"
     t.text     "message_content"
     t.json     "payload"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.timestamps null: false
   end
 
   create_table "guides", force: :cascade do |t|
@@ -130,8 +132,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   create_table "logins", force: :cascade do |t|
     t.string   "email",      null: false
     t.string   "token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.timestamps null: false
   end
   
   add_index "logins", ["email"], name: "index_logins_on_email", using: :btree
@@ -147,8 +148,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.text     "labels",       default: [],                array: true
     t.text     "notes"
     t.integer  "happiness", default: 100
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.timestamps null: false
   end
 
   add_index "requests", ["agent_id"], name: "index_requests_on_agent_id", using: :btree
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", :null => false
     t.text "data"
-    t.timestamps
+    t.timestamps null: false
   end
 
   add_index "sessions", "session_id", unique:true
@@ -170,14 +170,12 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.string   "owner_type", null: false
     t.string   "type",       null: false
     t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.timestamps null: false
   end
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.timestamps null: false
   end
 
   add_index "teams", ["name"], name: "index_teams_on_name", using: :btree

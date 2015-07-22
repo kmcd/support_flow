@@ -5,4 +5,5 @@ class Email < ActiveRecord::Base
   has_many    :attachments
   scope :inbound, ->() { where type:'Email::Inbound' }
   scope :outbound, ->() { where type:'Email::Outbound' }
+  composed_of :recipient_list, mapping:%w[ recipients ]
 end

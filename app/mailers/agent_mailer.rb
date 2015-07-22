@@ -1,11 +1,11 @@
 class AgentMailer < ApplicationMailer
   def reply(outbound_email)
+    add_attachments outbound_email
+
     mail envelope(outbound_email) do |format|
       format.html { outbound_email.message_content }
       format.text { Nokogiri::HTML(outbound_email.message_content).text }
     end
-
-    attachments outbound_email
   end
 
   private
@@ -18,9 +18,9 @@ class AgentMailer < ApplicationMailer
       subject:outbound_email.request.name }
   end
 
-  def attachments(outbound_email)
+  def add_attachments(outbound_email)
     outbound_email.attachments.each_with_object({}) do |file, attachment|
-      attachment[file.name] = file.content
+      attachments[file.name] = file.content
     end
   end
 

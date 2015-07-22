@@ -28,7 +28,7 @@ class Request < ActiveRecord::Base
   end
 
   def assigned?
-    agent_id.present?
+    agent.present?
   end
 
   def first_reply
