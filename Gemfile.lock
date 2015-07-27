@@ -104,6 +104,9 @@ GEM
     formatador (0.2.5)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    griddler (1.1.0)
+      htmlentities
+      rails (>= 3.2.0)
     guard (2.12.6)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -140,6 +143,7 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    htmlentities (4.3.3)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
     jquery-rails (4.0.3)
@@ -283,6 +287,7 @@ DEPENDENCIES
   elasticsearch-model
   elasticsearch-rails
   faker
+  griddler
   guard
   guard-bundler
   guard-livereload (~> 2.4)

@@ -1,3 +1,10 @@
+# TODO: refactor to view object / presenter / decorator - e.g.
+# require 'delegate'
+# class RequestActivity < SimpleDelegator
+#   def icon
+#     ...
+# activity = RequestActivity.new @request, dashboard:false
+
 module ActivitiesHelper
   def timeline_icon(activity)
     case activity.key
@@ -42,7 +49,7 @@ module ActivitiesHelper
         request_summary activity, dashboard
 
       when /request.reply/
-        activity_description 'replied to'
+        activity_description 'replied'
         request_summary activity, dashboard
 
       when /request.comment/
@@ -99,7 +106,7 @@ module ActivitiesHelper
       when /request.close/
         activity_description 'closed'
         request_summary activity, dashboard
-        
+
       when /request.reopen/
         activity_description 're-opened'
         request_summary activity, dashboard
@@ -129,18 +136,11 @@ module ActivitiesHelper
   def timeline_body(activity)
     case activity.key
       when /request\.open/
-        haml_tag '.timeline-body' do
-          # TODO: use email message if name not present
-          haml_concat activity.parameters['message']
-        end
+        haml_tag_timeline_body activity
       when /request\.reply/
-        haml_tag '.timeline-body' do
-          haml_concat activity.parameters['message']
-        end
+        haml_tag_timeline_body activity
       when /request\.comment/
-        haml_tag '.timeline-body' do
-          haml_concat activity.parameters['comment']
-        end
+        haml_tag_timeline_body activity
     end
   end
 
@@ -171,5 +171,19 @@ module ActivitiesHelper
     return unless dashboard
     link_to_request activity
     request_name activity
+  end
+
+  def haml_tag_timeline_body(activity, dashboard=false)
+    return unless activity.parameters.present?
+
+    # TODO: refactor to more elegant solution
+    summary = if activity.parameters.has_key?('email_id')
+      email = Email.find(activity.parameters['email_id'])
+      dashboard ? email.message.text : email.message.html
+    elsif activity.parameters.has_key?('comment')
+      activity.parameters['comment']
+    end
+
+    haml_tag('.timeline-body') { haml_concat(summary) } if summary.present?
   end
 end

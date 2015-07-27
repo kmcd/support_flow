@@ -1,7 +1,7 @@
 = content_for :head do
   - if @request.emails.outbound.any?
     = tag :meta, 'http-equiv' => 'refresh', content:15
-  
+
 %section.content-header
   = link_to 'Edit', edit_team_request_path(current_team, @request.number),
       class:'btn btn-default'
@@ -23,7 +23,7 @@
           %i &mdash; Templates &mdash;
       %li= link_to 'Default reply', '#'
       %li= link_to 'Billing enquiry', '#'
-      
+
       %li &nbsp;
       %li.dropdown-header{:role => "presentation"}
         %i &mdash; Agents &mdash;
@@ -34,7 +34,7 @@
   .flash.btn.btn-warning.disabled.hidden.pull-right
     .sent.hidden
       Email sent
-  
+
 %section.content
   = render partial:'email/outbound/new'
 
@@ -52,18 +52,30 @@
             = @request.name
 
             %small.text-muted
-            - if @request.labels.empty?
-              = link_to 'Edit', edit_team_request_path(current_team, @request)
-              to add labels
-            - else
-              - @request.labels.each do |label|
-                = link_to label, team_requests_path(current_team, q:label),
-                    class:'btn btn-xs bg-info'
+              - if [ @request.labels, @request.name ].any?(&:blank?)
+                = link_to 'Edit', edit_team_request_path(current_team, @request)
+                to add
+                - if @request.name.blank?
+                  name
+                - if @request.labels.empty?
+                  labels
+
+              - else
+                - @request.labels.each do |label|
+                  = link_to label, team_requests_path(current_team, q:label),
+                      class:'btn btn-xs bg-info'
 
           %h3.text-muted
-            %small Opened by
-            = link_to @request.customer.name, customer_path(@request.customer)
+            %small
+              Opened on
+              %b= @request.created_at.strftime '%a %d %b %Y'
+              at
+              %b= @request.created_at.strftime '%R'
 
+            %small
+              by
+            = link_to @request.customer.name, customer_path(@request.customer)
+            
             - if @request.customer.company.present?
               %small
                 from

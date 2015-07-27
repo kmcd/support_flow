@@ -16,6 +16,7 @@ gem 'clockwork'
 gem 'browser-timezone-rails'
 gem 'dalli'
 gem 'remotipart', '~> 1.2'
+gem 'griddler'
 
 group :development do
   gem 'looksee'

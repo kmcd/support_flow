@@ -80,16 +80,16 @@
             %h3
               - unless open_requests.zero?
                 = link_to open_requests,
-                    team_requests_path(current_team, q:'open:true')
-                    
+                    team_requests_path(current_team, q:"open:true customer_id:#{@customer.id}")
+
                 %small
                   open
                   - if !open_requests.zero? && !closed_requests.zero?
                     &mdash;
-                    
-              - unless open_requests.zero?
-                = link_to closed_requests, 
-                    team_requests_path(current_team, q:'open:false')
+
+              - unless closed_requests.zero?
+                = link_to closed_requests,
+                    team_requests_path(current_team, q:"open:false customer_id:#{@customer.id}")
                 %small closed
 
       %p.text-muted

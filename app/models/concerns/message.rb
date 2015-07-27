@@ -5,7 +5,7 @@ class Message
   TEAM_EMAIL_REGEX = /team\.(\d+)@#{APP_DOMAIN}/
 
   attr_reader :payload, :email
-  delegate *%i[ subject html text attachments ], to: :payload
+  delegate *%i[ subject attachments ], to: :payload
 
   def initialize(payload)
     @payload = OpenStruct.new payload['msg']
@@ -26,6 +26,14 @@ class Message
 
   def recipient_addresses
     recipients.map &:first
+  end
+  
+  def html
+    Griddler::EmailParser.extract_reply_body payload.html
+  end
+  
+  def text
+    Griddler::EmailParser.extract_reply_body payload.text
   end
 
   def command_arguments

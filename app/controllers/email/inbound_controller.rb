@@ -18,6 +18,6 @@ class Email::InboundController < ApplicationController
   private
 
   def payloads
-    params['mandrill_events']
+    JSON.parse params['mandrill_events']
   end
 end

@@ -8,7 +8,7 @@ class Dashboard
   def open_requests
     team.requests.where(open:true).size
   end
-  
+
   def closed_requests
     team.requests.where(open:false).size
   end
@@ -33,11 +33,13 @@ class Dashboard
       first_or_initialize.
       value.to_i
   end
-  
+
   def activities
-    Activity.where(team:team).page page
+    Activity.where(team:team).
+      order(created_at: :desc).
+      page page
   end
-  
+
   def timeline
     @timeline ||= activities.
       group_by {|_| _.created_at.to_date }.

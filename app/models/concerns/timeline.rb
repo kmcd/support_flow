@@ -1,12 +1,14 @@
 # TODO: dry up with app/helpers/dashboard
+# TODO: Move to lib ? Feels like a core domain concept ...
 # or separate out into CustomerTimeline, RequestTimeline, DashboardTimeline
 # e.g. CustomerTimeline < Timeline
 # Do timelines belong in app/lib (i.e. core model) ?
+
 class Timeline
   def initialize(objekt)
     @objekt = objekt
   end
-  
+
   def activities
     Activity.where(
       "team_id = ? AND (
@@ -19,21 +21,21 @@ class Timeline
       sort_by(&:first).
       reverse
   end
-  
+
   def empty?
     activities.empty?
   end
-  
+
   private
-  
+
   def type
     @objekt.class.name
   end
-  
+
   def team_id
     @objekt.team_id
   end
-  
+
   def id
     @objekt.id
   end
