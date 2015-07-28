@@ -1,4 +1,5 @@
 module RequestsHelper
+  # TODO: move to search helper
   def open_facet
     append_facet 'open:true'
   end

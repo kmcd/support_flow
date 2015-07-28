@@ -1,0 +1,16 @@
+- activity_timeline(activity) do |timeline|
+  %li
+    = timeline.icon
+
+    .timeline-item
+      %span.time
+        %i.fa.fa-clock-o
+        = activity.created_at.strftime "%R"
+
+      %h3.timeline-header
+        = timeline.owner_link
+        = timeline.description
+        
+        = timeline.description
+
+      - timeline_body activity

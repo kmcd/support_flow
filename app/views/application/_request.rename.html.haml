@@ -1,0 +1,14 @@
+%li
+  %i.fa.fa-cogs
+
+  .timeline-item
+    %span.time
+      %i.fa.fa-clock-o= timeline_date activity
+      renamed
+      link_to_request activity
+      
+      %s.text-muted
+        from
+        = activity.parameters['from']
+        to
+        %b= activity.parameters['to']

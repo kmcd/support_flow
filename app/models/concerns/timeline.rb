@@ -1,9 +1,3 @@
-# TODO: dry up with app/helpers/dashboard
-# TODO: Move to lib ? Feels like a core domain concept ...
-# or separate out into CustomerTimeline, RequestTimeline, DashboardTimeline
-# e.g. CustomerTimeline < Timeline
-# Do timelines belong in app/lib (i.e. core model) ?
-
 class Timeline
   def initialize(objekt)
     @objekt = objekt

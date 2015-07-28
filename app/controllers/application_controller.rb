@@ -24,13 +24,13 @@ class ApplicationController < ActionController::Base
     return if current_agent.present?
     redirect_to '/login'
   end
-  
+
   def authorise_agent
     return unless current_agent.team == current_team
   end
 
+  # TODO: remove sort:new from default search box
   def search_query
-    # TODO: remove sort:new from default search box
     params[:q].present? ? params[:q] : 'sort:new'
   end
 end

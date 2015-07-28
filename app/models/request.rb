@@ -34,16 +34,20 @@ class Request < ActiveRecord::Base
   def first_reply
     Statistic::Reply.where(owner:self).first_or_initialize.value.to_i / 60
   end
-  
+
   # TODO: find a more elegant solution for open/closed flag
   # (or rename open to closed?)
   def closed
     !open
   end
-  
+
   def closed=(status)
     open = !status
   end
-  
+
   alias_method :closed?, :closed
+
+  def timeline
+    Timeline.new self
+  end
 end

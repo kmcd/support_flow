@@ -1,0 +1,9 @@
+%li
+  %i.fa.fa-book
+
+  .timeline-item
+    %span.time
+      %i.fa.fa-clock-o= timeline_date activity
+      updated guide
+      = link_to activity.trackable.name, 
+          guide_path(current_team, activity.trackable)
