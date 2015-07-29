@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
     namespace :settings do
       resources :mailboxes, only: %i[ index ]
-      resources :templates
+      resources :reply_templates
       resource  :billing, only: %i[ show edit update ]
     end
 
@@ -42,8 +42,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # TODO: move to .net constraint when deploying
-  # FIXME: setup local tunnel for development mailbox
+  # TODO: find more elegant solution to localtunnel in development ...
   namespace :email do
     resources :inbound, only: %i[ index create ]
   end
