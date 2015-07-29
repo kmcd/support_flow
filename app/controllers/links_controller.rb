@@ -18,7 +18,7 @@ class LinksController < ApplicationController
     page = guide.present? ? guide.name : 'index'
     {
       name:name.titleize,
-      url:public_guide_url(current_team, page.parameterize)
+      url:team_public_guide_url(current_team, page.parameterize)
     }
   end
 end

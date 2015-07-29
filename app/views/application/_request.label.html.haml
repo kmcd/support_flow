@@ -3,14 +3,17 @@
 
   .timeline-item
     %span.time
-      %i.fa.fa-clock-o= timeline_date activity
+      %i.fa.fa-clock-o
+      = timeline_date activity
+
+    %h3.timeline-header
+      - owner_link activity
       labeled
       - link_to_request activity
       - request_name activity
 
       %span.text-muted
         as
-
         - [ activity.parameters['label'] ].flatten.each do |label|
           = link_to label,
               team_requests_path(current_team, q:{label:label}),

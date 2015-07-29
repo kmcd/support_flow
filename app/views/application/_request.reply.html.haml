@@ -3,7 +3,22 @@
 
   .timeline-item
     %span.time
-      %i.fa.fa-clock-o= timeline_date activity
+      %i.fa.fa-clock-o
+      = timeline_date activity
+
+    %h3.timeline-header
+      - owner_link activity
       replied
       - link_to_request activity
       - request_name activity
+
+    - if activity.email.present?
+      .timeline-body
+        - # FIXME: reset app CSS style to use native email presentation
+        = email_content activity.email
+
+        %span.text-muted
+          Attachments:
+
+        - activity.email.attachments.each do |attachment|
+          = link_to attachment.name, email_attachment_path(attachment)

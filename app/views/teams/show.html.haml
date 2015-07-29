@@ -63,20 +63,7 @@
 
         - activities.each do |activity|
           - cache(activity) do
-            %li
-              - timeline_icon activity
-
-              .timeline-item
-                %span.time
-                  %i.fa.fa-clock-o
-                  = activity.created_at.strftime "%R"
-
-                %h3.timeline-header
-                  - owner_link activity
-                  - description activity
-
-                - timeline_body activity
-
+            = render partial:activity.key, locals:{ activity:activity }
     %li
       %i.fa.fa-clock-o.bg-gray
 

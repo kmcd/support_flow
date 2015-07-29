@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       shallow do
         resources :agents
         resources :customers
-        resources :guides
+        resources :guides, except: %i[ show ]
       end
 
       resources :requests, param: :number
@@ -15,41 +15,35 @@ Rails.application.routes.draw do
 
     namespace :email do
       resources :outbound,    only: %i[ create destroy ]
-      resources :attachments, only: %i[ destroy ]
+      resources :attachments, only: %i[ show destroy ]
     end
 
     namespace :settings do
-      with_options(only: %i[]) do |app|
-        app.resources :mailboxes
-        app.resource  :templates
-        app.resource  :notifications
-        app.resource  :billing
-      end
+      resources :mailboxes, only: %i[ index ]
+      resources :templates
+      resource  :billing, only: %i[ show edit update ]
     end
 
-    # TODO: refactor auth to:
-    # resource :login
-    # resource :signup (or trial?)
-    resources :logins, only: %i[ new create show destroy ]
-    get '/login', to:'logins#new'
-    get '/logout', to:'logins#destroy', defaults:{ id:1 }, as:'logout'
+    resources :logins,  only: %i[ new create show destroy ]
     resources :signups, only: %i[ new create ]
-    get '/signup', to:'signups#new'
   end
 
   constraints({ domain: /\.com$/i }) do
-    get '/:team_name/search',
-      to:'guides#search',
-      as:'guides_search'
+    resources :teams, only: %i[], path:'/', param: :name  do
+      resource  :search,
+        only: %i[ show ],
+        controller: :guide_search,
+        as: :guide_search
 
-    get '/:team_name/(:guide_name)',
-      to:'guides#show',
-      as:'public_guide',
-      defaults: { guide_name:'index' }
+      resources :public_guides,
+        path:'/',
+        param: :name,
+        only: %i[ index show ]
+    end
   end
 
   # TODO: move to .net constraint when deploying
-  # FIXME: development mail send/receive (local tunnel)
+  # FIXME: setup local tunnel for development mailbox
   namespace :email do
     resources :inbound, only: %i[ index create ]
   end

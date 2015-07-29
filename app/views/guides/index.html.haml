@@ -6,6 +6,10 @@
       edit_guide_path(Guide.template(current_team)),
       class:'btn btn-default'
 
+  = link_to "Guide search",
+      search_url,
+      class:'btn btn-default'
+
 %section.content
   - @guides.in_groups_of(2).each do |guides|
     .row

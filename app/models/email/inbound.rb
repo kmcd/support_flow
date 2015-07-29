@@ -63,9 +63,9 @@ class Email::Inbound < Email
   # has_many :attachments, select: :payload ...
   # Or is this ~too~ clever ?
   def extract_attachments
-    return unless payload.has_key? 'attachments'
+    return unless payload['msg'].has_key? 'attachments'
 
-    payload['attachments'].each do |name,file|
+    payload['msg']['attachments'].each do |name,file|
       team.attachments.create \
         email:self,
         name:file['name'],

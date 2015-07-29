@@ -37,4 +37,12 @@ class Activity < ActiveRecord::Base
       recipient:email.request.customer,
       parameters:{ 'seconds' => time_to_reply }
   end
+  
+  def self.create_guide(guide, agent)
+    create trackable:guide, owner:agent, key:'guide.create'
+  end
+  
+  def email
+    Email::Inbound.find_by_id parameters['email_id']
+  end
 end

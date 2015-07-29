@@ -14,7 +14,8 @@
         .team.row
           .col-sm-offset-2.col-sm-7
             %h1
-              = link_to @team.name.titleize, public_guide_url(@team.name.parameterize, :index)
+              = link_to @team.name.titleize, 
+                  team_public_guides_url(@team.name.parameterize)
 
               %small
                 guides search
@@ -25,14 +26,20 @@
                 &nbsp;
 
               - Guide.pages(@team).each do |guide|
-                = link_to guide_name(guide), public_guide_url(@team.name.parameterize, guide.name.parameterize)
+                - if guide.home_page?
+                  = link_to guide_name(guide),
+                      team_public_guides_url(@team.name.parameterize)
+                - else
+                  = link_to guide_name(guide),
+                      team_public_guide_url(@team.name.parameterize,
+                        guide.name.parameterize)
                 &nbsp;
 
         .search.row
           .col-sm-offset-2.col-sm-7
             %br/
 
-            = form_tag guides_search_url(params[:team_name]),
+            = form_tag team_guide_search_url(params[:team_name]),
                 method:'get', enforce_utf8:false do
                 
               .input-group

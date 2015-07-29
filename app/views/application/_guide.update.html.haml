@@ -3,7 +3,10 @@
 
   .timeline-item
     %span.time
-      %i.fa.fa-clock-o= timeline_date activity
+      %i.fa.fa-clock-o
+      = timeline_date activity
+      
+    %h3.timeline-header
+      - owner_link activity
       updated guide
-      = link_to activity.trackable.name, 
-          guide_path(current_team, activity.trackable)
+      = link_to activity.trackable.name, edit_guide_path(activity.trackable)

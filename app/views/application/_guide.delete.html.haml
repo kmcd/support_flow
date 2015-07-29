@@ -3,6 +3,10 @@
 
   .timeline-item
     %span.time
-      %i.fa.fa-clock-o= timeline_date activity
+      %i.fa.fa-clock-o
+      = timeline_date activity
+      
+    %h3.timeline-header
+      - owner_link activity
       deleted guide
       %s= activity.parameters['deleted_guide_name']

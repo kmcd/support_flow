@@ -3,7 +3,12 @@
 
   .timeline-item
     %span.time
-      %i.fa.fa-clock-o= timeline_date activity
+      %i.fa.fa-clock-o
+      = timeline_date activity
+
+    %h3.timeline-header
+      - owner_link activity
       commented on
       - link_to_request activity
-      - request_name activity
+      &mdash;
+      = activity.parameters['comment']
