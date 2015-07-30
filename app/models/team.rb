@@ -7,6 +7,7 @@ class Team < ActiveRecord::Base
   has_many :customers
   has_many :emails
   has_many :attachments, class_name:'Email::Attachment'
+  has_many :reply_templates
   validates :name, presence:true, uniqueness:true
   
   # TODO: replace with acts_as_taggable

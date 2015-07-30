@@ -1,0 +1,20 @@
+%section.content-header
+  = link_to 'New Reply Template', new_team_reply_template_path(current_team),
+      class:'btn btn-default'
+
+%section.content
+  .request.box
+    .box-header
+      %h2 Reply Templates
+
+    .box-body
+      .templates.row
+        .col-lg-8.col-md-8.col-sm-8.col-xs-12
+          - if @reply_templates.empty?
+            %p
+              [INLINE HELP DOX]
+              &hellip;
+
+          - else
+            - @reply_templates.each do |reply_template|
+              %h3= link_to reply_template.name, edit_team_reply_template_path(current_team, reply_template)

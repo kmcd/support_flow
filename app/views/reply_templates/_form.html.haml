@@ -1,0 +1,40 @@
+= form_for([current_team, @reply_template], html:{class:'form-horizontal'}) do |form|
+  %section.content-header
+    = form.submit 'Save', class:'btn btn-default'
+
+    - unless @reply_template.new_record?
+      = link_to 'Delete',
+        team_reply_template_path(current_team, @reply_template),
+        :method => :delete,
+        data:{ :confirm => 'Are you sure?' },
+        class:'btn btn-danger'
+
+  %section.content
+    .box
+      .box-header.with-border
+        %h3.text-muted
+          - if @reply_template.new_record?
+            %small
+              New reply template
+          - else
+            %small
+              Edit
+            = @reply_template.name
+
+      .box-body
+        .row.name
+          %div{class:"form-group text-muted #{errors_for(@reply_template,:name)}"}
+            = form.label :name, 'Name', class:'col-sm-2 control-label'
+
+            .col-sm-6.col-xs-6
+              = form.text_field :name, class:"form-control", placeholder:'Template name e.g. Billing enquiry'
+              
+              - if @reply_template.errors[:name].present?
+                %i= @reply_template.errors[:name].join ','
+
+        .row.template
+          .form-group.text-muted
+            = form.label 'Template text', class:'col-sm-2 control-label'
+
+            .col-sm-6.col-xs-6
+              = form.text_area :template, class:'col-sm-3 form-control'

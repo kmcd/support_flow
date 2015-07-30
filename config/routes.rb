@@ -8,20 +8,19 @@ Rails.application.routes.draw do
       end
 
       resources :requests, param: :number
+      resources :reply_templates
+      
       resources :files,     only: %i[ create index ]
       resources :images,    only: %i[ create index ]
       resources :links,     only: %i[ index ]
+
+      resources :mailboxes, only: %i[ index ]
+      resource  :billing,   only: %i[ show edit update ]
     end
 
     namespace :email do
       resources :outbound,    only: %i[ create destroy ]
       resources :attachments, only: %i[ show destroy ]
-    end
-
-    namespace :settings do
-      resources :mailboxes, only: %i[ index ]
-      resources :reply_templates
-      resource  :billing, only: %i[ show edit update ]
     end
 
     resources :logins,  only: %i[ new create show destroy ]

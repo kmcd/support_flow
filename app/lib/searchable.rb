@@ -31,7 +31,7 @@ module Searchable
   end
   
   def extract_label_facets
-    @text.scan(FACET_REGEX).grep(/labels:/).
+    @text.scan(FACET_REGEX).grep(/label:/).
       map {|facet| { term: { 'labels' => facet[/\w+$/] } } }
   end
   

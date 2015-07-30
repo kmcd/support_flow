@@ -164,6 +164,15 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   add_index "sessions", "session_id", unique:true
   add_index "sessions", "updated_at"
+  
+  create_table "reply_templates", force: :cascade do |t|
+    t.string "team_id", null:false
+    t.string "name", null:false
+    t.text "template"
+    t.timestamps null: false
+  end
+  
+  add_index "reply_templates", ["team_id"], name: "index_reply_templates_on_team_id", using: :btree
 
   create_table "statistics", force: :cascade do |t|
     t.integer  "owner_id",   null: false

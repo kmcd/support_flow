@@ -12,7 +12,7 @@
           %h3.text-muted
             %i.fa.fa-phone
             = @agent.phone
-            
+
           %h5.text-muted
             %i.fa.fa-envelope-o
             = mail_to @agent.email_address
@@ -57,19 +57,19 @@
             %small
               &nbsp;
               close
-              
+
           %h3
-            = link_to Request.open_count(@agent), 
+            = link_to Request.open_count(@agent),
                 team_requests_path(current_team, q:"agent_id:#{@agent.id} open:true")
-            %small 
+            %small
               open
               &mdash;
-              
-            = link_to Request.open_count(@agent, false), 
+
+            = link_to Request.open_count(@agent, false),
               team_requests_path(current_team, q:"agent_id:#{@agent.id} open:false")
             %small closed
 
-      
+
       .notes.row
         .col-lg-12.col-md-12.col-sm-12.col-xs-12
           - if @agent.notes.present?
@@ -84,28 +84,5 @@
                 = link_to 'Edit', edit_agent_path(@agent)
                 to add notes
                 &mdash;
-          
-  - timeline = Timeline.new @agent
-  - unless timeline.empty?
-    %ul.timeline
-      - timeline.activities.each do |day, activities|
-        %li.time-label
-          %span.bg-none= day.strftime "%d %b %Y"
 
-        - activities.each do |activity|
-          %li
-            - timeline_icon activity
-
-            .timeline-item
-              %span.time
-                %i.fa.fa-clock-o
-                = activity.created_at.strftime "%R"
-
-              %h3.timeline-header
-                - owner_link(activity) unless activity.owner.eql?(@agent)
-                - description activity
-
-              - timeline_body activity
-
-      %li
-        %i.fa.fa-clock-o.bg-gray
+  = render partial:'timeline', object:@agent.timeline

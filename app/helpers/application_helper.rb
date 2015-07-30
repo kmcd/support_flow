@@ -1,6 +1,7 @@
 module ApplicationHelper
-
-  private
+  def errors_for(objekt, attribute)
+    "has-error" if objekt.errors[attribute].present?
+  end
 
   def append_facet(name)
     query = case name

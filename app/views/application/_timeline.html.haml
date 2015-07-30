@@ -1,0 +1,11 @@
+- unless timeline.empty?
+  %ul.timeline
+    - timeline.activities.each do |day, activities|
+      %li.time-label
+        %span.bg-none= day.strftime "%d %b %Y"
+
+      - activities.each do |activity|
+        = render partial:activity.key, locals:{ activity:activity }
+
+    %li
+      %i.fa.fa-clock-o.bg-gray

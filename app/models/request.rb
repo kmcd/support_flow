@@ -1,6 +1,7 @@
 class Request < ActiveRecord::Base
   include Indexable
   include Labelable
+  include ActivityTimeline
   include Timelineable
   belongs_to :agent
   belongs_to :customer
@@ -46,8 +47,4 @@ class Request < ActiveRecord::Base
   end
 
   alias_method :closed?, :closed
-
-  def timeline
-    Timeline.new self
-  end
 end

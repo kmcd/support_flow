@@ -175,3 +175,7 @@ span.description { color: gray; }
 .file_upload {
   padding-left: 5px;
 }
+
+.template textarea {
+  height: 250px;
+}

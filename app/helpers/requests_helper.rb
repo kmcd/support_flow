@@ -29,7 +29,7 @@ module RequestsHelper
   end
 
   def link_to_search(label)
-    label_query = append_facet "labels:#{label}"
+    label_query = append_facet "label:#{label}"
     link_to label, team_requests_path(current_team, q:label_query),
       class:'btn btn-xs bg-info'
   end

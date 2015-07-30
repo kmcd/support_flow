@@ -1,5 +1,6 @@
 class Agent < ActiveRecord::Base
   include Statistics
+  include Timelineable
   belongs_to :team
   has_many :emails
   has_many :requests
