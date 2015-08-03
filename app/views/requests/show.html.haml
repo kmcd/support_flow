@@ -19,6 +19,8 @@
         %li.dropdown-header{:role => "presentation"}
           %i &mdash; Templates &mdash;
 
+        %li.template= link_to 'Blank reply', '#', 'data-template' => ''
+
       - current_team.reply_templates.each do |reply_template|
         %li.template= link_to reply_template.name, '#',
               'data-template' => reply_template.template
