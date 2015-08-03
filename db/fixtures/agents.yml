@@ -6,4 +6,8 @@ agent_<%= agent_id %>:
   email_address: <%= Faker::Internet.safe_email(name) %>
   name: <%= name %>
   phone: <%= Faker::PhoneNumber.phone_number %>
+  notification_policy:
+    open: true
+    assign: true
+    close: true
 <% end %>
