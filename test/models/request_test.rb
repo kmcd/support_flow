@@ -15,7 +15,7 @@ class RequestTest < ActiveSupport::TestCase
   test "assignment activity" do
     @billing_enquiry.update agent:@keith
     activity = Activity.where(trackable:@billing_enquiry,
-      key:'request.assignment').last
+      key:'request.assign').last
 
     assert_equal @rachel, activity.owner
     assert_equal @keith, activity.recipient

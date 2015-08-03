@@ -39,7 +39,7 @@ module ActivityTimeline
   def assignment_activity
     return unless agent_id_changed?
 
-    create_activity 'request.assignment', recipient:agent
+    create_activity 'request.assign', recipient:agent
   end
 
   def rename_activity
@@ -86,7 +86,7 @@ module ActivityTimeline
 
   def notes_activity
     return unless notes_changed?
-    return unless notes_change == [nil, '']
+    return if notes_change == [nil, '']
 
     create_activity 'request.notes'
   end

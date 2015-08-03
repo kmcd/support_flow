@@ -11,15 +11,17 @@
       %li
         %li.dropdown-header{:role => "presentation"}
           %i &mdash; Customer &mdash;
-      %li= link_to @request.customer.name, '#', 'data-email' => @request.customer.email_address
+      %li= link_to @request.customer.name, '#',
+            'data-email' => @request.customer.email_address
 
       %li &nbsp;
       %li
         %li.dropdown-header{:role => "presentation"}
           %i &mdash; Templates &mdash;
-          
+
       - current_team.reply_templates.each do |reply_template|
-        %li= link_to reply_template.name, '#'
+        %li.template= link_to reply_template.name, '#',
+              'data-template' => reply_template.template
 
       %li &nbsp;
       %li.dropdown-header{:role => "presentation"}

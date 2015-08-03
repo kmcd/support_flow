@@ -1,7 +1,6 @@
 $(function() {
   $('.search .filter a').click( function() {
-    facet = $(this).data('facet')
+    facet = $(this).data('template')
     $("form#search input#query").attr('value', facet )
-    $("form#search").submit()
   })
 });

@@ -1,0 +1,6 @@
+$(function() {
+  $('.reply .template a').click( function() {
+    template = $(this).data('template')
+    $("#new_email_outbound #email_outbound_message_content").redactor('code.set',template)
+  })
+});
