@@ -12,6 +12,7 @@ $(function() {
     $("#email_outbound_recipients").val(recipient_list)
     $('#new_email_outbound').removeClass('hidden')
     $('#new_email_outbound').fadeIn(125)
+    localStorage['composing'] = false;
   })
 
   $('#email_outbound_message_content').redactor({
@@ -32,6 +33,7 @@ $(function() {
   $('#new_email_outbound button.cancel').click( function() {
      $('#new_email_outbound').addClass('hidden')
      $('#new_email_outbound').trigger("reset")
+     localStorage['composing'] = false;
   })
   
   $("#email_outbound_attachments").val('')

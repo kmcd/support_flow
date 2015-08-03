@@ -1,9 +1,13 @@
 $(function() {
-  $('form#new_email_outbound').hide()
-      
+  if( localStorage['composing'] != 'true' ) {
+    $('form#new_email_outbound').hide()
+  }
+
   $('.reply .template a').click( function() {
     template = $(this).data('template')
     $("#new_email_outbound #email_outbound_message_content").redactor('code.set',template)
     $('form#new_email_outbound').show()
+    
+    localStorage['composing'] = true;
   })
 });
