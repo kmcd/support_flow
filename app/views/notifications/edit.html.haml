@@ -1,0 +1,38 @@
+= form_for(current_agent, url:team_notifications_path, html:{class:'form-horizontal'}) do |form|
+  %section.content-header
+    = form.submit 'Save', class:'btn btn-default'
+    = link_to 'Cancel', :back, class:'btn btn-default'
+
+  %section.content
+    .box
+      .box-header.with-border
+        %h3.text-muted
+          We&apos;ll send you an email notification when
+
+      .box-body
+        .open.row
+          .form-group.text-muted
+            .checkbox
+              %label.control-label.col-sm-3
+                Email arrives from a customer
+
+              .col-sm-6.col-xs-6
+                = notification_check_box :open
+
+        .open.row
+          .form-group.text-muted
+            .checkbox
+              %label.control-label.col-sm-3
+                A request is assigned
+
+              .col-sm-6.col-xs-6
+                = notification_check_box :assign
+
+        .open.row
+          .form-group.text-muted
+            .checkbox
+              %label.control-label.col-sm-3
+                A request is closed
+
+              .col-sm-6.col-xs-6
+                = notification_check_box :close

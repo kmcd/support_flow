@@ -3,6 +3,7 @@ class Request < ActiveRecord::Base
   include Labelable
   include ActivityTimeline
   include Timelineable
+  include Notifiable
   belongs_to :agent
   belongs_to :customer
   belongs_to :team

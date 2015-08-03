@@ -5,8 +5,6 @@ module ActivityTimeline
     after_create :set_number
 
     after_create :enquiry_open
-    after_update :customer_reply
-    after_update :first_reply_time
 
     after_update :assignment_activity
     after_update :rename_activity
@@ -28,12 +26,9 @@ module ActivityTimeline
   end
 
   def enquiry_open
-  end
+    return unless new_record?
 
-  def customer_reply
-  end
-
-  def first_reply_time
+    create_activity 'request.open', team:team, trackable:self, owner:customer
   end
 
   def assignment_activity

@@ -1,4 +1,5 @@
 class AgentMailer < ApplicationMailer
+
   def reply(outbound_email)
     add_attachments outbound_email
 
@@ -8,14 +9,43 @@ class AgentMailer < ApplicationMailer
     end
   end
 
+  def open(agent, request)
+    @agent, @request = agent, request
+
+    mail \
+      from:request_address(request),
+      to:agent.email_address,
+      subject:subject_line(request, :opened)
+  end
+
+  def assign(agent, request)
+    @agent, @request = agent, request
+
+    mail \
+      from:request_address(request),
+      to:agent.email_address,
+      subject:subject_line(request, :assigned)
+  end
+
+  def close(agent, request)
+    @agent, @request = agent, request
+
+    mail \
+      from:request_address(request),
+      to:agent.email_address,
+      subject:subject_line(request, :closed)
+  end
+
   private
 
   def envelope(outbound_email)
-    { from:outbound_email.sender.email_address,
+    {
+      from:outbound_email.sender.email_address,
       to:outbound_email.recipient_list.to,
       cc:outbound_email.recipient_list.cc,
       bcc:bcc_recipients(outbound_email),
-      subject:outbound_email.request.name }
+      subject:outbound_email.request.name
+    }
   end
 
   def add_attachments(outbound_email)
@@ -25,15 +55,15 @@ class AgentMailer < ApplicationMailer
   end
 
   def bcc_recipients(outbound_email)
-    request_address = "request.#{outbound_email.request.id}@getsupportflow.net"
-    [ outbound_email.recipient_list.bcc, request_address ].flatten
+    [ outbound_email.recipient_list.bcc,
+      request_address(outbound_email.request) ].flatten
+  end
+
+  def request_address(request)
+    "request.#{request.id}@getsupportflow.net"
+  end
+
+  def subject_line(request, operation)
+    "[getsupportflow/#{request.team.name}] Request ##{request.id} #{operation}"
   end
 end
-
-# Subsequent mailers:
-# command_response
-# enquiry_notification
-# assignment_notification
-# close_notification
-# reopen_notification
-# sla_notification

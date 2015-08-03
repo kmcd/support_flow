@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  # Merge with emails? 
+  # Merge with emails?
   # e.g. Email::Outbound.new payload:'{attachments ... }'
   # or Email::Draft.new payload:'{attachments ... }'
   # May solve waiting for inbound issue by flagging Outbound as received
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.boolean "base64"
     t.integer "size"
   end
-  
+
   create_table "emails", force: :cascade do |t|
     t.string   "type"
     t.integer  "team_id"
@@ -134,9 +134,9 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.string   "token"
     t.timestamps null: false
   end
-  
+
   add_index "logins", ["email"], name: "index_logins_on_email", using: :btree
-  
+
   create_table "requests", force: :cascade do |t|
     t.integer  "team_id",                     null: false
     t.integer  "number",       default: 0
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   add_index "requests", ["customer_id"], name: "index_requests_on_customer_id", using: :btree
   add_index "requests", ["labels"], name: "index_requests_on_labels", using: :gin
   add_index "requests", ["number"], name: "index_requests_on_number", using: :btree
-  
+
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", :null => false
     t.text "data"
@@ -164,14 +164,14 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   add_index "sessions", "session_id", unique:true
   add_index "sessions", "updated_at"
-  
+
   create_table "reply_templates", force: :cascade do |t|
     t.string "team_id", null:false
     t.string "name", null:false
     t.text "template"
     t.timestamps null: false
   end
-  
+
   add_index "reply_templates", ["team_id"], name: "index_reply_templates_on_team_id", using: :btree
 
   create_table "statistics", force: :cascade do |t|

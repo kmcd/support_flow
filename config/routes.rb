@@ -7,15 +7,14 @@ Rails.application.routes.draw do
         resources :guides, except: %i[ show ]
       end
 
-      resources :requests, param: :number
+      resource  :billing,       only: %i[ show edit update ]
+      resources :files,         only: %i[ create index ]
+      resources :images,        only: %i[ create index ]
+      resources :links,         only: %i[ index ]
+      resources :mailboxes,     only: %i[ index ]
+      resource  :notifications, only: %i[ edit update ]
       resources :reply_templates
-      
-      resources :files,     only: %i[ create index ]
-      resources :images,    only: %i[ create index ]
-      resources :links,     only: %i[ index ]
-
-      resources :mailboxes, only: %i[ index ]
-      resource  :billing,   only: %i[ show edit update ]
+      resources :requests, param: :number
     end
 
     namespace :email do
@@ -38,7 +37,7 @@ Rails.application.routes.draw do
         path:'/',
         param: :name,
         only: %i[ index show ]
-    end
+    end    
   end
 
   # TODO: find more elegant solution to localtunnel in development ...
