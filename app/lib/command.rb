@@ -1,34 +1,34 @@
 class Command
-  attr_reader :activity, :email
+  attr_reader :email
   delegate :request, :agent, to: :email
-  
+
   def initialize(email)
     @email = email
-    @activity = Activity.new request:request, owner:agent
   end
-  
+
   def valid?
-    agent.present? && command_arguments.present?
+    return if agent.blank?
+    return if command_arguments.blank?
   end
-  
+
   def execute
-    return unless email.request.present?
+    return if email.request.blank?
 
     OptionParser.new do |opts|
-      opts.on("-a", "--assign AGENT") {|_| command.assign _ }
-      opts.on("-m", "--claim")        { command.claim }
-      opts.on("-c", "--close")        { command.close }
-      opts.on("-o", "--open")         { command.open }
-      opts.on("-r", "--release")      { command.release }
-      opts.on("-t", "--label NAME")   {|_| command.label _ }
+      opts.on("-a", "--assign AGENT") {|_| assign _ }
+      opts.on("-m", "--claim")        {|_| claim    }
+      opts.on("-c", "--close")        {|_| close    }
+      opts.on("-o", "--open")         {|_| open     }
+      opts.on("-r", "--release")      {|_| release  }
+      opts.on("-t", "--label NAME")   {|_| label _  }
     end.parse! options
 
     rescue OptionParser::InvalidOption => error
-      errors << error # TODO: handle request errors
+      # FIXME: email agent with command errors
   end
-  
+
   private
-  
+
   def options
     email.message.command_arguments.
       split(/(-{1,2}[A-Za-z]+)/)[1..-1].
@@ -37,34 +37,35 @@ class Command
       flatten.
       map &:strip
   end
-  
+
   def assign(name_or_email)
     request.assign_from name_or_email
-    activity.assign request.agent
+    Activity.assign request, agent
   end
-  
+
   def claim
     request.update_attributes! agent:agent
-    activity.assign agent
+    Activity.assign request, agent
   end
-  
+
   def close
     request.update_attributes! open:false
-    activity.close
+    Activity.close request, agent
   end
-  
+
   def open
     request.update_attributes! open:true
-    activity.open
+    Activity.open request, agent
   end
-  
+
   def release
     request.update_attributes! agent:nil
-    activity.assign
+    Activity.assign request, agent
   end
-  
+
   def label(labels)
-    request.update label:labels
-    activity.label labels
+    request.labels += [labels].flatten
+    request.save
+    Activity.label request, agent, [labels].flatten
   end
 end

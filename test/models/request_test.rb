@@ -11,6 +11,16 @@ class RequestTest < ActiveSupport::TestCase
     request = Request.create team_id:1
     assert_equal 1, request.reload.number
   end
+  
+  test "assign agent from name" do
+    @billing_enquiry.assign_from @keith.name.downcase
+    assert_equal @keith, @billing_enquiry.reload.agent
+  end
+  
+  test "assign agent from email address" do
+    @billing_enquiry.assign_from @keith.email_address
+    assert_equal @keith, @billing_enquiry.reload.agent
+  end
 
   test "assignment activity" do
     @billing_enquiry.update agent:@keith

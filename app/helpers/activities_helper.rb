@@ -33,6 +33,8 @@ module ActivitiesHelper
   end
   
   def email_content(email)
+    return email.message.text if email.message.html.blank?
+    
     email.message.html.
       gsub!(/\<img.*mandrillapp.com\/track.*\>/, '').
       html_safe

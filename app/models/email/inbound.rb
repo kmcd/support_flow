@@ -1,8 +1,8 @@
 class Email::Inbound < Email
+  before_validation :set_team
   validates :payload, presence:true
   validates :team, presence:true
   composed_of :message, mapping: %w[ payload ]
-  before_validation :set_team
 
   def process_payload
     return unless valid?
@@ -17,6 +17,10 @@ class Email::Inbound < Email
     process_commands
   end
 
+  def agent
+    sender if from_agent?
+  end
+
   private
 
   def set_team
@@ -24,7 +28,7 @@ class Email::Inbound < Email
   end
 
   def set_recipients
-    update recipients:message.recipient_addresses
+    update recipients:message.recipient_addresses.join(' ')
   end
 
   def associate_request
@@ -38,13 +42,23 @@ class Email::Inbound < Email
   end
 
   def associate_agent
+    return unless from_agent?
+
     update sender:team.agents.where(email_address:message.from).first
   end
 
   def associate_customer
     return if from_agent?
-    request.update customer:(existing_customer || new_customer)
+
+    customer = existing_customer || new_customer
+
+    if request.customer.blank?
+      request.update customer:customer
+    else
+      update sender:customer
+    end
   end
+
 
   def existing_customer
     team.customers.where(email_address:message.from).first
@@ -89,6 +103,7 @@ class Email::Inbound < Email
 
   def process_reply
     return unless request_reply?
+    return if only_commands_present?
 
     Activity.reply self
   end
@@ -98,6 +113,7 @@ class Email::Inbound < Email
   end
 
   def process_commands
+    return unless from_agent?
     return unless message.command_arguments.present?
 
     Command.new(self).execute
@@ -128,9 +144,14 @@ class Email::Inbound < Email
   def addressed_to_team
     Team.find_by_id message.team_id
   end
-  
+
   def team_from_regarding_request
     return unless regarding_request.present?
     regarding_request.team
+  end
+
+  def only_commands_present?
+    return unless message.command_arguments.present?
+    [ message.text,  message.command_arguments ].uniq.one?
   end
 end

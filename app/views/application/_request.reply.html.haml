@@ -10,15 +10,16 @@
       - owner_link activity
       replied
       - link_to_request activity
-      - request_name activity
+      = activity.email.message.subject
 
     - if activity.email.present?
       .timeline-body
         - # FIXME: reset app CSS style to use native email presentation
         = email_content activity.email
 
-        %span.text-muted
-          Attachments:
-
-        - activity.email.attachments.each do |attachment|
-          = link_to attachment.name, email_attachment_path(attachment)
+        - unless activity.email.attachments.empty?
+          %span.text-muted
+            Attachments:
+  
+          - activity.email.attachments.each do |attachment|
+            = link_to attachment.name, email_attachment_path(attachment)

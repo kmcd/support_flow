@@ -23,10 +23,10 @@ class Request < ActiveRecord::Base
   # validate, carry out assignment, update activity stream ...
   def assign_from(name_or_email)
     return unless assignee = team.agents.
-      where("email_address SIMILAR TO ? OR email_address = ?",
-      "%#{name_or_email}%@%", name_or_email ).
+      where("name ILIKE ? OR email_address = ?",
+      "%#{name_or_email}%", name_or_email ).
       first
-    update_attributes agent:assignee
+    update agent:assignee
   end
 
   def assigned?

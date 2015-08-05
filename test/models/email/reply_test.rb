@@ -39,14 +39,13 @@ class ReplyTest < ActiveSupport::TestCase
   end
 
   test "create request when addressed to invalid id" do
-    reply = @enquiry
-    reply.payload['msg']['subject'] = "request.X@getsupportflow.net"
-
-    reply.process_payload
-    reply.reload
-    assert reply.request.present?
-    assert_equal @support_flow, reply.team
-    assert_equal 1, reply.request.emails_count
+    skip "[PENDING] How to associate uknown customer / request id ?"
+    
+    @invalid_request_customer_reply.process_payload
+    @invalid_request_customer_reply.reload
+    assert_equal @support_flow, @invalid_request_customer_reply.team
+    assert @invalid_request_customer_reply.request.present?
+    assert_equal 1, @invalid_request_customer_reply.request.emails_count
   end
 
   test "save reply time" do

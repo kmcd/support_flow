@@ -6,7 +6,7 @@ request_<%= request_id %>:
   team_id: 1
   open: <%= rand(0..100) >= 90 ? 'true' : 'false' %>
   agent_id: <%= rand(0..100) >= 30 ? rand(1..15) : nil %>
-  customer_id: <%= rand(1..100) %>
+  customer_id: <%= (request_id / 10 ).to_i %>
   emails_count: <%= rand(0..20) %>
   labels: <%= %w[ urgent billing faq domains editing file-upload credit-card].sample(4) %>
   created_at: <%= rand(10..20).days.ago %>
