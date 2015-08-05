@@ -1,7 +1,7 @@
 <% (1..999).each do |request_id| %>
 open_support_request_activity_<%= request_id %>:
   team_id: 1
-  owner_id: <%= (request_id / 10 ).to_i %>
+  owner_id: <%= (request_id / 10 ).to_i + 1 %>
   owner_type: Customer
   recipient_id: 1
   recipient_type: Team
