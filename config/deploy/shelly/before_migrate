@@ -1,0 +1,3 @@
+set -e
+
+rake assets:precompile
