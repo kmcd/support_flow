@@ -4,9 +4,9 @@ support-flow:
 
   domains:
     - support-flow.shellyapp.com
-    - *.getsupportflow.com
-    - *.getsupportflow.org
-    - *.getsupportflow.net
+    - '*.getsupportflow.com'
+    - '*.getsupportflow.org'
+    - '*.getsupportflow.net'
 
   servers:
     app1:
