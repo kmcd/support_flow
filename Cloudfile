@@ -1,11 +1,13 @@
 support-flow:
   ruby_version: 2.2.2 # 2.1.2, 2.1.1, 2.1.0, 2.0.0, 1.9.3, jruby or rbx
-  environment: production # RAILS_ENV
+  environment: production
+
   domains:
     - support-flow.shellyapp.com
-    - getsupportflow.com
-    - getsupportflow.org # TODO: redirect .org, .net http(s) to .com
-    - getsupportflow.net
+    - *.getsupportflow.com
+    - *.getsupportflow.org
+    - *.getsupportflow.net
+
   servers:
     app1:
       size: small

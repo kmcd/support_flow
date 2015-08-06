@@ -1,5 +1,5 @@
 namespace :search do
-  INDEX = []#[ Request, Customer, Guide ]
+  INDEX = [ Request, Customer, Guide ]
   
   desc "Create elasticsearch index"
   task index: :environment do
