@@ -24,7 +24,7 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   
   # Enable serving assets, use far-future expiry header
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=31536000"
 
   # Compress JavaScripts and CSS.
