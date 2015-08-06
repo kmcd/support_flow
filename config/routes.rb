@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  constraints() do #{ domain: /\.net$/i }
+  constraints({ domain: /\.net$/i }) do
     resource :login,  only: %i[ new create show destroy ]
     resource :signup, only: %i[ new create ]
 
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints() do #{ domain: /\.com$/i }
+  constraints({ domain: /\.com$/i }) do
     resources :teams, only: %i[], path:'/', param: :name  do
       resource  :search,
         only: %i[ show ],
