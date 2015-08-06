@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   constraints({ domain: /\.net$/i }) do
+    resource :login,  only: %i[ new create show destroy ]
+    resource :signup, only: %i[ new create ]
+
     resources :teams, only: %i[ show ], path:'/', param: :name do
       shallow do
         resources :agents
@@ -21,9 +24,6 @@ Rails.application.routes.draw do
       resources :outbound,    only: %i[ create destroy ]
       resources :attachments, only: %i[ show destroy ]
     end
-
-    resources :logins,  only: %i[ new create show destroy ]
-    resources :signups, only: %i[ new create ]
   end
 
   constraints({ domain: /\.com$/i }) do
@@ -37,10 +37,10 @@ Rails.application.routes.draw do
         path:'/',
         param: :name,
         only: %i[ index show ]
-    end    
+    end
   end
 
-  # TODO: find more elegant solution to localtunnel in development ...
+  # TODO: setup dev.getsupportflow.net local tunnel
   namespace :email do
     resources :inbound, only: %i[ index create ]
   end

@@ -1,10 +1,23 @@
-.logins.row
-  .col-md-offset-0.col-md-10.col-sm-10.col-sm-offset-0.col-xs-11
-  
-    %br/
+- if login_error?
+  %p.login-box-msg
+    %span.text-danger
+      We couldn&apos;t email your login link.
+      
+    Please try again or contact
+    = mail_to 'rachel@getsupportflow.net'
+    \.
     
-    %h1 Login
+- else
+  %p.login-box-msg
+    Please enter your work email &mdash; we&apos;ll send your login link.
   
-    = form_for(@login) do |form|
-      = form.text_field :email, placeholder:'Your work email', class:'form-control'
-      %button.btn.btn-default{type:'submit'} Login
+= form_for(@login, url:login_path) do |form|
+
+  .form-group.has-feedback
+    = form.text_field :email, placeholder:'Your work email', class:'form-control'
+    %span.glyphicon.glyphicon-envelope.form-control-feedback
+
+  .row
+    .text-center
+      %button.btn.btn-primary.btn-flat{:type => "submit"}
+        Get your login link

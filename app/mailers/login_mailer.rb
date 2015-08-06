@@ -15,16 +15,4 @@ class LoginMailer < ApplicationMailer
     login.generate_token
     mail to:login.email, subject:'Welcome'
   end
-  
-  def login_link
-    login_url(login.token, host:host)
-  end
-  
-  private
-  
-  def host
-    return 'getsupportflow.com' if Rails.env.production?
-    return 'localhost:3000'     if Rails.env.development?
-    'test.host'
-  end
 end

@@ -11,3 +11,21 @@ agent_<%= agent_id %>:
     assign: true
     close: true
 <% end %>
+  
+keith:
+  team_id: 1
+  email_address: keith@dancingtext.com
+  name: Keith
+  notification_policy:
+    open: true
+    assign: true
+    close: true
+    
+rachel:
+  team_id: 1
+  email_address: ten_dogs@yahoo.com
+  name: Rachel
+  notification_policy:
+    open: true
+    assign: true
+    close: true

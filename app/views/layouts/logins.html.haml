@@ -1,17 +1,24 @@
 !!!
 
-%html{ lang:'en'}
+%html
   %head
-    %title Support Flow
-    
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title SupportFlow
+    %meta{:charset => "UTF-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}/
     = csrf_meta_tags
-    %meta{ name:"viewport", content:"width=device-width, initial-scale=1" }
-    
-    -# TODO: setup (jammit/grunt/bower/guard) asset packager
-    %link{:href => "/bootstrap.min.css", :rel => "stylesheet"}
-    %link{:href => "/application.css", :rel => "stylesheet"}
-    
-  %body
-    .container
-      = yield
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application', media: 'all'
+
+  %body.login-page
+    .login-box
+
+      .login-logo
+        %a{href:'http://getsupportflow.com'}
+          %b> Support
+          %i Flow
+
+      .login-box-body
+        %br/
+
+        = yield
