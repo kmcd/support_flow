@@ -14,5 +14,6 @@ support-flow:
       thin: 2
       delayed_job: 1
       clockwork: on
+      elasticsearch: on
       databases:
         - postgresql
