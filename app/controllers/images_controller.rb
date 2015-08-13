@@ -2,7 +2,7 @@ class ImagesController < ApplicationController
   def create
     # Successfull image storge required for redactor response? If not ...
     # FIXME: serialize file & enqueue job
-    @image =  UploadImageJob.perform_now current_team, params[:file]
+    @image =  ImageJob.perform_now current_team, params[:file]
     
     respond_to do |format|
       format.html do

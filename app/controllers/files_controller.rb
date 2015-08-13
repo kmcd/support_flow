@@ -1,6 +1,6 @@
 class FilesController < ApplicationController
   def create
-    @file = UploadFileJob.perform_now current_team, params[:file]
+    @file = FileJob.perform_now current_team, params[:file]
     
     respond_to do |format|
       format.html do
