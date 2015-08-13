@@ -96,7 +96,9 @@ class Email::Inbound < Email
   end
 
   def process_first_reply
-    return unless first_reply?
+    return unless from_agent?
+    return unless to_customer?
+    return if Activity.exists?(trackable:request, key:'request.first_reply')
 
     Activity.first_reply_time self
   end
@@ -117,13 +119,6 @@ class Email::Inbound < Email
     return unless message.command_arguments.present?
 
     Command.new(self).execute
-  end
-
-  def first_reply?
-    return unless from_agent?
-    return unless to_customer?
-
-    ! Activity.exists?(trackable:request, key:'request.first_reply')
   end
 
   def from_agent?
