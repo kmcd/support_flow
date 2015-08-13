@@ -11,7 +11,7 @@
   %p.login-box-msg
     Please enter your work email &mdash; we&apos;ll send your login link.
   
-= form_for(@login, url:login_path) do |form|
+= form_for(@login, url:team_login_path(current_team)) do |form|
 
   .form-group.has-feedback
     = form.text_field :email, placeholder:'Your work email', class:'form-control'
