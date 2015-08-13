@@ -17,7 +17,7 @@
         - # FIXME: reset app CSS style to use native email presentation
         = email_content activity.email
 
-        - unless activity.email.attachments.empty?
+        - if activity.email.attachments.any?
           %span.text-muted
             Attachments:
   

@@ -16,8 +16,9 @@
       .timeline-body
         = email_content activity.email
 
-        %span.text-muted
-          Attachments:
-
-        - activity.email.attachments.each do |attachment|
-          = link_to attachment.name, email_attachment_path(attachment)
+        - if activity.email.attachments.any?
+          %span.text-muted
+            Attachments:
+  
+          - activity.email.attachments.each do |attachment|
+            = link_to attachment.name, email_attachment_path(attachment)
