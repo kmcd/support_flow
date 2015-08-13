@@ -37,13 +37,21 @@
                     %span.caret
 
                   %ul.dropdown-menu{:role => "menu"}
+                    %li.dropdown-header{:role => "presentation"}
+                      %i &mdash; Team &mdash;
+                    %li= link_to 'Domains', team_mailboxes_path(current_team)
                     %li= link_to 'Mailboxes', team_mailboxes_path(current_team)
-                    %li= link_to 'Reply Templates', team_reply_templates_path(current_team)
-                    %li= link_to 'Email Notifications', edit_team_notifications_path(current_team)
                     %li= link_to 'Billing', team_billing_path(current_team)
+                    
+                    %li &nbsp;
+                    %li.dropdown-header{:role => "presentation"}
+                      %i &mdash; Email &mdash;
+                    %li= link_to 'Replies', team_reply_templates_path(current_team)
+                    %li= link_to 'Notifications', edit_team_notifications_path(current_team)
+                    
                     %li.divider
                     %li
-                      = link_to 'Logout', login_path, method: :delete
+                      = link_to 'Logout', team_login_path(current_team), method: :delete
 
             .navbar-custom-menu
               %ul.nav.navbar-nav
@@ -59,6 +67,3 @@
           %small
             &copy; 2015 Support
             %i Flow
-            Terms
-            Privacy
-            Contact us
