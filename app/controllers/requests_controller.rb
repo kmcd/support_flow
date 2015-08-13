@@ -20,7 +20,9 @@ class RequestsController < ApplicationController
 
   def index
     @requests = RequestSearch.
-      new(search_query, current_team, params[:page]).requests
+      new(search_query, current_team, params[:page]).
+      requests.
+      paginate page:params[:page]
   end
 
   def show

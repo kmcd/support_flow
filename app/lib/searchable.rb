@@ -27,7 +27,9 @@ module Searchable
   
   def sort_order
     # TODO: find a more elegant solution rather than AND chaining
-    facet('sort') && facet('sort')[:term] && facet('sort')[:term]['sort']
+    facet('sort') && \
+      facet('sort')[:term] && \
+      facet('sort')[:term]['sort']
   end
   
   def extract_label_facets

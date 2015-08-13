@@ -18,7 +18,10 @@ class CustomersController < ApplicationController
 
   def index
     @customers = CustomerSearch.
-      new(search_query, current_team, params[:page]).customers
+      new(search_query, current_team, params[:page]).
+      customers
+      # TODO: investigate why will_paginate fails (pagination still OK)
+      # paginate(page:params[:page])
   end
 
   def show

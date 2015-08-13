@@ -2,7 +2,10 @@ class RequestSearch
   include Searchable
 
   def requests
-    Request.search(definition).page(@page).records
+    Request.
+      search(definition).
+      page(@page).
+      records
   end
 
   private

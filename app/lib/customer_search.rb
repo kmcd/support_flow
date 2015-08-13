@@ -2,7 +2,10 @@ class CustomerSearch
   include Searchable
 
   def customers
-    Customer.search(definition).page(@page).records
+    Customer.
+      search(definition).
+      page(@page).
+      records
   end
 
   private
