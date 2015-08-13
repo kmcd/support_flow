@@ -1,8 +1,7 @@
 class Login < ActiveRecord::Base
-  validates :email, presence:true, uniqueness:true, \
-    format:{ with: /\A[^@]+@[^@]+\z/ }
-
-  validate :agent_present?
+  belongs_to :team
+  validates :email, presence:true, format:{ with: /\A[^@]+@[^@]+\z/ }
+  validate :agent_present?, unless: :signup?
 
   def generate_token
     update token:Base64.urlsafe_encode64( \
@@ -12,8 +11,7 @@ class Login < ActiveRecord::Base
   private
 
   def agent_present?
-    return if Agent.where(email_address:email).any?
-
-    errors[:email] << "not found"
+    return true if Agent.where(email_address:email).any?
+    errors[:email] << "agent email address not found"
   end
 end
