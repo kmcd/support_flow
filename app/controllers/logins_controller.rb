@@ -13,21 +13,21 @@ class LoginsController < ApplicationController
       LoginMailer.login_email(@login).deliver_later
     else
       flash[:notice] = :login_error
-      redirect_to new_login_path
+      redirect_to new_team_login_path(current_team)
     end
   end
 
   def show
     authentication = Authentication.new params[:token]
-
+    
     if authentication.valid?
       agent = authentication.agent
       session[:current_agent_id] = agent.id
-      session[:current_team_id] = agent.team.id
-      redirect_to team_path(agent.team.name)
+      session[:current_team_id] = current_team
+      redirect_to team_path(current_team)
     else
       flash[:notice] = :login_error
-      redirect_to new_login_path
+      redirect_to new_team_login_path
     end
   end
 

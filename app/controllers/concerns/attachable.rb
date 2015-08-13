@@ -4,8 +4,12 @@ module Attachable
   include ActionView::Helpers::NumberHelper
 
   included do
-    helper_method :attachments, :session_attachment_ids, :attachments_size,
-      :max_attachments_size, :attachments_under_limit?, :uploads_under_limit?
+    helper_method :attachments,
+      :session_attachment_ids,
+      :attachments_size,
+      :max_attachments_size,
+      :attachments_under_limit?,
+      :uploads_under_limit?
   end
 
   def attachments
