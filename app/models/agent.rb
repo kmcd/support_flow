@@ -17,9 +17,14 @@ class Agent < ActiveRecord::Base
     team.agents.where.not(id:id).sort_by &:name
   end
   
+  def member?(team)
+    team.agents.include? self
+  end
+  
   private
   
   def set_notification_policy
+    return if notification_policy.present?
     update notification_policy:{ open:true, close:true, assign:true }
   end
 end
