@@ -77,8 +77,9 @@
 
           .col.col-lg-6.col-md-6.col-sm-5.col-xs-6
             %span.tags.pull-right
-              %a.btn.btn-xs.bg-info{:href => "#"} premium
-              %a.btn.btn-xs.bg-info{:href => "#"} feature X
-              %a.btn.btn-xs.bg-info{:href => "#"} adwords
+              - customer.labels.each do |label|
+                = link_to label,
+                    team_customers_path(current_team, q:"label:#{label}"),
+                    class:'btn btn-xs bg-info'
 
   = will_paginate @customers
