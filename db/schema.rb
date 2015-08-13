@@ -130,8 +130,10 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   end
 
   create_table "logins", force: :cascade do |t|
-    t.string   "email",      null: false
+    t.string   "email",      null:false
+    t.string   "team_id"
     t.string   "token"
+    t.boolean  "signup",     default:false
     t.timestamps null: false
   end
 
