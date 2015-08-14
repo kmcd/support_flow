@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AuthenticationTest < ActionDispatch::IntegrationTest
+class LoginTest < ActionDispatch::IntegrationTest
   test "email login" do
     skip
   end
@@ -18,6 +18,14 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   end
   
   test "authorised agent for current team only" do
+    skip
+  end
+  
+  test "agent can only see team requests" do
+    skip
+  end
+  
+  test "only agent can execute email commands" do
     skip
   end
 end
