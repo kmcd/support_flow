@@ -33,7 +33,7 @@ class RequestsController < ApplicationController
 
   def update
     if @request.update request_params
-      redirect_to team_request_path(current_team, @request)
+      redirect_to team_request_path(current_team, @request.number)
     else
       render :edit
     end

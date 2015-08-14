@@ -63,7 +63,7 @@
               %i.closed.fa.fa-fw.fa-check-circle
 
             %span
-              %b= link_to request.name, team_request_path(current_team,request)
+              %b= link_to request.name, team_request_path(current_team, request.number)
 
               - request.labels.each do |label|
                 = link_to_search label

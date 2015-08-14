@@ -13,6 +13,6 @@
       - request_name activity
       with
       = link_to "##{activity.recipient.id}",
-          team_request_path(current_team, activity.recipient)
+          team_request_path(current_team, activity.recipient.number)
 
       %small= activity.parameters['merged_request_name']

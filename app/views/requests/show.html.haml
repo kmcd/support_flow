@@ -56,7 +56,7 @@
 
             %small.text-muted
               - if [ @request.labels, @request.name ].any?(&:blank?)
-                = link_to 'Edit', edit_team_request_path(current_team, @request)
+                = link_to 'Edit', edit_team_request_path(current_team, @request.number)
                 to add
                 - if @request.name.blank?
                   name
@@ -149,7 +149,7 @@
           - else
             %p.text-muted
               &mdash;
-              = link_to 'Edit', edit_team_request_path(current_team, @request)
+              = link_to 'Edit', edit_team_request_path(current_team, @request.number)
               to add notes
               &mdash;
 

@@ -1,4 +1,4 @@
-= form_for([current_team,@request], html:{class:'form-horizontal'}) do |form|
+= form_for(@request, url:team_request_path(current_team,@request.number), html:{class:'form-horizontal'}) do |form|
 
   %section.content-header
     = link_to 'Cancel', :back, class:'btn btn-default'
