@@ -99,7 +99,7 @@ class Email::Inbound < Email
   def process_first_reply
     return unless from_agent?
     return unless to_customer?
-    return if Activity.exists?(trackable:request, key:'request.first_reply')
+    return if Activity.exists?(trackable:request, key:'request.reply_time')
 
     Activity.first_reply_time self
   end
@@ -158,7 +158,7 @@ Activity.class_eval do
     time_to_reply = (0.seconds.ago - email.request.created_at).to_i
 
     create \
-      key:'request.first_reply',
+      key:'request.reply_time',
       team:email.team,
       trackable:email.request,
       owner:email.sender,

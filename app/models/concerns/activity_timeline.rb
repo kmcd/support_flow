@@ -36,8 +36,7 @@ module ActivityTimeline
   def assignment_activity
     return unless agent_id_changed?
 
-    create_activity 'request.assign',
-      recipient:agent
+    Activity.assign self, current_agent
   end
 
   def rename_activity
@@ -45,7 +44,6 @@ module ActivityTimeline
     return unless name_was.present?
 
     create_activity 'request.rename',
-      owner:current_agent,
       parameters:{from:name_was, to:name}
   end
 
@@ -64,11 +62,7 @@ module ActivityTimeline
     return unless labels_changed?
 
     new_labels = labels_change.last - labels_change.first
-
-    if new_labels.any?
-      create_activity 'request.label',
-        parameters:{ label:new_labels }
-    end
+    Activity.label(self, current_agent, new_labels) if new_labels.any?
   end
 
   def change_customer_activity
@@ -112,7 +106,7 @@ module ActivityTimeline
       trackable:self
       owner:agent,
       recipient:customer,
-      parameters:{seconds:(Time.now - created_at.to_time).to_i}
+      parameters:{ 'seconds' => (Time.now - created_at.to_time).to_i }
   end
 
   def closing?

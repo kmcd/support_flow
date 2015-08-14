@@ -61,7 +61,7 @@ class StatisticsJob < ActiveJob::Base
   end
 
   def average_time(activities)
-    activities.map {|_| _.parameters['time'].to_i }.sum / activities.size
+    activities.map {|_| _.parameters['seconds'].to_i }.sum / activities.size
   end
 end
 

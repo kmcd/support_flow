@@ -95,6 +95,8 @@ class DemoJob < ActiveJob::Base
 
   def create_replies
     sample_requests(60..90).each do |request|
+      next if request.closed?
+
       request_address = "request.#{request.id}@getsupportflow.net"
       reply = Faker::Hacker.say_something_smart
       agent = sample_agent
@@ -184,7 +186,7 @@ class DemoJob < ActiveJob::Base
     team.guides.order('random()').take(rand(4)).each do |guide|
       guide.content << "<p>#{ Faker::Lorem.paragraph(rand(1..10)) }</p>"
       guide.current_agent = sample_agent
-      
+
       random_time(guide.created_at) do
         guide.save
       end
@@ -234,10 +236,8 @@ class DemoJob < ActiveJob::Base
   def active_days
     random_sample = (1..30).
       map {|_| _.days.ago.at_beginning_of_day }.
-      sample rand(20..30)
-
-    random_sample = [ 1.day.ago ]
-
+      sample rand(1..2) # TODO: increase to 5-10 days depending on time taken
+    
     random_sample.each do |day|
       Timecop.freeze(day) do
         yield
