@@ -48,4 +48,12 @@ module RequestsHelper
       ["#{percent}% &rarr; #{decsription}".html_safe,  percent]
     end
   end
+  
+  def request_form_url(request)
+    if request.new_record?
+      team_requests_path current_team
+    else
+      team_request_path current_team, request.number
+    end
+  end
 end

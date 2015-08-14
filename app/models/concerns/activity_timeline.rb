@@ -42,6 +42,7 @@ module ActivityTimeline
 
   def rename_activity
     return unless name_changed?
+    return unless name_was.present?
 
     create_activity 'request.rename',
       owner:current_agent,
