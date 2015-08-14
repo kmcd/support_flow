@@ -32,12 +32,13 @@ class Email::Inbound < Email
   end
 
   def associate_request
-    if message.request_id.blank?
-      create_request team:team
+    email_request = if message.request_id.blank?
+      create_request team:team, name:message.subject
     else
-      update request:regarding_request
+      regarding_request
     end
 
+    update request:email_request
     request.increment! :emails_count
   end
 
