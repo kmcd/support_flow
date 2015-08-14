@@ -13,7 +13,7 @@ class SignupsController < ApplicationController
     @login = Login.new email:login_params[:email], signup:true
 
     if @login.save
-      DemoAccountJob.perform_later @login
+      DemoJob.perform_later @login
     else
       render 'logins/new', layout:'logins'
     end

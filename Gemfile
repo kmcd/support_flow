@@ -17,6 +17,7 @@ gem 'browser-timezone-rails'
 gem 'dalli'
 gem 'remotipart', '~> 1.2'
 gem 'griddler'
+gem 'timecop'
 
 group :development do
   gem 'looksee'
@@ -26,6 +27,7 @@ group :development do
   gem 'guard-rails'
   gem 'guard-livereload', '~> 2.4', require: false
   gem 'spring'
+  gem 'launchy'
 end
 
 group :development, :test do

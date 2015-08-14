@@ -15,7 +15,6 @@ class GuidesController < ApplicationController
     @guide = current_team.guides.new guide_params
 
     if @guide.save
-      Activity.create_guide @guide, current_agent
       redirect_to team_guides_path(current_team)
     else
       render :new
@@ -43,9 +42,9 @@ class GuidesController < ApplicationController
   end
 
   def guide_params
-    params.require(:guide).permit %i[
-      name
-      content
-    ]
+    params.
+      require(:guide).
+      permit(%i[ name content ]).
+      merge( { current_agent:current_agent } )
   end
 end

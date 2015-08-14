@@ -3,7 +3,6 @@ module ActivityTimeline
 
   included do
     after_create :set_number
-
     after_create :enquiry_open
 
     after_update :assignment_activity
@@ -28,19 +27,24 @@ module ActivityTimeline
   def enquiry_open
     return unless new_record?
 
-    create_activity 'request.open', team:team, trackable:self, owner:customer
+    create_activity 'request.open',
+      team:team,
+      trackable:self,
+      owner:customer
   end
 
   def assignment_activity
     return unless agent_id_changed?
 
-    create_activity 'request.assign', recipient:agent
+    create_activity 'request.assign',
+      recipient:agent
   end
 
   def rename_activity
     return unless name_changed?
 
-    create_activity 'request.rename', parameters:{from:name_was, to:name}
+    create_activity 'request.rename',
+      parameters:{from:name_was, to:name}
   end
 
   def remove_label_activity
@@ -60,7 +64,8 @@ module ActivityTimeline
     new_labels = labels_change.last - labels_change.first
 
     if new_labels.any?
-      create_activity 'request.label', parameters:{ label:new_labels }
+      create_activity 'request.label',
+        parameters:{ label:new_labels }
     end
   end
 
@@ -68,14 +73,16 @@ module ActivityTimeline
     return unless customer_id_changed?
     return unless customer_id_was.present?
 
-    create_activity 'request.customer', recipient:customer,
+    create_activity 'request.customer',
+      recipient:customer,
       parameters:{ previous_customer_id:customer_id_was }
   end
 
   def customer_happiness_activity
     return unless happiness_changed?
 
-    create_activity 'request.happiness', recipient:customer,
+    create_activity 'request.happiness',
+      recipient:customer,
       parameters:{ was:happiness_was, now:happiness }
   end
 
@@ -90,7 +97,8 @@ module ActivityTimeline
     return unless closing?
 
     close_time_in_seconds = (0.minutes.ago - created_at).to_i
-    create_activity 'request.close', recipient:customer,
+    create_activity 'request.close',
+      recipient:customer,
       parameters:{ close_time_in_seconds:close_time_in_seconds }
   end
 

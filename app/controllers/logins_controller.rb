@@ -19,7 +19,7 @@ class LoginsController < ApplicationController
 
   def show
     authentication = Authentication.new params[:token]
-    
+
     if authentication.valid?
       agent = authentication.agent
       session[:current_agent_id] = agent.id

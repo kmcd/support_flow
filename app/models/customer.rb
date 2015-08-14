@@ -6,7 +6,6 @@ class Customer < ActiveRecord::Base
   has_many :requests
   has_many :emails
   belongs_to :team
-  validates :name, presence:true, uniqueness:true
 
   # TODO: move to RequestCount.new(customer).open
   def open_count
