@@ -1,10 +1,14 @@
 module Indexable
   extend ActiveSupport::Concern
-  
+
   included do
     include Elasticsearch::Model
-    after_commit on: [:create]  { IndexJob.perform_later self, 'index' }
-    after_commit on: [:update]  { IndexJob.perform_later self, 'update' }
-    after_commit on: [:destroy] { IndexJob.perform_later self, 'delete' }
+    after_commit on: [:create]  { update_index :index  }
+    after_commit on: [:update]  { update_index :update }
+    before_destroy              { update_index :delete }
+  end
+
+  def update_index(name)
+    IndexJob.perform_later self, name.to_s
   end
 end
