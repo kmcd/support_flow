@@ -44,6 +44,7 @@ module ActivityTimeline
     return unless name_changed?
 
     create_activity 'request.rename',
+      owner:current_agent,
       parameters:{from:name_was, to:name}
   end
 
