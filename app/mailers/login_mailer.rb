@@ -6,13 +6,11 @@ class LoginMailer < ApplicationMailer
 
   def login_email(login)
     @login = login
-    login.generate_token
     mail to:login.email, subject:'Login'
   end
 
   def signup_email(login)
     @login = login
-    login.generate_token
     mail to:login.email, subject:'Welcome'
   end
 end
