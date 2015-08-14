@@ -10,9 +10,7 @@
       - owner_link activity
       renamed
       - link_to_request activity
-      
-      %s.text-muted
-        from
-        = activity.parameters['from']
-        to
-        %b= activity.parameters['to']
+      &nbsp;
+      %s.text-muted= activity.parameters['from']
+      &nbsp;
+      %b= activity.parameters['to']
