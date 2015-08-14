@@ -64,3 +64,41 @@ class StatisticsJob < ActiveJob::Base
     activities.map {|_| _.parameters['time'].to_i }.sum / activities.size
   end
 end
+
+Activity.class_eval do
+  def self.teams(activity_key)
+    Team.all.each do |team|
+      request_ids = team.requests.map &:id
+
+      activities = Activity.where \
+        key:"request.#{activity_key.to_s}",
+        trackable_id:request_ids,
+        trackable_type:'Request'
+
+      next if activities.empty?
+      yield team, activities
+    end
+  end
+
+  def self.agents(activity_key)
+    Agent.all.each do |agent|
+      activities = Activity.where \
+        key:"request.#{activity_key.to_s}",
+        owner:agent
+
+      next if activities.empty?
+      yield agent, activities
+    end
+  end
+
+  def self.customers(activity_key)
+    Customer.all.each do |customer|
+      activities = Activity.where \
+        key:"request.#{activity_key.to_s}",
+        recipient:customer
+
+      next if activities.empty?
+      yield customer, activities
+    end
+  end
+end

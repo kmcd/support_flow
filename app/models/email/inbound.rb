@@ -151,3 +151,18 @@ class Email::Inbound < Email
     [ message.text,  message.command_arguments ].uniq.one?
   end
 end
+
+Activity.class_eval do
+  # TODO: merge with Activity.reply
+  def self.first_reply_time(email)
+    time_to_reply = (0.seconds.ago - email.request.created_at).to_i
+
+    create \
+      key:'request.first_reply',
+      team:email.team,
+      trackable:email.request,
+      owner:email.sender,
+      recipient:email.request.customer,
+      parameters:{ 'seconds' => time_to_reply }
+  end
+end

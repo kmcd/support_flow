@@ -124,10 +124,14 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.integer  "team_id",                null: false
     t.integer  "view_count", default: 0
     t.string   "name",                   null: false
+    t.string   "slug"
     t.text     "content"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+  
+  add_index "guides", ["team_id"], name: "index_guides_on_team_id", using: :btree
+  add_index "guides", ["slug"], name: "index_guides_on_slug", using: :btree
 
   create_table "logins", force: :cascade do |t|
     t.string   "email",      null:false

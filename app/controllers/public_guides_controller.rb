@@ -11,7 +11,7 @@ class PublicGuidesController < ApplicationController
   end
 
   def show
-    @guide = PublicGuide.new params[:team_name], params[:name]
+    @guide = PublicGuide.new params[:team_name], params[:slug]
 
     if @guide.present?
       @guide.increment_view_count current_agent

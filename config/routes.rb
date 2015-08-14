@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
       resources :public_guides,
         path:'/',
-        param: :name,
+        param: :slug,
         only: %i[ index show ]
     end
   end

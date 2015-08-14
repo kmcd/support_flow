@@ -1,12 +1,12 @@
 class Guide < ActiveRecord::Base
   include Indexable
-  belongs_to :team
+  attr_accessor :current_agent
   validates :name, presence:true
   validates :name, uniqueness:{ scope: :team }
-  validate :name_contains_no_slashes
-  attr_accessor :current_agent
+  before_save :generate_slug
   after_create ->() { activity_timeline :create }
   after_update ->() { activity_timeline :update }
+  belongs_to :team
 
   # TODO: move to scopes
   def self.pages(team)
@@ -59,11 +59,10 @@ class Guide < ActiveRecord::Base
     Activity.where trackable:self
   end
 
-  def name_contains_no_slashes
-    errors[:name] << "forward slash prohibited" if /\//.match name
-    errors[:name] << "back slash prohibited" if /\\/.match name
+  def generate_slug
+    self.slug = name.parameterize
   end
-
+  
   def activity_timeline(key)
     Activity.create \
       key:"guide.#{key.to_s}",
