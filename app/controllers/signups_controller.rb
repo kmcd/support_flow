@@ -4,17 +4,13 @@ class SignupsController < ApplicationController
 
   def new
     @login = Login.new
-
-    # TODO: create friendly signup copy
-    render 'logins/new', layout:'logins'
+    render 'logins/new', layout:'logins' # TODO: create friendly signup copy
   end
 
   def create
     @login = Login.new email:login_params[:email], signup:true
 
-    if @login.save
-      DemoJob.perform_later @login
-    else
+    unless @login.save
       render 'logins/new', layout:'logins'
     end
   end

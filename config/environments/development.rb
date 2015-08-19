@@ -27,7 +27,8 @@ Rails.application.configure do
     domain:     'getsupportflow.com',
     user_name:  'keith@dancingtext.com',
     password:   'e1i8nKv2xDh7Ldpmbqv1sQ',
-    authentication: 'login' }
+    authentication: 'login' 
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

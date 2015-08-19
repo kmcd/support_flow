@@ -2,22 +2,23 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
 gem 'pg'
+gem 'rails-observers'
 gem 'activerecord-session_store'
-gem 'jquery-rails'
-gem 'haml-rails'
 gem 'delayed_job_active_record'
-gem 'will_paginate'
+gem 'will_paginate' # N.B. pagination must precede elasticsearch
 gem 'elasticsearch'
 gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 gem 'elasticsearch-dsl'
-gem 'mini_magick'
 gem 'clockwork'
-gem 'browser-timezone-rails'
-gem 'dalli'
-gem 'remotipart', '~> 1.2'
 gem 'griddler'
 gem 'timecop'
+gem 'dalli'
+gem 'jquery-rails'
+gem 'haml-rails'
+gem 'mini_magick'
+gem 'browser-timezone-rails'
+gem 'remotipart', '~> 1.2'
 
 group :development do
   gem 'looksee'
@@ -45,9 +46,7 @@ end
 group :test do
   gem 'minitest-reporters'
   gem 'test_after_commit'
-  gem 'vcr'
   gem 'mocha'
-  gem 'webmock'
 end
 
 group :production do

@@ -1,12 +1,9 @@
 class Guide < ActiveRecord::Base
-  include Indexable
   attr_accessor :current_agent
   validates :name, presence:true
   validates :name, uniqueness:{ scope: :team }
-  before_save :generate_slug
-  after_create ->() { activity_timeline :create }
-  after_update ->() { activity_timeline :update }
   belongs_to :team
+  has_many :activities, as: :trackable
 
   # TODO: move to scopes
   def self.pages(team)
@@ -50,24 +47,5 @@ class Guide < ActiveRecord::Base
 
   def text_content
     Nokogiri::HTML(content).text
-  end
-
-  private
-
-  # TODO: move to has_many :activities
-  def activities
-    Activity.where trackable:self
-  end
-
-  def generate_slug
-    self.slug = name.parameterize
-  end
-  
-  def activity_timeline(key)
-    Activity.create \
-      key:"guide.#{key.to_s}",
-      trackable:self,
-      owner:current_agent,
-      team:team
   end
 end

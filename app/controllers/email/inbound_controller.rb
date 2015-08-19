@@ -8,7 +8,7 @@ class Email::InboundController < ApplicationController
 
   def create
     payloads.each do |payload|
-      Email::Inbound.create(payload:payload).process_payload
+      Email::Inbound.create payload:payload
     end
 
     head :ok

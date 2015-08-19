@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EmailCommandTest < ActionDispatch::IntegrationTest
+class FirstReplyObserverTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

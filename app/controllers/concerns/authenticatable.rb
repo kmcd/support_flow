@@ -1,13 +1,13 @@
 module Authenticatable
   extend ActiveSupport::Concern
-  
+
   included do
     before_filter :authenticate_team
     before_filter :authenticate_agent
     before_filter :authorise_agent
     helper_method :current_agent, :current_team
   end
-  
+
   private
 
   def authenticate_team

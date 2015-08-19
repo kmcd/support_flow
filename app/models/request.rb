@@ -1,40 +1,18 @@
 class Request < ActiveRecord::Base
-  include Indexable
   include Labelable
-  include ActivityTimeline
-  include Timelineable
-  include Notifiable
+  include Timeline # TODO: move to controller decorator
   belongs_to :agent
   belongs_to :customer
   belongs_to :team
   has_many :emails
   attr_accessor :current_agent
 
-  # TODO: move to RequestCount.new(agent).open
-  scope :open_count, ->(filter, open=true) {
-    options = { open:open }
-    options.merge!({ team:filter })     if filter.is_a?(Team)
-    options.merge!({ agent:filter })    if filter.is_a?(Agent)
-    options.merge!({ customer:filter }) if filter.is_a?(Customer)
-    where( options ).count
-  }
-
-  # TODO: move to RequestAssignmentJob ->
-  # validate, carry out assignment, update activity stream ...
-  def assign_from(name_or_email)
-    return unless assignee = team.agents.
-      where("name ILIKE ? OR email_address = ?",
-      "%#{name_or_email}%", name_or_email ).
-      first
-    update agent:assignee
-  end
-
   def assigned?
     agent.present?
   end
 
   def first_reply
-    Statistic::Reply.where(owner:self).first_or_initialize.value.to_i / 60
+    Statistic::Reply.owned_by(self).time
   end
 
   # TODO: find a more elegant solution for open/closed flag
@@ -42,10 +20,22 @@ class Request < ActiveRecord::Base
   def closed
     !open
   end
+  alias_method :closed?, :closed
 
   def closed=(status)
     open = !status
   end
 
-  alias_method :closed?, :closed
+  def closing?
+    closed? && open_was
+  end
+
+  def create_activity(key, options={})
+    Activity.create( \
+      { key:"request.#{key.to_s}",
+        team:team,
+        trackable:self,
+        owner:current_agent
+      }.merge!(options) )
+  end
 end

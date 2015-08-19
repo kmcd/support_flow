@@ -20,54 +20,57 @@
         .col-lg-4.col-md-4.col-sm-4.col-xs-12
           - hrs, mins = @agent.average_reply.to_i.divmod(60)
 
-          %h3
-            - unless hrs.zero?
-              %span= hrs
-              %sup
-                %small
-                  h
+          - unless [hrs,mins].all? &:zero?
+            %h3
+              - unless hrs.zero?
+                %span= hrs
+                %sup
+                  %small
+                    h
 
-            - unless mins.zero?
-              = mins
-              %sup
-                %small
-                  m
+              - unless mins.zero?
+                = mins
+                %sup
+                  %small
+                    m
 
-            %small
-              &nbsp;
-              1
-              %sup st
-              reply
+              %small
+                &nbsp;
+                1
+                %sup st
+                reply
 
           - hrs, mins = @agent.average_close.to_i.divmod(60)
+          - unless [hrs,mins].all? &:zero?
+            %h3
+              - unless hrs.zero?
+                = hrs
+                %sup
+                  %small
+                    h
+
+              - unless mins.zero?
+                = mins
+                %sup
+                  %small
+                    m
+
+              %small
+                &nbsp;
+                close
 
           %h3
-            - unless hrs.zero?
-              = hrs
-              %sup
-                %small
-                  h
+            - unless @agent.requests_open_count.zero?
+              = link_to @agent.requests_open_count,
+                  team_requests_path(current_team, q:"agent_id:#{@agent.id} open:true")
+              %small
+                open
+                = '&mdash;'.html_safe unless @agent.requests_closed_count.zero?
 
-            - unless mins.zero?
-              = mins
-              %sup
-                %small
-                  m
-
-            %small
-              &nbsp;
-              close
-
-          %h3
-            = link_to Request.open_count(@agent),
-                team_requests_path(current_team, q:"agent_id:#{@agent.id} open:true")
-            %small
-              open
-              &mdash;
-
-            = link_to Request.open_count(@agent, false),
-              team_requests_path(current_team, q:"agent_id:#{@agent.id} open:false")
-            %small closed
+            - unless @agent.requests_closed_count.zero?
+              = link_to @agent.requests_closed_count,
+                team_requests_path(current_team, q:"agent_id:#{@agent.id} open:false")
+              %small closed
 
 
       .notes.row

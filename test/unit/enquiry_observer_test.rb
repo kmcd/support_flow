@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AgentNotificationTest < ActionDispatch::IntegrationTest
+class EnquiryObserverTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

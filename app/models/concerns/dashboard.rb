@@ -14,24 +14,15 @@ class Dashboard
   end
 
   def first_reply
-    @first_reply ||= Statistic::Reply.
-      where(owner:team).
-      first_or_initialize.
-      value.to_i / 60
+    Statistic::Reply.owned_by(team).time
   end
 
   def average_close
-    @average_close ||= Statistic::Close.
-      where(owner:team).
-      first_or_initialize.
-      value.to_i / 60
+    Statistic::Close.owned_by(team).time
   end
 
   def customer_happiness
-    @customer_happiness ||= Statistic::Happiness.
-      where(owner:team).
-      first_or_initialize.
-      value.to_i
+    Statistic::Happiness.owned_by(team).time
   end
 
   def activities

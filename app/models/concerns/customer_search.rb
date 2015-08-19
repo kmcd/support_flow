@@ -50,3 +50,7 @@ class CustomerSearch
     end
   end
 end
+
+Customer.class_eval do
+  include Elasticsearch::Model
+end

@@ -7,11 +7,9 @@ class LoginsController < ApplicationController
   end
 
   def create
-    @login = Login.where(email:login_params[:email]).first_or_initialize
+    @login = Login.new email:login_params[:email]
 
-    if @login.save
-      LoginMailer.login_email(@login).deliver_later
-    else
+    unless @login.save
       flash[:notice] = :login_error
       redirect_to new_team_login_path(current_team)
     end

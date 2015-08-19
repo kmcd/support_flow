@@ -1,7 +1,7 @@
 class LoginMailer < ApplicationMailer
-  attr_reader :login
   layout false
   default from: 'rachel@getsupportflow.net'
+  attr_reader :login
   helper_method :login_link
 
   def login_email(login)

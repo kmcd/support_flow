@@ -64,3 +64,7 @@ class RequestSearch
     end
   end
 end
+
+Request.class_eval do
+  include Elasticsearch::Model
+end

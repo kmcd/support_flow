@@ -49,6 +49,10 @@ class Message
     return unless to && to.match(TEAM_EMAIL_REGEX)
     TEAM_EMAIL_REGEX.match(to)[1]
   end
+  
+  def request_reply?
+    request_id.present?
+  end
 
   private
 

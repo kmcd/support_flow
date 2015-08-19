@@ -26,6 +26,8 @@ class IndexJob < ActiveJob::Base
 end
 
 Request.class_eval do
+  include Elasticsearch::Model
+
   def as_indexed_json(options={})
     self.as_json(
       {
@@ -53,6 +55,8 @@ end
 
 # TODO: dry up index fields with CustomerSearch
 Customer.class_eval do
+  include Elasticsearch::Model
+
   def as_indexed_json(options={})
     self.as_json(
       {
@@ -76,9 +80,11 @@ Customer.class_eval do
 end
 
 Guide.class_eval do
+  include Elasticsearch::Model
+
   def as_indexed_json(options={})
     return {}.to_json if template?
-    
+
     self.as_json(
       {
         methods: %i[

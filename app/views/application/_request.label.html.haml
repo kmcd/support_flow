@@ -14,7 +14,7 @@
 
       %span.text-muted
         as
-        - [ activity.parameters['label'] ].flatten.each do |label|
+        - [ activity.parameters['label'].split(' ') ].flatten.each do |label|
           = link_to label,
               team_requests_path(current_team, q:"label:#{label}"),
               class:'btn btn-xs bg-info'

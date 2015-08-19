@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ReplyTemplateTest < ActionDispatch::IntegrationTest
+class CommandObserverTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

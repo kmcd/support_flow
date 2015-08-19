@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class InboundEmailTest < ActionDispatch::IntegrationTest
+class CommandTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

@@ -4,6 +4,7 @@ class Command
 
   def initialize(email)
     @email = email
+    request.current_agent = agent
   end
 
   def valid?
@@ -40,32 +41,36 @@ class Command
 
   def assign(name_or_email)
     request.assign_from name_or_email
-    Activity.assign request, agent
   end
 
   def claim
     request.update_attributes! agent:agent
-    Activity.assign request, agent
   end
 
   def close
     request.update_attributes! open:false
-    Activity.close request, agent
   end
 
   def open
     request.update_attributes! open:true
-    Activity.open request, agent
   end
 
   def release
     request.update_attributes! agent:nil
-    Activity.assign request, agent
   end
 
   def label(labels)
     request.labels += [labels].flatten
     request.save
-    Activity.label request, agent, [labels].flatten
+  end
+end
+
+Request.class_eval do
+  def assign_from(name_or_email)
+    return unless assignee = team.agents.
+      where("name ILIKE ? OR email_address = ?",
+      "%#{name_or_email}%", name_or_email ).
+      first
+    update agent:assignee
   end
 end

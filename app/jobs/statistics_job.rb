@@ -21,8 +21,9 @@ class StatisticsJob < ActiveJob::Base
   end
 
   def team_close
-    Activity.teams :close_time do |team, activities|
-      stat = Statistic::Close.where(owner:team).first_or_initialize
+    Activity.teams :close do |team, activities|
+      stat = Statistic::Close.where(owner:team).order('id DESC').
+        first_or_initialize
       stat.value = average_time(activities)
       stat.save!
     end
@@ -37,8 +38,9 @@ class StatisticsJob < ActiveJob::Base
   end
 
   def agent_close
-    Activity.agents :close_time do |agent, activities|
-      stat = Statistic::Close.where(owner:agent).first_or_initialize
+    Activity.agents :close do |agent, activities|
+      stat = Statistic::Close.where(owner:agent).order('id DESC').
+        first_or_initialize
       stat.value = average_time(activities)
       stat.save!
     end
@@ -53,8 +55,8 @@ class StatisticsJob < ActiveJob::Base
   end
 
   def customer_close
-    Activity.customers :close_time do |customer, activities|
-      stat = Statistic::Close.where(owner:customer).first_or_initialize
+    Activity.customers :close do |customer, activities|
+      stat = Statistic::Close.where(owner:customer).order('id DESC').first_or_initialize
       stat.value = average_time(activities)
       stat.save!
     end

@@ -6,6 +6,7 @@ class DemoJob < ActiveJob::Base
     @login = login
 
     create_team
+    create_lead_agent
     create_agents
     create_customers
     create_reply_templates
@@ -21,8 +22,6 @@ class DemoJob < ActiveJob::Base
       update_guides
     end
 
-    StatisticsJob.perform_now
-    login.update team:team
     LoginMailer.signup_email(login).deliver_later
   end
 
@@ -35,20 +34,22 @@ class DemoJob < ActiveJob::Base
     @team.save!
   end
 
-  def create_agents
+  def create_lead_agent
     team.agents.create \
       email_address:login.email,
-      name:login.email[/[^@]*/],
-      notification_policy:{ open:false, close:false, assign:false }
+      name:login.email[/[^@]*/]
 
+    login.update team:team
+  end
+
+  def create_agents
     9.times do
       name = [Faker::Name.first_name, Faker::Name.last_name].join(' ')
 
       team.agents.create \
         email_address: Faker::Internet.safe_email(name),
         name: name,
-        phone: Faker::PhoneNumber.phone_number,
-        notification_policy:{ open:false, close:false, assign:false }
+        phone: Faker::PhoneNumber.phone_number
         # Lorem notes ?
     end
   end
@@ -87,8 +88,7 @@ class DemoJob < ActiveJob::Base
       }.to_json
 
       random_time do
-        email = Email::Inbound.create payload:payload
-        email.process_payload
+        Email::Inbound.create! payload:payload
       end
     end
   end
@@ -115,8 +115,7 @@ class DemoJob < ActiveJob::Base
       }.to_json
 
       random_time(request.created_at) do
-        email = Email::Inbound.create payload:payload
-        email.process_payload
+        Email::Inbound.create! payload:payload
       end
     end
   end
@@ -237,7 +236,7 @@ class DemoJob < ActiveJob::Base
     random_sample = (1..30).
       map {|_| _.days.ago.at_beginning_of_day }.
       sample rand(1..2) # TODO: increase to 5-10 days depending on time taken
-    
+
     random_sample.each do |day|
       Timecop.freeze(day) do
         yield

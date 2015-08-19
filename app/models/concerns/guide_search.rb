@@ -46,3 +46,7 @@ class GuideSearch
     Guide.search(definition).page @page
   end
 end
+
+Request.class_eval do
+  include Elasticsearch::Model
+end

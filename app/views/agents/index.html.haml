@@ -69,8 +69,8 @@
                 %td close
 
               %tr
-                %td= link_to Request.open_count(agent), team_requests_path(current_team, q:"open:true")
-                %td= link_to Request.open_count(agent, false), team_requests_path(current_team, q:"open:true")
+                %td= link_to agent.requests_open_count, team_requests_path(current_team, q:"open:true")
+                %td= link_to agent.requests_closed_count, team_requests_path(current_team, q:"open:true")
 
                 - hrs, mins = agent.average_reply.to_i.divmod(60)
                 %td

@@ -14,7 +14,7 @@
               %span.caret
 
             %ul.filter.dropdown-menu.dropdown-menu-right{:role => "menu"}
-              %li= link_to 'Clear all', team_requests_path(current_team)
+              %li= link_to 'Clear all', team_customers_path(current_team)
 
               %li &nbsp;
               %li.dropdown-header{:role => "presentation"}
@@ -26,7 +26,7 @@
 
     .col-lg-2.col-md-2.col-sm-2.col-xs-12
       %p.pull-right
-        = link_to 'New Customer', new_team_customer_path(current_team), 
+        = link_to 'New Customer', new_team_customer_path(current_team),
             class:'btn btn-default'
 
   %br/
@@ -49,23 +49,19 @@
                 from
                 = link_to customer.company, team_customers_path(current_team, q:'company:1')
 
-            - open_requests = Request.open_count customer
-            - closed_requests = Request.open_count customer, false
-
             &nbsp;
 
-            - unless closed_requests.zero?
+            - unless customer.requests_closed_count.zero?
               = link_to team_requests_path(current_team, q:'company:1') do
-                = closed_requests
+                = customer.requests_closed_count
                 %i.closed.fa.fa-fw.fa-check-circle{style:'color: green;'}
 
-            - unless open_requests.zero?
+            - unless customer.requests_open_count
               &rarr;
 
               = link_to team_requests_path(current_team, q:'company:1') do
-                = open_requests
+                = customer.requests_open_count
                 %i.open.fa.fa-fw.fa-exclamation-circle{style:'color: red;'}
-
 
             %br/
 
@@ -82,4 +78,4 @@
                     team_customers_path(current_team, q:"label:#{label}"),
                     class:'btn btn-xs bg-info'
 
-  = will_paginate @customers
+  %h4= will_paginate @customers

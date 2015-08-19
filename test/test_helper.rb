@@ -10,11 +10,4 @@ Minitest::Reporters.
 class ActiveSupport::TestCase
   fixtures :all
   self.use_instantiated_fixtures = true
-  
-  def setup
-    # TODO: move to observers
-    IndexJob.any_instance.stubs :index
-    IndexJob.any_instance.stubs :update
-    IndexJob.any_instance.stubs :delete
-  end
 end

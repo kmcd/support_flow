@@ -5,8 +5,8 @@ require 'config/environment'
 
 module Clockwork
   every 5.minutes, 'Updating Statistics' do
+    # FIXME: move stats job to observer
     StatisticsJob.perform_now
-    # TODO: add Timecop tests
   end
 
   # TODO: Lots of fun stuff to enqueue:
