@@ -19,12 +19,11 @@ Email::Inbound.class_eval do
       parameters:{ 'seconds' => time_to_reply }
   end
 
-  private
-
   def first_reply?
     return unless from_agent?
     return unless to_customer?
-    return if Activity.exists?(trackable:request, key:'request.reply_time')
+
+    ! Activity.exists?(trackable:request, key:'request.reply_time')
   end
 
   def to_customer?

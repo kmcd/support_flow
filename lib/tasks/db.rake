@@ -27,10 +27,10 @@ namespace :db do
     end
 
     SignupObserver.class_eval { def after_create(login); end }
-    login = Login.create email:Faker::Internet.safe_email, signup:true
+    signup = Login.create email:Faker::Internet.safe_email, signup:true
 
-    DemoJob.perform_now login
+    DemoJob.perform_now signup
 
-    Launchy.open "http://dev.getsupportflow.net/#{login.team.name}/login?token=#{login.token}"
+    Launchy.open "http://dev.getsupportflow.net/#{signup.team.name}/login?token=#{signup.token}"
   end
 end

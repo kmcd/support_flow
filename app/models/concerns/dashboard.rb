@@ -22,7 +22,7 @@ class Dashboard
   end
 
   def customer_happiness
-    Statistic::Happiness.owned_by(team).time
+    team.requests.average(:happiness).to_s
   end
 
   def activities
