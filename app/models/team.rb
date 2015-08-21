@@ -10,6 +10,7 @@ class Team < ActiveRecord::Base
   has_many :logins
   has_many :reply_templates
   validates :name, presence:true, uniqueness:true
+  enum subscription: %i[ demo trial monthly annual ]
   
   # TODO: replace with acts_as_taggable
   def labels

@@ -190,8 +190,10 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
+    t.integer  "subscription"
     t.timestamps null: false
   end
 
   add_index "teams", ["name"], name: "index_teams_on_name", using: :btree
+  add_index "teams", ["subscription"], name: "index_teams_on_subscription", using: :btree
 end

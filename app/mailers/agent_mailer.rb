@@ -1,5 +1,4 @@
 class AgentMailer < ApplicationMailer
-
   def reply(outbound_email)
     add_attachments outbound_email
 
@@ -7,6 +6,17 @@ class AgentMailer < ApplicationMailer
       format.html { outbound_email.message_content }
       format.text { Nokogiri::HTML(outbound_email.message_content).text }
     end
+  end
+  
+  def demo_reply(outbound_email)
+    @outbound_email = outbound_email
+    add_attachments outbound_email
+    
+    mail \
+      from:request_address(outbound_email.request),
+      to:outbound_email.sender.email_address,
+      cc:request_address(outbound_email.request),
+      subject:subject_line(outbound_email.request, :demo)
   end
 
   def open(agent, request)
@@ -64,6 +74,14 @@ class AgentMailer < ApplicationMailer
   end
 
   def subject_line(request, operation)
-    "[getsupportflow/#{request.team.name}] Request ##{request.id} #{operation}"
+    "[getsupportflow/#{request.team.name}] Request ##{request.id} #{operation.to_s}"
   end
 end
+
+# TODO: push down to decorator - e.g.
+#   module OutboundEmailMailer
+#     def request_address
+#       "request.#{request.id}@getsupportflow.net"
+#     end
+#   end
+# outbound_email.extend OutboundEmailMailer

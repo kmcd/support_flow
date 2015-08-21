@@ -1,0 +1,25 @@
+<pre>
+Hi!
+
+We don&apos; sent emails out when you&apos;re using a demo account.
+
+When you start your trial, we&apos;ll email your intended recipients.
+
+Get in touch if you've any questions :)
+
+Rachel
+
+email: rachel@getsupportflow.net
+phone: + 44 123 456 789
+
+== Message
+
+From: <%= @outbound_email.sender.email_address %>
+To:   <%= @outbound_email.recipient_list.to.join ', ' %>
+Cc:   <%= @outbound_email.recipient_list.cc.join ', ' %>
+Bcc:  <%= @outbound_email.recipient_list.bcc.join ', ' %>
+
+Content:
+</pre>
+
+<%= @outbound_email.message_content.html_safe %>

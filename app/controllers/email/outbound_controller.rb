@@ -7,9 +7,6 @@ class Email::OutboundController < ApplicationController
 
     if @outbound_email.save
       session_attachment_ids.clear
-      
-      # TODO: move to observer
-      AgentMailer.reply(@outbound_email).deliver_later
     else
       render :error
     end

@@ -29,7 +29,7 @@ class DemoJob < ActiveJob::Base
 
   def create_team
     random_name = ->() { "demo-#{rand(9999..99999)}" }
-    @team = Team.new
+    @team = Team.new subscription: :demo
     @team.name = random_name.call until @team.valid?
     @team.save!
   end

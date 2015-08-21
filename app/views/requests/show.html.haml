@@ -57,13 +57,16 @@
             %small.text-muted
               %i
                 - if [ @request.labels, @request.name ].any?(&:blank?)
-                  = link_to 'Edit', edit_team_request_path(current_team, @request.number)
-                  to add
-                  - if @request.name.blank?
-                    name
-                  - if @request.labels.empty?
-                    labels
-  
+                  %small
+                    &mdash;
+                    = link_to 'Edit', edit_team_request_path(current_team, @request.number)
+                    to add
+                    - if @request.name.blank?
+                      name
+                    - if @request.labels.empty?
+                      labels
+                    &mdash;
+
                 - else
                   - @request.labels.each do |label|
                     = link_to label, team_requests_path(current_team, q:label),
