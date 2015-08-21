@@ -179,3 +179,15 @@ span.description { color: gray; }
 .template textarea {
   height: 250px;
 }
+
+.notice.callout {
+  margin: 0em 0 0em 0;
+  padding: 0.6em;
+  
+  background-color: GhostWhite;
+  border: thin solid GhostWhite;
+}
+
+.notice.callout a {
+  color: blue;
+}

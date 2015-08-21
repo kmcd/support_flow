@@ -14,7 +14,7 @@
   %body.skin-blue.layout-top-nav
     .wrapper
       %header.main-header
-        %nav{class:" navbar navbar-static-top #{controller_name}"}
+        %nav{class:"navbar navbar-static-top #{controller_name}"}
           .container
             .navbar-header
               = link_to current_team, class:'navbar-brand' do
@@ -42,13 +42,13 @@
                     %li= link_to 'Domains', team_mailboxes_path(current_team)
                     %li= link_to 'Mailboxes', team_mailboxes_path(current_team)
                     %li= link_to 'Billing', team_billing_path(current_team)
-                    
+
                     %li &nbsp;
                     %li.dropdown-header{:role => "presentation"}
                       %i &mdash; Email &mdash;
                     %li= link_to 'Replies', team_reply_templates_path(current_team)
                     %li= link_to 'Notifications', edit_team_notifications_path(current_team)
-                    
+
                     %li.divider
                     %li
                       = link_to 'Logout', team_login_path(current_team), method: :delete
@@ -60,6 +60,21 @@
 
       .content-wrapper
         .container
+        
+          - if current_team.demo?
+            .notice.callout
+              %p.text-center
+                This is a
+                %b
+                  demonstration
+                account &mdash;
+                = link_to 'start your trial', '#'
+                to use the full version.
+                
+                Questions?
+                = mail_to 'rachel@getsupportflow.com'
+                is here to help!
+
           = yield
 
       %footer.main-footer
