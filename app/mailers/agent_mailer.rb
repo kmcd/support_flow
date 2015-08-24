@@ -1,4 +1,6 @@
 class AgentMailer < ApplicationMailer
+  # TODO: split out into Command, CustomerReply, Invitation mailers
+
   def reply(outbound_email)
     add_attachments outbound_email
 
@@ -7,16 +9,21 @@ class AgentMailer < ApplicationMailer
       format.text { Nokogiri::HTML(outbound_email.message_content).text }
     end
   end
-  
+
   def demo_reply(outbound_email)
     @outbound_email = outbound_email
     add_attachments outbound_email
-    
+
     mail \
       from:request_address(outbound_email.request),
       to:outbound_email.sender.email_address,
       cc:request_address(outbound_email.request),
       subject:subject_line(outbound_email.request, :demo)
+  end
+
+  def invitation(agent)
+    @agent = agent
+    mail to:agent.email_address
   end
 
   def open(agent, request)

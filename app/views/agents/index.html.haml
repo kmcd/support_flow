@@ -1,5 +1,6 @@
 %section.content-header
-  %button.btn.btn-default Invite an Agent
+  = link_to 'Invite an Agent', new_team_agent_path(current_team),
+      class:'btn btn-default'
 
 %section.content
   .row

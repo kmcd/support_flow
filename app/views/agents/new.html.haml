@@ -1,17 +1,23 @@
-= form_for(@agent, html:{class:'form-horizontal'}) do |form|
+= form_for(@agent, url:team_agents_path(current_team), html:{class:'form-horizontal'}) do |form|
 
+  -# TODO: dry up with app/views/agents/edit
+  
   %section.content-header
     = link_to 'Cancel', team_agents_path(current_team),class:'btn btn-default'
-    = form.button 'Save', class:'btn btn-default'
+    = form.button 'Send Invitation', class:'btn btn-default'
 
   %section.content
     .box
       .box-header.with-border
         %h3
           %small.text-muted
-            Edit agent
-
-        = flash[:errors].join ','
+            - if flash[:errors].present?
+              We couldn&apos;t send your agent invition because
+              
+              %span.text-danger= flash[:errors].map(&:downcase).join ', '
+                
+            - else
+              Invite agent
 
       .box-body
         .form-group.text-muted

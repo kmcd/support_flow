@@ -5,6 +5,22 @@ class AgentsController < ApplicationController
   def index
     @agents = current_team.agents
   end
+  
+  def new
+    @agent = current_team.agents.new
+  end
+  
+  def create
+    @agent = current_team.agents.new agent_params.
+      merge!( invitor:current_agent )
+    
+    if @agent.save
+      redirect_to team_agents_path(current_team)
+    else
+      flash[:errors] = @agent.errors.full_messages
+      render :new
+    end
+  end
 
   def show
   end

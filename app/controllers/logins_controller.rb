@@ -7,7 +7,7 @@ class LoginsController < ApplicationController
   end
 
   def create
-    @login = Login.new email:login_params[:email]
+    @login = Login.new login_params
 
     unless @login.save
       flash[:notice] = :login_error
@@ -34,6 +34,9 @@ class LoginsController < ApplicationController
   end
 
   def login_params
-    params.require(:login).permit %i[ email ]
+    params.
+      require(:login).
+      permit(%i[ email ]).
+      merge!( team:current_team )
   end
 end

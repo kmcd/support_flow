@@ -7,8 +7,20 @@
           %p
             Open
             = pluralized dashboard.open_requests
-
+            
     .col-md-3.col-sm-3.col-xs-6
+      .small-box.bg-warning
+        .inner
+          %h3
+            = dashboard.customer_happiness.to_i
+
+            %small %
+
+          %p
+            Customer
+            %i.fa.fa-smile-o
+
+    .col-md-3.col-sm-3.col-xs-12
       .small-box.bg-info
         .inner
           %h3
@@ -27,7 +39,7 @@
             %sup st
             reply
 
-    .col-md-3.col-sm-3.col-xs-6
+    .col-md-3.col-sm-3.col-xs-12
       .small-box.bg-success
         .inner
           %h3
@@ -42,18 +54,6 @@
               %small min
 
           %p Average close
-
-    .col-md-3.col-sm-3.col-xs-6
-      .small-box.bg-warning
-        .inner
-          %h3
-            = dashboard.customer_happiness.to_i
-
-            %small %
-
-          %p
-            Customer
-            %i.fa.fa-smile-o
 
 %section.content
   %ul.timeline

@@ -49,7 +49,8 @@ class DemoJob < ActiveJob::Base
       team.agents.create \
         email_address: Faker::Internet.safe_email(name),
         name: name,
-        phone: Faker::PhoneNumber.phone_number
+        phone: Faker::PhoneNumber.phone_number,
+        invitor:team.agents.first
         # Lorem notes ?
     end
   end

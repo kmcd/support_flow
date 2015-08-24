@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.integer  "team_id",                    null: false
     t.string   "email_address",              null: false
     t.string   "name",              null: false
+    t.integer  "invitor_id"
     t.string   "phone"
     t.text     "notes"
     t.hstore   "notification_policy"

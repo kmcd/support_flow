@@ -29,6 +29,7 @@ namespace :db do
     SignupObserver.class_eval { def after_create(login); end }
     signup = Login.create email:Faker::Internet.safe_email, signup:true
 
+    AgentObserver.class_eval { def after_create(agent); end }
     DemoJob.perform_now signup
 
     Launchy.open "http://dev.getsupportflow.net/#{signup.team.name}/login?token=#{signup.token}"

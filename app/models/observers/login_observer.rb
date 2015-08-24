@@ -1,7 +1,6 @@
 class LoginObserver < ActiveRecord::Observer
   def after_create(login)
     login.generate_token
-
     LoginMailer.login_email(login).deliver_later unless login.signup?
   end
 end
