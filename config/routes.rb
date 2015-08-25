@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   constraints({ domain: /\.net$/i }) do
     resources :teams, only: %i[ show ], path:'/', param: :name do
       resource :login,  only: %i[ new create show destroy ]
-      
+
       shallow do
         resources :agents
         resources :customers
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :links,         only: %i[ index ]
       resources :mailboxes,     only: %i[ index ]
       resource  :notifications, only: %i[ edit update ]
-      resources :reply_templates # TODO: rename to replies
+      resources :reply_templates # TODO: rename to replies/responses
       resources :requests, param: :number
     end
 
@@ -40,8 +40,7 @@ Rails.application.routes.draw do
   end
 
   resource :signup, only: %i[ new create ]
-  
-  # TODO: setup dev.getsupportflow.net local tunnel
+
   namespace :email do
     resources :inbound, only: %i[ index create ]
   end

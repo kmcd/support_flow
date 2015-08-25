@@ -47,6 +47,6 @@ class GuideSearch
   end
 end
 
-Request.class_eval do
+Guide.class_eval do
   include Elasticsearch::Model
 end

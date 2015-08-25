@@ -13,4 +13,16 @@ module ApplicationHelper
 
     [ query, name ].join(' ').gsub /\s+/, ' '
   end
+
+  def head_title
+    team_title = [ 'Support Flow'.html_safe, current_team.name ]
+    team_title.push(controller_name) unless dashboard?
+    team_title.join ' '
+  end
+
+  private
+
+  def dashboard?
+    controller_name =~ /teams/
+  end
 end

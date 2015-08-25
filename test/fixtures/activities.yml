@@ -1,0 +1,5 @@
+create_home_page:
+  team: support_flow
+  owner: rachel (Agent)
+  trackable: home_page (Guide)
+  key: 'guide.create'

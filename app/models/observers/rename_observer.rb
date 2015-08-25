@@ -2,7 +2,7 @@ class RenameObserver < ActiveRecord::Observer
   observe :request
   
   def after_update(request)
-    request.assignment_activity
+    request.rename_activity
   end
 end
 

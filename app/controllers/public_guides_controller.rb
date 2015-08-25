@@ -5,7 +5,7 @@ class PublicGuidesController < ApplicationController
   layout false
 
   def index
-    @guide = PublicGuide.new params[:team_name], 'index'
+    @guide = PublicGuide.new params[:team_name], :index
     @guide.increment_view_count current_agent
     render :show
   end
@@ -18,5 +18,17 @@ class PublicGuidesController < ApplicationController
     else
       render file:"#{Rails.root}/public/404", status: :not_found
     end
+  end
+
+  private
+
+  def current_agent
+    request_referred_from_app?
+  end
+
+  def request_referred_from_app?
+    return unless request.referer
+
+    request.referer[/getsupportflow\.net/]
   end
 end

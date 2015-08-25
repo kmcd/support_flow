@@ -11,3 +11,15 @@ class ActiveSupport::TestCase
   fixtures :all
   self.use_instantiated_fixtures = true
 end
+
+ActionDispatch::IntegrationTest.class_eval do
+  def login(agent, &activity)
+    open_session do |session|
+      login = Login.create email:agent.email_address, team:agent.team
+      host! 'getsupportflow.net'
+      session.get team_login_url(agent.team), token:login.token
+      session.assert_redirected_to team_path(agent.team)
+      session.instance_eval &activity
+    end
+  end
+end

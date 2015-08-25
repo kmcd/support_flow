@@ -1,7 +1,5 @@
 class GuidesController < ApplicationController
   before_action :set_guide, only: %i[ update edit destroy ]
-  skip_before_filter :authenticate_agent
-  skip_before_filter :authorise_agent
 
   def index
     @guides = Guide.pages current_team
@@ -31,7 +29,7 @@ class GuidesController < ApplicationController
   end
 
   def destroy
-    @guide.delete
+    @guide.delete if @guide.deleteable?
     redirect_to team_guides_path(current_team)
   end
 

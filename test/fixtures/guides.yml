@@ -6,24 +6,5 @@ template:
 home_page:
   team: support_flow
   name: index
+  slug: index
   content: '<h1>Welcome to Support Flow</h1>'
-  
-faq:
-  team: support_flow
-  name: faq
-  content: '<h1>FAQ</h1>'
-  
-balsamiq_template:
-  team: balsamiq
-  name: _template
-  content: '<html><!-- content --></html>'
-  
-balsamiq_index:
-  team: balsamiq
-  name: index
-  content: '<h1>Welcome to Balsamiq Support</h1>'
-  
-balsamiq_faq:
-  team: balsamiq
-  name: faq
-  content: '<h1>Balsamiq FAQ</h1>'
