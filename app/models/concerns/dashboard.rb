@@ -14,11 +14,12 @@ class Dashboard
   end
 
   def first_reply
-    Statistic::Reply.owned_by(team).time
+    # FIXME: stats should ~already~ be in seconds
+    Statistic::Reply.owned_by(team).time * 60
   end
 
   def average_close
-    Statistic::Close.owned_by(team).time
+    Statistic::Close.owned_by(team).time * 60
   end
 
   def customer_happiness

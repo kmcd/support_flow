@@ -99,14 +99,18 @@
               = @request.customer.phone
 
         .col-lg-4.col-md-4.col-sm-4.col-xs-12
-
-          - if @request.first_reply.zero?
+        
+          - if @request.first_reply.blank?
             %h3
               = distance_of_time_in_words_to_now @request.created_at
-              %small waiting
+              %small
+                waiting for 1
+                %sup st
+                reply
+
           - else
             %h3
-              - hrs, mins = @agent.average_reply.to_i.divmod(60)
+              - hrs, mins = hours_mins_from(@request.first_reply)
 
               = hrs
               %sup

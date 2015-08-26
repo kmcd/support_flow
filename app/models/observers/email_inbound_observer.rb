@@ -5,6 +5,10 @@ class EmailInboundObserver < ActiveRecord::Observer
     email.set_team
     email.set_recipients
   end
+  
+  def after_create(email)
+    email.process_commands
+  end
 end
 
 Email::Inbound.class_eval do
@@ -14,6 +18,13 @@ Email::Inbound.class_eval do
 
   def set_recipients
     self.recipients = message.recipient_addresses.join ' '
+  end
+  
+  def process_commands
+    return unless from_agent?
+    return unless message.command_arguments.present?
+
+    Command.new(self).execute
   end
 
   private

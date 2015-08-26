@@ -28,7 +28,7 @@
               %td= link_to dashboard.open_requests, team_requests_path(current_team, q:"open:true")
               %td= link_to dashboard.closed_requests, team_requests_path(current_team, q:"open:false")
 
-              - hrs, mins = dashboard.first_reply.divmod(60)
+              - hrs, mins = hours_mins_from(dashboard.first_reply)
               %td
                 - unless hrs.zero?
                   = hrs
@@ -38,7 +38,7 @@
                   = mins
                   %small min
 
-              - hrs, mins = dashboard.average_close.divmod(60)
+              - hrs, mins = hours_mins_from(dashboard.average_close)
               %td
                 - unless hrs.zero?
                   = hrs
@@ -73,7 +73,7 @@
                 %td= link_to agent.requests_open_count, team_requests_path(current_team, q:"open:true")
                 %td= link_to agent.requests_closed_count, team_requests_path(current_team, q:"open:true")
 
-                - hrs, mins = agent.average_reply.to_i.divmod(60)
+                - hrs, mins = hours_mins_from(agent.average_reply.to_i)
                 %td
                   - unless hrs.zero?
                     = hrs
@@ -83,7 +83,7 @@
                     = mins
                     %small min
 
-                - hrs, mins = agent.average_close.to_i.divmod(60)
+                - hrs, mins = hours_mins_from(agent.average_close.to_i)
                 %td
                   - unless hrs.zero?
                     = hrs

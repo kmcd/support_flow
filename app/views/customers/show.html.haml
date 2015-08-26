@@ -33,7 +33,7 @@
                     class:'btn btn-xs bg-info'
 
         .col-lg-4.col-md-4.col-sm-4.col-xs-12
-          - hrs, mins = @customer.average_reply.to_i.divmod(60)
+          - hrs, mins = hours_mins_from(@customer.average_reply.to_i)
 
           - if !hrs.zero? && !mins.zero?
             %h3
@@ -55,7 +55,7 @@
                 %sup st
                 reply
 
-          - hrs, mins = @customer.average_close.to_i.divmod(60)
+          - hrs, mins = hours_mins_from(@customer.average_close.to_i)
           - if !hrs.zero? && !mins.zero?
             %h3
               - unless hrs.zero?

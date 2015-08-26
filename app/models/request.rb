@@ -12,7 +12,8 @@ class Request < ActiveRecord::Base
   end
 
   def first_reply
-    Statistic::Reply.owned_by(self).time
+    Activity.where(key:'request.reply_time', trackable:self).first.
+      try {|_| _.parameters['seconds'] }
   end
 
   # TODO: find a more elegant solution for open/closed flag

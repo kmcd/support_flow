@@ -2,35 +2,35 @@ require 'test_helper'
 
 class AgentsTest < ActionDispatch::IntegrationTest
   test "agent invitation" do
-    skip
+    flunk
   end
   
   test "open notification" do
-    skip
+    flunk
   end
   
   test "assign notification" do
-    skip
+    flunk
   end
   
   test "close notification" do
-    skip
+    flunk
   end
   
-  test "agent first reply" do
-    skip
-    # reply to 
-    # ensure first reply time calculation correct
-  end
-  
-  test "agent customer happiness" do
-    skip
+  test "first reply" do
+    flunk
     # reply to
     # ensure first reply time calculation correct
   end
   
-  test "agent average close" do
-    skip
+  test "customer happiness" do
+    flunk
+    # reply to
+    # ensure first reply time calculation correct
+  end
+  
+  test "average close" do
+    flunk
     # reply to 
     # ensure first reply time calculation correct
   end

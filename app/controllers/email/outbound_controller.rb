@@ -5,10 +5,14 @@ class Email::OutboundController < ApplicationController
     upload_attachments && return if remotipart_submitted?
     @outbound_email = Email::Outbound.new outbound_email_params
 
-    if @outbound_email.save
-      session_attachment_ids.clear
-    else
-      render :error
+    respond_to do |format|
+      format.js do
+        if @outbound_email.save
+          session_attachment_ids.clear
+        else
+          render :error
+        end
+      end
     end
   end
 
@@ -36,7 +40,7 @@ class Email::OutboundController < ApplicationController
       session_attachment_ids << attachments.map(&:id)
       session_attachment_ids.flatten!
     end
-    
+
     respond_to do |format|
       format.js do
         render :upload_attachments, layout:false

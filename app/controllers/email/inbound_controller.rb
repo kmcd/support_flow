@@ -1,6 +1,8 @@
 class Email::InboundController < ApplicationController
-  skip_before_filter :require_login
   skip_before_action :verify_authenticity_token
+  skip_before_action :authenticate_agent
+  skip_before_action :authorise_agent
+  skip_before_action :authenticate_team
 
   def index
     head :ok # Required by Mandrill
@@ -14,10 +16,11 @@ class Email::InboundController < ApplicationController
     head :ok
   end
 
-
   private
 
   def payloads
+    return [] unless params['mandrill_events']
+
     JSON.parse params['mandrill_events']
   end
 end

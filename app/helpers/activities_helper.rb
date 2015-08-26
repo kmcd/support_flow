@@ -31,12 +31,11 @@ module ActivitiesHelper
       haml_concat truncate(activity.trackable.name, length:40)
     end
   end
-  
+
   def email_content(email)
     return email.message.text if email.message.html.blank?
-    
-    email.message.html.
-      gsub!(/\<img.*mandrillapp.com\/track.*\>/, '').
-      html_safe
+
+    email.message.html.gsub! /\<img.*mandrillapp.com\/track.*\>/, ''
+    email.message.html.html_safe
   end
 end

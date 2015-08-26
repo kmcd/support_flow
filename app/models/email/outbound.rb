@@ -6,16 +6,17 @@ class Email::Outbound < Email
   validate  :attachments_under_size_limit
   validate  :sender_team_agent
   before_create :set_team
-  
+
   def set_team
     return unless request.present? && team.blank?
     self.team = request.team
   end
-  
+
   private
 
   def attachments_under_size_limit
     return if attachments.sum(&:size) < 25.megabytes
+
     errors.add :attachments, "must be under 25 megabytes"
   end
 
@@ -29,6 +30,7 @@ class Email::Outbound < Email
 
   def sender_team_agent
     return if team.agents.include? sender
+
     errors.add :sender, "invalid team" # TODO: flag url hacking
   end
 end

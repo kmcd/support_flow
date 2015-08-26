@@ -20,20 +20,18 @@ class RecipientList
   def all
     [ to, cc, bcc ].compact.flatten.uniq
   end
-  
+
   def valid?
-    @recipients.present? && invalid.empty?
-  end
-  
-  def invalid
-    addresses.find_all {|_| _ !~ EMAIL_REGEX }
+    recipients.present?
   end
 
   private
 
   def recipients
     addresses.map do |address|
-      if address[/(to|cc|bcc):\s*#{EMAIL_REGEX}/i]
+      next unless address =~ EMAIL_REGEX
+
+      if address[/(to|cc|bcc)\s*:\s*#{EMAIL_REGEX}/i]
         address
       else
         "to:#{address}"
@@ -43,10 +41,10 @@ class RecipientList
 
   def addressed(regex)
     recipients.
-      grep(/#{regex.to_s}:\s*#{EMAIL_REGEX}/i).
-      uniq.map {|_| _.gsub /(#{regex.to_s}:)/, '' }
+      grep(/\b#{regex.to_s}\s*:\s*#{EMAIL_REGEX}/i).
+      uniq.map {|_| _.gsub /(\b#{regex.to_s}\s*:)/i, '' }
   end
-  
+
   def addresses
     @recipients.split(/(\s+|,)/).reject {|_| _.blank? || _[/,/] }
   end

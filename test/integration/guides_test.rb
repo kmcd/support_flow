@@ -90,9 +90,11 @@ class GuidesTest < ActionDispatch::IntegrationTest
   test "view count" do
     login(@rachel) do
       assert_no_difference('@home_page.reload.view_count') do
-        get team_public_guides_url \
-          { team_name:@support_flow.name,
-            host:'getsupportflow.com' },
+        get \
+          team_public_guides_url( \
+            team_name:@support_flow.name,
+            host:'getsupportflow.com'),
+          {},
           referer:'http://getsupportflow.net'
 
         assert_response :success
@@ -111,21 +113,21 @@ class GuidesTest < ActionDispatch::IntegrationTest
   test "search" do
     get team_guide_search_url(@support_flow)
     assert_response :success
-    
+
     @support_flow.guides.each do |guide|
       assert_select 'a', href:team_public_guide_url(@support_flow, guide)
     end
-    
+
     # Search by guide name
-    assert_select 'form', 
+    assert_select 'form',
       action:team_guide_search_url(@support_flow),
       method:'get'
     assert_select 'form input', name:'q', type:'text'
-    
+
     # Search by name
     get team_guide_search_url(@support_flow, q:@home_page.name)
     assert_select 'a', href:team_public_guide_url(@support_flow, @home_page)
-    
+
     # Search by content
     get team_guide_search_url(@support_flow, q:@home_page.text_content)
     assert_select 'a', href:team_public_guide_url(@support_flow, @home_page)

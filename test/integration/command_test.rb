@@ -1,29 +1,46 @@
 require 'test_helper'
 
 class CommandTest < ActionDispatch::IntegrationTest
-  test "assign agent from name" do
-    skip
-    @billing_enquiry.assign_from @keith.name.downcase
-    assert_equal @keith, @billing_enquiry.reload.agent
+  def email_command(args)
+    command = @command
+    command.payload['msg']['text'] = args
+    { mandrill_events:[command.payload].to_json }
   end
-  
-  test "assign agent from email address" do
-    skip
-    @billing_enquiry.assign_from @keith.email_address
-    assert_equal @keith, @billing_enquiry.reload.agent
-  end
-  
-  test "assign command" do
-    skip
-    assign_command = @command
-    assign_command.payload['msg']['text'] = "--assign #{@keith.name}"
-    assign_command.process_payload
 
+  test "assign agent from name" do
+    anonymous do
+      post '/email/inbound', email_command("--assign #{@keith.name}")
+      assert_response :ok
+    end
+
+    login(@rachel) do
+      # Dashboard timeline
+      assert_select '.timeline-item' do
+        assert_select '*', /assigned/i
+      end
+
+      # Agent timeline
+      assert_select 'request' do
+      end
+
+      # Request
+      assert_select 'request' do
+      end
+
+      # Request timeline
+      assert_select 'request' do
+      end
+    end
+  end
+
+  test "assign agent from email address" do
+    flunk
+    @billing_enquiry.assign_from @keith.email_address
     assert_equal @keith, @billing_enquiry.reload.agent
   end
 
   test "claim command" do
-    skip
+    flunk
     @billing_enquiry.update agent:@keith
     assign_command = @command
     assign_command.payload['msg']['text'] = "--claim"
@@ -33,7 +50,7 @@ class CommandTest < ActionDispatch::IntegrationTest
   end
 
   test "close command" do
-    skip
+    flunk
     assign_command = @command
     assign_command.payload['msg']['text'] = "--close"
     assign_command.process_payload
@@ -42,7 +59,7 @@ class CommandTest < ActionDispatch::IntegrationTest
   end
 
   test "open command" do
-    skip
+    flunk
     @billing_enquiry.update open:false
     assign_command = @command
     assign_command.payload['msg']['text'] = "--open"
@@ -52,7 +69,7 @@ class CommandTest < ActionDispatch::IntegrationTest
   end
 
   test "release command" do
-    skip
+    flunk
     assign_command = @command
     assign_command.payload['msg']['text'] = "--release"
     assign_command.process_payload
@@ -61,7 +78,7 @@ class CommandTest < ActionDispatch::IntegrationTest
   end
 
   test "label command" do
-    skip
+    flunk
     assign_command = @command
     assign_command.payload['msg']['text'] = "--label urgent"
     assign_command.process_payload

@@ -17,8 +17,13 @@ ActionDispatch::IntegrationTest.class_eval do
     open_session do |session|
       login = Login.create email:agent.email_address, team:agent.team
       host! 'getsupportflow.net'
-      session.get team_login_url(agent.team), token:login.token
-      session.assert_redirected_to team_path(agent.team)
+      session.get_via_redirect team_login_url(agent.team), token:login.token
+      session.instance_eval &activity
+    end
+  end
+
+  def anonymous(&activity)
+    open_session do |session|
       session.instance_eval &activity
     end
   end

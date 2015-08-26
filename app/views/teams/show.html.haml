@@ -24,7 +24,7 @@
       .small-box.bg-info
         .inner
           %h3
-            - hrs, mins = dashboard.first_reply.divmod(60)
+            - hrs, mins = hours_mins_from(dashboard.first_reply)
 
             - unless hrs.zero?
               = hrs
@@ -43,7 +43,7 @@
       .small-box.bg-success
         .inner
           %h3
-            - hrs, mins = dashboard.average_close.divmod(60)
+            - hrs, mins = hours_mins_from(dashboard.average_close)
 
             - unless hrs.zero?
               = hrs

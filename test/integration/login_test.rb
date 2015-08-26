@@ -2,30 +2,30 @@ require 'test_helper'
 
 class LoginTest < ActionDispatch::IntegrationTest
   test "email login" do
-    skip
+    flunk
   end
 
   test "logout" do
-    skip
+    flunk
   end
 
   test "ignore invalid email login credentials" do
-    skip
+    flunk
   end
   
   test "ignore invalid team name" do
-    skip
+    flunk
   end
   
   test "authorised agent for current team only" do
-    skip
+    flunk
   end
   
   test "agent can only see team requests" do
-    skip
+    flunk
   end
   
   test "only agent can execute email commands" do
-    skip
+    flunk
   end
 end

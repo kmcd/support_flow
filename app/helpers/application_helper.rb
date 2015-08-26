@@ -19,6 +19,10 @@ module ApplicationHelper
     team_title.push(controller_name) unless dashboard?
     team_title.join ' '
   end
+  
+  def hours_mins_from(seconds)
+    seconds.to_i.divmod(60).first.divmod 60
+  end
 
   private
 

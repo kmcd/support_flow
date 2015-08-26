@@ -2,15 +2,11 @@ require 'test_helper'
 
 class TeamsTest < ActionDispatch::IntegrationTest
   test "domain name" do
-    skip
-  end
-  
-  test "validations" do
-    skip
-    # name
+    flunk
   end
   
   test "dashboard number of open requests" do
+    skip
     get team_path(@support_flow)
     # ensure open request count accurate
   end
