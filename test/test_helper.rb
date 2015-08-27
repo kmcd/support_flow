@@ -4,8 +4,7 @@ require 'rails/test_help'
 require 'minitest/reporters'
 require 'mocha/mini_test'
 
-Minitest::Reporters.
-  use! [Minitest::Reporters::SpecReporter.new]
+Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
 
 class ActiveSupport::TestCase
   fixtures :all

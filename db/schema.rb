@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   create_table "requests", force: :cascade do |t|
     t.integer  "team_id",                     null: false
-    t.integer  "number",       default: 0
+    t.integer  "number",       default: 1
     t.integer  "agent_id"
     t.integer  "customer_id"
     t.integer  "emails_count", default: 0

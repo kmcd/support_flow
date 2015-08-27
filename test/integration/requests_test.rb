@@ -78,7 +78,7 @@ class RequestsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "outbound reply for demo emails sender instead of recipients" do
+  test "demo outbound reply" do
     @support_flow.update subscription:'demo'
 
     login(@rachel) do

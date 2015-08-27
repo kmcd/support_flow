@@ -19,7 +19,7 @@ module ActivitiesHelper
 
   def link_to_request(activity)
     haml_tag :b do
-      haml_concat link_to "##{activity.trackable.id}",
+      haml_concat link_to "##{activity.trackable.number}",
         team_request_path(current_team, activity.trackable.number)
     end
   end

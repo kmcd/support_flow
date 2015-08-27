@@ -1,3 +1,9 @@
+open_billing_enquiry:
+  team: support_flow
+  owner: peldi (Customer)
+  trackable: billing_enquiry (Request)
+  key: 'request.open'
+  
 create_home_page:
   team: support_flow
   owner: rachel (Agent)

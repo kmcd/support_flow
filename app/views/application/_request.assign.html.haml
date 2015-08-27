@@ -8,8 +8,13 @@
 
     %h3.timeline-header
       - owner_link activity
-      assigned
-      = link_to activity.recipient.name, agent_path(activity.recipient)
-      to
+
+      - if activity.recipient.present?
+        assigned
+        = link_to activity.recipient.name, agent_path(activity.recipient)
+        to
+      - else
+        released
+
       - link_to_request activity
       - request_name activity

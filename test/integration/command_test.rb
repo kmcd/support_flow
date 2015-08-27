@@ -6,83 +6,151 @@ class CommandTest < ActionDispatch::IntegrationTest
     command.payload['msg']['text'] = args
     { mandrill_events:[command.payload].to_json }
   end
+  
+  def assert_timeline(contains)
+    assert_select('.timeline-item', contains) { yield if block_given? }
+  end
 
-  test "assign agent from name" do
+  test "assign from name" do
     anonymous do
       post '/email/inbound', email_command("--assign #{@keith.name}")
       assert_response :ok
     end
 
+    assert_equal @keith, @billing_enquiry.reload.agent
+
     login(@rachel) do
-      # Dashboard timeline
-      assert_select '.timeline-item' do
-        assert_select '*', /assigned/i
-      end
+      assert_timeline /rachel.*assigned.*keith/mi
 
-      # Agent timeline
-      assert_select 'request' do
-      end
+      get team_request_path(@support_flow.name, @billing_enquiry.number)
+      assert_timeline /rachel.*assigned.*keith/mi
 
-      # Request
-      assert_select 'request' do
-      end
+      get agent_path(@rachel)
+      assert_timeline /rachel.*assigned.*keith/mi
 
-      # Request timeline
-      assert_select 'request' do
-      end
+      get agent_path(@keith)
+      assert_timeline /rachel.*assigned.*keith/mi
     end
   end
 
-  test "assign agent from email address" do
-    flunk
-    @billing_enquiry.assign_from @keith.email_address
+  test "assign from email address" do
+    anonymous do
+      post '/email/inbound', email_command("--assign #{@keith.email_address}")
+      assert_response :ok
+    end
+
     assert_equal @keith, @billing_enquiry.reload.agent
+
+    login(@rachel) do
+      assert_timeline /rachel.*assigned.*keith/mi
+
+      get team_request_path(@support_flow.name, @billing_enquiry.number)
+      assert_timeline /rachel.*assigned.*keith/mi
+
+      get agent_path(@rachel)
+      assert_timeline /rachel.*assigned.*keith/mi
+
+      get agent_path(@keith)
+      assert_timeline /rachel.*assigned.*keith/mi
+    end
   end
 
-  test "claim command" do
-    flunk
+  test "claim" do
     @billing_enquiry.update agent:@keith
-    assign_command = @command
-    assign_command.payload['msg']['text'] = "--claim"
-    assign_command.process_payload
+
+    anonymous do
+      post '/email/inbound', email_command("--claim")
+      assert_response :ok
+    end
 
     assert_equal @rachel, @billing_enquiry.reload.agent
+
+    login(@rachel) do
+      assert_timeline /rachel.*assigned.*rachel/mi
+
+      get team_request_path(@support_flow.name, @billing_enquiry.number)
+      assert_timeline /rachel.*assigned.*rachel/mi
+
+      get agent_path(@rachel)
+      assert_timeline /rachel.*assigned.*rachel/mi
+    end
   end
 
-  test "close command" do
-    flunk
-    assign_command = @command
-    assign_command.payload['msg']['text'] = "--close"
-    assign_command.process_payload
+  test "close" do
+    anonymous do
+      post '/email/inbound', email_command("--close")
+      assert_response :ok
+    end
 
     assert @billing_enquiry.reload.closed?
+
+    login(@rachel) do
+      assert_timeline /rachel.*closed.*##{@billing_enquiry.number}/mi
+
+      get team_request_path(@support_flow.name, @billing_enquiry.number)
+      assert_timeline /rachel.*closed.*##{@billing_enquiry.number}/mi
+
+      get agent_path(@rachel)
+      assert_timeline /rachel.*closed.*##{@billing_enquiry.number}/mi
+    end
   end
 
-  test "open command" do
-    flunk
+  test "open" do
     @billing_enquiry.update open:false
-    assign_command = @command
-    assign_command.payload['msg']['text'] = "--open"
-    assign_command.process_payload
+
+    anonymous do
+      post '/email/inbound', email_command("--open")
+      assert_response :ok
+    end
 
     assert @billing_enquiry.reload.open?
+
+    login(@rachel) do
+      assert_timeline /rachel.*opened.*##{@billing_enquiry.number}/mi
+
+      get team_request_path(@support_flow.name, @billing_enquiry.number)
+      assert_timeline /rachel.*opened.*##{@billing_enquiry.number}/mi
+
+      get agent_path(@rachel)
+      assert_timeline /rachel.*opened.*##{@billing_enquiry.number}/mi
+    end
   end
 
-  test "release command" do
-    flunk
-    assign_command = @command
-    assign_command.payload['msg']['text'] = "--release"
-    assign_command.process_payload
+  test "release" do
+    anonymous do
+      post '/email/inbound', email_command("--release")
+      assert_response :ok
+    end
 
-    assert_nil @billing_enquiry.reload.agent
+    assert_equal nil, @billing_enquiry.reload.agent
+
+    login(@rachel) do
+      assert_timeline /rachel.*released/mi
+
+      get team_request_path(@support_flow.name, @billing_enquiry.number)
+      assert_timeline /rachel.*released/mi
+
+      get agent_path(@rachel)
+      assert_timeline /rachel.*released/mi
+    end
   end
 
-  test "label command" do
-    flunk
-    assign_command = @command
-    assign_command.payload['msg']['text'] = "--label urgent"
-    assign_command.process_payload
+  test "label" do
+     anonymous do
+      post '/email/inbound', email_command("--label urgent")
+      assert_response :ok
+    end
 
-    assert_equal ['urgent'], @billing_enquiry.reload.labels
+    assert_includes @billing_enquiry.reload.labels, 'urgent'
+
+    login(@rachel) do
+      assert_timeline /rachel.*label.*urgent/mi
+
+      get team_request_path(@support_flow.name, @billing_enquiry.number)
+      assert_timeline /rachel.*label.*urgent/mi
+
+      get agent_path(@rachel)
+      assert_timeline /rachel.*label.*urgent/mi
+    end
   end
 end
