@@ -26,4 +26,10 @@ ActionDispatch::IntegrationTest.class_eval do
       session.instance_eval &activity
     end
   end
+  
+  def assert_timeline(contains=//)
+    assert_select('.timeline-item', contains) do
+      yield if block_given?
+    end
+  end
 end

@@ -1,15 +1,15 @@
 module RequestCount
   def requests_open_count
-    requests(open:true).count
+    requests_where(open:true).count
   end
 
   def requests_closed_count
-    requests(open:false).count
+    requests_where(open:false).count
   end
 
   private
 
-  def requests(args={})
+  def requests_where(args={})
     Request.where options.merge!(args)
   end
 

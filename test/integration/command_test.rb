@@ -7,10 +7,6 @@ class CommandTest < ActionDispatch::IntegrationTest
     { mandrill_events:[command.payload].to_json }
   end
   
-  def assert_timeline(contains)
-    assert_select('.timeline-item', contains) { yield if block_given? }
-  end
-
   test "assign from name" do
     anonymous do
       post '/email/inbound', email_command("--assign #{@keith.name}")

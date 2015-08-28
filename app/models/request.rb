@@ -12,7 +12,9 @@ class Request < ActiveRecord::Base
   end
 
   def first_reply
-    Activity.where(key:'request.reply_time', trackable:self).first.
+    Activity.
+      where(key:'request.reply_time', trackable:self).
+      first.
       try {|_| _.parameters['seconds'] }
   end
 

@@ -11,7 +11,7 @@ class RequestsTest < ActionDispatch::IntegrationTest
       enquiry = @support_flow.requests.
         where(name:@enquiry.payload['msg']['subject']).first
 
-      assert_select '.timeline-item' do
+      assert_timeline do
         assert_select 'a', href:customer_path(enquiry.customer)
         assert_select 'a', href:team_requests_path(@support_flow,
           enquiry.number)
@@ -29,7 +29,7 @@ class RequestsTest < ActionDispatch::IntegrationTest
     end
 
     login(@rachel) do
-      assert_select '.timeline-item' do
+      assert_timeline do
         assert_select 'a', href:customer_path(@peldi)
         assert_select 'a', href:team_requests_path(@support_flow,
           @billing_enquiry.number)

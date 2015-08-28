@@ -5,14 +5,16 @@ class Statistic < ActiveRecord::Base
     where(owner:owner).first_or_initialize
   end
   
-  def time
-    value.to_i / 60
-  end
-  
   class Reply < self
+    def seconds
+      value.to_i
+    end
   end
   
   class Close < self
+    def seconds
+      value.to_i
+    end
   end
   
   class Happiness < self
