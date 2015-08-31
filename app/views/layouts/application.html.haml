@@ -12,10 +12,10 @@
     = javascript_include_tag 'application', media: 'all'
     = yield :head
 
-  %body.skin-blue.layout-top-nav
+  %body{ class:"skin-blue layout-top-nav #{controller_name}" }
     .wrapper
       %header.main-header
-        %nav{class:"navbar navbar-static-top #{controller_name}"}
+        %nav{class:"navbar navbar-static-top"}
           .container
             .navbar-header
               = link_to current_team, class:'navbar-brand' do

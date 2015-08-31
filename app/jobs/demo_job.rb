@@ -28,7 +28,7 @@ class DemoJob < ActiveJob::Base
   end
 
   private
-  
+
   def create_team
     random_name = ->() { "demo-#{rand(9999..99999)}" }
     @team = Team.new subscription: :demo
@@ -49,13 +49,15 @@ class DemoJob < ActiveJob::Base
     sample_size[:agents].times do
       name = [Faker::Name.first_name, Faker::Name.last_name].join(' ')
 
+      notes = rand(0..1) > 0 ? Faker::Lorem.sentence(rand(3)) : nil
+
       team.agents.create \
         email_address: Faker::Internet.safe_email(name),
         name: name,
         phone: Faker::PhoneNumber.phone_number,
         invitor:team.agents.first,
+        notes:notes,
         notification_policy:{ open:false, close:false, assign:false }
-        # Lorem notes ?
     end
   end
 
@@ -63,12 +65,17 @@ class DemoJob < ActiveJob::Base
     sample_size[:customers].times do
       name = [Faker::Name.first_name, Faker::Name.last_name].join(' ')
 
+      company_name = rand(0..1) > 0 ? Faker::Company.name : nil
+      notes = rand(0..1) > 0 ? Faker::Lorem.sentence(rand(3)) : nil
+
       team.customers.create \
         name: name,
         email_address:Faker::Internet.safe_email(name),
         phone: Faker::PhoneNumber.phone_number,
-        labels:labels
-        # Lorem notes ?
+        labels:labels,
+        company:company_name,
+        notes:notes,
+        created_at:rand(14).days.ago
     end
   end
 
@@ -220,7 +227,7 @@ class DemoJob < ActiveJob::Base
         Support Flow team ...
       TEMPLATE
   end
-  
+
   def enable_lead_agent_notifications
     team.agents.first.
       update notification_policy:{ open:true, close:true, assign:true }

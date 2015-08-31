@@ -3,6 +3,7 @@ billing_enquiry:
   team: support_flow
   agent: rachel
   customer: peldi
+  number: 1
 
 duplicate_enquiry:
   name: "Billing enquiry follow up"
@@ -10,3 +11,11 @@ duplicate_enquiry:
   agent: rachel
   customer: peldi
   number: 2
+  
+closed:
+  name: "Getting started"
+  team: support_flow
+  agent: rachel
+  customer: peldi
+  open: false
+  number: 3

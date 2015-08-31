@@ -94,7 +94,7 @@
 
           .col.col-lg-3.col-md-3.col-sm-3.col-xs-12
             %p.pull-right
-              %span.time{style:'color: #999; font-size: 12px; padding-right: 1em;'}
+              %span.time
                 = request.created_at.strftime "%R"
                 %i.fa.fa-clock-o
                 = request.created_at.strftime "%-d %b %Y"

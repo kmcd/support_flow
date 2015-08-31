@@ -44,19 +44,19 @@ class Command
   end
 
   def claim
-    request.update_attributes! agent:agent
+    request.update agent:agent
   end
 
   def close
-    request.update_attributes! open:false
+    request.update open:false
   end
 
   def open
-    request.update_attributes! open:true
+    request.update open:true
   end
 
   def release
-    request.update_attributes! agent:nil
+    request.update agent:nil
   end
 
   def label(labels)

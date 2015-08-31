@@ -14,7 +14,7 @@ class CustomerSearch
     full_text       = extract_full_text
     team_facet      = { term: { team_id:@team.id } }
     sort_by         = sort_order
-    
+
     search do
       query do
         filtered do
@@ -34,11 +34,13 @@ class CustomerSearch
           end
 
           filter do
-            _and filters:[ team_facet ]
+            _and filters:[ 
+              team_facet
+            ]
           end
         end
       end
-      
+
       sort do
         case sort_by
           when /new/i     ; by(:created_at,   order: 'desc')

@@ -191,3 +191,9 @@ span.description { color: gray; }
 .notice.callout a {
   color: blue;
 }
+
+.requests .time, .customers .time  {
+  color: #999; 
+  font-size: 12px; 
+  padding-right: 1em;
+}

@@ -41,4 +41,10 @@ class Request < ActiveRecord::Base
         owner:current_agent
       }.merge!(options) )
   end
+  
+  def update_customer_index
+    return unless customer.present?
+
+    IndexJob.perform_later customer, 'update'
+  end
 end

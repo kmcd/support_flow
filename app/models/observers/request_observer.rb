@@ -1,6 +1,7 @@
 class RequestObserver < ActiveRecord::Observer
   def after_create(request)
     request.set_number
+    request.update_customer_index
   end
 
   def after_update(request)

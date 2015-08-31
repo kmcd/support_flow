@@ -44,38 +44,46 @@
 
             %b= link_to customer.name, customer_path(customer)
 
-            - if customer.company
+            - if customer.company.present?
               %span.text-muted
                 from
-                = link_to customer.company, team_customers_path(current_team, q:'company:1')
+                = link_to customer.company, team_customers_path(current_team, q:customer.company)
 
-            &nbsp;
-
-            - unless customer.requests_closed_count.zero?
-              = link_to team_requests_path(current_team, q:'company:1') do
-                = customer.requests_closed_count
-                %i.closed.fa.fa-fw.fa-check-circle{style:'color: green;'}
-
-            - unless customer.requests_open_count
-              &rarr;
-
-              = link_to team_requests_path(current_team, q:'company:1') do
-                = customer.requests_open_count
-                %i.open.fa.fa-fw.fa-exclamation-circle{style:'color: red;'}
+            - unless customer.labels.empty?
+              &nbsp;
+              %span.tags
+                - customer.labels.each do |label|
+                  = link_to label,
+                      team_customers_path(current_team, q:"label:#{label}"),
+                      class:'btn btn-xs bg-info'
 
             %br/
 
             %span.text-muted
-              %i.fa.fa-envelope-o
-              = mail_to customer.email_address
-              %i.fa.fa-phone
-              = customer.phone
+              - if customer.email_address.present?
+                %i.fa.fa-envelope-o
+                = mail_to customer.email_address
+
+              - if customer.phone.present?
+                %i.fa.fa-phone
+                = customer.phone
+
+              - unless customer.requests_closed_count.zero?
+                %i.closed.fa.fa-fw.fa-check-circle{style:'color: green;'}
+                = link_to team_requests_path(current_team, q:"customer_id:#{customer.id} open:false") do
+                  = customer.requests_closed_count
+                  closed
+
+              - unless customer.requests_open_count.zero?
+                %i.open.fa.fa-fw.fa-exclamation-circle{style:'color: red;'}
+                = link_to team_requests_path(current_team, q:"customer_id:#{customer.id} open:true") do
+                  = customer.requests_open_count
+                  open
+
 
           .col.col-lg-6.col-md-6.col-sm-5.col-xs-6
-            %span.tags.pull-right
-              - customer.labels.each do |label|
-                = link_to label,
-                    team_customers_path(current_team, q:"label:#{label}"),
-                    class:'btn btn-xs bg-info'
+            %p.pull-right
+              %span.time
+                = customer.created_at.strftime "%-d %b %Y"
 
   %h4= will_paginate @customers

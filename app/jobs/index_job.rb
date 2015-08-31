@@ -77,6 +77,14 @@ Customer.class_eval do
       }.merge!(options)
     )
   end
+
+  def open_count
+    requests_open_count
+  end
+
+  def close_count
+    requests_closed_count
+  end
 end
 
 Guide.class_eval do

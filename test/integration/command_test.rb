@@ -6,7 +6,7 @@ class CommandTest < ActionDispatch::IntegrationTest
     command.payload['msg']['text'] = args
     { mandrill_events:[command.payload].to_json }
   end
-  
+
   test "assign from name" do
     anonymous do
       post '/email/inbound', email_command("--assign #{@keith.name}")
@@ -92,23 +92,25 @@ class CommandTest < ActionDispatch::IntegrationTest
   end
 
   test "open" do
-    @billing_enquiry.update open:false
+    request_address = "request.#{@closed.id}@getsupportflow.net"
+    @command.payload['msg']['email'] = request_address
+    @command.payload['msg']['to'] = [ [ request_address, nil ] ]
 
     anonymous do
       post '/email/inbound', email_command("--open")
       assert_response :ok
     end
 
-    assert @billing_enquiry.reload.open?
+    assert @closed.reload.open?
 
     login(@rachel) do
-      assert_timeline /rachel.*opened.*##{@billing_enquiry.number}/mi
+      assert_timeline /rachel.*opened.*##{@closed.number}/mi
 
-      get team_request_path(@support_flow.name, @billing_enquiry.number)
-      assert_timeline /rachel.*opened.*##{@billing_enquiry.number}/mi
+      get team_request_path(@support_flow.name, @closed.number)
+      assert_timeline /rachel.*opened.*##{@closed.number}/mi
 
       get agent_path(@rachel)
-      assert_timeline /rachel.*opened.*##{@billing_enquiry.number}/mi
+      assert_timeline /rachel.*opened.*##{@closed.number}/mi
     end
   end
 
