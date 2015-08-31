@@ -13,13 +13,12 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
   config.cache_store = :mem_cache_store
-  
+
   config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  
-  # TODO: move to config/initializers/mail.rb
-  # TODO: setup development mail config
+
+  # TODO: use test madrill key
   config.action_mailer.smtp_settings = {
     address:    'smtp.mandrillapp.com',
     port:       587,
@@ -27,8 +26,10 @@ Rails.application.configure do
     domain:     'getsupportflow.com',
     user_name:  'keith@dancingtext.com',
     password:   'e1i8nKv2xDh7Ldpmbqv1sQ',
-    authentication: 'login' 
+    authentication: 'login'
   }
+
+  config.action_mailer.default_url_options = { host:'dev.getsupportflow.net' }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

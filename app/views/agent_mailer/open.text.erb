@@ -1,6 +1,8 @@
-Hi #{@agent.name},
+Hi <%= @agent.name %>,
 
-Request ##{@request.id} #{@request.name} was opened by #{@request.customer.name}.
+Request #<%= @request.number %> <%= @request.name %> <%= "was opened by #{@request.customer.name}" if @request.customer %>.
+
+<%= team_request_url(@request.team.name, @request.number) %>
 
 Hints:
   You can reply
@@ -11,4 +13,7 @@ If you have any questions, just let me know!
 
 Thanks!
 
-Rachel <rachel@getsupportflow.net>
+Rachel
+
+email: rachel@getsupportflow.net
+phone: + 44 123 456 789

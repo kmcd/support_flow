@@ -14,7 +14,7 @@ end
 ActionDispatch::IntegrationTest.class_eval do
   def login(agent, &activity)
     open_session do |session|
-      login = Login.create email:agent.email_address, team:agent.team
+      login = Login.create email_address:agent.email_address, team:agent.team
       host! 'getsupportflow.net'
       session.get_via_redirect team_login_url(agent.team), token:login.token
       session.instance_eval &activity
@@ -26,10 +26,17 @@ ActionDispatch::IntegrationTest.class_eval do
       session.instance_eval &activity
     end
   end
-  
+
   def assert_timeline(contains=//)
     assert_select('.timeline-item', contains) do
       yield if block_given?
+    end
+  end
+
+  def inbound(email)
+    anonymous do
+      post '/email/inbound', mandrill_events:[email.payload].to_json
+      assert_response :ok
     end
   end
 end

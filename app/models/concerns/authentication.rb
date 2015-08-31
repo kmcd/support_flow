@@ -17,7 +17,7 @@ class Authentication
   end
 
   def agent
-    @agent ||= Agent.where(email_address:login.email).first
+    @agent ||= Agent.where(email_address:login.email_address).first
   end
 
   private

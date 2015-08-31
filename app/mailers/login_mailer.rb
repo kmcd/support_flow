@@ -6,11 +6,11 @@ class LoginMailer < ApplicationMailer
 
   def login_email(login)
     @login = login
-    mail to:login.email, subject:'Login'
+    mail to:login.email_address, subject:'Login'
   end
 
   def signup_email(login)
     @login = login
-    mail to:login.email, subject:'Welcome'
+    mail to:login.email_address, subject:'Welcome'
   end
 end

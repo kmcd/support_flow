@@ -23,7 +23,11 @@ class AgentMailer < ApplicationMailer
 
   def invitation(agent)
     @agent = agent
-    mail to:agent.email_address
+    invitor = agent.invitor
+
+    mail \
+      to:agent.email_address,
+      subject:"#{invitor.name} <#{invitor.email_address}> invited you to https://getsupportflow.net/#{invitor.team.name}"
   end
 
   def open(agent, request)

@@ -135,14 +135,14 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   add_index "guides", ["slug"], name: "index_guides_on_slug", using: :btree
 
   create_table "logins", force: :cascade do |t|
-    t.string   "email",      null:false
+    t.string   "email_address",      null:false
     t.string   "team_id"
     t.string   "token"
     t.boolean  "signup",     default:false
     t.timestamps null: false
   end
 
-  add_index "logins", ["email"], name: "index_logins_on_email", using: :btree
+  add_index "logins", ["email_address"], name: "index_logins_on_email", using: :btree
 
   create_table "requests", force: :cascade do |t|
     t.integer  "team_id",                     null: false

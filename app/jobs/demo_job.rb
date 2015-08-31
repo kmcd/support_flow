@@ -22,11 +22,13 @@ class DemoJob < ActiveJob::Base
       update_guides
     end
 
+    enable_lead_agent_notifications
+
     LoginMailer.signup_email(login).deliver_later
   end
 
   private
-
+  
   def create_team
     random_name = ->() { "demo-#{rand(9999..99999)}" }
     @team = Team.new subscription: :demo
@@ -36,27 +38,29 @@ class DemoJob < ActiveJob::Base
 
   def create_lead_agent
     team.agents.create \
-      email_address:login.email,
-      name:login.email[/[^@]*/]
+      email_address:login.email_address,
+      name:login.email_address[/[^@]*/],
+      notification_policy:{ open:false, close:false, assign:false }
 
     login.update team:team
   end
 
   def create_agents
-    9.times do
+    sample_size[:agents].times do
       name = [Faker::Name.first_name, Faker::Name.last_name].join(' ')
 
       team.agents.create \
         email_address: Faker::Internet.safe_email(name),
         name: name,
         phone: Faker::PhoneNumber.phone_number,
-        invitor:team.agents.first
+        invitor:team.agents.first,
+        notification_policy:{ open:false, close:false, assign:false }
         # Lorem notes ?
     end
   end
 
   def create_customers
-    100.times do
+    sample_size[:customers].times do
       name = [Faker::Name.first_name, Faker::Name.last_name].join(' ')
 
       team.customers.create \
@@ -71,7 +75,7 @@ class DemoJob < ActiveJob::Base
   def create_enquiries
     team_address = "team.#{team.id}@getsupportflow.net"
 
-    rand(1..10).times do
+    sample_size[:enquiries].times do
       enquiry = Faker::Hacker.say_something_smart
       name = [ Faker::Name.first_name, Faker::Name.last_name].join(' ')
 
@@ -95,7 +99,7 @@ class DemoJob < ActiveJob::Base
   end
 
   def create_replies
-    sample_requests(60..90).each do |request|
+    sample_requests(sample_size[:replies]).each do |request|
       next if request.closed?
 
       request_address = "request.#{request.id}@getsupportflow.net"
@@ -122,7 +126,7 @@ class DemoJob < ActiveJob::Base
   end
 
   def assign_requests
-    sample_requests(60..90).each do |request|
+    sample_requests(sample_size[:assign]).each do |request|
       random_time(request.created_at) do
         request.current_agent = sample_agent
         request.update agent:sample_agent
@@ -131,7 +135,7 @@ class DemoJob < ActiveJob::Base
   end
 
   def label_requests
-    sample_requests(60..90).each do |request|
+    sample_requests(sample_size[:label]).each do |request|
       random_time(request.created_at) do
         request.current_agent = sample_agent
         request.update labels:labels
@@ -140,7 +144,7 @@ class DemoJob < ActiveJob::Base
   end
 
   def rename_requests
-    sample_requests(15..20).each do |request|
+    sample_requests(sample_size[:rename]).each do |request|
       random_time(request.created_at) do
         request.current_agent = sample_agent
         request.update name:Faker::Hacker.say_something_smart
@@ -149,7 +153,7 @@ class DemoJob < ActiveJob::Base
   end
 
   def close_requests
-    sample_requests(50..70).each do |request|
+    sample_requests(sample_size[:close]).each do |request|
       next if request.closed?
 
       random_time(request.created_at) do
@@ -216,6 +220,11 @@ class DemoJob < ActiveJob::Base
         Support Flow team ...
       TEMPLATE
   end
+  
+  def enable_lead_agent_notifications
+    team.agents.first.
+      update notification_policy:{ open:true, close:true, assign:true }
+  end
 
   def sample_requests(size=60..90)
     requests_count = team.requests.count
@@ -249,5 +258,18 @@ class DemoJob < ActiveJob::Base
     Timecop.freeze(from + rand(24).hours + rand(60).minutes) do
       yield
     end
+  end
+
+  def sample_size
+    {
+      agents:9,
+      customers:100,
+      enquiries:rand(1..10),
+      replies:60..90,
+      assign:60..90,
+      rename:15..20,
+      label:60..90,
+      close:50..70
+    }
   end
 end

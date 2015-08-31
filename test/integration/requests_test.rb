@@ -2,10 +2,7 @@ require 'test_helper'
 
 class RequestsTest < ActionDispatch::IntegrationTest
   test "inbound email enquiry" do
-    anonymous do
-      post '/email/inbound', mandrill_events:[@enquiry.payload].to_json
-      assert_response :ok
-    end
+    inbound @enquiry
 
     login(@rachel) do
       enquiry = @support_flow.requests.
@@ -13,20 +10,14 @@ class RequestsTest < ActionDispatch::IntegrationTest
 
       assert_timeline do
         assert_select 'a', href:customer_path(enquiry.customer)
-        assert_select 'a', href:team_requests_path(@support_flow,
-          enquiry.number)
+        assert_select 'a', href:team_requests_path(@support_flow, enquiry.number)
         assert_select '*', /opened/i
       end
     end
   end
 
   test "inbound email reply" do
-    anonymous do
-      post '/email/inbound',
-        mandrill_events:[@existing_customer_reply.payload].to_json
-
-      assert_response :ok
-    end
+    inbound @existing_customer_reply
 
     login(@rachel) do
       assert_timeline do

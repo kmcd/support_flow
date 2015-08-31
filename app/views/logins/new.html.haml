@@ -14,7 +14,7 @@
 = form_for(@login, url:team_login_path(current_team)) do |form|
 
   .form-group.has-feedback
-    = form.text_field :email, placeholder:'Your work email', class:'form-control'
+    = form.text_field :email_address, placeholder:'Your work email', class:'form-control'
     %span.glyphicon.glyphicon-envelope.form-control-feedback
 
   .row

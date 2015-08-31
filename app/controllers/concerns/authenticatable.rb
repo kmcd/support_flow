@@ -13,7 +13,7 @@ module Authenticatable
   def authenticate_team
     return if current_team.present?
 
-    redirect_to '/404.html'
+    render_404
   end
 
   def authenticate_agent
@@ -25,7 +25,7 @@ module Authenticatable
   def authorise_agent
     return if current_agent.member?(current_team)
 
-    redirect_to '/404.html'
+    render_404
   end
 
   def team_name
@@ -42,5 +42,9 @@ module Authenticatable
 
   def current_agent
     @current_agent ||= Agent.find_by_id session[:current_agent_id]
+  end
+
+  def render_404
+    render file:"#{Rails.root}/public/404", layout:false, status: :not_found
   end
 end

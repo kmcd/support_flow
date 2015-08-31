@@ -13,7 +13,7 @@ end
 
 Request.class_eval do
   def open_notification
-    return unless new_record?
+    return unless id_changed?
 
     agents_notified_on :open do |agent|
       AgentMailer.open(agent, self).deliver_later
@@ -22,6 +22,7 @@ Request.class_eval do
 
   def assignment_notification
     return unless agent_id_changed?
+    return unless agent.present?
 
     agents_notified_on :assign do |agent|
       AgentMailer.assign(agent, self).deliver_later

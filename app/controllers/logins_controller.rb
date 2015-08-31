@@ -36,7 +36,7 @@ class LoginsController < ApplicationController
   def login_params
     params.
       require(:login).
-      permit(%i[ email ]).
+      permit(%i[ email_address ]).
       merge!( team:current_team )
   end
 end

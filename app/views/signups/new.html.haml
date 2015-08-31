@@ -1,10 +1,10 @@
 .logins.row
   .col-md-offset-0.col-md-10.col-sm-10.col-sm-offset-0.col-xs-11
-  
+
     %br/
-    
+
     %h1 Signup
-  
-    = form_for(@login, url:signups_path) do |form|
-      = form.text_field :email, placeholder:'Your work email', class:'form-control'
+
+    = form_for(@login, url:signup_path) do |form|
+      = form.text_field :email_address, placeholder:'Your work email', class:'form-control'
       %button.btn.btn-default{type:'submit'} Login
