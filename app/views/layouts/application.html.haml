@@ -40,9 +40,10 @@
                   %ul.dropdown-menu{:role => "menu"}
                     %li.dropdown-header{:role => "presentation"}
                       %i &mdash; Team &mdash;
-                    %li= link_to 'Domains', team_mailboxes_path(current_team)
-                    %li= link_to 'Mailboxes', team_mailboxes_path(current_team)
-                    %li= link_to 'Billing', team_billing_path(current_team)
+                    %li= link_to 'Invite Agent', new_team_agent_path(current_team)
+                    
+                    %li= link_to 'Domains', edit_team_path(current_team, anchor:'domains')
+                    %li= link_to 'Mailboxes', edit_team_path(current_team, anchor:'mailboxes')
 
                     %li &nbsp;
                     %li.dropdown-header{:role => "presentation"}

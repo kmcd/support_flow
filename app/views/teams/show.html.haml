@@ -1,12 +1,13 @@
 %section.content-header
   .row
     .col-md-3.col-sm-3.col-xs-6
-      .small-box.bg-danger
+      .open_requests.small-box.bg-danger
         .inner
           %h3= dashboard.open_requests
           %p
-            Open
-            = pluralized dashboard.open_requests
+            = link_to team_requests_path(current_team, q:"open:true") do
+              Open
+              = pluralized dashboard.open_requests
             
     .col-md-3.col-sm-3.col-xs-6
       .small-box.bg-warning

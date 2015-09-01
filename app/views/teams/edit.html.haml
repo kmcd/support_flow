@@ -1,0 +1,51 @@
+= form_for(current_team, html:{class:'form-horizontal'}) do |form|
+
+  %section.content-header
+    = link_to 'Cancel', team_agents_path(current_team),class:'btn btn-default'
+    = form.button 'Save', class:'btn btn-default'
+
+  %section.content
+    .box
+      .box-header.with-border
+        %h3
+          %small.text-muted
+            Edit Team
+
+      .box-body
+        .row
+          %div{ class:"form-group text-muted #{ 'has-error' if current_team.errors.any? }"}
+            = form.label :name, 'Name', class:'col-sm-2 control-label'
+
+            .col-sm-6.col-xs-6
+              = form.text_field :name, class:'form-control',
+                  placeholder:'Team name', name:'team_name_update'
+
+              - if current_team.errors.any?
+                %p.text-danger= error_messages
+
+              - if flash[:notice]
+                %p.text-success
+                  Team name successfully updated
+
+              %br/
+
+              = content_tag :a, '', name:'domains'
+              %h2 Domain name (DNS)
+
+              %p
+                Help guides available at:
+                = link_to team_public_guides_url(current_team)
+                
+              %p
+                Search guides available at:
+                = link_to team_guide_search_url(current_team)
+
+              %br/
+              
+              = content_tag :a, '', name:'mailboxes'
+              %h2 Email mailbox
+              
+              %p
+                Team email address:
+                = mail_to "#{current_team.name}@getsupportflow.net"
+

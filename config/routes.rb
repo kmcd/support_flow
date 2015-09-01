@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   constraints({ domain: /\.net$/i }) do
-    resources :teams, only: %i[ show ], path:'/', param: :name do
+    resources :teams, only: %i[ show edit update ], path:'/', param: :name do
       resource :login,  only: %i[ new create show destroy ]
 
       shallow do

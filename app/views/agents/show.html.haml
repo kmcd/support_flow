@@ -11,7 +11,18 @@
 
           %h3.text-muted
             %i.fa.fa-phone
-            = @agent.phone
+
+            - if @agent.phone.present?
+              = @agent.phone
+            - else
+              %small
+                %i
+                  &mdash;
+                  = link_to 'Edit', edit_agent_path(@agent)
+                  to add
+                  = @agent.name
+                  phone number
+                  &mdash;
 
           %h5.text-muted
             %i.fa.fa-envelope-o

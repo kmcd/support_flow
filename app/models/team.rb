@@ -11,7 +11,7 @@ class Team < ActiveRecord::Base
   has_many :reply_templates
   validates :name, presence:true, uniqueness:true
   enum subscription: %i[ demo trial monthly annual ]
-  
+
   # TODO: replace with acts_as_taggable
   def labels
     ActiveRecord::Base.connection.exec_query( \
@@ -24,7 +24,7 @@ class Team < ActiveRecord::Base
       }).
       rows.flatten.sort
   end
-  
+
   def to_param
     name
   end

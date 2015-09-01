@@ -126,7 +126,6 @@ nav.navbar {
 .btn-danger:hover { border-color: darkgray; color: black; }
 .btn-info { border: none; color: dimgray; background-color: LightBlue; }
 .main-footer { border-top: none; }
-.open-requests { background-color: #E48A8A !important; }
 .row.customer hr { margin: 1em 1.6em 1em 1em; }
 .row.request hr { margin: 1em 1.6em 1em 1em; }
 .small-box * { color: black; }
@@ -196,4 +195,8 @@ span.description { color: gray; }
   color: #999; 
   font-size: 12px; 
   padding-right: 1em;
+}
+
+.teams .open_requests a {
+  color: #3C8DBC;
 }

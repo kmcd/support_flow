@@ -43,7 +43,19 @@ class TeamsTest < ActionDispatch::IntegrationTest
   end
 
   test "domain name" do
-    skip
+    login @rachel do
+      get edit_team_path(@support_flow)
+
+      assert_select 'form',
+        action:team_path(@support_flow),
+        method:/post/i
+      assert_select 'input', name:'team_name_update'
+      assert_select 'button', type:'submit'
+
+      put team_path(@support_flow), team_name_update:'foo'
+      assert_equal 'foo', @support_flow.reload.name
+      assert_redirected_to edit_team_path('foo')
+    end
   end
 
   test "dashboard number of open requests" do
