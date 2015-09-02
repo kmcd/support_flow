@@ -19,6 +19,7 @@ gem 'haml-rails'
 gem 'mini_magick'
 gem 'browser-timezone-rails'
 gem 'remotipart', '~> 1.2'
+gem 'htmlbeautifier'
 
 group :development do
   gem 'looksee'

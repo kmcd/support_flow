@@ -23,7 +23,7 @@
           = link_to 'Delete', @guide, method: :delete,
               class:"btn btn-default",
               data:{ confirm: "Definitely delete?" }
-              
+
         - if guide_saved?
           %span.text-success
             %i.fa.fa-fw.fa-check-circle-o
@@ -31,35 +31,53 @@
 
       .col-sm-5.col-xs-12
         %p
-          - unless @guide.new_record? || @guide.template?
+          - unless @guide.new_record?
             %small.text-muted
               Public URL:
-              = link_to_public @guide
 
-              &rArr;
-              = @guide.view_count
-              views
+              - if @guide.template?
+                = link_to_public Guide.index(current_team)
+              - else
+                = link_to_public @guide
+
+                &rArr;
+                = @guide.view_count
+                views
 
     .row
       .col-sm-12.col-xs-12
-        = form.text_area :content
+        - if @guide.template?
+          %textarea.hidden.guide_content{name:'guide[content]'}
+          
+          %div.guide_content{contenteditable:true}
+            %pre= @guide.content
+            
+        - else
+          = form.text_area :content
 
-:javascript
-  $(function() {
-    $('#guide_content').redactor({
-      focus: true,
-      minHeight: 500,
-      replaceDivs: false,
-      deniedTags: [],
-      removeEmpty: false,
-      replaceTags: [],
-      pastePlainText: true,
-      imageUpload: "#{ team_images_path current_team }",
-      imageManagerJson: "#{ team_images_path current_team, format:'json' }",
-      uploadImageFields: { 'authenticity_token':"#{form_authenticity_token}" },
-      fileUpload: "#{ team_files_path current_team }",
-      uploadFileFields: { 'authenticity_token':"#{form_authenticity_token}" },
-      definedLinks: "#{ team_links_path current_team }",
-      plugins: ['table', 'imagemanager', 'filemanager', 'fullscreen', 'definedlinks']
-    })
-  });
+          
+- if @guide.template?
+  :javascript
+    $("#edit_guide_#{@guide.id}").submit( function(){
+      $("textarea.guide_content").val( $(".guide_content pre").text() )
+    });
+- else
+  :javascript
+    $(function() {
+      $('#guide_content').redactor({
+        focus: true,
+        minHeight: 500,
+        replaceDivs: false,
+        deniedTags: [],
+        removeEmpty: false,
+        replaceTags: [],
+        pastePlainText: true,
+        imageUpload: "#{ team_images_path current_team }",
+        imageManagerJson: "#{ team_images_path current_team, format:'json' }",
+        uploadImageFields: { 'authenticity_token':"#{form_authenticity_token}" },
+        fileUpload: "#{ team_files_path current_team }",
+        uploadFileFields: { 'authenticity_token':"#{form_authenticity_token}" },
+        definedLinks: "#{ team_links_path current_team }",
+        plugins: ['table', 'imagemanager', 'filemanager', 'fullscreen', 'definedlinks']
+      })
+    });

@@ -4,6 +4,7 @@ class Guide < ActiveRecord::Base
   validates :name, uniqueness:{ scope: :team }
   belongs_to :team
   has_many :activities, as: :trackable
+  before_save :indent_template
 
   # TODO: move to scopes
   def self.pages(team)
@@ -47,5 +48,13 @@ class Guide < ActiveRecord::Base
 
   def text_content
     Nokogiri::HTML(content).text
+  end
+
+  private
+
+  def indent_template
+    return unless template?
+
+    self.content = HtmlBeautifier.beautify(content)
   end
 end
