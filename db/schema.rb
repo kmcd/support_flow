@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409164729) do
+ActiveRecord::Schema.define(version: 20150902114736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,21 +38,19 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "agents", force: :cascade do |t|
-    t.integer  "team_id",                    null: false
-    t.string   "email_address",              null: false
-    t.string   "name",              null: false
+    t.integer  "team_id",             null: false
+    t.string   "email_address",       null: false
+    t.string   "name",                null: false
     t.integer  "invitor_id"
     t.string   "phone"
     t.text     "notes"
     t.hstore   "notification_policy"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   add_index "agents", ["team_id"], name: "index_agents_on_team_id", using: :btree
 
-  # TODO: rename to files to avoid rails assets confusion
-  # e.g. File::GuideImage, File::GuideFile
   create_table "assets", force: :cascade do |t|
     t.integer  "team_id",    null: false
     t.string   "type",       null: false
@@ -61,23 +59,34 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.string   "title"
     t.string   "link"
     t.string   "size"
-    t.timestamps null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer "team_id"
+    t.integer "email_id"
+    t.string  "name"
+    t.string  "content_type"
+    t.binary  "content"
+    t.boolean "base64"
+    t.integer "size"
   end
 
   create_table "customers", force: :cascade do |t|
     t.integer  "team_id",                    null: false
-    t.string   "name",              null: false
+    t.string   "name",                       null: false
     t.string   "email_address"
     t.string   "phone"
     t.string   "company"
     t.text     "notes"
-    t.text     "labels",       default: [], array: true
+    t.text     "labels",        default: [],              array: true
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
 
-  add_index "customers", ["team_id"], name: "index_customers_on_team_id", using: :btree
   add_index "customers", ["email_address"], name: "index_customers_on_email_address", using: :btree
+  add_index "customers", ["team_id"], name: "index_customers_on_team_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -95,20 +104,6 @@ ActiveRecord::Schema.define(version: 20150409164729) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  # Merge with emails?
-  # e.g. Email::Outbound.new payload:'{attachments ... }'
-  # or Email::Draft.new payload:'{attachments ... }'
-  # May solve waiting for inbound issue by flagging Outbound as received
-  create_table "attachments", force: :cascade do |t|
-    t.integer "team_id" # why do we need a team?
-    t.integer "email_id"
-    t.string  "name"
-    t.string  "content_type"
-    t.binary  "content"
-    t.boolean "base64"
-    t.integer "size"
-  end
-
   create_table "emails", force: :cascade do |t|
     t.string   "type"
     t.integer  "team_id"
@@ -118,7 +113,8 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.string   "recipients"
     t.text     "message_content"
     t.json     "payload"
-    t.timestamps null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "guides", force: :cascade do |t|
@@ -130,19 +126,59 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
-  
-  add_index "guides", ["team_id"], name: "index_guides_on_team_id", using: :btree
+
   add_index "guides", ["slug"], name: "index_guides_on_slug", using: :btree
+  add_index "guides", ["team_id"], name: "index_guides_on_team_id", using: :btree
 
   create_table "logins", force: :cascade do |t|
-    t.string   "email_address",      null:false
-    t.string   "team_id"
+    t.string   "email_address",                 null: false
+    t.integer  "team_id"
     t.string   "token"
-    t.boolean  "signup",     default:false
-    t.timestamps null: false
+    t.boolean  "signup",        default: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   add_index "logins", ["email_address"], name: "index_logins_on_email", using: :btree
+  add_index "logins", ["team_id"], name: "index_logins_on_team_id", using: :btree
+
+  create_table "mailboxes", force: :cascade do |t|
+    t.integer  "team_id",                    null: false
+    t.string   "email_address",              null: false
+    t.json     "credentials",   default: {}
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "mailboxes", ["email_address"], name: "index_mailboxes_on_email_address", using: :btree
+  add_index "mailboxes", ["team_id"], name: "index_mailboxes_on_team_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "mailbox_id"
+    t.integer  "request_id"
+    t.integer  "customer_id"
+    t.integer  "agent_id"
+    t.string   "subject"
+    t.text     "text_body"
+    t.text     "content",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "messages", ["agent_id"], name: "index_mailboxes_on_agent_id", using: :btree
+  add_index "messages", ["customer_id"], name: "index_mailboxes_on_customer_id", using: :btree
+  add_index "messages", ["mailbox_id"], name: "index_mailboxes_on_mailbox_id", using: :btree
+  add_index "messages", ["request_id"], name: "index_mailboxes_on_request_id", using: :btree
+
+  create_table "reply_templates", force: :cascade do |t|
+    t.string   "team_id",    null: false
+    t.string   "name",       null: false
+    t.text     "template"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "reply_templates", ["team_id"], name: "index_reply_templates_on_team_id", using: :btree
 
   create_table "requests", force: :cascade do |t|
     t.integer  "team_id",                     null: false
@@ -154,8 +190,9 @@ ActiveRecord::Schema.define(version: 20150409164729) do
     t.boolean  "open",         default: true
     t.text     "labels",       default: [],                array: true
     t.text     "notes"
-    t.integer  "happiness", default: 100
-    t.timestamps null: false
+    t.integer  "happiness",    default: 100
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "requests", ["agent_id"], name: "index_requests_on_agent_id", using: :btree
@@ -164,37 +201,32 @@ ActiveRecord::Schema.define(version: 20150409164729) do
   add_index "requests", ["number"], name: "index_requests_on_number", using: :btree
 
   create_table "sessions", force: :cascade do |t|
-    t.string "session_id", :null => false
-    t.text "data"
-    t.timestamps null: false
+    t.string   "session_id", null: false
+    t.text     "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "sessions", "session_id", unique:true
-  add_index "sessions", "updated_at"
-
-  create_table "reply_templates", force: :cascade do |t|
-    t.string "team_id", null:false
-    t.string "name", null:false
-    t.text "template"
-    t.timestamps null: false
-  end
-
-  add_index "reply_templates", ["team_id"], name: "index_reply_templates_on_team_id", using: :btree
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "statistics", force: :cascade do |t|
     t.integer  "owner_id",   null: false
     t.string   "owner_type", null: false
     t.string   "type",       null: false
     t.string   "value"
-    t.timestamps null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.integer  "subscription"
-    t.timestamps null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "teams", ["name"], name: "index_teams_on_name", using: :btree
   add_index "teams", ["subscription"], name: "index_teams_on_subscription", using: :btree
+
 end
