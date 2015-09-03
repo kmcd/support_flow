@@ -1,4 +1,4 @@
 - content_for :help_link do
-  = link_to 'Need Help?', '/help/requests#reply_templates'
+  = link_to 'Need Help?', team_public_guide_url('help', 'requests', anchor:'reply_templates', host:host)
   
 = render 'form'

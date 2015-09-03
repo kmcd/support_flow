@@ -46,4 +46,14 @@ module GuidesHelper
       when /production/   ; 'getsupportflow.com'
     end
   end
+  
+  def help_url(guide)
+    if guide.template?
+      team_public_guide_url('help', 'guides', anchor:'template', host:host)
+    elsif guide.home_page?
+      team_public_guide_url('help', 'guides', anchor:'home', host:host)
+    else
+      team_public_guide_url('help', 'guides', anchor:'edit', host:host)
+    end
+  end
 end
