@@ -1,6 +1,6 @@
 - content_for :help_link do
-  = link_to 'Need Help?', '/help/requests'
-  
+  = link_to 'Need Help?',  team_public_guide_url('help', 'requests', host:host)
+
 %section.content-header
   = link_to 'Edit', edit_team_request_path(current_team, @request.number),
       class:'btn btn-default'
@@ -102,7 +102,7 @@
               = @request.customer.phone
 
         .col-lg-4.col-md-4.col-sm-4.col-xs-12
-        
+
           - if @request.first_reply.blank?
             %h3
               = distance_of_time_in_words_to_now @request.created_at
