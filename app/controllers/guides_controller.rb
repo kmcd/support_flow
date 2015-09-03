@@ -18,6 +18,9 @@ class GuidesController < ApplicationController
       render :new
     end
   end
+  
+  def edit
+  end
 
   def update
     if @guide.update guide_params

@@ -47,21 +47,13 @@
     .row
       .col-sm-12.col-xs-12
         - if @guide.template?
-          %textarea.hidden.guide_content{name:'guide[content]'}
-          
-          %div.guide_content{contenteditable:true}
-            %pre= @guide.content
+          %textarea#template_editor{name:'guide[content]'}~ @guide.content
             
         - else
           = form.text_area :content
 
           
-- if @guide.template?
-  :javascript
-    $("#edit_guide_#{@guide.id}").submit( function(){
-      $("textarea.guide_content").val( $(".guide_content pre").text() )
-    });
-- else
+- unless @guide.template?
   :javascript
     $(function() {
       $('#guide_content').redactor({

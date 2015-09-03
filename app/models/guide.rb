@@ -2,9 +2,14 @@ class Guide < ActiveRecord::Base
   attr_accessor :current_agent
   validates :name, presence:true
   validates :name, uniqueness:{ scope: :team }
+  validates :content, presence:true
+  validates :content,
+    format:{
+      with:/\<!-- content --\>/mi,
+      message:'must contain content comment <!-- content -->' },
+    if: :template?
   belongs_to :team
   has_many :activities, as: :trackable
-  before_save :indent_template
 
   # TODO: move to scopes
   def self.pages(team)
@@ -48,13 +53,5 @@ class Guide < ActiveRecord::Base
 
   def text_content
     Nokogiri::HTML(content).text
-  end
-
-  private
-
-  def indent_template
-    return unless template?
-
-    self.content = HtmlBeautifier.beautify(content)
   end
 end

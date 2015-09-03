@@ -201,20 +201,32 @@ span.description { color: gray; }
   color: #3C8DBC;
 }
 
-.guide_content pre {
+#template_editor  {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;
+  word-break: break-all;
+  font-family: Menlo, Monaco, Consolas, "Courier New" ,monospace;
   background-color:black;
   color:palegreen;
   font-size:1em;
+  padding: 1em;
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+  min-height: 350px;
 }
 
-.guide_content *::selection {
+#template_editor::selection {
   background: DimGray;
 }
 
-.guide_content *::-moz-selection {
+#template_editor::-moz-selection {
   background: DimGray;
 }
 
-.guide_content *::-webkit-selection {
+#template_editor::-webkit-selection {
   background: DimGray;
 }
