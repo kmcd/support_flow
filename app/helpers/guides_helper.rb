@@ -18,6 +18,7 @@ module GuidesHelper
 
   def readonly?(guide)
     return if guide.new_record?
+
     !guide.deleteable?
   end
 

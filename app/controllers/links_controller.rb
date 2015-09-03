@@ -9,16 +9,33 @@ class LinksController < ApplicationController
 
   def guide_links
     links = [ { "name": "Select guide", "url": false } ]
-    links << link_json('Home Page')
-    links << Guide.pages(current_team).map {|_| link_json _.name, _ }
+    links << GuideLinks.new(current_team).link_json
     links.flatten
   end
 
-  def link_json(name, guide=nil)
-    page = guide.present? ? guide.name : 'index'
-    {
-      name:name.titleize,
-      url:team_public_guide_url(current_team, page.parameterize)
-    }
+end
+
+class GuideLinks < Struct.new(:team)
+  include GuidesHelper
+  include Rails.application.routes.url_helpers
+  Rails.application.routes.default_url_options = \
+    ActionMailer::Base.default_url_options
+
+  def link_json
+    Guide.pages(team).map do |guide|
+      link_json_for guide
+    end
+  end
+
+  private
+
+  def link_json_for(guide)
+    link_text, page_url = if guide.home_page?
+      [ 'Home page', team_public_guides_url(team, host:host) ]
+    else
+      [ guide.name.titleize, team_public_guide_url(team, guide.name.parameterize, host:host) ]
+    end
+
+    { name:link_text, url:page_url }
   end
 end
