@@ -14,7 +14,7 @@ class Guide < ActiveRecord::Base
   # TODO: move to scopes
   def self.pages(team)
     [
-      where(name:'index').first,
+      where(team:team, name:'index').first,
       where(team:team).
         where.not(name:'_template').
         where.not(name:'index').
