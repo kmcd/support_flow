@@ -1,3 +1,6 @@
+- content_for :help_link do
+  = link_to 'Need Help?', '/help/requests'
+  
 %section.content-header
   = link_to 'Edit', edit_team_request_path(current_team, @request.number),
       class:'btn btn-default'

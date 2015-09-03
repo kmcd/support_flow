@@ -1,3 +1,6 @@
+- content_for :help_link do
+  = link_to 'Need Help?', '/help/agents#new'
+
 = form_for(@agent, url:team_agents_path(current_team), html:{class:'form-horizontal'}) do |form|
 
   -# TODO: dry up with app/views/agents/edit

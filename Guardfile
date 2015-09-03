@@ -29,3 +29,7 @@ guard :livereload do
   watch(%r{lib/.+\.rb})
   watch(%r{public/.+\.(css|js|html)})
 end
+
+# TODO: on commit
+# - run tests
+# - deploy to shelly cloud
