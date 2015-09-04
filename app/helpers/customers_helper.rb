@@ -16,7 +16,7 @@ module CustomersHelper
     if @customer.errors[:name].present?
       @customer.errors[:name].join ','
     else
-      "Customer name e.g. Billing enquiry"
+      "Customer name"
     end
   end
 end
