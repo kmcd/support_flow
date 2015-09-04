@@ -7,7 +7,7 @@ module Authenticatable
     before_filter :authorise_agent
     helper_method :current_agent, :current_team
   end
-
+  
   private
 
   def authenticate_team
@@ -23,6 +23,7 @@ module Authenticatable
   end
 
   def authorise_agent
+    return if admin?
     return if current_agent.member?(current_team)
 
     render_404
@@ -46,5 +47,9 @@ module Authenticatable
 
   def render_404
     render file:"#{Rails.root}/public/404", layout:false, status: :not_found
+  end
+  
+  def admin?
+    Team::ADMINS.include? current_agent.email_address
   end
 end
