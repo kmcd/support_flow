@@ -30,6 +30,7 @@ class DemoJob < ActiveJob::Base
   private
 
   def create_team
+    # TODO: auto-increment demo for social proof
     random_name = ->() { "demo-#{rand(9999..99999)}" }
     @team = Team.new subscription: :demo
     @team.name = random_name.call until @team.valid?

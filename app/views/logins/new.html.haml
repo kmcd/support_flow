@@ -2,15 +2,15 @@
   %p.login-box-msg
     %span.text-danger
       We couldn&apos;t email your login link.
-      
+
     Please try again or contact
     = mail_to 'rachel@getsupportflow.net'
     \.
-    
+
 - else
   %p.login-box-msg
     Please enter your work email &mdash; we&apos;ll send your login link.
-  
+
 = form_for(@login, url:team_login_path(current_team)) do |form|
 
   .form-group.has-feedback
