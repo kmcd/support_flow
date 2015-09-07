@@ -1,4 +1,5 @@
 class SalesSyncJob < ActiveJob::Base
+  SALES_DB = Sequel.connect "postgres://xdukemdiocmvih:kg6aasRN7aj2YWALNOhIltdj_N@ec2-54-217-202-109.eu-west-1.compute.amazonaws.com:5432/d44t623isgoibt"
   queue_as :default
 
   def perform(*args)
@@ -20,9 +21,6 @@ class SalesSyncJob < ActiveJob::Base
     end
 
     next if [leads, opportunities].flatten.empty?
-
-    # TODO: move connection string to environment variable
-    SALES_DB = Sequel.connect "postgres://xdukemdiocmvih:kg6aasRN7aj2YWALNOhIltdj_N@ec2-54-217-202-109.eu-west-1.compute.amazonaws.com:5432/d44t623isgoibt"
 
     leads.each do |agent|
       lead_id = SALES_DB[:leads].insert \
