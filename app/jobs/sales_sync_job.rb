@@ -20,7 +20,7 @@ class SalesSyncJob < ActiveJob::Base
       [ address, rating ]
     end
 
-    next if [leads, opportunities].flatten.empty?
+    return if [leads, opportunities].flatten.empty?
 
     leads.each do |agent|
       lead_id = SALES_DB[:leads].insert \
