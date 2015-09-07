@@ -3,25 +3,12 @@ class SalesSyncJob < ActiveJob::Base
   queue_as :default
 
   def perform(*args)
-    leads = Agent.
-      support_flow_customers.
-      demo.
-      last_5_mins
-
-    opportunities = Agent.
-      support_flow_customers.
-      trial.
-      last_5_mins.
-      group_by(&:team_id).
-      map {|_, agents| agents.first }
-
-    ratings = Login.group(:email_address).count.map do |address, count|
-      rating = count > 5 ? 5 : count
-      [ address, rating ]
-    end
-
-    return if [leads, opportunities].flatten.empty?
-
+    sync_leads
+    sync_opportunities
+    sync_ratings
+  end
+  
+  def sync_leads
     leads.each do |agent|
       lead_id = SALES_DB[:leads].insert \
         email:agent.email_address,
@@ -55,8 +42,11 @@ class SalesSyncJob < ActiveJob::Base
         state:'Expanded',
         created_at:0.minutes.ago,
         updated_at:0.minutes.ago
+      end
     end
-
+  end
+  
+  def sync_opportunities
     opportunities.each do |agent|
       SALES_DB[:leads].
         where( email:agent.email_address ).
@@ -99,10 +89,34 @@ class SalesSyncJob < ActiveJob::Base
         created_at:0.minutes.ago,
         updated_at:0.minutes.ago
     end
-
+  end
+  
+  def sync_ratings
     ratings.each do |address, rating|
       SALES_DB[:leads].where(email:address).update rating:rating
     end
+  end
+  
+  def leads
+    Agent.
+      support_flow_customers.
+      demo.
+      last_5_mins
+  end
+  
+  def opportunities
+    Agent.
+      support_flow_customers.
+      trial.
+      last_5_mins.
+      group_by(&:team_id).
+      map {|_, agents| agents.first }
+  end
+  
+  def ratings
+    Login.group(:email_address).count.map do |address, count|
+      rating = count > 5 ? 5 : count
+      [ address, rating ]
   end
 end
 
