@@ -47,7 +47,9 @@ class RequestSearch
               customer_facet,
               agent_facet
             ]
+
             and_filters.push(label_facets) unless label_facets.empty?
+
             _and filters:and_filters
           end
         end

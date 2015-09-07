@@ -1,4 +1,5 @@
 module Authenticatable
+  ADMINS = %w[ keith@dancingtext.com ]
   extend ActiveSupport::Concern
 
   included do
@@ -50,6 +51,6 @@ module Authenticatable
   end
   
   def admin?
-    Team::ADMINS.include? current_agent.email_address
+    ADMINS.include? current_agent.email_address
   end
 end

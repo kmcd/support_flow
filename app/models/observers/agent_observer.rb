@@ -27,3 +27,9 @@ Agent.class_eval do
     team.agents.first.eql? self
   end
 end
+
+class SalesObserver
+  # after signup ...
+  # after trial ...
+  # after payment ...
+end

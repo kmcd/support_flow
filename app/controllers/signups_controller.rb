@@ -11,7 +11,8 @@ class SignupsController < ApplicationController
   def create
     @login = Login.new \
       email_address:login_params[:email_address],
-      signup:true
+      signup:true,
+      campaign:login_params[:campaign]
 
     unless @login.save
       flash[:errors] = :signup
@@ -24,6 +25,6 @@ class SignupsController < ApplicationController
   def login_params
     params.
       require(:login).
-      permit %i[ email_address ]
+      permit %i[ email_address campaign ]
   end
 end

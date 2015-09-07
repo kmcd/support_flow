@@ -10,6 +10,7 @@ namespace :search do
   task delete: :environment do
     [ Request, Customer, Guide ].each do |klass|
       begin
+        klass.class_eval { include Elasticsearch::Model }
         klass.__elasticsearch__.client.indices.delete index:klass.index_name
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
       end

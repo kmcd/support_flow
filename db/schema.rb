@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902114736) do
+ActiveRecord::Schema.define(version: 20150907153211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20150902114736) do
     t.boolean  "signup",        default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.string   "campaign"
   end
 
   add_index "logins", ["email_address"], name: "index_logins_on_email", using: :btree

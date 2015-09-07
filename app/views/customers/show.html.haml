@@ -23,7 +23,7 @@
               %small.text-muted
                 - if @customer.labels.any?
                   - @customer.labels.each do |label|
-                    = link_to label, team_requests_path(current_team, q:"label:#{label}"),
+                    = link_to label, team_customers_path(current_team, q:"label:#{label}"),
                         class:'btn btn-xs bg-info'
                 - else
                   %i
@@ -111,10 +111,13 @@
                 %small closed
 
       %p.text-muted
-        %i
-          &mdash;
-          = link_to 'Edit', edit_customer_path(@customer)
-          to add notes
-          &mdash;
+        - if @customer.notes.present?
+          = @customer.notes.html_safe
+        - else
+          %i
+            &mdash;
+            = link_to 'Edit', edit_customer_path(@customer)
+            to add notes
+            &mdash;
 
   = render partial:'timeline', object:@customer.timeline

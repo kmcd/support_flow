@@ -13,6 +13,7 @@ class CustomerSearch
   def definition
     full_text       = extract_full_text
     team_facet      = { term: { team_id:@team.id } }
+    label_facets    = extract_label_facets
     sort_by         = sort_order
 
     search do
@@ -34,9 +35,13 @@ class CustomerSearch
           end
 
           filter do
-            _and filters:[ 
+            and_filters = [
               team_facet
             ]
+
+            and_filters.push(label_facets) unless label_facets.empty?
+
+            _and filters:and_filters
           end
         end
       end

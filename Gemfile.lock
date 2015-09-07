@@ -141,7 +141,6 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
-    htmlbeautifier (1.1.1)
     htmlentities (4.3.3)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
@@ -222,6 +221,7 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     remotipart (1.2.1)
+    rinku (1.7.3)
     ruby-progressbar (1.7.5)
     ruby_parser (3.7.0)
       sexp_processor (~> 4.1)
@@ -232,6 +232,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
+    sequel (4.26.0)
     sexp_processor (4.6.0)
     shellany (0.0.1)
     shelly-dependencies (0.2.5)
@@ -277,7 +278,7 @@ DEPENDENCIES
   awesome_print
   browser-timezone-rails
   byebug
-  clockwork
+  clockwork (>= 0.5.0)
   coffee-rails
   dalli
   delayed_job_active_record
@@ -292,7 +293,6 @@ DEPENDENCIES
   guard-livereload (~> 2.4)
   guard-rails
   haml-rails
-  htmlbeautifier
   jquery-rails
   launchy
   looksee
@@ -303,7 +303,9 @@ DEPENDENCIES
   rails (= 4.2.0)
   rails-observers
   remotipart (~> 1.2)
+  rinku
   sass-rails
+  sequel
   shelly-dependencies
   spring
   test_after_commit

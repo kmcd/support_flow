@@ -12,7 +12,8 @@
     Please enter your work email &mdash; we&apos;ll send your login link.
 
 = form_for(@login, url:signup_path) do |form|
-
+  = form.hidden_field :campaign, value:params[:c]
+  
   .form-group.has-feedback
     = form.text_field :email_address, placeholder:'Your work email', class:'form-control'
     %span.glyphicon.glyphicon-envelope.form-control-feedback
