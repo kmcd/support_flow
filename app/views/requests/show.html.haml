@@ -58,9 +58,9 @@
             = @request.name
 
             %small.text-muted
-              %i
+              %small
                 - if [ @request.labels, @request.name ].any?(&:blank?)
-                  %small
+                  %i
                     &mdash;
                     = link_to 'Edit', edit_team_request_path(current_team, @request.number)
                     to add
@@ -72,19 +72,19 @@
 
                 - else
                   - @request.labels.each do |label|
-                    = link_to label, team_requests_path(current_team, q:label),
+                    = link_to label, team_requests_path(current_team, q:"label:#{label}"),
                         class:'btn btn-xs bg-info'
 
           %h3.text-muted
             %small
-              Opened on
+              Opened by
+            = link_to @request.customer.name, customer_path(@request.customer)
+            
+            %small
+              on
               %b= @request.created_at.strftime '%a %d %b %Y'
               at
               %b= @request.created_at.strftime '%R'
-
-            %small
-              by
-            = link_to @request.customer.name, customer_path(@request.customer)
 
             - if @request.customer.company.present?
               %small

@@ -1,0 +1,51 @@
+%section.content-header
+  %br/
+
+  %section.content
+    .row
+      .col-sm-offset-2.col-sm-7.col-xs-12
+        .box
+          .box-header
+            %br/
+            %h1.text-center Start Your Trial
+            %br/
+
+            %p
+              [WELCOME & THANKS] Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at dui malesuada, eleifend augue eu, mollis augue. Aenean iaculis non arcu id egestas. Sed sagittis efficitur luctus.
+
+          .box-body
+            = form_for(@trial,
+                url:team_trial_path,
+                method: :post,
+                html:{class:'form-horizontal'}) do |form|
+
+              %h3 Team Name
+
+              %p
+                [TEAM NAME EXPLINATION] Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at dui malesuada, eleifend augue eu, mollis augue.
+
+              .form-group
+                .col-sm-offset-0.col-sm-7.col-xs-12
+                  = form.text_field :team_name, class:'form-control'
+
+                  - if @trial.errors[:team_name].present?
+                    %p.text-danger= @trial.errors[:team_name].flatten.join ' '
+
+              %ul.list-unstyled
+                %li
+                  Email &rarr;
+                  = mail_to "#{current_team.name}@getsupportflow.net"
+
+                %li
+                  Guides &rarr;
+                  = link_to team_public_guides_url(current_team, host:host),
+                  team_public_guides_url(current_team, host:host)
+
+                %li
+                  Search &rarr;
+                  = link_to search_url, search_url
+                  
+              %hr/
+
+              .text-center
+                = form.button 'Lets Go!', class:'btn btn-default btn-lg'

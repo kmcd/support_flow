@@ -22,7 +22,7 @@ class Agent < ActiveRecord::Base
   scope :support_flow_customers, ->() {
     joins(:team).
     where.not( teams:{ name:'help' } ).
-    where("email_address NOT SIMILAR TO '@example\.(com|net|org)' ")
+    where("email_address NOT SIMILAR TO '%@example\.(com|net|org)%' ")
   }
 
   def team_members

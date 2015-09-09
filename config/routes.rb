@@ -16,7 +16,9 @@ Rails.application.routes.draw do
       resources :mailboxes,     only: %i[ index ]
       resource  :notifications, only: %i[ edit update ]
       resources :reply_templates # TODO: rename to replies/responses
-      resources :requests, param: :number
+      resources :requests,      param: :number
+      
+      resource :trial, only: %i[ new create show ]
     end
 
     namespace :email do

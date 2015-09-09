@@ -62,20 +62,7 @@
 
       .content-wrapper
         .container
-
-          - if current_team.demo?
-            .notice.callout
-              %p.text-center
-                This is a
-                %b
-                  demonstration
-                account &mdash;
-                = link_to 'start your trial', '#'
-                to use the full version.
-
-                Questions?
-                = mail_to 'rachel@getsupportflow.com'
-                is here to help!
+          = render('notice_demo') if current_team.demo?
 
           = yield
 

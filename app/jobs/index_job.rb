@@ -22,6 +22,9 @@ class IndexJob < ActiveJob::Base
 
   def delete
     record.__elasticsearch__.delete_document
+
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      # TODO: log error
   end
 end
 

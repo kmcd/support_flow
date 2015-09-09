@@ -1,6 +1,6 @@
 - content_for :help_link do
   = link_to 'Need Help?', team_public_guide_url('help', 'teams', anchor:'dashboard', host:host)
-  
+
 %section.content-header
   .row
     .col-md-3.col-sm-3.col-xs-6
@@ -11,7 +11,7 @@
             = link_to team_requests_path(current_team, q:"open:true") do
               Open
               = pluralized dashboard.open_requests
-            
+
     .col-md-3.col-sm-3.col-xs-6
       .small-box.bg-warning
         .inner
@@ -37,6 +37,10 @@
             - unless mins.zero?
               = mins
               %small min
+              
+            - if [hrs, mins].all?(&:zero?)
+              0
+              %small min
 
           %p
             Average 1
@@ -56,22 +60,31 @@
             - unless mins.zero?
               = mins
               %small min
+              
+            - if [hrs, mins].all?(&:zero?)
+              0
+              %small min
 
           %p Average close
 
 %section.content
-  %ul.timeline
-    -# TODO: Russian doll cache outer fragment ...
-    - dashboard.timeline.each do |day, activities|
-      %li.time-label
-        %span.bg-none= day.strftime "%d %b %Y"
+  - if dashboard.timeline.empty?
+    %p
+      [STARTER TEXT]
 
-        - activities.each do |activity|
-          - cache(activity) do
-            = render partial:activity.key, locals:{ activity:activity }
-    %li
-      %i.fa.fa-clock-o.bg-gray
+  - else
+    %ul.timeline
+      -# TODO: Russian doll cache outer fragment ...
+      - dashboard.timeline.each do |day, activities|
+        %li.time-label
+          %span.bg-none= day.strftime "%d %b %Y"
 
-  %br/
+          - activities.each do |activity|
+            - cache(activity) do
+              = render partial:activity.key, locals:{ activity:activity }
+      %li
+        %i.fa.fa-clock-o.bg-gray
 
-  %h4= will_paginate(dashboard.activities)
+    %br/
+
+    %h4= will_paginate(dashboard.activities)

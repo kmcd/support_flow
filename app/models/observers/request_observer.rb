@@ -11,7 +11,7 @@ end
 
 Request.class_eval do
   def set_number
-    update number:Request.count
+    update number:team.requests.count
   end
 
   def create_assignment_activity
