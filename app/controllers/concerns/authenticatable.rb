@@ -7,6 +7,7 @@ module Authenticatable
     before_filter :authenticate_agent
     before_filter :authorise_agent
     helper_method :current_agent, :current_team
+    force_ssl if: :ssl_configured?
   end
   
   private
@@ -52,5 +53,9 @@ module Authenticatable
   
   def admin?
     ADMINS.include? current_agent.email_address
+  end
+  
+  def ssl_configured?
+    Rails.env.production?
   end
 end
