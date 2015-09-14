@@ -28,7 +28,7 @@ class SignupTest < ActionDispatch::IntegrationTest
 
     assert_equal [signup_email], email.to
     assert_equal ['rachel@getsupportflow.net'], email.from
-    assert_match /http:\/\/getsupportflow.net\/#{login.team.name}\/login\?token=#{login.token}/, email.body.to_s
+    assert_match /https:\/\/getsupportflow.net\/#{login.team.name}\/login\?token=#{login.token}/, email.body.to_s
 
     get team_login_url(@rachel.team), token:login.token
     assert_redirected_to team_url(@support_flow.name)

@@ -22,7 +22,7 @@ class SalesSyncJob < ActiveJob::Base
         user_id:1,
         commentable_type:'Lead',
         commentable_id:lead_id,
-        comment:"http://getsupportflow.net/#{agent.team.name}",
+        comment:"https://getsupportflow.net/#{agent.team.name}",
         state:'Expanded',
         created_at:0.minutes.ago,
         updated_at:0.minutes.ago
@@ -38,7 +38,7 @@ class SalesSyncJob < ActiveJob::Base
         user_id:1,
         commentable_type:'Contact',
         commentable_id:contact_id,
-        comment:"http://getsupportflow.net/#{agent.team.name}",
+        comment:"https://getsupportflow.net/#{agent.team.name}",
         state:'Expanded',
         created_at:0.minutes.ago,
         updated_at:0.minutes.ago
@@ -62,7 +62,7 @@ class SalesSyncJob < ActiveJob::Base
         user_id:1,
         commentable_type:'Account',
         commentable_id:account_id,
-        comment:"http://getsupportflow.net/#{agent.team.name}",
+        comment:"https://getsupportflow.net/#{agent.team.name}",
         state:'Expanded',
         created_at:0.minutes.ago,
         updated_at:0.minutes.ago
@@ -84,7 +84,7 @@ class SalesSyncJob < ActiveJob::Base
         user_id:1,
         commentable_type:'Opportunity',
         commentable_id:opportunity_id,
-        comment:"http://getsupportflow.net/#{agent.team.name}",
+        comment:"https://getsupportflow.net/#{agent.team.name}",
         state:'Expanded',
         created_at:0.minutes.ago,
         updated_at:0.minutes.ago

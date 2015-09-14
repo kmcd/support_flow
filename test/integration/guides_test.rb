@@ -95,7 +95,7 @@ class GuidesTest < ActionDispatch::IntegrationTest
             team_name:@support_flow.name,
             host:'getsupportflow.com'),
           {},
-          referer:'http://getsupportflow.net'
+          referer:'https://getsupportflow.net'
 
         assert_response :success
       end

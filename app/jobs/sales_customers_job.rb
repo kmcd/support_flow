@@ -15,8 +15,8 @@ class SalesCustomersJob < ActiveJob::Base
 
       notes = customer.notes || ""
       app_links = <<-NOTES.strip_heredoc
-        team:   http://getsupportflow.net/#{agent.team.name} <br/>
-        agent:  http://getsupportflow.net/agents/#{agent.id} <br/>
+        team:   https://getsupportflow.net/#{agent.team.name} <br/>
+        agent:  https://getsupportflow.net/agents/#{agent.id} <br/>
         campaign: https://support-flow-sales.herokuapp.com/campaigns/1 <br/>
       NOTES
 
