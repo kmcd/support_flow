@@ -73,8 +73,17 @@
                 %td close
 
               %tr
-                %td= link_to agent.requests_open_count, team_requests_path(current_team, q:"open:true")
-                %td= link_to agent.requests_closed_count, team_requests_path(current_team, q:"open:true")
+                %td
+                  - if agent.requests_open_count.zero?
+                    0
+                  - else
+                    = link_to agent.requests_open_count ,team_requests_path(current_team, q:"agent_id:#{agent.id} open:true")
+                    
+                %td 
+                  - if agent.requests_closed_count.zero?
+                    0
+                  - else
+                    = link_to agent.requests_closed_count ,team_requests_path(current_team, q:"agent_id:#{agent.id} open:false")
 
                 - hrs, mins = hours_mins_from(agent.average_reply.to_i)
                 %td
