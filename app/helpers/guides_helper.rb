@@ -9,7 +9,7 @@ module GuidesHelper
   def link_to_public(guide)
     name = guide.home_page? ? '' : guide.name.parameterize
     url = team_public_guide_url current_team, name, host:host
-    link_to url, url
+    link_to url, url, protocol:'http'
   end
 
   def search_url
