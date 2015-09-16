@@ -1,6 +1,7 @@
 class PublicGuidesController < ApplicationController
   skip_before_action :authenticate_agent
   skip_before_action :authorise_agent
+  
 
   layout false
 
@@ -30,5 +31,9 @@ class PublicGuidesController < ApplicationController
     return unless request.referer
 
     request.referer[/getsupportflow\.net/]
+  end
+  
+  def ssl_configured?
+    false
   end
 end
