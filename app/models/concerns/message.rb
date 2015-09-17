@@ -3,6 +3,7 @@ class Message
   COMMAND_REGEX = /\A\s*-{1,2}\w+.*\Z/
   REQUEST_ID_REGEX = /request\.(\d+)@#{APP_DOMAIN}/
   TEAM_EMAIL_REGEX = /team\.(\d+)@#{APP_DOMAIN}/
+  TEAM_NAME_EMAIL_REGEX = /(.*)@#{APP_DOMAIN}/
 
   attr_reader :payload, :email
   delegate *%i[ subject attachments ], to: :payload
@@ -27,11 +28,11 @@ class Message
   def recipient_addresses
     recipients.map &:first
   end
-  
+
   def html
     Griddler::EmailParser.extract_reply_body payload.html
   end
-  
+
   def text
     Griddler::EmailParser.extract_reply_body payload.text
   end
@@ -47,9 +48,16 @@ class Message
 
   def team_id
     return unless to && to.match(TEAM_EMAIL_REGEX)
+
     TEAM_EMAIL_REGEX.match(to)[1]
   end
-  
+
+  def team_name
+    return unless to && to.match(TEAM_NAME_EMAIL_REGEX)
+
+    TEAM_NAME_EMAIL_REGEX.match(to)[1]
+  end
+
   def request_reply?
     request_id.present?
   end

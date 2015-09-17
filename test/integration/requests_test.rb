@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RequestsTest < ActionDispatch::IntegrationTest
-  test "inbound email enquiry" do
+  test "inbound email enquiry addressed to team id" do
     inbound @enquiry
 
     login(@rachel) do
@@ -13,6 +13,18 @@ class RequestsTest < ActionDispatch::IntegrationTest
         assert_select 'a', href:team_requests_path(@support_flow, enquiry.number)
         assert_select '*', /opened/i
       end
+    end
+  end
+
+  test "inbound email enquiry addressed to team name" do
+    @enquiry.payload['msg']['email'] =  \
+      "#{@support_flow.name}@getsupportflow.net"
+
+    @enquiry.payload['msg']['to'] =  \
+      [ [ "#{@support_flow.name}@getsupportflow.net", nil ] ]
+
+    assert_difference('@support_flow.reload.requests.count', 1) do
+      inbound @enquiry
     end
   end
 

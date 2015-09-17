@@ -122,11 +122,16 @@ Email::Inbound.class_eval do
   end
 
   def addressed_to_team
-    Team.find_by_id message.team_id
+    if message.team_id
+      Team.find_by_id message.team_id
+    else
+      Team.where(name:message.team_name).first
+    end
   end
 
   def team_from_addressed_to_request
     return unless addressed_to_request.present?
+
     addressed_to_request.team
   end
 
