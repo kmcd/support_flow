@@ -2,7 +2,6 @@ class PublicGuidesController < ApplicationController
   skip_before_action :authenticate_agent
   skip_before_action :authorise_agent
   
-
   layout false
 
   def index

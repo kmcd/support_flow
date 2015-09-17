@@ -15,4 +15,10 @@ class GuideTest < ActiveSupport::TestCase
     assert_equal [ 'must contain content comment <!-- content -->' ],
       @template.errors[:content]
   end
+
+  test "dont create activity for page view" do
+    assert_no_difference('Activity.count') do
+      @home_page.increment! :view_count
+    end
+  end
 end
