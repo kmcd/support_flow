@@ -1,5 +1,5 @@
 - content_for :help_link do
-  = link_to 'Need Help?',  team_public_guide_url('help', 'agents', host:host)
+  = link_to 'Need Help?', team_public_guide_url('help', 'agents', host:host, protocol:'http')
   
 %section.content-header
   = link_to 'Edit', edit_agent_path(@agent), class:'btn btn-default'

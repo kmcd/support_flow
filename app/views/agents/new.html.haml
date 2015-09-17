@@ -1,5 +1,5 @@
 - content_for :help_link do
-  = link_to 'Need Help?', team_public_guide_url('help', 'agents', anchor:'new', host:host)
+  = link_to 'Need Help?', team_public_guide_url('help', 'agents', anchor:'new', host:host, protocol:'http')
 
 = form_for(@agent, url:team_agents_path(current_team), html:{class:'form-horizontal'}) do |form|
 
