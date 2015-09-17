@@ -118,6 +118,7 @@ class SalesSyncJob < ActiveJob::Base
     Login.group(:email_address).count.map do |address, count|
       rating = count > 5 ? 5 : count
       [ address, rating ]
+    end
   end
   
   def sales_db
