@@ -43,7 +43,6 @@ class SalesSyncJob < ActiveJob::Base
         state:'Expanded',
         created_at:0.minutes.ago,
         updated_at:0.minutes.ago
-      end
     end
   end
 
