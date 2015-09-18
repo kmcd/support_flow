@@ -122,8 +122,7 @@ class SalesSyncJob < ActiveJob::Base
   end
   
   def sales_db
-    @sales_db ||= Sequel.connect \
-      "postgres://xdukemdiocmvih:kg6aasRN7aj2YWALNOhIltdj_N@ec2-54-217-202-109.eu-west-1.compute.amazonaws.com:5432/d44t623isgoibt"
+    @sales_db ||= Sequel.connect "postgres://xdukemdiocmvih:kg6aasRN7aj2YWALNOhIltdj_N@ec2-54-217-202-109.eu-west-1.compute.amazonaws.com:5432/d44t623isgoibt"
   end
 end
 
