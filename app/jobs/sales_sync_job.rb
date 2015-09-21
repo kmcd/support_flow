@@ -5,6 +5,7 @@ class SalesSyncJob < ActiveJob::Base
     sync_leads
     sync_opportunities
     sync_ratings
+    sales_db.disconnect
   end
 
   private
