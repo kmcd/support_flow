@@ -29,4 +29,8 @@ class Team < ActiveRecord::Base
   def to_param
     name
   end
+  
+  def team_members(agent)
+    agents.where.not(id:agent.id).sort_by &:name
+  end
 end

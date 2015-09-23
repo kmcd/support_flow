@@ -40,7 +40,7 @@
 
               %li= link_to 'You', '#', 'data-facet' => agent_facet(current_agent)
 
-              - current_agent.team_members.each do |agent|
+              - current_team.team_members(current_agent).each do |agent|
                 %li= link_to agent.name, '#','data-facet' => agent_facet(agent)
 
     .col-lg-2.col-md-2.col-sm-2.col-xs-12

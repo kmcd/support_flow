@@ -25,10 +25,6 @@ class Agent < ActiveRecord::Base
     where("email_address NOT SIMILAR TO '%@example\.(com|net|org)%' ")
   }
 
-  def team_members
-    team.agents.where.not(id:id).sort_by &:name
-  end
-
   def member?(team)
     team.agents.include? self
   end
