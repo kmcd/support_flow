@@ -1,6 +1,0 @@
-%div[attachment]
-  = attachment.name
-  = number_to_human_size attachment.size
-  = link_to email_attachment_path(attachment), method:'delete', remote:true do
-    %small.text-danger
-      %i.fa.fa-remove
