@@ -1,7 +1,0 @@
-<% if @guide.errors.any? %>
-  $("button.not-saved").removeClass('hide');
-  setTimeout(function(){ $("button.not-saved").addClass('hide') }, 4000)
-  
-  $(".name.form-group").addClass('has-error')
-  $(".name.form-group label.error").removeClass('hide')
-<% end %>
