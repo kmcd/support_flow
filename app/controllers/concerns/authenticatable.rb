@@ -1,5 +1,5 @@
 module Authenticatable
-  ADMINS = %w[ keith@dancingtext.com ]
+  ADMINS = %w[]
   extend ActiveSupport::Concern
 
   included do
@@ -28,7 +28,7 @@ module Authenticatable
     return if admin?
     return if current_agent.member?(current_team)
 
-    # render_404
+    render_404
   end
 
   def team_name

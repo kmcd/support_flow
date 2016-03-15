@@ -68,15 +68,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
   
   # TODO: use production mandrill key
-  config.action_mailer.smtp_settings = {
-    address:    'smtp.mandrillapp.com',
-    port:       587,
-    enable_starttls_auto: true,
-    domain:     'getsupportflow.com',
-    user_name:  'keith@dancingtext.com',
-    password:   'e1i8nKv2xDh7Ldpmbqv1sQ',
-    authentication: 'login'
-  }
+  config.action_mailer.smtp_settings = Rails.application.config_for(:mailer)
   
   config.action_mailer.default_url_options = {
     protocol:'https',
