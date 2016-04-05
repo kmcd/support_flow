@@ -236,6 +236,27 @@ a {
 
 .site-footer-credits {
   color: #819198; }
+  
+.main-content table th, .main-content table td {
+  border: none;
+  padding: none;
+}
+
+table.screen_shots {
+  border: none;
+  table-layout: collapse;
+  padding:0;
+  overflow: none;
+}
+
+.screen_shots img {
+  width: 340px;
+  height: 170px;
+}
+
+.screen_shots p {
+  font-style: italic;
+}
 
 @media screen and (min-width: 64em) {
   .site-footer {
