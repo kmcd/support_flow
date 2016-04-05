@@ -18,8 +18,15 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
 
-  # TODO: use test madrill key
-  config.action_mailer.smtp_settings = Rails.application.config_for(:mailer)
+  config.action_mailer.smtp_settings = {
+    address:'smtp.mandrillapp.com',
+    port:587,
+    enable_starttls_auto:true,
+    domain:'YOUR_EMAIL_DOMAIN',
+    authentication:'login',
+    user_name:'MANDRILL_LOGIN',
+    password:'MANDRILL_KEY'
+  }
 
   config.action_mailer.default_url_options = { host:'dev.getsupportflow.net' }
 
